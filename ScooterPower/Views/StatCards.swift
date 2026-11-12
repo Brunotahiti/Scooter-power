@@ -66,27 +66,35 @@ struct DualStatCard: View {
     }
 
     private func cell(_ item: Item) -> some View {
-        HStack(spacing: 6) {
-            if let icon = item.icon {
-                Image(systemName: icon)
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(Theme.cyan)
+        // Sur un écran étroit, l'icône cède sa place au texte plutôt que de le tronquer.
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 6) {
+                if let icon = item.icon {
+                    Image(systemName: icon)
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundStyle(Theme.cyan)
+                }
+                texts(item)
             }
-            VStack(alignment: .leading, spacing: 1) {
-                Text(item.title)
-                    .font(.system(size: 11))
-                    .foregroundStyle(Theme.textSecondary)
-                Text(item.value)
-                    .font(.system(size: 17, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundStyle(Theme.textPrimary)
-            }
-            .lineLimit(1)
-            .minimumScaleFactor(0.55)
+            texts(item)
+                .minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(item.title)
         .accessibilityValue(item.value)
+    }
+
+    private func texts(_ item: Item) -> some View {
+        VStack(alignment: .leading, spacing: 1) {
+            Text(item.title)
+                .font(.system(size: 10))
+                .foregroundStyle(Theme.textSecondary)
+            Text(item.value)
+                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(Theme.textPrimary)
+        }
+        .lineLimit(1)
     }
 }

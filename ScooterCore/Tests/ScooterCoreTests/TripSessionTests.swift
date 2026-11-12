@@ -93,6 +93,20 @@ final class TripSessionTests: XCTestCase {
         XCTAssertEqual(s.lean.angleDegrees, 10, accuracy: 0.2)
     }
 
+    func testPauseDoesNotRecordExtremes() {
+        // À l'arrêt sur la béquille, l'inclinaison s'affiche mais ne compte pas dans le résumé.
+        var s = TripSession()
+        s.start(at: 0)
+        s.handle(mot(0))
+        s.pause(at: 1)
+        feed(&s, from: 1, seconds: 3, lean: -15, forwardG: 0.3)
+        XCTAssertEqual(s.lean.angleDegrees, -15, accuracy: 0.2)
+        XCTAssertEqual(s.acceleration.current, 2.94, accuracy: 0.05)
+        let r = s.summary(at: 4)
+        XCTAssertEqual(r.maxLeanLeftDegrees, 0)
+        XCTAssertEqual(r.peakAcceleration, 0)
+    }
+
     func testSummaryAndRestart() {
         var s = TripSession()
         s.start(at: 0)

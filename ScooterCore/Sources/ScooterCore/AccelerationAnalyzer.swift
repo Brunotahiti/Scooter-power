@@ -56,7 +56,8 @@ public struct AccelerationAnalyzer: Sendable {
     }
 
     /// Accélération longitudinale mesurée par le capteur, en m/s².
-    public mutating func addSensor(timestamp: TimeInterval, longitudinal: Double) {
+    /// `trackPeak` à `false` met à jour l'affichage sans compter dans `tripPeak` (trajet en pause).
+    public mutating func addSensor(timestamp: TimeInterval, longitudinal: Double, trackPeak: Bool = true) {
         guard timestamp.isFinite, longitudinal.isFinite else { return }
         sensorSum += longitudinal
         sensorCount += 1
@@ -66,11 +67,15 @@ public struct AccelerationAnalyzer: Sendable {
             let dt = timestamp - last
             current += (fused - current) * dt / (Self.smoothingTimeConstant + dt)
         } else {
-            current = fused
+            // Premier échantillon ou reprise après un trou : on repart de zéro et le
+            // filtre converge, pour qu'une mesure isolée ne devienne jamais un pic.
+            current = 0
             nextHistoryTime = timestamp
         }
         lastSensorTime = timestamp
-        tripPeak = max(tripPeak, current)
+        if trackPeak {
+            tripPeak = max(tripPeak, current)
+        }
 
         if timestamp >= nextHistoryTime {
             history.append(current)

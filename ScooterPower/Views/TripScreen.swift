@@ -12,7 +12,7 @@ struct TripScreen: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 10) {
+            VStack(spacing: 8) {
                 HeaderView(state: model.state, onRecalibrate: { model.recalibrate() })
 
                 if model.locationDenied {

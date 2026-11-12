@@ -25,7 +25,8 @@ struct SummaryView: View {
                 .padding(.top, 24)
 
             VStack(spacing: 0) {
-                ForEach(Array(rows.enumerated()), id: \.offset) { index, row in
+                ForEach(rows.indices, id: \.self) { index in
+                    let row = rows[index]
                     HStack {
                         Text(row.0)
                             .foregroundStyle(Theme.textSecondary)

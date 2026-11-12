@@ -88,6 +88,18 @@ final class TripStatisticsTests: XCTestCase {
         XCTAssertEqual(t.totalDuration(at: 15), 10, accuracy: 1e-9)
     }
 
+    func testFixOlderThanStartIsIgnored() {
+        // CoreLocation redélivre souvent un point en cache, antérieur au départ.
+        var t = TripStatistics()
+        t.start(at: 1000)
+        t.add(s(400, lon: 0.0054))
+        t.add(s(1001, lon: 0))
+        t.add(s(1002, lon: 0.0001))
+        XCTAssertEqual(t.route.count, 2)
+        XCTAssertEqual(t.distanceMeters, 11.12, accuracy: 0.05)
+        XCTAssertEqual(t.movingDuration, 1, accuracy: 1e-9)
+    }
+
     func testStaleSpeedIsNil() {
         var t = started()
         t.add(s(0, lon: 0))

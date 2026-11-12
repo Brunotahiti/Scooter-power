@@ -16,13 +16,13 @@ struct LeanCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Inclinaison")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 18, weight: .bold))
                     Text(text)
-                        .font(.system(size: 54, weight: .black, design: .rounded))
+                        .font(.system(size: 46, weight: .black, design: .rounded))
                         .monospacedDigit()
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
@@ -47,7 +47,7 @@ struct LeanCard: View {
 
                 LeanGauge(degrees: degrees)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 132)
+                    .frame(height: 104)
             }
 
             Text("En virage, l'angle affiché est inférieur à l'inclinaison réelle.")
@@ -55,7 +55,7 @@ struct LeanCard: View {
                 .foregroundStyle(Theme.textSecondary)
         }
         .foregroundStyle(Theme.textPrimary)
-        .padding(16)
+        .padding(14)
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Inclinaison")

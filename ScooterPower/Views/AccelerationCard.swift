@@ -40,26 +40,26 @@ struct AccelerationCard: View {
     let peakText: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text("Poussée d'accélération")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 18, weight: .bold))
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
                         Text(valueText)
-                            .font(.system(size: 50, weight: .black, design: .rounded))
+                            .font(.system(size: 44, weight: .black, design: .rounded))
                             .monospacedDigit()
                             .contentTransition(.numericText())
                         Text("m/s²")
-                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .font(.system(size: 21, weight: .bold, design: .rounded))
                     }
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
 
                     Text(level.label)
-                        .font(.system(size: 17, weight: .medium))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 5)
+                        .font(.system(size: 15, weight: .medium))
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
                         .background(level.color.opacity(0.3), in: RoundedRectangle(cornerRadius: 9, style: .continuous))
                         .overlay(
                             RoundedRectangle(cornerRadius: 9, style: .continuous)
@@ -103,7 +103,7 @@ struct AccelerationCard: View {
             AccelerationChart(history: history)
         }
         .foregroundStyle(Theme.textPrimary)
-        .padding(16)
+        .padding(14)
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Poussée d'accélération")
@@ -116,7 +116,7 @@ struct AccelerationCard: View {
             VStack(spacing: -6) {
                 ForEach(0..<3, id: \.self) { index in
                     Image(systemName: level.direction < 0 ? "chevron.down" : "chevron.up")
-                        .font(.system(size: 30, weight: .black))
+                        .font(.system(size: 26, weight: .black))
                         .opacity(level.direction < 0 ? 0.4 + 0.3 * Double(index) : 1.0 - 0.3 * Double(index))
                 }
             }
@@ -126,7 +126,7 @@ struct AccelerationCard: View {
 
             ScooterFrontShape()
                 .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
-                .frame(width: 44, height: 62)
+                .frame(width: 38, height: 54)
         }
         .frame(width: 90)
         .animation(.easeInOut(duration: 0.25), value: level)
@@ -249,7 +249,7 @@ struct AccelerationChart: View {
                 }
             }
         }
-        .frame(height: 90)
+        .frame(height: 60)
     }
 }
 

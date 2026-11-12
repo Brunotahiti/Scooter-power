@@ -86,10 +86,13 @@ public struct TripSession: Sendable {
             needsCalibration = false
         }
         guard let calibration = lean.calibration else { return }
-        lean.update(gravity: sample.gravity, timestamp: sample.timestamp)
+        // En pause, l'affichage reste vivant mais rien ne compte pour le résumé.
+        let counts = state == .recording
+        lean.update(gravity: sample.gravity, timestamp: sample.timestamp, trackExtremes: counts)
         acceleration.addSensor(
             timestamp: sample.timestamp,
-            longitudinal: calibration.longitudinalAcceleration(userAccelerationG: sample.userAcceleration))
+            longitudinal: calibration.longitudinalAcceleration(userAccelerationG: sample.userAcceleration),
+            trackPeak: counts)
     }
 
     public func summary(at now: TimeInterval) -> TripSummary {

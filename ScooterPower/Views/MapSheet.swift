@@ -26,8 +26,8 @@ struct MapSheet: View {
                 MapPolyline(coordinates: coordinates)
                     .stroke(Theme.cyan, lineWidth: 5)
             }
-            if let last = coordinates.last, !showsUser {
-                Marker("Position", systemImage: "scooter", coordinate: last)
+            if !showsUser && !coordinates.isEmpty {
+                Marker("Position", systemImage: "scooter", coordinate: coordinates[coordinates.count - 1])
                     .tint(Theme.cyan)
             }
             if showsUser {

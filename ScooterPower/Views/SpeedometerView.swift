@@ -22,7 +22,7 @@ struct SpeedometerView: View {
             }
             readout
         }
-        .aspectRatio(358.0 / 226.0, contentMode: .fit)
+        .aspectRatio(358.0 / 206.0, contentMode: .fit)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Vitesse actuelle")
         .accessibilityValue(speedKmh.map { Formatters.decimal($0, digits: 0) + " kilomètres par heure" } ?? "inconnue")
@@ -39,11 +39,11 @@ struct SpeedometerView: View {
             .foregroundStyle(Theme.cyan)
 
             Text(speedKmh.map { Formatters.decimal($0, digits: 0) } ?? "--")
-                .font(.system(size: 92, weight: .black, design: .rounded))
+                .font(.system(size: 84, weight: .black, design: .rounded))
                 .monospacedDigit()
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
-                .frame(height: 96)
+                .frame(height: 86)
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.2), value: speedKmh.map { Int($0.rounded()) })
 

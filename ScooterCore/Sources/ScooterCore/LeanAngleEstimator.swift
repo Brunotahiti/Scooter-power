@@ -44,7 +44,8 @@ public struct LeanAngleEstimator: Sendable {
         return true
     }
 
-    public mutating func update(gravity: Vector3, timestamp: TimeInterval) {
+    /// `trackExtremes` à `false` met à jour l'angle sans toucher aux maxima (trajet en pause).
+    public mutating func update(gravity: Vector3, timestamp: TimeInterval, trackExtremes: Bool = true) {
         guard let calibration, gravity.isFinite, gravity.length >= 0.1, timestamp.isFinite else { return }
         let raw = calibration.leanAngleDegrees(gravity: gravity)
 
@@ -57,7 +58,9 @@ public struct LeanAngleEstimator: Sendable {
         angleDegrees = min(Self.maxAngle, max(-Self.maxAngle, angleDegrees))
         lastTimestamp = timestamp
 
-        maxRightDegrees = max(maxRightDegrees, angleDegrees)
-        maxLeftDegrees = max(maxLeftDegrees, -angleDegrees)
+        if trackExtremes {
+            maxRightDegrees = max(maxRightDegrees, angleDegrees)
+            maxLeftDegrees = max(maxLeftDegrees, -angleDegrees)
+        }
     }
 }

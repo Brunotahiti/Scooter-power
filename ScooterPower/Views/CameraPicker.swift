@@ -1,10 +1,18 @@
+import AVFoundation
 import SwiftUI
 import UIKit
 
 /// Appareil photo système. La photo prise est enregistrée dans la photothèque.
 struct CameraPicker: UIViewControllerRepresentable {
+    /// Faux si l'appareil n'a pas d'appareil photo ou si l'accès a été refusé.
     static var isAvailable: Bool {
-        UIImagePickerController.isSourceTypeAvailable(.camera)
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else { return false }
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .denied, .restricted:
+            return false
+        default:
+            return true
+        }
     }
 
     @Environment(\.dismiss) private var dismiss

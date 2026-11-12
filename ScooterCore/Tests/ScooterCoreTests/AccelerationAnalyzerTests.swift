@@ -85,8 +85,28 @@ final class AccelerationAnalyzerTests: XCTestCase {
         feed(&a, 0, from: 0, seconds: 2)
         let before = a.history.count
         a.addSensor(timestamp: 500, longitudinal: 3)
-        XCTAssertEqual(a.current, 3, accuracy: 1e-9)
+        XCTAssertEqual(a.current, 0, accuracy: 1e-9)
         XCTAssertEqual(a.history.count, before + 1)
+        feed(&a, 3, from: 500.02, seconds: 3)
+        XCTAssertEqual(a.current, 3, accuracy: 0.02)
+    }
+
+    func testIsolatedFirstSampleIsNotAPeak() {
+        // Le doigt qui touche « Démarrer » pousse le téléphone vers l'avant.
+        var a = AccelerationAnalyzer()
+        a.addSensor(timestamp: 0, longitudinal: 4.9)
+        feed(&a, 0, from: 0.02, seconds: 1)
+        XCTAssertEqual(a.tripPeak, 0)
+        XCTAssertEqual(a.peak, 0)
+    }
+
+    func testPeakNotTrackedWhenAsked() {
+        var a = AccelerationAnalyzer()
+        for i in 0..<150 {
+            a.addSensor(timestamp: Double(i) * 0.02, longitudinal: 3, trackPeak: false)
+        }
+        XCTAssertEqual(a.current, 3, accuracy: 0.02)
+        XCTAssertEqual(a.tripPeak, 0)
     }
 
     func testBadInputIgnored() {

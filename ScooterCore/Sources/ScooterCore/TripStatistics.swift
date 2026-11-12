@@ -70,6 +70,8 @@ public struct TripStatistics: Sendable {
 
     public mutating func add(_ sample: LocationSample) {
         guard phase == .running, Self.isValid(sample) else { return }
+        // Un point antérieur au départ est un point en cache : il ne fait pas partie du trajet.
+        guard sample.timestamp >= startTime else { return }
         if let lastTimestamp, sample.timestamp <= lastTimestamp { return }
 
         if let anchor {
