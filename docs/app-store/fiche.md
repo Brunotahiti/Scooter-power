@@ -63,8 +63,8 @@ Pas de compte, pas de publicité, pas de collecte : tout est mesuré et conserv�
 | Classification par âge | 4+ (aucun contenu sensible) |
 | Prix | Gratuit |
 | Langue principale | Français |
-| URL de la politique de confidentialité | adresse où `confidentialite.html` est hébergée |
-| URL d'assistance | une page ou une adresse de contact, obligatoire |
+| URL de la politique de confidentialité | https://brunotahiti.github.io/Scooter-power/confidentialite.html |
+| URL d'assistance | https://brunotahiti.github.io/Scooter-power/ |
 | Copyright | 2026 Bruno Seite |
 
 ## Confidentialité de l'app (questionnaire App Store Connect)

@@ -60,4 +60,4 @@ nouvelle date de mise à jour.
 
 ## Contact
 
-Pour toute question : ADRESSE-EMAIL-À-COMPLÉTER
+Pour toute question : contact@manaprocess.com
