@@ -57,30 +57,34 @@ struct SpeedometerView: View {
     }
 
     private func draw(in context: inout GraphicsContext, size: CGSize) {
-        let radius = min(size.width / 2 - Self.labelPadding, (size.height - Self.labelPadding - 26) / 1.18)
+        let byWidth: CGFloat = size.width / 2 - Self.labelPadding
+        let byHeight: CGFloat = (size.height - Self.labelPadding - 26) / 1.18
+        let radius: CGFloat = min(byWidth, byHeight)
         guard radius > 20 else { return }
         let center = CGPoint(x: size.width / 2, y: Self.labelPadding + radius)
 
         func point(at value: Double, radius r: CGFloat) -> CGPoint {
-            let degrees = Self.startAngle - Self.sweep * value / Self.maxSpeed
-            let radians = degrees * .pi / 180
-            return CGPoint(x: center.x + r * CGFloat(cos(radians)), y: center.y - r * CGFloat(sin(radians)))
+            let degrees: Double = Self.startAngle - Self.sweep * value / Self.maxSpeed
+            let radians: Double = degrees * Double.pi / 180
+            let dx: CGFloat = r * CGFloat(cos(radians))
+            let dy: CGFloat = r * CGFloat(sin(radians))
+            return CGPoint(x: center.x + dx, y: center.y - dy)
         }
 
-        let current = fraction * Self.maxSpeed
+        let current: Double = fraction * Self.maxSpeed
 
         // Graduations : fines tous les 2 km/h, longues tous les 10.
         for step in 0...70 {
-            let value = Double(step) * 2
-            let isMajor = step % 5 == 0
+            let value: Double = Double(step) * 2
+            let isMajor: Bool = step % 5 == 0
+            let length: CGFloat = isMajor ? 15 : 8
+            let width: CGFloat = isMajor ? 2.5 : 1.2
+            let lit: Bool = value <= current && current > 0
+            let color: Color = lit ? Theme.cyan : Theme.gaugeIdle
             var tick = Path()
             tick.move(to: point(at: value, radius: radius))
-            tick.addLine(to: point(at: value, radius: radius - (isMajor ? 15 : 8)))
-            let lit = value <= current && current > 0
-            context.stroke(
-                tick,
-                with: .color(lit ? Theme.cyan : Theme.gaugeIdle),
-                style: StrokeStyle(lineWidth: isMajor ? 2.5 : 1.2, lineCap: .round))
+            tick.addLine(to: point(at: value, radius: radius - length))
+            context.stroke(tick, with: .color(color), style: StrokeStyle(lineWidth: width, lineCap: .round))
         }
 
         // Arc parcouru, avec halo.
@@ -88,7 +92,8 @@ struct SpeedometerView: View {
             var arc = Path()
             let steps = max(2, Int(current))
             for index in 0...steps {
-                let p = point(at: current * Double(index) / Double(steps), radius: radius + 5)
+                let value: Double = current * Double(index) / Double(steps)
+                let p: CGPoint = point(at: value, radius: radius + 5)
                 if index == 0 {
                     arc.move(to: p)
                 } else {
