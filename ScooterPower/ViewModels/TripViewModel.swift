@@ -77,6 +77,7 @@ final class TripViewModel {
         location.onAuthorizationChange = { [weak self] authorization in
             self?.authorizationChanged(authorization)
         }
+        liveActivity.endOrphans()
     }
 
     private var now: TimeInterval { Date().timeIntervalSinceReferenceDate }

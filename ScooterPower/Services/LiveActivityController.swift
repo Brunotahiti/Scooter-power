@@ -10,6 +10,12 @@ final class LiveActivityController {
 
     /// Intervalle minimal entre deux mises à jour, en secondes.
     private static let minimumInterval: TimeInterval = 1
+    /// Sans mise à jour pendant ce délai, le système marque l'activité comme périmée (s).
+    private static let staleAfter: TimeInterval = 30
+
+    private static func content(_ state: State) -> ActivityContent<State> {
+        ActivityContent(state: state, staleDate: Date().addingTimeInterval(staleAfter))
+    }
 
     private var activity: Activity<TripActivityAttributes>?
     private var lastState: State?
@@ -18,7 +24,7 @@ final class LiveActivityController {
     func start(startDate: Date, state: State) {
         endOrphans()
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
-        let content = ActivityContent(state: state, staleDate: nil)
+        let content = Self.content(state)
         do {
             activity = try Activity.request(
                 attributes: TripActivityAttributes(startDate: startDate),
@@ -40,7 +46,7 @@ final class LiveActivityController {
         guard pauseChanged || now.timeIntervalSince(lastUpdate) >= Self.minimumInterval else { return }
         lastState = state
         lastUpdate = now
-        let content = ActivityContent(state: state, staleDate: nil)
+        let content = Self.content(state)
         Task {
             await activity.update(content)
         }
@@ -55,8 +61,9 @@ final class LiveActivityController {
         }
     }
 
-    /// Termine les activités laissées par une session précédente de l'app.
-    private func endOrphans() {
+    /// Termine les activités laissées par une session précédente de l'app
+    /// (app tuée ou plantée pendant un trajet).
+    func endOrphans() {
         for orphan in Activity<TripActivityAttributes>.activities {
             Task {
                 await orphan.end(nil, dismissalPolicy: .immediate)

@@ -24,6 +24,10 @@ struct TripScreen: View {
                 showCameraUnavailable: $showCameraUnavailable,
                 confirmFinish: $confirmFinish,
                 showHistory: $showHistory))
+            .onChange(of: verticalSizeClass) { _, _ in
+                // Le téléphone a tourné sur son support : la position verticale a changé.
+                model.recalibrate()
+            }
             .onChange(of: model.state) { _, newState in
                 if newState == .finished {
                     saveTrip()
@@ -38,7 +42,8 @@ struct TripScreen: View {
             LandscapeTripView(
                 model: model,
                 onTogglePause: { model.togglePause() },
-                onMain: { mainAction() })
+                onMain: { mainAction() },
+                onOpenSettings: { openSettings() })
         } else {
             portrait
         }
@@ -59,7 +64,7 @@ struct TripScreen: View {
                     banner(icon: "location.slash", text: "Signal GPS faible")
                 }
 
-                SpeedometerView(speedKmh: model.speedKmh)
+                SpeedometerView(speedKmh: model.speedKmh, scale: 0.87)
 
                 speedCards
                 tripCards
@@ -123,6 +128,14 @@ struct TripScreen: View {
         guard let summary = model.summary, let startDate = model.startDate else { return }
         let record = TripRecord(startDate: startDate, summary: summary, route: model.route)
         modelContext.insert(record)
+        // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
+        try? modelContext.save()
+    }
+
+    private func openSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            openURL(url)
+        }
     }
 
     private func mainAction() {
@@ -146,9 +159,7 @@ struct TripScreen: View {
             Label("Scooter Power a besoin de votre position pour mesurer le trajet.", systemImage: "location.slash")
                 .font(.system(size: 14))
             Button("Ouvrir Réglages") {
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    openURL(url)
-                }
+                openSettings()
             }
             .font(.system(size: 14, weight: .semibold))
             .foregroundStyle(Theme.cyan)
@@ -218,4 +229,5 @@ private struct TripPresentations: ViewModifier {
 
 #Preview {
     TripScreen()
+        .modelContainer(for: TripRecord.self, inMemory: true)
 }

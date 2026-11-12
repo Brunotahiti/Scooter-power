@@ -7,6 +7,7 @@ struct LandscapeTripView: View {
     let model: TripViewModel
     let onTogglePause: () -> Void
     let onMain: () -> Void
+    let onOpenSettings: () -> Void
 
     var body: some View {
         GeometryReader { proxy in
@@ -38,7 +39,11 @@ struct LandscapeTripView: View {
 
     private var sidePanel: some View {
         VStack(spacing: 8) {
-            status
+            if model.locationDenied {
+                locationDenied
+            } else {
+                status
+            }
             HStack(spacing: 8) {
                 LandscapeTile(title: "Vitesse max", value: model.maxSpeedText, unit: "km/h", tint: Theme.textPrimary)
                 LandscapeTile(title: "Distance", value: model.distanceText, unit: "", tint: Theme.textPrimary)
@@ -91,6 +96,20 @@ struct LandscapeTripView: View {
         }
         .foregroundStyle(Theme.textPrimary)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var locationDenied: some View {
+        Button(action: onOpenSettings) {
+            HStack(spacing: 6) {
+                Image(systemName: "location.slash")
+                Text("Position refusée · Ouvrir Réglages")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
+            .font(.system(size: 14, weight: .semibold))
+            .foregroundStyle(Theme.orange)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
     }
 
     private var buttons: some View {

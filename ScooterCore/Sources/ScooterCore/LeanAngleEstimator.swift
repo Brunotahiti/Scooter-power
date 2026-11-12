@@ -23,9 +23,14 @@ public struct LeanAngleEstimator: Sendable {
 
     /// Inclinaison d'équilibre en virage, en degrés. Positive à droite pour
     /// un lacet positif (virage à droite).
+    ///
+    /// `yawRate` est mesuré autour de l'axe vertical *du scooter*, qui penche
+    /// avec lui : le gyroscope n'y voit que `lacet au sol × cos(angle)`. Comme
+    /// `tan(angle) = v × lacet au sol / g`, il vient `sin(angle) = v × yawRate / g`.
     public static func physicalLeanDegrees(speed: Double, yawRate: Double) -> Double {
         guard speed.isFinite, yawRate.isFinite, speed > 0 else { return 0 }
-        return atan(speed * yawRate / MountCalibration.standardGravity) * 180 / .pi
+        let sine = speed * yawRate / MountCalibration.standardGravity
+        return asin(min(1, max(-1, sine))) * 180 / .pi
     }
 
     /// Part de la mesure physique dans le résultat, de 0 à 1.
@@ -51,15 +56,14 @@ public struct LeanAngleEstimator: Sendable {
         return .upright
     }
 
-    /// Prend la gravité courante comme position verticale et remet les maxima à zéro.
+    /// Prend la gravité courante comme position verticale. Les maxima du trajet
+    /// sont conservés : recalibrer en route ne les efface pas.
     /// Renvoie `false`, sans rien changer, si la gravité est inutilisable.
     @discardableResult
     public mutating func calibrate(gravity: Vector3) -> Bool {
         guard let new = MountCalibration(gravity: gravity) else { return false }
         calibration = new
         angleDegrees = 0
-        maxLeftDegrees = 0
-        maxRightDegrees = 0
         lastTimestamp = nil
         return true
     }
@@ -71,15 +75,15 @@ public struct LeanAngleEstimator: Sendable {
     public mutating func update(gravity: Vector3, timestamp: TimeInterval,
                                 rotationRate: Vector3 = Vector3(0, 0, 0), speed: Double? = nil,
                                 trackExtremes: Bool = true) {
-        guard let calibration, gravity.isFinite, gravity.length >= 0.1, timestamp.isFinite,
-              let down = gravity.normalized
-        else { return }
+        guard let calibration, gravity.isFinite, gravity.length >= 0.1, timestamp.isFinite else { return }
 
         var raw = calibration.leanAngleDegrees(gravity: gravity)
         let weight = Self.physicsWeight(speed: speed)
         if weight > 0, let speed, rotationRate.isFinite {
-            // Lacet : rotation autour de la verticale, positive en virage à droite.
-            let yawRate = rotationRate.dot(down)
+            // Lacet autour de l'axe vertical du scooter, fixé à la calibration : il ne
+            // dépend pas de l'estimation de gravité, qui dérive en virage prolongé.
+            // Positif en virage à droite.
+            let yawRate = rotationRate.dot(calibration.down)
             let physical = Self.physicalLeanDegrees(speed: speed, yawRate: yawRate)
             raw = (1 - weight) * raw + weight * physical
         }

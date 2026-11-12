@@ -309,7 +309,7 @@ struct AccelerationChart: View {
                 }
             }
         }
-        .frame(height: 48)
+        .frame(height: 40)
     }
 
     private var fillGradient: LinearGradient {

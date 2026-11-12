@@ -146,10 +146,29 @@ final class TripSessionTests: XCTestCase {
         s.handle(mot(0))
         s.handle(loc(0, lon: 0, speed: 15))
         feed(&s, from: 0.02, seconds: 3, yaw: 0.3)
-        XCTAssertEqual(s.lean.angleDegrees, 24.65, accuracy: 0.1)
+        XCTAssertEqual(s.lean.angleDegrees, 27.31, accuracy: 0.1)
         // Plus de point GPS depuis 5 s : retour à la mesure par gravité, qui lit 0.
         feed(&s, from: 3.02, seconds: 6, yaw: 0.3)
         XCTAssertEqual(s.lean.angleDegrees, 0, accuracy: 0.1)
+    }
+
+    func testLeanAtStandstillIsShownButNotRecorded() {
+        // Tourner le téléphone sur son support ou béquiller à l'arrêt ne doit pas
+        // devenir l'inclinaison maximale du trajet.
+        var s = TripSession()
+        s.start(at: 0)
+        s.handle(mot(0))
+        s.handle(loc(0, lon: 0, speed: 0))
+        feed(&s, from: 0.02, seconds: 2, lean: 40)
+        XCTAssertEqual(s.lean.angleDegrees, 40, accuracy: 0.5)
+        XCTAssertEqual(s.summary(at: 2).maxLeanRightDegrees, 0)
+
+        // Sans vitesse GPS du tout, même règle.
+        var u = TripSession()
+        u.start(at: 0)
+        u.handle(mot(0))
+        feed(&u, from: 0.02, seconds: 2, lean: 40)
+        XCTAssertEqual(u.summary(at: 2).maxLeanRightDegrees, 0)
     }
 
     func testSummaryAndRestart() {

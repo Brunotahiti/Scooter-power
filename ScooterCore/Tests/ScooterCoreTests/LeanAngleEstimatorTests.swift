@@ -49,8 +49,10 @@ final class LeanAngleEstimatorTests: XCTestCase {
         XCTAssertEqual(e.angleDegrees, 0, accuracy: 0.05)
         feed(&e, deg: 25, from: 1, seconds: 2)
         XCTAssertEqual(e.maxRightDegrees, 20, accuracy: 0.1)
+        // Recalibrer en route remet l'angle à zéro sans effacer les maxima du trajet.
         e.calibrate(gravity: g(25))
-        XCTAssertEqual(e.maxRightDegrees, 0)
+        XCTAssertEqual(e.angleDegrees, 0)
+        XCTAssertEqual(e.maxRightDegrees, 20, accuracy: 0.1)
     }
 
     func testUncalibratedOrBadInputStaysZero() {
@@ -73,9 +75,11 @@ final class LeanAngleEstimatorTests: XCTestCase {
     }
 
     func testPhysicalLeanFormula() {
-        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 15, yawRate: 0.3), 24.648, accuracy: 0.01)
-        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 15, yawRate: -0.3), -24.648, accuracy: 0.01)
+        // Le lacet est mesuré autour de l'axe vertical du scooter : sin(angle) = v × lacet / g.
+        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 15, yawRate: 0.3), 27.314, accuracy: 0.01)
+        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 15, yawRate: -0.3), -27.314, accuracy: 0.01)
         XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 0, yawRate: 2), 0)
+        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 30, yawRate: 5), 90, accuracy: 1e-9)
     }
 
     func testPhysicsWeightRampsBetween10And25KmH() {
@@ -92,11 +96,27 @@ final class LeanAngleEstimatorTests: XCTestCase {
         var e = LeanAngleEstimator()
         e.calibrate(gravity: g(0))
         turn(&e, lean: 0, yaw: 0.3, speed: 15)
-        XCTAssertEqual(e.angleDegrees, 24.65, accuracy: 0.1)
+        XCTAssertEqual(e.angleDegrees, 27.31, accuracy: 0.1)
         XCTAssertEqual(e.side, .right)
         e.calibrate(gravity: g(0))
         turn(&e, lean: 0, yaw: -0.3, speed: 15)
-        XCTAssertEqual(e.angleDegrees, -24.65, accuracy: 0.1)
+        XCTAssertEqual(e.angleDegrees, -27.31, accuracy: 0.1)
+    }
+
+    func testSteadyTurnReadsTrueLeanWhateverTheGravityEstimate() {
+        // Virage équilibré à 30° et 15 m/s : lacet au sol = g·tan(30°)/v, dont le
+        // téléphone, penché avec le scooter, ne voit que la part cos(30°).
+        let trueLean = 30.0 * Double.pi / 180
+        let groundYaw = 9.80665 * tan(trueLean) / 15
+        let bodyRate = Vector3(0, -groundYaw * cos(trueLean), 0)
+        for gravityLean in [0.0, 15.0, 30.0] {
+            var e = LeanAngleEstimator()
+            e.calibrate(gravity: g(0))
+            for i in 0..<100 {
+                e.update(gravity: g(gravityLean), timestamp: Double(i) * 0.02, rotationRate: bodyRate, speed: 15)
+            }
+            XCTAssertEqual(e.angleDegrees, 30, accuracy: 0.1, "gravité estimée à \(gravityLean)°")
+        }
     }
 
     func testSlowOrUnknownSpeedUsesGravity() {
@@ -113,7 +133,7 @@ final class LeanAngleEstimatorTests: XCTestCase {
         var e = LeanAngleEstimator()
         e.calibrate(gravity: g(0))
         turn(&e, lean: 0, yaw: 0.3, speed: 17.5 / 3.6)
-        XCTAssertEqual(e.angleDegrees, 4.229, accuracy: 0.05)
+        XCTAssertEqual(e.angleDegrees, 4.276, accuracy: 0.05)
     }
 
     func testGapSnapsToNewValue() {

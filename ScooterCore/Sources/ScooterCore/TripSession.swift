@@ -46,6 +46,9 @@ public struct TripSession: Sendable {
 
     /// Au-delà (s), la dernière vitesse GPS n'est plus utilisée pour l'inclinaison.
     public static let speedValidity = 5.0
+    /// En dessous (m/s), l'inclinaison s'affiche sans compter dans les maxima :
+    /// béquille, manœuvre, téléphone tourné sur son support. 5 km/h.
+    public static let minSpeedForLeanRecord = 5.0 / 3.6
 
     private var needsCalibration = true
     private var latestSpeed: Double?
@@ -124,9 +127,11 @@ public struct TripSession: Sendable {
         // En pause, l'affichage reste vivant mais rien ne compte pour le résumé.
         let counts = state == .recording
         lastMotionTime = sample.timestamp
+        let speed = recentSpeed(at: sample.timestamp)
+        let rolling = (speed ?? 0) >= Self.minSpeedForLeanRecord
         lean.update(gravity: sample.gravity, timestamp: sample.timestamp,
-                    rotationRate: sample.rotationRate, speed: recentSpeed(at: sample.timestamp),
-                    trackExtremes: counts)
+                    rotationRate: sample.rotationRate, speed: speed,
+                    trackExtremes: counts && rolling)
         acceleration.addSensor(
             timestamp: sample.timestamp,
             longitudinal: calibration.longitudinalAcceleration(userAccelerationG: sample.userAcceleration),

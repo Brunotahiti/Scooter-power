@@ -58,6 +58,27 @@ final class SprintTimerTests: XCTestCase {
         XCTAssertTrue(t.isRunning)
     }
 
+    func testCreepingBeforeLaunchIsNotTimed() {
+        // Avancer au pas dans une file, puis accélérer franchement.
+        var t = SprintTimer()
+        t.add(timestamp: 0, speedKmh: 0)
+        for i in 1...18 { t.add(timestamp: Double(i), speedKmh: 2) }
+        for i in 1...5 { t.add(timestamp: 18 + Double(i), speedKmh: 2 + 10 * Double(i)) }
+        // Départ compté au dernier point au pas (t = 18) ; 50 km/h atteint à t = 22,8.
+        XCTAssertEqual(t.last50!, 4.8, accuracy: 1e-6)
+    }
+
+    func testSlowFirstSecondStillCountsFromStandstill() {
+        var t = SprintTimer()
+        t.add(timestamp: 0, speedKmh: 0)
+        t.add(timestamp: 1, speedKmh: 3)
+        t.add(timestamp: 2, speedKmh: 20)
+        t.add(timestamp: 3, speedKmh: 40)
+        t.add(timestamp: 4, speedKmh: 60)
+        // Départ interpolé à t = 1/3 ; 50 km/h à t = 3,5.
+        XCTAssertEqual(t.last50!, 3.5 - 1.0 / 3.0, accuracy: 1e-6)
+    }
+
     func testBestKeepsFastestAndLastKeepsLatest() {
         var t = SprintTimer()
         t.add(timestamp: 0, speedKmh: 0)

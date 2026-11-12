@@ -7,6 +7,11 @@ import Foundation
 public struct SprintTimer: Sendable {
     /// Sous cette vitesse, le scooter est considéré à l'arrêt (km/h).
     public static let standstillSpeed = 1.0
+    /// Tant que la vitesse reste sous ce seuil, le scooter avance au pas et le
+    /// départ n'est pas encore donné (km/h).
+    public static let launchSpeed = 5.0
+    /// Durée au pas après laquelle le départ est reporté (s).
+    public static let maxCreep = 2.0
     public static let firstTarget = 50.0
     public static let secondTarget = 80.0
     /// Baisse de vitesse, par rapport au maximum de la mesure, qui annule celle-ci (km/h).
@@ -69,12 +74,22 @@ public struct SprintTimer: Sendable {
                 state = .idle
                 return
             }
+            // Toujours au pas : le point de départ suit le scooter.
+            if restSpeed >= Self.standstillSpeed, speedKmh < Self.launchSpeed {
+                state = .armed(time: timestamp, speed: speedKmh)
+                return
+            }
             let start = Self.crossing(of: Self.standstillSpeed,
                                       from: (restTime, restSpeed), to: (timestamp, speedKmh))
             state = .running(start: start, maxSpeed: speedKmh, gotFirst: false)
             checkTargets(from: (restTime, restSpeed), to: (timestamp, speedKmh))
 
         case .running(let start, let maxSpeed, let gotFirst):
+            // Parti de l'arrêt mais resté au pas : ce n'est pas un départ, on réarme ici.
+            if maxSpeed < Self.launchSpeed, speedKmh < Self.launchSpeed, timestamp - start > Self.maxCreep {
+                state = .armed(time: timestamp, speed: speedKmh)
+                return
+            }
             guard let before,
                   timestamp - before.time <= Self.maxGap,
                   timestamp - start <= Self.maxDuration,

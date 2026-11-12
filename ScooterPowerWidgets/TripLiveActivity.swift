@@ -13,6 +13,8 @@ struct TripLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: TripActivityAttributes.self) { context in
             LockScreenTripView(state: context.state)
+                // Périmée : l'app ne met plus à jour (tuée ou plantée), les chiffres sont figés.
+                .opacity(context.isStale ? 0.45 : 1)
                 .activityBackgroundTint(Color.black.opacity(0.85))
                 .activitySystemActionForegroundColor(Color.white)
         } dynamicIsland: { context in

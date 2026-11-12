@@ -6,7 +6,7 @@ import Foundation
 
 /// Données de l'activité en direct d'un trajet, partagées par l'app et son
 /// extension de widgets.
-public struct TripActivityAttributes: ActivityAttributes {
+public struct TripActivityAttributes: ActivityAttributes, Sendable {
     public struct ContentState: Codable, Hashable, Sendable {
         /// Vitesse sans unité, ou `--`.
         public var speedText: String
