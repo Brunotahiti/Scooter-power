@@ -35,9 +35,13 @@ public struct DemoTrip: Sendable {
 
     public func motion(at t: TimeInterval) -> MotionSample {
         let lean = 12 * sin(t / 6) * .pi / 180
+        let gravity = Vector3(sin(lean), -cos(lean), 0)
+        // Lacet cohérent avec l'inclinaison : celui d'un virage équilibré à cette vitesse.
+        let yawRate = MountCalibration.standardGravity * tan(lean) / max(1, speed(at: t))
         return MotionSample(
             timestamp: t,
-            gravity: Vector3(sin(lean), -cos(lean), 0),
-            userAcceleration: Vector3(0, 0, -acceleration(at: t) / MountCalibration.standardGravity))
+            gravity: gravity,
+            userAcceleration: Vector3(0, 0, -acceleration(at: t) / MountCalibration.standardGravity),
+            rotationRate: gravity.scaled(yawRate))
     }
 }

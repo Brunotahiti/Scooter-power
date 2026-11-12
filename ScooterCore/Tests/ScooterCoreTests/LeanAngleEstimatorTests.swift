@@ -64,6 +64,58 @@ final class LeanAngleEstimatorTests: XCTestCase {
         XCTAssertTrue(e.angleDegrees.isFinite)
     }
 
+    private func turn(_ e: inout LeanAngleEstimator, lean: Double, yaw: Double, speed: Double?, seconds: Double = 2) {
+        let n = Int((seconds * 50).rounded())
+        for i in 0..<n {
+            e.update(gravity: g(lean), timestamp: Double(i) * 0.02,
+                     rotationRate: g(lean).scaled(yaw), speed: speed)
+        }
+    }
+
+    func testPhysicalLeanFormula() {
+        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 15, yawRate: 0.3), 24.648, accuracy: 0.01)
+        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 15, yawRate: -0.3), -24.648, accuracy: 0.01)
+        XCTAssertEqual(LeanAngleEstimator.physicalLeanDegrees(speed: 0, yawRate: 2), 0)
+    }
+
+    func testPhysicsWeightRampsBetween10And25KmH() {
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: 5 / 3.6), 0)
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: 10 / 3.6), 0, accuracy: 1e-9)
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: 17.5 / 3.6), 0.5, accuracy: 1e-9)
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: 25 / 3.6), 1, accuracy: 1e-9)
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: 40), 1)
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: nil), 0)
+        XCTAssertEqual(LeanAngleEstimator.physicsWeight(speed: .nan), 0)
+    }
+
+    func testFastTurnUsesPhysicsEvenWhenGravityReadsUpright() {
+        var e = LeanAngleEstimator()
+        e.calibrate(gravity: g(0))
+        turn(&e, lean: 0, yaw: 0.3, speed: 15)
+        XCTAssertEqual(e.angleDegrees, 24.65, accuracy: 0.1)
+        XCTAssertEqual(e.side, .right)
+        e.calibrate(gravity: g(0))
+        turn(&e, lean: 0, yaw: -0.3, speed: 15)
+        XCTAssertEqual(e.angleDegrees, -24.65, accuracy: 0.1)
+    }
+
+    func testSlowOrUnknownSpeedUsesGravity() {
+        var e = LeanAngleEstimator()
+        e.calibrate(gravity: g(0))
+        turn(&e, lean: 8, yaw: 1.5, speed: 2)
+        XCTAssertEqual(e.angleDegrees, 8, accuracy: 0.1)
+        e.calibrate(gravity: g(0))
+        turn(&e, lean: 8, yaw: 1.5, speed: nil)
+        XCTAssertEqual(e.angleDegrees, 8, accuracy: 0.1)
+    }
+
+    func testBlendInTransitionBand() {
+        var e = LeanAngleEstimator()
+        e.calibrate(gravity: g(0))
+        turn(&e, lean: 0, yaw: 0.3, speed: 17.5 / 3.6)
+        XCTAssertEqual(e.angleDegrees, 4.229, accuracy: 0.05)
+    }
+
     func testGapSnapsToNewValue() {
         var e = LeanAngleEstimator()
         e.calibrate(gravity: g(0))

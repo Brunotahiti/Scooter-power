@@ -28,12 +28,20 @@ final class TripViewModel {
     private(set) var accelerationHistory: [Double] = []
     private(set) var peakText = "0,0 m/s²"
 
+    /// Meilleurs temps du trajet, ou `--`.
+    private(set) var sprint50Text = "--"
+    private(set) var sprint80Text = "--"
+    private(set) var sprintRunning = false
+    private(set) var sprintElapsedText = ""
+
     private(set) var leanDegrees: Double = 0
     private(set) var leanText = "0°"
     private(set) var leanSide = LeanSide.upright
 
     private(set) var route: [Coordinate] = []
     private(set) var summary: TripSummary?
+    /// Début du trajet en cours ou du dernier trajet terminé.
+    private(set) var startDate: Date?
 
     @ObservationIgnored private var session = TripSession()
     @ObservationIgnored private let location: LocationProviding
@@ -135,12 +143,18 @@ final class TripViewModel {
 
     private func begin() {
         guard state == .idle else { return }
+        startDate = Date()
         session.start(at: now)
         location.start()
         motion.start()
         UIApplication.shared.isIdleTimerDisabled = true
         startRefreshing()
         refresh()
+    }
+
+    private static func sprintText(_ time: TimeInterval?) -> String {
+        guard let time else { return "--" }
+        return Formatters.decimal(time, digits: 1) + " s"
     }
 
     private func startRefreshing() {
@@ -184,6 +198,12 @@ final class TripViewModel {
         accelerationLevel = acceleration.level
         accelerationHistory = acceleration.history
         peakText = Formatters.signed(acceleration.peak, digits: 1) + " m/s²"
+
+        let sprint = session.sprint
+        sprint50Text = Self.sprintText(sprint.best50)
+        sprint80Text = Self.sprintText(sprint.best80)
+        sprintRunning = sprint.isRunning
+        sprintElapsedText = sprint.runElapsed(at: time).map { Formatters.decimal($0, digits: 1) + " s" } ?? ""
 
         leanDegrees = lean.angleDegrees
         leanSide = lean.side

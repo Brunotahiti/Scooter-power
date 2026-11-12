@@ -13,10 +13,17 @@ public struct TripSummary: Sendable, Equatable {
     public var maxLeanRightDegrees: Double
     public var movingDuration: TimeInterval
     public var totalDuration: TimeInterval
+    /// Meilleur 0–50 km/h du trajet, en secondes.
+    public var best50: TimeInterval?
+    /// Meilleur 0–80 km/h du trajet, en secondes.
+    public var best80: TimeInterval?
 
     public init(distanceMeters: Double, maxSpeedKmh: Double, averageSpeedKmh: Double,
                 peakAcceleration: Double, maxLeanLeftDegrees: Double, maxLeanRightDegrees: Double,
-                movingDuration: TimeInterval, totalDuration: TimeInterval) {
+                movingDuration: TimeInterval, totalDuration: TimeInterval,
+                best50: TimeInterval? = nil, best80: TimeInterval? = nil) {
+        self.best50 = best50
+        self.best80 = best80
         self.distanceMeters = distanceMeters
         self.maxSpeedKmh = maxSpeedKmh
         self.averageSpeedKmh = averageSpeedKmh
@@ -35,8 +42,16 @@ public struct TripSession: Sendable {
     public private(set) var statistics = TripStatistics()
     public private(set) var acceleration = AccelerationAnalyzer()
     public private(set) var lean = LeanAngleEstimator()
+    public private(set) var sprint = SprintTimer()
+
+    /// Au-delà (s), la dernière vitesse GPS n'est plus utilisée pour l'inclinaison.
+    public static let speedValidity = 5.0
 
     private var needsCalibration = true
+    private var latestSpeed: Double?
+    /// Instant, sur l'horloge des mesures de mouvement, où `latestSpeed` a été reçue.
+    private var latestSpeedMotionTime: TimeInterval?
+    private var lastMotionTime: TimeInterval?
 
     public init() {}
 
@@ -51,6 +66,7 @@ public struct TripSession: Sendable {
         guard state == .recording else { return }
         state = .paused
         statistics.pause(at: time)
+        sprint.cancelRun()
     }
 
     public mutating func resume(at time: TimeInterval) {
@@ -78,6 +94,25 @@ public struct TripSession: Sendable {
         guard state == .recording || state == .paused else { return }
         statistics.add(sample)
         acceleration.addGPSSpeed(timestamp: sample.timestamp, speed: sample.speed)
+
+        guard TripStatistics.isValid(sample) else { return }
+        latestSpeed = sample.speed
+        latestSpeedMotionTime = lastMotionTime
+        if state == .recording {
+            sprint.add(timestamp: sample.timestamp, speedKmh: sample.speed * 3.6)
+        }
+    }
+
+    /// Dernière vitesse GPS si elle est assez récente. Les horloges GPS et
+    /// mouvement ne se comparent pas : l'âge se mesure sur l'horloge mouvement.
+    private mutating func recentSpeed(at motionTime: TimeInterval) -> Double? {
+        guard let latestSpeed else { return nil }
+        guard let received = latestSpeedMotionTime else {
+            latestSpeedMotionTime = motionTime
+            return latestSpeed
+        }
+        let age = motionTime - received
+        return age >= 0 && age <= Self.speedValidity ? latestSpeed : nil
     }
 
     public mutating func handle(_ sample: MotionSample) {
@@ -88,7 +123,10 @@ public struct TripSession: Sendable {
         guard let calibration = lean.calibration else { return }
         // En pause, l'affichage reste vivant mais rien ne compte pour le résumé.
         let counts = state == .recording
-        lean.update(gravity: sample.gravity, timestamp: sample.timestamp, trackExtremes: counts)
+        lastMotionTime = sample.timestamp
+        lean.update(gravity: sample.gravity, timestamp: sample.timestamp,
+                    rotationRate: sample.rotationRate, speed: recentSpeed(at: sample.timestamp),
+                    trackExtremes: counts)
         acceleration.addSensor(
             timestamp: sample.timestamp,
             longitudinal: calibration.longitudinalAcceleration(userAccelerationG: sample.userAcceleration),
@@ -104,6 +142,8 @@ public struct TripSession: Sendable {
             maxLeanLeftDegrees: lean.maxLeftDegrees,
             maxLeanRightDegrees: lean.maxRightDegrees,
             movingDuration: statistics.movingDuration,
-            totalDuration: statistics.totalDuration(at: now))
+            totalDuration: statistics.totalDuration(at: now),
+            best50: sprint.best50,
+            best80: sprint.best80)
     }
 }

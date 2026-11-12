@@ -49,10 +49,6 @@ struct LeanCard: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 88)
             }
-
-            Text("En virage, l'angle affiché est inférieur à l'inclinaison réelle.")
-                .font(.system(size: 12))
-                .foregroundStyle(Theme.textSecondary)
         }
         .foregroundStyle(Theme.textPrimary)
         .padding(12)

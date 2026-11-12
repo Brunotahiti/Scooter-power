@@ -44,6 +44,12 @@ struct TripScreen: View {
                     history: model.accelerationHistory,
                     peakText: model.peakText)
 
+                SprintCard(
+                    best50Text: model.sprint50Text,
+                    best80Text: model.sprint80Text,
+                    isRunning: model.sprintRunning,
+                    elapsedText: model.sprintElapsedText)
+
                 LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
 
                 if model.isDemo {

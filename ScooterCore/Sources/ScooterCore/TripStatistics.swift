@@ -112,7 +112,8 @@ public struct TripStatistics: Sendable {
         return max(0, end - startTime - pausedTotal)
     }
 
-    private static func isValid(_ s: LocationSample) -> Bool {
+    /// Vitesse connue, précision de 50 m ou mieux, valeurs finies.
+    public static func isValid(_ s: LocationSample) -> Bool {
         s.timestamp.isFinite && s.latitude.isFinite && s.longitude.isFinite
             && s.speed.isFinite && s.altitude.isFinite && s.horizontalAccuracy.isFinite
             && s.speed >= 0 && s.horizontalAccuracy >= 0 && s.horizontalAccuracy <= maxAccuracy

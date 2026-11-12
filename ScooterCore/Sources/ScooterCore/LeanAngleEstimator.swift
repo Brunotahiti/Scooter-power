@@ -4,16 +4,36 @@ public enum LeanSide: Sendable {
     case left, upright, right
 }
 
-/// Inclinaison lissée du scooter par rapport à la position de calibration.
+/// Inclinaison lissée du scooter.
 ///
-/// Limite physique : en virage équilibré, la gravité apparente reste alignée
-/// avec le scooter, donc l'angle mesuré est inférieur à l'inclinaison réelle.
+/// À l'arrêt et à basse vitesse, l'angle vient de la direction de la gravité
+/// par rapport à la calibration. En roulant, cette mesure sous-estime
+/// l'inclinaison (la force centrifuge redresse la gravité apparente) : l'angle
+/// vient alors de la physique du virage, `atan(vitesse × lacet / g)`.
 public struct LeanAngleEstimator: Sendable {
     public static let timeConstant = 0.2
     public static let maxAngle = 60.0
     public static let uprightThreshold = 1.0
     /// Au-delà de cet écart entre deux échantillons, le filtre repart de la nouvelle valeur.
     public static let maxGap = 1.0
+    /// En dessous (m/s), mesure par gravité seule : 10 km/h.
+    public static let gravityOnlyBelow = 10.0 / 3.6
+    /// Au-dessus (m/s), mesure physique seule : 25 km/h.
+    public static let physicsOnlyAbove = 25.0 / 3.6
+
+    /// Inclinaison d'équilibre en virage, en degrés. Positive à droite pour
+    /// un lacet positif (virage à droite).
+    public static func physicalLeanDegrees(speed: Double, yawRate: Double) -> Double {
+        guard speed.isFinite, yawRate.isFinite, speed > 0 else { return 0 }
+        return atan(speed * yawRate / MountCalibration.standardGravity) * 180 / .pi
+    }
+
+    /// Part de la mesure physique dans le résultat, de 0 à 1.
+    public static func physicsWeight(speed: Double?) -> Double {
+        guard let speed, speed.isFinite else { return 0 }
+        let ratio = (speed - gravityOnlyBelow) / (physicsOnlyAbove - gravityOnlyBelow)
+        return min(1, max(0, ratio))
+    }
 
     public private(set) var calibration: MountCalibration?
     /// Lissé, borné à ±60°. Positif vers la droite.
@@ -44,10 +64,25 @@ public struct LeanAngleEstimator: Sendable {
         return true
     }
 
-    /// `trackExtremes` à `false` met à jour l'angle sans toucher aux maxima (trajet en pause).
-    public mutating func update(gravity: Vector3, timestamp: TimeInterval, trackExtremes: Bool = true) {
-        guard let calibration, gravity.isFinite, gravity.length >= 0.1, timestamp.isFinite else { return }
-        let raw = calibration.leanAngleDegrees(gravity: gravity)
+    /// - Parameters:
+    ///   - rotationRate: gyroscope, en rad/s, dans le repère du téléphone.
+    ///   - speed: dernière vitesse GPS en m/s, ou `nil` si elle est inconnue.
+    ///   - trackExtremes: à `false`, met à jour l'angle sans toucher aux maxima (trajet en pause).
+    public mutating func update(gravity: Vector3, timestamp: TimeInterval,
+                                rotationRate: Vector3 = Vector3(0, 0, 0), speed: Double? = nil,
+                                trackExtremes: Bool = true) {
+        guard let calibration, gravity.isFinite, gravity.length >= 0.1, timestamp.isFinite,
+              let down = gravity.normalized
+        else { return }
+
+        var raw = calibration.leanAngleDegrees(gravity: gravity)
+        let weight = Self.physicsWeight(speed: speed)
+        if weight > 0, let speed, rotationRate.isFinite {
+            // Lacet : rotation autour de la verticale, positive en virage à droite.
+            let yawRate = rotationRate.dot(down)
+            let physical = Self.physicalLeanDegrees(speed: speed, yawRate: yawRate)
+            raw = (1 - weight) * raw + weight * physical
+        }
 
         if let last = lastTimestamp, timestamp - last > 0, timestamp - last <= Self.maxGap {
             let dt = timestamp - last

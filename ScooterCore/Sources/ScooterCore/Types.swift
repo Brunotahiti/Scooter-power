@@ -35,7 +35,7 @@ public struct Vector3: Sendable, Equatable {
     }
 }
 
-public struct Coordinate: Sendable, Equatable {
+public struct Coordinate: Sendable, Equatable, Codable {
     public var latitude: Double
     public var longitude: Double
 
@@ -75,10 +75,14 @@ public struct MotionSample: Sendable, Equatable {
     public var timestamp: TimeInterval
     public var gravity: Vector3
     public var userAcceleration: Vector3
+    /// Vitesse de rotation mesurée par le gyroscope, en rad/s.
+    public var rotationRate: Vector3
 
-    public init(timestamp: TimeInterval, gravity: Vector3, userAcceleration: Vector3) {
+    public init(timestamp: TimeInterval, gravity: Vector3, userAcceleration: Vector3,
+                rotationRate: Vector3 = Vector3(0, 0, 0)) {
         self.timestamp = timestamp
         self.gravity = gravity
         self.userAcceleration = userAcceleration
+        self.rotationRate = rotationRate
     }
 }

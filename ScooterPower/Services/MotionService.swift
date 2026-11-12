@@ -18,7 +18,8 @@ final class MotionService: MotionProviding {
                 timestamp: motion.timestamp,
                 gravity: Vector3(motion.gravity.x, motion.gravity.y, motion.gravity.z),
                 userAcceleration: Vector3(
-                    motion.userAcceleration.x, motion.userAcceleration.y, motion.userAcceleration.z))
+                    motion.userAcceleration.x, motion.userAcceleration.y, motion.userAcceleration.z),
+                rotationRate: Vector3(motion.rotationRate.x, motion.rotationRate.y, motion.rotationRate.z))
             MainActor.assumeIsolated {
                 self?.onMotion?(sample)
             }
