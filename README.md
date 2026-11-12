@@ -5,8 +5,11 @@ scooter, à partir des capteurs du téléphone fixé au guidon : vitesse GPS,
 vitesse maximale et moyenne, distance, altitude, durées, poussée
 d'accélération, inclinaison, temps 0–50 et 0–80 km/h.
 
-Chaque trajet terminé est conservé dans l'historique avec son tracé, et
-deux trajets peuvent être comparés côte à côte. Le
+Chaque trajet terminé est conservé dans l'historique avec son tracé ; deux
+trajets peuvent être comparés côte à côte, les records personnels sont
+suivis dans le temps, et un trajet se partage en image ou en fichier GPX.
+L'app est disponible en français et en anglais, en kilomètres ou en miles,
+avec une alerte de vitesse réglable. Le
 trajet en cours s'affiche aussi sur l'écran verrouillé et dans la Dynamic
 Island, et l'app passe en compteur plein écran quand le téléphone est en
 paysage.
@@ -71,6 +74,18 @@ ScooterPowerWidgets/  extension : activité en direct et Dynamic Island
 Config/           fichiers Info.plist des deux cibles
 docs/superpowers/ spécification et plan d'implémentation
 ```
+
+## Traductions
+
+Le français est la langue source ; les textes français servent de clés. Après
+avoir ajouté ou modifié un texte dans le code, ajouter sa traduction anglaise
+dans `tools/make_catalogs.py`, puis régénérer les catalogues :
+
+```bash
+python3 tools/make_catalogs.py .
+```
+
+Le script échoue si un texte du code n'a pas de traduction.
 
 ## Tests
 

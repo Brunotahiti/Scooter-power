@@ -35,7 +35,8 @@ EN DIRECT
 
 COMPARAISON DE PERFORMANCES
 • Temps d'accélération et de reprise chronométrés automatiquement, comparables d'un trajet à l'autre
-• Pic d'accélération, vitesse maximale et inclinaison maximale de chaque trajet
+• Records personnels : « Record battu » s'affiche dès que vous faites mieux
+• Écran des records, avec la date de chacun et sa progression dans le temps
 • Écran de comparaison : deux trajets côte à côte, le meilleur chiffre de chaque ligne mis en évidence
 
 TOUJOURS VISIBLE
@@ -43,9 +44,14 @@ TOUJOURS VISIBLE
 • Mode paysage avec compteur plein écran
 • Enregistrement en arrière-plan, écran verrouillé
 
-HISTORIQUE
+HISTORIQUE ET PARTAGE
 • Chaque trajet est conservé avec son tracé sur la carte et tous ses chiffres
+• Partagez l'image de votre résumé ou exportez le tracé au format GPX
 • Carte du trajet en cours
+
+RÉGLAGES
+• Kilomètres ou miles
+• Alerte de vitesse : le compteur passe au rouge et le téléphone vibre au-dessus du seuil choisi
 
 VOS DONNÉES RESTENT SUR VOTRE IPHONE
 Pas de compte, pas de publicité, pas de collecte : tout est mesuré et conservé sur l'appareil.
@@ -64,6 +70,7 @@ Pas de compte, pas de publicité, pas de collecte : tout est mesuré et conserv�
 | Classification par âge | 4+ (aucun contenu sensible) |
 | Prix | 2,99 € (achat unique, sans achat intégré ni abonnement) |
 | Langue principale | Français |
+| Autre langue | Anglais : textes dans `fiche-en.md` |
 | URL de la politique de confidentialité | https://brunotahiti.github.io/Scooter-power/confidentialite.html |
 | URL d'assistance | https://brunotahiti.github.io/Scooter-power/ |
 | Copyright | 2026 Bruno Seite |
