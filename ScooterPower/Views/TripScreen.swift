@@ -12,7 +12,7 @@ struct TripScreen: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 8) {
+            VStack(spacing: 6) {
                 HeaderView(state: model.state, onRecalibrate: { model.recalibrate() })
 
                 if model.locationDenied {
@@ -54,7 +54,7 @@ struct TripScreen: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 8)
+            .padding(.bottom, 2)
         }
         .background(Theme.background.ignoresSafeArea())
         .safeAreaInset(edge: .bottom, spacing: 0) {

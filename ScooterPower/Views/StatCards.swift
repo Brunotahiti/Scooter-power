@@ -19,7 +19,7 @@ struct BigStatCard: View {
                     .foregroundStyle(Theme.textSecondary)
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(value)
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .font(.system(size: 26, weight: .bold, design: .rounded))
                         .monospacedDigit()
                     Text(unit)
                         .font(.system(size: 19, weight: .semibold, design: .rounded))
@@ -31,7 +31,7 @@ struct BigStatCard: View {
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 12)
+        .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .cardStyle()
         .accessibilityElement(children: .ignore)
@@ -60,7 +60,7 @@ struct DualStatCard: View {
             cell(second)
         }
         .padding(.horizontal, 10)
-        .padding(.vertical, 12)
+        .padding(.vertical, 9)
         .frame(maxWidth: .infinity)
         .cardStyle()
     }

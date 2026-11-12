@@ -42,7 +42,7 @@ struct AccelerationCard: View {
     // Le corps est découpé en petites vues : une seule grande expression
     // dépasse ce que le compilateur sait vérifier en temps raisonnable.
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .top) {
                 readout
                 Spacer(minLength: 8)
@@ -55,7 +55,7 @@ struct AccelerationCard: View {
             AccelerationChart(history: history)
         }
         .foregroundStyle(Theme.textPrimary)
-        .padding(14)
+        .padding(12)
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Poussée d'accélération")
@@ -74,7 +74,7 @@ struct AccelerationCard: View {
     private var valueLine: some View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
             Text(valueText)
-                .font(.system(size: 44, weight: .black, design: .rounded))
+                .font(.system(size: 40, weight: .black, design: .rounded))
                 .monospacedDigit()
                 .contentTransition(.numericText())
             Text("m/s²")
@@ -140,7 +140,7 @@ struct AccelerationCard: View {
             chevrons
             ScooterFrontShape()
                 .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
-                .frame(width: 38, height: 54)
+                .frame(width: 34, height: 48)
         }
         .frame(width: 90)
         .animation(.easeInOut(duration: 0.25), value: level)
@@ -151,10 +151,10 @@ struct AccelerationCard: View {
         let symbol: String = braking ? "chevron.down" : "chevron.up"
         let glow: Color = level.color.opacity(0.8)
         let visibility: Double = level.direction == 0 ? 0 : 1
-        return VStack(spacing: -6) {
+        return VStack(spacing: -8) {
             ForEach(0..<3, id: \.self) { index in
                 Image(systemName: symbol)
-                    .font(.system(size: 26, weight: .black))
+                    .font(.system(size: 22, weight: .black))
                     .opacity(chevronOpacity(index: index, braking: braking))
             }
         }
@@ -210,10 +210,10 @@ struct AccelerationGauge: View {
                 knob(in: proxy.size)
             }
         }
-        .frame(height: 28)
+        .frame(height: 24)
     }
 
-    private static let knobSize: CGFloat = 26
+    private static let knobSize: CGFloat = 22
 
     private var segments: some View {
         HStack(spacing: 3) {
@@ -309,7 +309,7 @@ struct AccelerationChart: View {
                 }
             }
         }
-        .frame(height: 60)
+        .frame(height: 48)
     }
 
     private var fillGradient: LinearGradient {

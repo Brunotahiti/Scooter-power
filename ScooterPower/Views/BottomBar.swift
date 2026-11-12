@@ -41,7 +41,7 @@ struct BottomBar: View {
         }
         .foregroundStyle(Theme.textPrimary)
         .padding(.horizontal, 16)
-        .padding(.top, 10)
+        .padding(.top, 6)
         .padding(.bottom, 6)
         .background(Theme.background)
     }

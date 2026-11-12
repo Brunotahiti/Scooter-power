@@ -36,7 +36,7 @@ struct HeaderView: View {
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 20, weight: .bold))
-                    .frame(width: 44, height: 44)
+                    .frame(width: 44, height: 40)
                     .contentShape(Rectangle())
             }
             .accessibilityLabel("Plus d'options")
