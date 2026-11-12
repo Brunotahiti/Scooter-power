@@ -252,7 +252,10 @@ final class TripStatisticsTests: XCTestCase {
         XCTAssertEqual(t.distanceMeters, 222.39, accuracy: 0.05)
         XCTAssertEqual(t.movingDuration, 20, accuracy: 1e-9)
         XCTAssertEqual(t.totalDuration(at: 40), 20, accuracy: 1e-9)
-        XCTAssertEqual(t.totalDuration(at: 20 - 5), 10, accuracy: 1e-9) // en pause : figée
+    }
+    func testTotalDurationFrozenWhilePaused() {
+        var t = started(); t.pause(at: 10)
+        XCTAssertEqual(t.totalDuration(at: 15), 10, accuracy: 1e-9)
     }
     func testStaleSpeedIsNil() {
         var t = started(); t.add(s(0, lon: 0))
@@ -267,8 +270,6 @@ final class TripStatisticsTests: XCTestCase {
     }
 }
 ```
-
-Note sur `testPauseExcludesTimeAndGap`, dernière assertion : remplacer par un appel fait pendant la pause dans une variante dédiée si l'ordre des appels la rend ambiguë — `totalDuration(at:)` interrogé à 15 après `pause(at: 10)` doit rendre 10.
 
 - [ ] **Step 2 :** `swift test --filter TripStatisticsTests` → échec de compilation.
 - [ ] **Step 3 :** implémenter `TripStatistics`.
