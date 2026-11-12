@@ -34,6 +34,7 @@ EN DIRECT
 • Inclinaison à gauche et à droite, calculée à partir du gyroscope et de la vitesse
 
 COMPARAISON DE PERFORMANCES
+• Temps d'accélération et de reprise chronométrés automatiquement, comparables d'un trajet à l'autre
 • Pic d'accélération, vitesse maximale et inclinaison maximale de chaque trajet
 • Écran de comparaison : deux trajets côte à côte, le meilleur chiffre de chaque ligne mis en évidence
 
