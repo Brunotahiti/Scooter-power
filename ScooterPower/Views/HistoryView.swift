@@ -43,7 +43,7 @@ struct HistoryView: View {
         if trips.isEmpty {
             ContentUnavailableView(
                 "Aucun trajet",
-                systemImage: "scooter",
+                systemImage: "clock.arrow.circlepath",
                 description: Text("Vos trajets terminés apparaîtront ici."))
         } else {
             List {

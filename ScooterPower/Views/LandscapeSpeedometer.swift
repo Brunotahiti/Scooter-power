@@ -67,13 +67,8 @@ struct LandscapeSpeedometer: View {
                 .font(.system(size: 15 * k))
                 .foregroundStyle(Theme.textPrimary.opacity(0.85))
                 .padding(.top, 4 * k)
-            Image(systemName: "scooter")
-                .font(.system(size: 34 * k, weight: .regular))
-                .foregroundStyle(Theme.cyan)
-                .shadow(color: Theme.cyan.opacity(0.9), radius: 8 * k)
-                .padding(.top, 10 * k)
         }
-        .offset(y: 14 * k)
+        .offset(y: 4 * k)
     }
 
     private func gpsRow(k: CGFloat) -> some View {

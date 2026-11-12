@@ -27,7 +27,7 @@ struct MapSheet: View {
                     .stroke(Theme.cyan, lineWidth: 5)
             }
             if !showsUser && !coordinates.isEmpty {
-                Marker("Position", systemImage: "scooter", coordinate: coordinates[coordinates.count - 1])
+                Marker("Position", systemImage: "location.fill", coordinate: coordinates[coordinates.count - 1])
                     .tint(Theme.cyan)
             }
             if showsUser {

@@ -18,8 +18,6 @@ struct SpeedometerView: View {
     var scale: CGFloat = 1
 
     static let baseHeight: CGFloat = 190
-    /// Hauteur de la silhouette de scooter, sous l'arc.
-    private static let iconHeight: CGFloat = 34
 
     /// L'arc couvre 200° : de 190° (0, à gauche) à −10° (fin d'échelle, à droite).
     private static let startAngle: Double = 190
@@ -40,21 +38,13 @@ struct SpeedometerView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            ZStack(alignment: .bottom) {
-                Canvas { context, size in
-                    draw(in: &context, size: size)
-                }
-                readout
+        ZStack(alignment: .bottom) {
+            Canvas { context, size in
+                draw(in: &context, size: size)
             }
-            .frame(height: Self.baseHeight * scale)
-
-            Image(systemName: "scooter")
-                .font(.system(size: 30 * scale, weight: .regular))
-                .foregroundStyle(Theme.cyan)
-                .shadow(color: Theme.cyan.opacity(0.9), radius: 8)
-                .frame(height: Self.iconHeight * scale)
+            readout
         }
+        .frame(height: Self.baseHeight * scale)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Vitesse actuelle")
         .accessibilityValue(speed == nil ? L("inconnue") : speedText + " " + unit)
