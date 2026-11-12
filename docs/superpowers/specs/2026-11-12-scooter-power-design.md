@@ -36,7 +36,8 @@ Exclus :
 ## Contraintes techniques
 
 - iOS 17.0 minimum, iPhone, portrait uniquement.
-- Swift 5.10, SwiftUI, Observation (`@Observable`), Swift Charts, MapKit.
+- Xcode 16 ou plus récent, Swift en mode de langage 5, SwiftUI, Observation
+  (`@Observable`), Swift Charts, MapKit.
 - Aucune dépendance externe.
 - Unités fixes : km/h, km, m, m/s², degrés. Textes en français.
 - Identifiant de bundle : `com.brunotahiti.ScooterPower` (modifiable dans
@@ -46,8 +47,9 @@ Exclus :
 
 ```
 ScooterPower.xcodeproj/         projet Xcode écrit à la main
+Config/Info.plist               modes d'arrière-plan
 ScooterPower/                   cible app
-  App/                          point d'entrée, Info.plist, Assets
+  App/                          point d'entrée, Assets
   Services/                     LocationService, MotionService, DemoFeed
   ViewModels/                   TripViewModel
   Views/                        écran, cartes, jauges, feuilles
@@ -73,7 +75,8 @@ altitude m, précision horizontale m)` et appels `pause()` / `resume()`.
 
 Sorties :
 
-- `currentSpeedKmh` : dernière vitesse valide, `nil` si aucune.
+- `currentSpeedKmh` : dernière vitesse valide, `nil` si aucun point valide
+  depuis plus de 5 s.
 - `maxSpeedKmh` : maximum des vitesses valides.
 - `distanceMeters` : somme des distances orthodromiques (haversine) entre
   échantillons valides consécutifs.
@@ -115,6 +118,9 @@ Sorties :
 
 ### LeanAngleEstimator
 
+Il conserve aussi l'inclinaison maximale atteinte de chaque côté, pour le
+résumé.
+
 Entrée : vecteur gravité `(x, y, z)` dans le repère du téléphone.
 
 - `calibrate()` mémorise la gravité courante comme position verticale.
@@ -129,6 +135,13 @@ Limite connue : en virage équilibré, la gravité apparente reste alignée
 avec le scooter ; la mesure sous-estime donc l'inclinaison réelle. L'app
 l'indique dans le texte d'aide de la carte Inclinaison.
 
+### TripSession et DemoTrip
+
+`TripSession` porte la machine à états du trajet (`idle`, `recording`,
+`paused`, `finished`) et réunit les trois composants ci-dessus ; elle est
+dans `ScooterCore` pour être testée. `DemoTrip` produit le trajet
+synthétique du mode démo.
+
 ## Cible app
 
 ### Services
@@ -140,7 +153,8 @@ l'indique dans le texte d'aide de la carte Inclinaison.
 - `MotionService` : enveloppe `CMMotionManager`, device motion à 50 Hz.
   Publie la gravité et l'accélération utilisateur. L'axe d'avance est l'axe
   perpendiculaire à l'écran, projeté à l'horizontale d'après la calibration.
-- `DemoFeed` : génère un trajet synthétique avec les mêmes types de sortie.
+- `DemoFeed` : diffuse le trajet synthétique de `DemoTrip` avec les mêmes
+  types de sortie.
   Utilisé quand les capteurs sont indisponibles.
 
 Les deux services réels et `DemoFeed` se conforment à des protocoles, pour
@@ -148,6 +162,7 @@ que `TripViewModel` ne dépende d'aucun type concret.
 
 ### TripViewModel
 
+Enveloppe observable de `TripSession`.
 États : `idle` → `recording` ⇄ `paused` → `finished` → `idle`.
 
 - `start()` : demande les autorisations, calibre l'inclinaison, démarre les
