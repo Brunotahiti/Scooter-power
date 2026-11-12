@@ -162,7 +162,10 @@ final class TripViewModel {
             speedText: speedText,
             distanceText: distanceText,
             durationText: totalDurationText,
-            isPaused: state == .paused)
+            isPaused: state == .paused,
+            // Arrondis à la précision affichée, pour ne pas envoyer de mise à jour sans effet visible.
+            acceleration: (accelerationValue * 10).rounded() / 10,
+            leanDegrees: leanDegrees.rounded())
     }
 
     private static func sprintText(_ time: TimeInterval?) -> String {
