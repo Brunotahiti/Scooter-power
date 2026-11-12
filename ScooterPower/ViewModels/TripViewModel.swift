@@ -48,6 +48,7 @@ final class TripViewModel {
     @ObservationIgnored private let motion: MotionProviding
     @ObservationIgnored private var refreshTimer: Timer?
     @ObservationIgnored private var startRequested = false
+    @ObservationIgnored private let liveActivity = LiveActivityController()
 
     /// Capteurs réels s'ils existent, sinon trajet de démonstration (simulateur).
     convenience init() {
@@ -114,6 +115,7 @@ final class TripViewModel {
         location.stop()
         motion.stop()
         stopRefreshing()
+        liveActivity.end()
         UIApplication.shared.isIdleTimerDisabled = false
         // Le résumé est prêt avant que `state` ne passe à `.finished` : la vue l'enregistre à ce moment-là.
         summary = session.summary(at: time)
@@ -151,6 +153,15 @@ final class TripViewModel {
         UIApplication.shared.isIdleTimerDisabled = true
         startRefreshing()
         refresh()
+        liveActivity.start(startDate: startDate ?? Date(), state: liveActivityState)
+    }
+
+    private var liveActivityState: LiveActivityController.State {
+        LiveActivityController.State(
+            speedText: speedText,
+            distanceText: distanceText,
+            durationText: totalDurationText,
+            isPaused: state == .paused)
     }
 
     private static func sprintText(_ time: TimeInterval?) -> String {
@@ -212,6 +223,10 @@ final class TripViewModel {
 
         if route.count != statistics.route.count {
             route = statistics.route
+        }
+
+        if state == .recording || state == .paused {
+            liveActivity.update(liveActivityState)
         }
     }
 }

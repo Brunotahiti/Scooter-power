@@ -8,17 +8,50 @@
 
 /* Begin PBXBuildFile section */
 		5C000000000000000000000A /* ScooterCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C000000000000000000000B /* ScooterCore */; };
+		5C0000000000000000000027 /* ScooterCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0000000000000000000028 /* ScooterCore */; };
+		5C000000000000000000002E /* ScooterPowerWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5C0000000000000000000021 /* ScooterPowerWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5C0000000000000000000030 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C000000000000000000000E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C0000000000000000000029;
+			remoteInfo = ScooterPowerWidgetsExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5C000000000000000000002D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5C000000000000000000002E /* ScooterPowerWidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5C0000000000000000000001 /* ScooterPower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScooterPower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0000000000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C0000000000000000000021 /* ScooterPowerWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScooterPowerWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C0000000000000000000022 /* Widgets-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Widgets-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5C0000000000000000000003 /* ScooterPower */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ScooterPower;
+			sourceTree = "<group>";
+		};
+		5C0000000000000000000023 /* ScooterPowerWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ScooterPowerWidgets;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +65,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C0000000000000000000025 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C0000000000000000000027 /* ScooterCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -39,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				5C0000000000000000000002 /* Info.plist */,
+				5C0000000000000000000022 /* Widgets-Info.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -47,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				5C0000000000000000000001 /* ScooterPower.app */,
+				5C0000000000000000000021 /* ScooterPowerWidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				5C0000000000000000000003 /* ScooterPower */,
+				5C0000000000000000000023 /* ScooterPowerWidgets */,
 				5C0000000000000000000004 /* Config */,
 				5C0000000000000000000005 /* Products */,
 			);
@@ -70,10 +114,12 @@
 				5C0000000000000000000007 /* Sources */,
 				5C0000000000000000000008 /* Frameworks */,
 				5C0000000000000000000009 /* Resources */,
+				5C000000000000000000002D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5C000000000000000000002F /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				5C0000000000000000000003 /* ScooterPower */,
@@ -86,6 +132,29 @@
 			productReference = 5C0000000000000000000001 /* ScooterPower.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5C0000000000000000000029 /* ScooterPowerWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C000000000000000000002A /* Build configuration list for PBXNativeTarget "ScooterPowerWidgetsExtension" */;
+			buildPhases = (
+				5C0000000000000000000024 /* Sources */,
+				5C0000000000000000000025 /* Frameworks */,
+				5C0000000000000000000026 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5C0000000000000000000023 /* ScooterPowerWidgets */,
+			);
+			name = ScooterPowerWidgetsExtension;
+			packageProductDependencies = (
+				5C0000000000000000000028 /* ScooterCore */,
+			);
+			productName = ScooterPowerWidgetsExtension;
+			productReference = 5C0000000000000000000021 /* ScooterPowerWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -97,6 +166,9 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					5C000000000000000000000D = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					5C0000000000000000000029 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 				};
@@ -119,12 +191,20 @@
 			projectRoot = "";
 			targets = (
 				5C000000000000000000000D /* ScooterPower */,
+				5C0000000000000000000029 /* ScooterPowerWidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5C0000000000000000000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C0000000000000000000026 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -141,7 +221,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C0000000000000000000024 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5C000000000000000000002F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C0000000000000000000029 /* ScooterPowerWidgetsExtension */;
+			targetProxy = 5C0000000000000000000030 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5C0000000000000000000010 /* Debug */ = {
@@ -252,6 +347,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Scooter Power utilise les capteurs de mouvement pour mesurer l'accélération et l'inclinaison.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Scooter Power enregistre vos photos de trajet dans votre photothèque.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -287,6 +383,7 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Scooter Power utilise les capteurs de mouvement pour mesurer l'accélération et l'inclinaison.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Scooter Power enregistre vos photos de trajet dans votre photothèque.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -299,6 +396,56 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.brunotahiti.ScooterPower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		5C000000000000000000002B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Config/Widgets-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Scooter Power";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brunotahiti.ScooterPower.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5C000000000000000000002C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Config/Widgets-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Scooter Power";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brunotahiti.ScooterPower.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -326,6 +473,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		5C000000000000000000002A /* Build configuration list for PBXNativeTarget "ScooterPowerWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C000000000000000000002B /* Debug */,
+				5C000000000000000000002C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -337,6 +493,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		5C000000000000000000000B /* ScooterCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ScooterCore;
+		};
+		5C0000000000000000000028 /* ScooterCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ScooterCore;
 		};
