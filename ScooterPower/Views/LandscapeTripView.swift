@@ -83,8 +83,13 @@ struct LandscapeTripView: View {
             text = L("Prêt à partir")
             color = Theme.textSecondary
         case .recording:
-            text = model.gpsWeak ? L("Signal GPS faible") : L("Enregistrement") + " · " + model.totalDurationText
-            color = model.gpsWeak ? Theme.orange : Theme.red
+            if model.gpsWeak {
+                text = L("Signal GPS faible")
+                color = Theme.orange
+            } else {
+                text = L("Enregistrement") + " · " + model.totalDurationText
+                color = Theme.red
+            }
         case .paused:
             text = L("En pause") + " · " + model.totalDurationText
             color = Theme.textSecondary

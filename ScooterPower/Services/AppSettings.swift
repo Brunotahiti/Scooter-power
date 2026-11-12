@@ -36,7 +36,9 @@ final class AppSettings {
         }
         speedAlertEnabled = defaults.bool(forKey: Key.speedAlertEnabled)
         let storedThreshold: Double = defaults.double(forKey: Key.speedAlertKmh)
-        speedAlertKmh = storedThreshold > 0 ? storedThreshold : 90
+        // Par défaut, un seuil rond dans l'unité affichée : 90 km/h ou 55 mph.
+        let defaultThreshold: Double = units == .metric ? 90 : units.kmh(fromSpeed: 55)
+        speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
     }
 
     func setUnits(_ value: UnitSystem) {

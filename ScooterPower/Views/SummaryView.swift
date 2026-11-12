@@ -7,6 +7,8 @@ struct SummaryView: View {
     let date: Date?
     let onDone: () -> Void
 
+    @State private var share = ShareState()
+
     private var shareTitle: String {
         (date ?? Date()).formatted(date: .abbreviated, time: .shortened)
     }
@@ -19,7 +21,9 @@ struct SummaryView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
                 Spacer(minLength: 8)
-                ShareMenu(summary: summary, route: route, title: shareTitle, date: date)
+                ShareMenu(summary: summary, route: route, title: shareTitle, date: date) { url in
+                    share.receive(url)
+                }
             }
             .padding(.top, 16)
 
@@ -40,6 +44,7 @@ struct SummaryView: View {
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Theme.background.ignoresSafeArea())
+        .sharePresentation($share)
         .preferredColorScheme(.dark)
     }
 }

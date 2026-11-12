@@ -6,6 +6,8 @@ import ScooterCore
 struct TripDetailView: View {
     let trip: TripRecord
 
+    @State private var share = ShareState()
+
     var body: some View {
         let coordinates: [CLLocationCoordinate2D] = trip.route.map(\.mapCoordinate)
         return ScrollView {
@@ -20,9 +22,12 @@ struct TripDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                ShareMenu(summary: trip.summary, route: trip.route, title: trip.title, date: trip.startDate)
+                ShareMenu(summary: trip.summary, route: trip.route, title: trip.title, date: trip.startDate) { url in
+                    share.receive(url)
+                }
             }
         }
+        .sharePresentation($share)
     }
 
     @ViewBuilder

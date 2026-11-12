@@ -63,6 +63,15 @@ private struct RecordSection: View {
         let point: RecordPoint
     }
 
+    /// Du plus ancien au plus récent, pour la courbe.
+    private var chronological: [Row] {
+        var result: [Row] = []
+        for index in points.indices {
+            result.append(Row(id: index, point: points[index]))
+        }
+        return result
+    }
+
     /// Du plus récent au plus ancien, pour la liste.
     private var rows: [Row] {
         var result: [Row] = []
@@ -119,11 +128,12 @@ private struct RecordSection: View {
         .accessibilityElement(children: .combine)
     }
 
-    /// Le record ne peut que baisser : une courbe en escalier.
+    /// Le record ne peut que baisser : une courbe en escalier, où chaque
+    /// record vaut de sa date jusqu'au suivant.
     private var chart: some View {
-        Chart(rows) { row in
+        Chart(chronological) { row in
             LineMark(x: .value("Date", row.point.date), y: .value("Temps", row.point.time))
-                .interpolationMethod(.stepEnd)
+                .interpolationMethod(.stepStart)
                 .foregroundStyle(Theme.cyan)
             PointMark(x: .value("Date", row.point.date), y: .value("Temps", row.point.time))
                 .foregroundStyle(Theme.cyan)

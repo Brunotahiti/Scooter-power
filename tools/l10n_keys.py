@@ -1,7 +1,7 @@
 """Extrait les textes traduisibles du code Swift : appels L("…") et littéraux
 passés directement aux vues SwiftUI qui les traduisent d'elles-mêmes."""
 import re, sys, glob, json
-AUTO = r'(?:Text|Button|Label|Toggle|Picker|Link|LabeledContent|Marker|NavigationLink|ContentUnavailableView|Section|Stepper|\.navigationTitle|\.accessibilityLabel|\.accessibilityValue|\.alert|\.confirmationDialog)'
+AUTO = r'(?:Text|Button|Label|Toggle|Picker|Link|LabeledContent|Marker|NavigationLink|ContentUnavailableView|Section|Stepper|\.navigationTitle|\.accessibilityLabel|\.accessibilityValue|\.accessibilityHint|\.alert|\.confirmationDialog|\.value)'
 LIT = r'"((?:[^"\\]|\\.)*)"'
 def norm(s):
     s = re.sub(r'\\\((?:[^()]|\([^()]*\))*\)', '%@', s)   # interpolation → %@

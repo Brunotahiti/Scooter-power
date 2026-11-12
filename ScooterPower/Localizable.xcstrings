@@ -6,7 +6,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ %@ top"
+            "value": "%@ %@ max"
           }
         }
       }
@@ -227,6 +227,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compare"
+          }
+        }
+      }
+    },
+    "Date": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
           }
         }
       }
@@ -541,12 +551,12 @@
         }
       }
     },
-    "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé.": {
+    "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The speedometer turns red and the phone vibrates when the limit is exceeded."
+            "value": "The speedometer turns red and the phone vibrates when the limit is exceeded. The alert only works while the app is on screen."
           }
         }
       }
@@ -627,6 +637,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Ouvre les records": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opens your records"
           }
         }
       }
@@ -887,6 +907,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Steady"
+          }
+        }
+      }
+    },
+    "Temps": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time"
           }
         }
       }

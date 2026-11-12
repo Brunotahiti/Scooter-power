@@ -75,7 +75,7 @@ struct SettingsView: View {
         } header: {
             Text("Alerte de vitesse")
         } footer: {
-            Text("Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé.")
+            Text("Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran.")
         }
     }
 

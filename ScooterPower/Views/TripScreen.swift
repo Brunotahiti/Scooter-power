@@ -35,19 +35,16 @@ struct TripScreen: View {
             .onChange(of: settings.units) { _, _ in
                 model.settingsChanged()
             }
-            .sheet(isPresented: $showSettings) {
-                SettingsView()
-            }
-            .sheet(isPresented: $showRecords) {
-                RecordsSheet(trips: history)
-            }
             .modifier(TripPresentations(
                 model: model,
                 showMap: $showMap,
                 showCamera: $showCamera,
                 showCameraUnavailable: $showCameraUnavailable,
                 confirmFinish: $confirmFinish,
-                showHistory: $showHistory))
+                showHistory: $showHistory,
+                showSettings: $showSettings,
+                showRecords: $showRecords,
+                trips: history))
             .onChange(of: verticalSizeClass) { _, _ in
                 // Le téléphone a tourné sur son support : la position verticale a changé.
                 model.recalibrate()
@@ -120,6 +117,8 @@ struct TripScreen: View {
                             showRecords = true
                         }
                     }
+                    .accessibilityAddTraits(.isButton)
+                    .accessibilityHint("Ouvre les records")
 
                 LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
 
@@ -250,11 +249,21 @@ private struct TripPresentations: ViewModifier {
     @Binding var showCameraUnavailable: Bool
     @Binding var confirmFinish: Bool
     @Binding var showHistory: Bool
+    @Binding var showSettings: Bool
+    @Binding var showRecords: Bool
+    /// Tous les trajets enregistrés, pour l'écran des records.
+    let trips: [TripRecord]
 
     func body(content: Content) -> some View {
         content
             .sheet(isPresented: $showHistory) {
                 HistoryView()
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
+            .sheet(isPresented: $showRecords) {
+                RecordsSheet(trips: trips)
             }
             .sheet(isPresented: $showMap) {
                 MapSheet(route: model.route, showsUser: !model.isDemo)

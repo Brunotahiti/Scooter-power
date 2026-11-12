@@ -5,7 +5,7 @@ sys.path.insert(0, sys.path[0])
 from l10n_keys import keys
 
 EN = {
- "%@ %@ max": "%@ %@ top",
+ "%@ %@ max": "%@ %@ max",
  "%@ mètres par seconde carrée, %@": "%@ metres per second squared, %@",
  "%@ secondes": "%@ seconds",
  "%@ · ancien %@": "%@ · previous %@",
@@ -59,7 +59,10 @@ EN = {
  "Inclinaison max. gauche": "Max lean left",
  "J'ai compris": "I understand",
  "Kilomètres": "Kilometres",
- "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé.": "The speedometer turns red and the phone vibrates when the limit is exceeded.",
+ "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran.": "The speedometer turns red and the phone vibrates when the limit is exceeded. The alert only works while the app is on screen.",
+ "Ouvre les records": "Opens your records",
+ "Date": "Date",
+ "Temps": "Time",
  "Les temps d'accélération restent mesurés en km/h.": "Acceleration times are still measured in km/h.",
  "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées.": "Best figure on each line. Distance and times are not ranked.",
  "Mesure en cours": "Timing in progress",

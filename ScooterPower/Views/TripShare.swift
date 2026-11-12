@@ -177,29 +177,33 @@ struct ActivityView: UIViewControllerRepresentable {
     func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
 }
 
+/// Un fichier prêt à être partagé.
+struct SharedFile: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
 /// Bouton de partage d'un trajet : image du résumé ou tracé GPX.
+///
+/// Il ne présente rien lui-même : placé dans une barre d'outils, une feuille
+/// attachée au bouton peut ne pas s'ouvrir. L'écran hôte reçoit le fichier par
+/// `onShare` et l'affiche avec `sharePresentation`.
 struct ShareMenu: View {
     let summary: TripSummary
     let route: [Coordinate]
     let title: String
     let date: Date?
-
-    private struct SharedFile: Identifiable {
-        let id = UUID()
-        let url: URL
-    }
-
-    @State private var shared: SharedFile?
-    @State private var failed = false
+    /// Reçoit le fichier produit, ou `nil` si sa création a échoué.
+    let onShare: (URL?) -> Void
 
     var body: some View {
         Menu {
             Button("Partager l'image du résumé", systemImage: "photo") {
-                present(TripExporter.imageFile(summary: summary, route: route, title: title))
+                onShare(TripExporter.imageFile(summary: summary, route: route, title: title))
             }
             if route.count > 1 {
                 Button("Exporter le tracé (GPX)", systemImage: "map") {
-                    present(TripExporter.gpxFile(route: route, title: title, date: date))
+                    onShare(TripExporter.gpxFile(route: route, title: title, date: date))
                 }
             }
         } label: {
@@ -209,19 +213,33 @@ struct ShareMenu: View {
                 .contentShape(Rectangle())
         }
         .accessibilityLabel("Partager")
-        .sheet(item: $shared) { file in
-            ActivityView(url: file.url)
-        }
-        .alert("Partage impossible", isPresented: $failed) {
-            Button("OK", role: .cancel) {}
-        }
     }
+}
 
-    private func present(_ url: URL?) {
+/// État du partage pour un écran : le fichier à présenter, ou l'échec.
+struct ShareState {
+    var file: SharedFile?
+    var failed = false
+
+    mutating func receive(_ url: URL?) {
         if let url {
-            shared = SharedFile(url: url)
+            file = SharedFile(url: url)
         } else {
             failed = true
         }
+    }
+}
+
+extension View {
+    /// Présente la feuille de partage du système, ou une alerte en cas d'échec.
+    func sharePresentation(_ state: Binding<ShareState>) -> some View {
+        self
+            .sheet(item: state.file) { file in
+                ActivityView(url: file.url)
+                    .presentationDetents([.medium, .large])
+            }
+            .alert("Partage impossible", isPresented: state.failed) {
+                Button("OK", role: .cancel) {}
+            }
     }
 }

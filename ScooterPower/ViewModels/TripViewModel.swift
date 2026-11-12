@@ -1,3 +1,4 @@
+import AudioToolbox
 import Foundation
 import Observation
 import ScooterCore
@@ -283,7 +284,8 @@ final class TripViewModel {
             enabled: settings.speedAlertEnabled && state == .recording)
         speedAlertActive = speedAlert.isOver
         if alertFired {
-            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            // Vibration longue, plus perceptible au guidon qu'un simple retour haptique.
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         }
         gpsWeak = state == .recording && speedKmh == nil
 
