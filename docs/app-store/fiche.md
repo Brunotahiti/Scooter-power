@@ -14,9 +14,9 @@ Si le nom est déjà pris sur le Store : « Scooter Power – Compteur GPS ».
 
 Tableau de bord pour scooter
 
-## Texte promotionnel (147 caractères)
+## Texte promotionnel (153 caractères)
 
-Vitesse GPS, accélération, inclinaison et temps 0–50 km/h : votre trajet en scooter en direct, sur l'écran verrouillé comme dans la Dynamic Island.
+Vitesse GPS, accélération et inclinaison en direct, sur l'écran verrouillé comme dans la Dynamic Island. Comparez vos performances d'un trajet à l'autre.
 
 ## Mots-clés (95 caractères)
 
@@ -33,9 +33,9 @@ EN DIRECT
 • Poussée d'accélération et freinage en m/s², avec le graphe des 30 dernières secondes
 • Inclinaison à gauche et à droite, calculée à partir du gyroscope et de la vitesse
 
-MESURES DE PERFORMANCE
-• Temps 0–50 km/h et 0–80 km/h chronométrés automatiquement à chaque départ arrêté
-• Meilleur temps du trajet et pic d'accélération
+COMPARAISON DE PERFORMANCES
+• Pic d'accélération, vitesse maximale et inclinaison maximale de chaque trajet
+• Comparez vos trajets entre eux grâce à l'historique
 
 TOUJOURS VISIBLE
 • Activité en direct sur l'écran verrouillé et dans la Dynamic Island
