@@ -11,12 +11,24 @@ struct TripScreen: View {
     @State private var confirmFinish = false
     @State private var showHistory = false
     @Environment(\.modelContext) private var modelContext
+    /// Tous les trajets enregistrés : la source des records.
+    @Query private var history: [TripRecord]
     @Environment(\.openURL) private var openURL
     /// Compacte quand l'iPhone est en paysage.
     @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     var body: some View {
         layout
+            .overlay(alignment: .top) {
+                recordBanner
+            }
+            .animation(.spring(duration: 0.4), value: model.recordBanner)
+            .onAppear {
+                loadRecords()
+            }
+            .onChange(of: history.count) { _, _ in
+                loadRecords()
+            }
             .modifier(TripPresentations(
                 model: model,
                 showMap: $showMap,
@@ -78,6 +90,8 @@ struct TripScreen: View {
 
                 SprintCard(
                     times: model.sprintTexts,
+                    records: model.recordTexts,
+                    beaten: model.beatenRecords,
                     isRunning: model.sprintRunning,
                     elapsedText: model.sprintElapsedText)
 
@@ -129,6 +143,26 @@ struct TripScreen: View {
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()
+    }
+
+    @ViewBuilder
+    private var recordBanner: some View {
+        if let banner = model.recordBanner {
+            RecordBannerView(banner: banner)
+                .padding(.horizontal, 16)
+                .padding(.top, 6)
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .id(banner.id)
+        }
+    }
+
+    /// Transmet au modèle le meilleur temps de chaque plage sur tout l'historique.
+    private func loadRecords() {
+        var times: [[SpeedInterval: TimeInterval]] = []
+        for trip in history {
+            times.append(trip.summary.bestTimes)
+        }
+        model.setHistoryRecords(RecordBook.best(of: times))
     }
 
     private func openSettings() {

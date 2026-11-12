@@ -33,6 +33,12 @@ final class TripViewModel {
     /// Une mesure est en cours : départ arrêté ou reprise lancée.
     private(set) var sprintRunning = false
     private(set) var sprintElapsedText = ""
+    /// Records tous trajets confondus, ou `--`, dans l'ordre de `SpeedInterval.all`.
+    private(set) var recordTexts: [String] = SpeedInterval.all.map { _ in "--" }
+    /// Indices, dans `SpeedInterval.all`, des records battus pendant ce trajet.
+    private(set) var beatenRecords: Set<Int> = []
+    /// Annonce « Record battu » à afficher quelques secondes, ou `nil`.
+    private(set) var recordBanner: RecordBanner?
 
     private(set) var leanDegrees: Double = 0
     private(set) var leanText = "0°"
@@ -48,6 +54,11 @@ final class TripViewModel {
     @ObservationIgnored private let motion: MotionProviding
     @ObservationIgnored private var refreshTimer: Timer?
     @ObservationIgnored private var startRequested = false
+    @ObservationIgnored private var recordBook = RecordBook()
+    /// Nombre de mesures de `session.sprint.results` déjà comparées aux records.
+    @ObservationIgnored private var checkedResults = 0
+    @ObservationIgnored private var bannerHideTime: TimeInterval = 0
+    @ObservationIgnored private var bannerCount = 0
     @ObservationIgnored private let liveActivity = LiveActivityController()
 
     /// Capteurs réels s'ils existent, sinon trajet de démonstration (simulateur).
@@ -130,6 +141,15 @@ final class TripViewModel {
         refresh()
     }
 
+    /// Records issus de l'historique des trajets. À rappeler quand l'historique change.
+    func setHistoryRecords(_ records: [SpeedInterval: TimeInterval]) {
+        var book = RecordBook(records: records)
+        // Le trajet en cours n'est pas encore dans l'historique.
+        book.merge(session.sprint.bestTimes)
+        recordBook = book
+        publishRecords()
+    }
+
     func recalibrate() {
         session.recalibrate()
     }
@@ -148,6 +168,9 @@ final class TripViewModel {
     private func begin() {
         guard state == .idle else { return }
         startDate = Date()
+        checkedResults = 0
+        beatenRecords = []
+        recordBanner = nil
         session.start(at: now)
         location.start()
         motion.start()
@@ -166,6 +189,35 @@ final class TripViewModel {
             // Arrondis à la précision affichée, pour ne pas envoyer de mise à jour sans effet visible.
             acceleration: (accelerationValue * 10).rounded() / 10,
             leanDegrees: leanDegrees.rounded())
+    }
+
+    /// Compare les nouvelles mesures aux records et annonce ceux qui tombent.
+    private func checkRecords(_ results: [SprintResult], at time: TimeInterval) {
+        if recordBanner != nil, time >= bannerHideTime {
+            recordBanner = nil
+        }
+        guard results.count > checkedResults else { return }
+        for result in results[checkedResults...] {
+            let outcome = recordBook.submit(result.interval, time: result.time)
+            guard case .beaten(let previous) = outcome else { continue }
+            if let index = SpeedInterval.all.firstIndex(of: result.interval) {
+                beatenRecords.insert(index)
+            }
+            bannerCount += 1
+            recordBanner = RecordBanner(
+                id: bannerCount,
+                title: result.interval.label + " km/h",
+                time: Self.sprintText(result.time),
+                previous: Self.sprintText(previous))
+            bannerHideTime = time + RecordBanner.duration
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+        }
+        checkedResults = results.count
+        publishRecords()
+    }
+
+    private func publishRecords() {
+        recordTexts = SpeedInterval.all.map { Self.sprintText(recordBook.records[$0]) }
     }
 
     private static func sprintText(_ time: TimeInterval?) -> String {
@@ -216,6 +268,7 @@ final class TripViewModel {
         peakText = Formatters.signed(acceleration.peak, digits: 1) + " m/s²"
 
         let sprint = session.sprint
+        checkRecords(sprint.results, at: time)
         sprintTexts = SpeedInterval.all.map { Self.sprintText(sprint.best($0)) }
         sprintRunning = sprint.isRunning || sprint.isRolling
         sprintElapsedText = sprint.activeElapsed(at: time).map { Formatters.decimal($0, digits: 1) } ?? ""
@@ -232,4 +285,18 @@ final class TripViewModel {
             liveActivity.update(liveActivityState)
         }
     }
+}
+
+/// Annonce d'un record battu.
+struct RecordBanner: Identifiable, Equatable {
+    /// Durée d'affichage, en secondes.
+    static let duration: TimeInterval = 5
+
+    let id: Int
+    /// Plage concernée, par exemple « 0–50 km/h ».
+    let title: String
+    /// Nouveau record, par exemple « 4,2 s ».
+    let time: String
+    /// Ancien record.
+    let previous: String
 }

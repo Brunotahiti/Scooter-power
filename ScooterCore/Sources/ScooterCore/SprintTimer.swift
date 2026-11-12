@@ -32,6 +32,12 @@ public struct SpeedInterval: Hashable, Sendable, Codable {
     var minPlausibleTime: TimeInterval { Double(to - from) / 35 }
 }
 
+/// Une mesure terminée : la plage et son temps en secondes.
+public struct SprintResult: Sendable, Equatable {
+    public let interval: SpeedInterval
+    public let time: TimeInterval
+}
+
 /// Chronomètre les accélérations : départs arrêtés (0–30, 0–50, 0–80 km/h)
 /// et reprises lancées (50–90, 50–100 km/h).
 ///
@@ -74,6 +80,8 @@ public struct SprintTimer: Sendable {
 
     /// Meilleur temps obtenu pour chaque plage.
     public private(set) var bestTimes: [SpeedInterval: TimeInterval] = [:]
+    /// Toutes les mesures terminées, de la plus ancienne à la plus récente.
+    public private(set) var results: [SprintResult] = []
 
     public init() {}
 
@@ -132,6 +140,7 @@ public struct SprintTimer: Sendable {
     private mutating func record(_ interval: SpeedInterval, _ time: TimeInterval) {
         lastTimes[interval] = time
         bestTimes[interval] = min(bestTimes[interval] ?? time, time)
+        results.append(SprintResult(interval: interval, time: time))
     }
 
     // MARK: Départ arrêté
