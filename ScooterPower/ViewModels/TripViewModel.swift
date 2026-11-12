@@ -14,19 +14,26 @@ final class TripViewModel {
     private(set) var gpsWeak = false
 
     private(set) var speedKmh: Double?
+    /// Vitesse dans l'unité affichée, pour le compteur.
+    private(set) var speedValue: Double?
+    private(set) var speedUnit = "km/h"
+    private(set) var speedometerMax: Double = 140
+    private(set) var speedometerStep: Double = 20
+    /// Le seuil d'alerte de vitesse est dépassé.
+    private(set) var speedAlertActive = false
     private(set) var speedText = "--"
     private(set) var maxSpeedText = "--"
     private(set) var averageSpeedText = "--"
-    private(set) var distanceText = "0,0 km"
-    private(set) var altitudeText = "-- m"
+    private(set) var distanceText = "--"
+    private(set) var altitudeText = "--"
     private(set) var movingDurationText = "00:00:00"
     private(set) var totalDurationText = "00:00:00"
 
     private(set) var accelerationValue: Double = 0
-    private(set) var accelerationText = "0,0"
+    private(set) var accelerationText = "0"
     private(set) var accelerationLevel = AccelerationLevel.stable
     private(set) var accelerationHistory: [Double] = []
-    private(set) var peakText = "0,0 m/s²"
+    private(set) var peakText = "--"
 
     /// Meilleurs temps du trajet, ou `--`, dans l'ordre de `SpeedInterval.all`.
     private(set) var sprintTexts: [String] = SpeedInterval.all.map { _ in "--" }
@@ -54,6 +61,8 @@ final class TripViewModel {
     @ObservationIgnored private let motion: MotionProviding
     @ObservationIgnored private var refreshTimer: Timer?
     @ObservationIgnored private var startRequested = false
+    @ObservationIgnored private let settings = AppSettings.shared
+    @ObservationIgnored private var speedAlert = SpeedAlert()
     @ObservationIgnored private var recordBook = RecordBook()
     /// Nombre de mesures de `session.sprint.results` déjà comparées aux records.
     @ObservationIgnored private var checkedResults = 0
@@ -89,6 +98,8 @@ final class TripViewModel {
             self?.authorizationChanged(authorization)
         }
         liveActivity.endOrphans()
+        // Met les textes au bon format (unités, séparateur décimal) dès l'ouverture.
+        refresh()
     }
 
     private var now: TimeInterval { Date().timeIntervalSinceReferenceDate }
@@ -152,6 +163,11 @@ final class TripViewModel {
         publishRecords()
     }
 
+    /// À appeler quand un réglage d'affichage change : les textes sont recalculés.
+    func settingsChanged() {
+        refresh()
+    }
+
     func recalibrate() {
         session.recalibrate()
     }
@@ -185,6 +201,7 @@ final class TripViewModel {
     private var liveActivityState: LiveActivityController.State {
         LiveActivityController.State(
             speedText: speedText,
+            speedUnit: speedUnit,
             distanceText: distanceText,
             durationText: totalDurationText,
             isPaused: state == .paused,
@@ -251,15 +268,34 @@ final class TripViewModel {
 
         state = session.state
 
+        let units: UnitSystem = settings.units
+        speedUnit = units.speedUnit
+        speedometerMax = units.speedometerMax
+        speedometerStep = units.speedometerLabelStep
+
         speedKmh = statistics.currentSpeedKmh(at: time)
-        speedText = speedKmh.map { Formatters.decimal($0, digits: 0) } ?? "--"
+        speedValue = speedKmh.map { units.speed(fromKmh: $0) }
+        speedText = speedValue.map { Formatters.decimal($0, digits: 0) } ?? "--"
+
+        let alertFired: Bool = speedAlert.update(
+            speedKmh: speedKmh,
+            thresholdKmh: settings.speedAlertKmh,
+            enabled: settings.speedAlertEnabled && state == .recording)
+        speedAlertActive = speedAlert.isOver
+        if alertFired {
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+        }
         gpsWeak = state == .recording && speedKmh == nil
 
         let hasTrip = state != .idle
-        maxSpeedText = hasTrip ? Formatters.decimal(statistics.maxSpeedKmh, digits: 0) : "--"
-        averageSpeedText = hasTrip ? Formatters.decimal(statistics.averageSpeedKmh, digits: 0) : "--"
-        distanceText = Formatters.decimal(statistics.distanceMeters / 1000, digits: 1) + " km"
-        altitudeText = (statistics.altitudeMeters.map { Formatters.decimal($0, digits: 0) } ?? "--") + " m"
+        maxSpeedText = hasTrip ? Formatters.decimal(units.speed(fromKmh: statistics.maxSpeedKmh), digits: 0) : "--"
+        averageSpeedText = hasTrip
+            ? Formatters.decimal(units.speed(fromKmh: statistics.averageSpeedKmh), digits: 0) : "--"
+        distanceText = Formatters.decimal(units.distance(fromMeters: statistics.distanceMeters), digits: 1)
+            + " " + units.distanceUnit
+        let altitude: String = statistics.altitudeMeters
+            .map { Formatters.decimal(units.altitude(fromMeters: $0), digits: 0) } ?? "--"
+        altitudeText = altitude + " " + units.altitudeUnit
         movingDurationText = Formatters.duration(statistics.movingDuration)
         totalDurationText = Formatters.duration(statistics.totalDuration(at: time))
 

@@ -12,7 +12,7 @@ struct RecordBannerView: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text("Record battu")
                     .font(.system(size: 19, weight: .heavy))
-                Text(banner.title + " · ancien " + banner.previous)
+                Text(L("\(banner.title) · ancien \(banner.previous)"))
                     .font(.system(size: 13, weight: .semibold))
                     .opacity(0.75)
             }
@@ -31,7 +31,7 @@ struct RecordBannerView: View {
         .shadow(color: Theme.orange.opacity(0.7), radius: 16)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Record battu")
-        .accessibilityValue(banner.title + ", " + banner.time + ", ancien record " + banner.previous)
+        .accessibilityValue(L("\(banner.title), \(banner.time), ancien record \(banner.previous)"))
         .accessibilityAddTraits(.isStaticText)
     }
 }

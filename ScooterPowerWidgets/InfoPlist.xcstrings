@@ -1,0 +1,23 @@
+{
+  "sourceLanguage": "fr",
+  "strings": {
+    "CFBundleDisplayName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scooter Power"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scooter Power"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

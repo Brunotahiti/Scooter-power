@@ -73,10 +73,8 @@ final class TripRecord {
         (try? JSONDecoder().decode([Coordinate].self, from: routeData)) ?? []
     }
 
-    /// Date et heure de départ, en français.
+    /// Date et heure de départ, dans la langue de l'interface.
     var title: String {
-        let style = Date.FormatStyle(date: .abbreviated, time: .shortened)
-            .locale(Locale(identifier: "fr_FR"))
-        return startDate.formatted(style)
+        startDate.formatted(date: .abbreviated, time: .shortened)
     }
 }

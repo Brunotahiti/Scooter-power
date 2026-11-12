@@ -39,7 +39,7 @@ struct SprintCard: View {
         VStack(spacing: 1) {
             Image(systemName: isRunning ? "stopwatch.fill" : "flag.checkered")
                 .font(.system(size: 15, weight: .medium))
-            Text(isRunning ? elapsedText : "km/h")
+            Text(verbatim: isRunning ? elapsedText : "km/h")
                 .font(.system(size: 11, weight: isRunning ? .bold : .regular, design: .rounded))
                 .monospacedDigit()
                 .lineLimit(1)
@@ -48,8 +48,8 @@ struct SprintCard: View {
         .foregroundStyle(isRunning ? Theme.orange : Theme.cyan)
         .frame(width: 38)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(isRunning ? "Mesure en cours" : "Temps d'accélération")
-        .accessibilityValue(isRunning ? elapsedText + " secondes" : "")
+        .accessibilityLabel(isRunning ? L("Mesure en cours") : L("Temps d'accélération"))
+        .accessibilityValue(isRunning ? L("\(elapsedText) secondes") : "")
     }
 
     private func cell(_ index: Int) -> some View {
@@ -71,8 +71,9 @@ struct SprintCard: View {
         .minimumScaleFactor(0.7)
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title + " kilomètres par heure")
-        .accessibilityValue(value + ", record " + record + (isBeaten ? ", battu pendant ce trajet" : ""))
+        .accessibilityLabel(title + " km/h")
+        .accessibilityValue(
+            isBeaten ? L("\(value), record \(record), battu pendant ce trajet") : L("\(value), record \(record)"))
     }
 
     private func recordLine(_ record: String, isBeaten: Bool) -> some View {

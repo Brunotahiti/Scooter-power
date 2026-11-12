@@ -36,7 +36,7 @@ struct BigStatCard: View {
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(title)
-        .accessibilityValue("\(value) \(unit)")
+        .accessibilityValue(value + " " + unit)
     }
 }
 

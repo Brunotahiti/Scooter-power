@@ -39,8 +39,8 @@ struct TripComparisonView: View {
 
     private var pickers: some View {
         HStack(alignment: .top, spacing: 10) {
-            tripPicker(label: "Trajet A", selection: $firstIndex, color: Self.firstColor)
-            tripPicker(label: "Trajet B", selection: $secondIndex, color: Self.secondColor)
+            tripPicker(label: L("Trajet A"), selection: $firstIndex, color: Self.firstColor)
+            tripPicker(label: L("Trajet B"), selection: $secondIndex, color: Self.secondColor)
         }
     }
 
@@ -135,29 +135,30 @@ struct TripComparisonView: View {
 
     private static func title(_ metric: ComparisonMetric) -> String {
         switch metric {
-        case .distance: return "Distance"
-        case .movingDuration: return "Durée de roulage"
-        case .totalDuration: return "Durée totale"
-        case .maxSpeed: return "Vitesse maximale"
-        case .averageSpeed: return "Vitesse moyenne"
+        case .distance: return L("Distance")
+        case .movingDuration: return L("Durée de roulage")
+        case .totalDuration: return L("Durée totale")
+        case .maxSpeed: return L("Vitesse maximale")
+        case .averageSpeed: return L("Vitesse moyenne")
         case .sprint30, .sprint50, .sprint80, .roll90, .roll100:
             return (metric.interval?.label ?? "") + " km/h"
-        case .peakAcceleration: return "Pic d'accélération"
-        case .maxLeanLeft: return "Inclinaison gauche"
-        case .maxLeanRight: return "Inclinaison droite"
+        case .peakAcceleration: return L("Pic d'accélération")
+        case .maxLeanLeft: return L("Inclinaison gauche")
+        case .maxLeanRight: return L("Inclinaison droite")
         }
     }
 
     private static func text(_ value: Double?, for metric: ComparisonMetric) -> String {
         guard let value, value.isFinite else { return "--" }
         let digits: Int = metric.displayDigits
+        let units: UnitSystem = AppSettings.shared.units
         switch metric {
         case .distance:
-            return Formatters.decimal(value / 1000, digits: digits) + " km"
+            return Formatters.decimal(units.distance(fromMeters: value), digits: digits) + " " + units.distanceUnit
         case .movingDuration, .totalDuration:
             return Formatters.duration(value)
         case .maxSpeed, .averageSpeed:
-            return Formatters.decimal(value, digits: digits) + " km/h"
+            return Formatters.decimal(units.speed(fromKmh: value), digits: digits) + " " + units.speedUnit
         case .sprint30, .sprint50, .sprint80, .roll90, .roll100:
             return Formatters.decimal(value, digits: digits) + " s"
         case .peakAcceleration:
@@ -168,13 +169,12 @@ struct TripComparisonView: View {
     }
 
     private static func spoken(_ row: ComparisonRow, _ a: String, _ b: String) -> String {
-        var text: String = "Trajet A : " + a + ". Trajet B : " + b + "."
+        let values: String = L("Trajet A : \(a). Trajet B : \(b).")
         switch row.winner {
-        case .first: text += " Avantage au trajet A."
-        case .second: text += " Avantage au trajet B."
-        case .tie: text += " Égalité."
-        case .none: break
+        case .first: return values + " " + L("Avantage au trajet A.")
+        case .second: return values + " " + L("Avantage au trajet B.")
+        case .tie: return values + " " + L("Égalité.")
+        case .none: return values
         }
-        return text
     }
 }

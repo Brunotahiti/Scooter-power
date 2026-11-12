@@ -9,9 +9,9 @@ struct LeanCard: View {
 
     private var sideText: String {
         switch side {
-        case .left: return "Vers la gauche"
-        case .upright: return "Droit"
-        case .right: return "Vers la droite"
+        case .left: return L("Vers la gauche")
+        case .upright: return L("Droit")
+        case .right: return L("Vers la droite")
         }
     }
 
@@ -55,7 +55,7 @@ struct LeanCard: View {
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Inclinaison")
-        .accessibilityValue("\(text), \(sideText)")
+        .accessibilityValue(text + ", " + sideText)
     }
 }
 

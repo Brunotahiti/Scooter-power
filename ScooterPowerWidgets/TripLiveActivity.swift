@@ -36,9 +36,9 @@ private enum Thrust {
 
     var label: String {
         switch self {
-        case .braking: return "Freinage"
-        case .steady: return "Stable"
-        case .accelerating: return "Accélération"
+        case .braking: return L("Freinage")
+        case .steady: return L("Stable")
+        case .accelerating: return L("Accélération")
         }
     }
 
@@ -52,6 +52,11 @@ private enum Thrust {
 }
 
 struct TripLiveActivity: Widget {
+    init() {
+        // L'extension tourne dans son propre processus : le séparateur décimal s'y règle à part.
+        Formatters.decimalSeparator = Locale.current.decimalSeparator ?? ","
+    }
+
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: TripActivityAttributes.self) { context in
             LockScreenTripView(state: context.state)
@@ -66,7 +71,9 @@ struct TripLiveActivity: Widget {
                         .padding(.leading, 6)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    ValueLabel(title: context.state.isPaused ? "En pause" : "Durée", value: context.state.durationText)
+                    ValueLabel(
+                        title: context.state.isPaused ? L("En pause") : L("Durée"),
+                        value: context.state.durationText)
                         .padding(.trailing, 6)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
@@ -102,8 +109,8 @@ private struct LockScreenTripView: View {
             HStack(spacing: 16) {
                 SpeedLabel(state: state, size: 44)
                 Spacer(minLength: 8)
-                ValueLabel(title: "Distance", value: state.distanceText)
-                ValueLabel(title: state.isPaused ? "En pause" : "Durée", value: state.durationText)
+                ValueLabel(title: L("Distance"), value: state.distanceText)
+                ValueLabel(title: state.isPaused ? L("En pause") : L("Durée"), value: state.durationText)
             }
             DynamicsRow(state: state)
         }
@@ -156,7 +163,7 @@ private struct ThrustGauge: View {
             Text(thrust.label)
                 .font(.system(size: 12, weight: .semibold))
             Spacer(minLength: 4)
-            Text(Formatters.signed(acceleration, digits: 1) + " m/s²")
+            Text(verbatim: Formatters.signed(acceleration, digits: 1) + " m/s²")
                 .font(.system(size: 15, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .contentTransition(.numericText())
@@ -242,9 +249,9 @@ private struct LeanDial: View {
 
     private var caption: String {
         let value: String = Formatters.decimal(abs(degrees), digits: 0) + "°"
-        if degrees >= 1 { return value + " droite" }
-        if degrees <= -1 { return value + " gauche" }
-        return "Droit"
+        if degrees >= 1 { return L("\(value) droite") }
+        if degrees <= -1 { return L("\(value) gauche") }
+        return L("Droit")
     }
 
     var body: some View {
@@ -304,7 +311,7 @@ private struct SpeedLabel: View {
                 .monospacedDigit()
                 .foregroundStyle(state.isPaused ? Palette.secondary : Color.white)
                 .contentTransition(.numericText())
-            Text("km/h")
+            Text(verbatim: state.speedUnit)
                 .font(.system(size: size * 0.36, weight: .bold, design: .rounded))
                 .foregroundStyle(Palette.cyan)
         }

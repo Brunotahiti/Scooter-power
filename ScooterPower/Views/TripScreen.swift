@@ -10,6 +10,9 @@ struct TripScreen: View {
     @State private var showCameraUnavailable = false
     @State private var confirmFinish = false
     @State private var showHistory = false
+    @State private var showSettings = false
+    @State private var showRecords = false
+    private let settings = AppSettings.shared
     @Environment(\.modelContext) private var modelContext
     /// Tous les trajets enregistrés : la source des records.
     @Query private var history: [TripRecord]
@@ -28,6 +31,15 @@ struct TripScreen: View {
             }
             .onChange(of: history.count) { _, _ in
                 loadRecords()
+            }
+            .onChange(of: settings.units) { _, _ in
+                model.settingsChanged()
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
+            .sheet(isPresented: $showRecords) {
+                RecordsSheet(trips: history)
             }
             .modifier(TripPresentations(
                 model: model,
@@ -67,16 +79,23 @@ struct TripScreen: View {
                 HeaderView(
                     state: model.state,
                     onHistory: { showHistory = true },
+                    onSettings: { showSettings = true },
                     onRecalibrate: { model.recalibrate() })
 
                 if model.locationDenied {
                     locationDeniedBanner
                 }
                 if model.gpsWeak {
-                    banner(icon: "location.slash", text: "Signal GPS faible")
+                    banner(icon: "location.slash", text: L("Signal GPS faible"))
                 }
 
-                SpeedometerView(speedKmh: model.speedKmh, scale: 0.87)
+                SpeedometerView(
+                    speed: model.speedValue,
+                    unit: model.speedUnit,
+                    maxSpeed: model.speedometerMax,
+                    labelStep: model.speedometerStep,
+                    isAlert: model.speedAlertActive,
+                    scale: 0.87)
 
                 speedCards
                 tripCards
@@ -94,6 +113,13 @@ struct TripScreen: View {
                     beaten: model.beatenRecords,
                     isRunning: model.sprintRunning,
                     elapsedText: model.sprintElapsedText)
+                    // À l'arrêt, toucher la carte ouvre l'écran des records.
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if model.state == .idle {
+                            showRecords = true
+                        }
+                    }
 
                 LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
 
@@ -120,19 +146,21 @@ struct TripScreen: View {
 
     private var speedCards: some View {
         HStack(spacing: 10) {
-            BigStatCard(icon: "mountain.2", title: "Vitesse maximale", value: model.maxSpeedText, unit: "km/h")
-            BigStatCard(icon: "gauge.with.needle", title: "Vitesse moyenne", value: model.averageSpeedText, unit: "km/h")
+            BigStatCard(icon: "mountain.2", title: L("Vitesse maximale"), value: model.maxSpeedText, unit: model.speedUnit)
+            BigStatCard(
+                icon: "gauge.with.needle", title: L("Vitesse moyenne"),
+                value: model.averageSpeedText, unit: model.speedUnit)
         }
     }
 
     private var tripCards: some View {
         HStack(spacing: 10) {
             DualStatCard(
-                first: .init(icon: "mappin", title: "Distance", value: model.distanceText),
-                second: .init(icon: "triangle", title: "Altitude", value: model.altitudeText))
+                first: .init(icon: "mappin", title: L("Distance"), value: model.distanceText),
+                second: .init(icon: "triangle", title: L("Altitude"), value: model.altitudeText))
             DualStatCard(
-                first: .init(icon: "stopwatch", title: "Durée de roulage", value: model.movingDurationText),
-                second: .init(icon: nil, title: "Durée totale", value: model.totalDurationText))
+                first: .init(icon: "stopwatch", title: L("Durée de roulage"), value: model.movingDurationText),
+                second: .init(icon: nil, title: L("Durée totale"), value: model.totalDurationText))
         }
     }
 
@@ -237,7 +265,11 @@ private struct TripPresentations: ViewModifier {
             }
             .fullScreenCover(isPresented: summaryPresented) {
                 if let summary = model.summary {
-                    SummaryView(summary: summary, onDone: { model.reset() })
+                    SummaryView(
+                        summary: summary,
+                        route: model.route,
+                        date: model.startDate,
+                        onDone: { model.reset() })
                 }
             }
             .confirmationDialog("Terminer le trajet ?", isPresented: $confirmFinish, titleVisibility: .visible) {

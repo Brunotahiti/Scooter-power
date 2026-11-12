@@ -32,7 +32,13 @@ struct LandscapeTripView: View {
         // À l'échelle 1, le compteur occupe environ 290 pt de large.
         let byWidth: CGFloat = available / 290
         let scale: CGFloat = max(1, min(byHeight, byWidth))
-        return SpeedometerView(speedKmh: model.speedKmh, scale: scale)
+        return SpeedometerView(
+            speed: model.speedValue,
+            unit: model.speedUnit,
+            maxSpeed: model.speedometerMax,
+            labelStep: model.speedometerStep,
+            isAlert: model.speedAlertActive,
+            scale: scale)
             .frame(width: available)
             .frame(maxHeight: .infinity)
     }
@@ -45,12 +51,14 @@ struct LandscapeTripView: View {
                 status
             }
             HStack(spacing: 8) {
-                LandscapeTile(title: "Vitesse max", value: model.maxSpeedText, unit: "km/h", tint: Theme.textPrimary)
-                LandscapeTile(title: "Distance", value: model.distanceText, unit: "", tint: Theme.textPrimary)
+                LandscapeTile(
+                    title: L("Vitesse max"), value: model.maxSpeedText,
+                    unit: model.speedUnit, tint: Theme.textPrimary)
+                LandscapeTile(title: L("Distance"), value: model.distanceText, unit: "", tint: Theme.textPrimary)
             }
             HStack(spacing: 8) {
                 LandscapeTile(
-                    title: "Accélération", value: model.accelerationText, unit: "m/s²",
+                    title: L("Accélération"), value: model.accelerationText, unit: "m/s²",
                     tint: model.accelerationLevel.direction == 0 ? Theme.textPrimary : model.accelerationLevel.color)
                 LandscapeTile(title: leanTitle, value: model.leanText, unit: "", tint: Theme.cyan)
             }
@@ -61,9 +69,9 @@ struct LandscapeTripView: View {
 
     private var leanTitle: String {
         switch model.leanSide {
-        case .left: return "Incl. gauche"
-        case .upright: return "Inclinaison"
-        case .right: return "Incl. droite"
+        case .left: return L("Incl. gauche")
+        case .upright: return L("Inclinaison")
+        case .right: return L("Incl. droite")
         }
     }
 
@@ -72,16 +80,16 @@ struct LandscapeTripView: View {
         let color: Color
         switch model.state {
         case .idle:
-            text = "Prêt à partir"
+            text = L("Prêt à partir")
             color = Theme.textSecondary
         case .recording:
-            text = model.gpsWeak ? "Signal GPS faible" : "Enregistrement · " + model.totalDurationText
+            text = model.gpsWeak ? L("Signal GPS faible") : L("Enregistrement") + " · " + model.totalDurationText
             color = model.gpsWeak ? Theme.orange : Theme.red
         case .paused:
-            text = "En pause · " + model.totalDurationText
+            text = L("En pause") + " · " + model.totalDurationText
             color = Theme.textSecondary
         case .finished:
-            text = "Trajet terminé"
+            text = L("Trajet terminé")
             color = Theme.textSecondary
         }
         return HStack(spacing: 6) {
@@ -124,10 +132,10 @@ struct LandscapeTripView: View {
                         .background(Theme.card, in: Circle())
                         .overlay(Circle().strokeBorder(Theme.cardBorder, lineWidth: 1))
                 }
-                .accessibilityLabel(model.state == .paused ? "Reprendre" : "Mettre en pause")
+                .accessibilityLabel(model.state == .paused ? L("Reprendre") : L("Mettre en pause"))
             }
             Button(action: onMain) {
-                Text(isIdle ? "Démarrer" : "Terminer")
+                Text(isIdle ? L("Démarrer") : L("Terminer"))
                     .font(.system(size: 19, weight: .bold))
                     .lineLimit(1)
                     .frame(maxWidth: .infinity)

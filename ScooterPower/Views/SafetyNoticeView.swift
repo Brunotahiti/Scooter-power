@@ -16,10 +16,10 @@ struct SafetyNoticeView: View {
                 .font(.system(size: 28, weight: .bold))
 
             VStack(alignment: .leading, spacing: 14) {
-                point("hand.raised.fill", "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt.")
-                point("iphone.gen3", "Fixez solidement le téléphone au guidon avant de partir.")
-                point("eye.fill", "Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule.")
-                point("flag.checkered", "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger.")
+                point("hand.raised.fill", L("Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt."))
+                point("iphone.gen3", L("Fixez solidement le téléphone au guidon avant de partir."))
+                point("eye.fill", L("Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule."))
+                point("flag.checkered", L("Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger."))
             }
 
             Spacer(minLength: 0)

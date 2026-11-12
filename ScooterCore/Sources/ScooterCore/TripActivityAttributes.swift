@@ -10,6 +10,8 @@ public struct TripActivityAttributes: ActivityAttributes, Sendable {
     public struct ContentState: Codable, Hashable, Sendable {
         /// Vitesse sans unité, ou `--`.
         public var speedText: String
+        /// « km/h » ou « mph ».
+        public var speedUnit: String
         public var distanceText: String
         public var durationText: String
         public var isPaused: Bool
@@ -18,9 +20,10 @@ public struct TripActivityAttributes: ActivityAttributes, Sendable {
         /// Inclinaison en degrés entiers. Positive vers la droite.
         public var leanDegrees: Double
 
-        public init(speedText: String, distanceText: String, durationText: String, isPaused: Bool,
+        public init(speedText: String, speedUnit: String, distanceText: String, durationText: String, isPaused: Bool,
                     acceleration: Double, leanDegrees: Double) {
             self.speedText = speedText
+            self.speedUnit = speedUnit
             self.distanceText = distanceText
             self.durationText = durationText
             self.isPaused = isPaused

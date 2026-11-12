@@ -12,19 +12,25 @@ struct TripFigures: View {
     }
 
     private var rows: [Row] {
+        let units: UnitSystem = AppSettings.shared.units
+        let distance: String = Formatters.decimal(units.distance(fromMeters: summary.distanceMeters), digits: 1)
+            + " " + units.distanceUnit
+        let top: String = Formatters.decimal(units.speed(fromKmh: summary.maxSpeedKmh), digits: 0) + " " + units.speedUnit
+        let average: String = Formatters.decimal(units.speed(fromKmh: summary.averageSpeedKmh), digits: 0)
+            + " " + units.speedUnit
         var entries: [(String, String)] = [
-            ("Distance", Formatters.decimal(summary.distanceMeters / 1000, digits: 1) + " km"),
-            ("Durée de roulage", Formatters.duration(summary.movingDuration)),
-            ("Durée totale", Formatters.duration(summary.totalDuration)),
-            ("Vitesse maximale", Formatters.decimal(summary.maxSpeedKmh, digits: 0) + " km/h"),
-            ("Vitesse moyenne", Formatters.decimal(summary.averageSpeedKmh, digits: 0) + " km/h"),
+            (L("Distance"), distance),
+            (L("Durée de roulage"), Formatters.duration(summary.movingDuration)),
+            (L("Durée totale"), Formatters.duration(summary.totalDuration)),
+            (L("Vitesse maximale"), top),
+            (L("Vitesse moyenne"), average),
         ]
         for interval in SpeedInterval.all {
             entries.append((interval.label + " km/h", Self.sprint(summary.best(interval))))
         }
-        entries.append(("Pic d'accélération", Formatters.signed(summary.peakAcceleration, digits: 1) + " m/s²"))
-        entries.append(("Inclinaison max. gauche", Formatters.decimal(summary.maxLeanLeftDegrees, digits: 0) + "°"))
-        entries.append(("Inclinaison max. droite", Formatters.decimal(summary.maxLeanRightDegrees, digits: 0) + "°"))
+        entries.append((L("Pic d'accélération"), Formatters.signed(summary.peakAcceleration, digits: 1) + " m/s²"))
+        entries.append((L("Inclinaison max. gauche"), Formatters.decimal(summary.maxLeanLeftDegrees, digits: 0) + "°"))
+        entries.append((L("Inclinaison max. droite"), Formatters.decimal(summary.maxLeanRightDegrees, digits: 0) + "°"))
         var result: [Row] = []
         for index in entries.indices {
             result.append(Row(id: index, title: entries[index].0, value: entries[index].1))

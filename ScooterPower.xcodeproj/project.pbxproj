@@ -178,6 +178,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				fr,
+				en,
 				Base,
 			);
 			mainGroup = 5C0000000000000000000006;

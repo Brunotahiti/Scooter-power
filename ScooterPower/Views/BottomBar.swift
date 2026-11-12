@@ -10,7 +10,7 @@ struct BottomBar: View {
 
     var body: some View {
         HStack(spacing: 10) {
-            sideButton(icon: "map", label: "Carte", action: onMap)
+            sideButton(icon: "map", label: L("Carte"), action: onMap)
 
             if state == .recording || state == .paused {
                 Button(action: onTogglePause) {
@@ -20,11 +20,11 @@ struct BottomBar: View {
                         .background(Theme.card, in: Circle())
                         .overlay(Circle().strokeBorder(Theme.cardBorder, lineWidth: 1))
                 }
-                .accessibilityLabel(state == .paused ? "Reprendre" : "Mettre en pause")
+                .accessibilityLabel(state == .paused ? L("Reprendre") : L("Mettre en pause"))
             }
 
             Button(action: onMain) {
-                Text(state == .idle ? "Démarrer le trajet" : "Terminer le trajet")
+                Text(state == .idle ? L("Démarrer le trajet") : L("Terminer le trajet"))
                     .font(.system(size: 19, weight: .bold))
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
@@ -37,7 +37,7 @@ struct BottomBar: View {
                         in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
 
-            sideButton(icon: "camera", label: "Photo", action: onPhoto)
+            sideButton(icon: "camera", label: L("Photo"), action: onPhoto)
         }
         .foregroundStyle(Theme.textPrimary)
         .padding(.horizontal, 16)

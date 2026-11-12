@@ -1,3 +1,4 @@
+import ScooterCore
 import SwiftData
 import SwiftUI
 
@@ -5,6 +6,11 @@ import SwiftUI
 struct ScooterPowerApp: App {
     /// Vrai une fois l'avertissement de sécurité lu au premier lancement.
     @AppStorage("safetyNoticeAccepted") private var safetyNoticeAccepted = false
+
+    init() {
+        // Virgule ou point décimal, selon la langue et la région de l'appareil.
+        Formatters.decimalSeparator = Locale.current.decimalSeparator ?? ","
+    }
 
     var body: some Scene {
         WindowGroup {

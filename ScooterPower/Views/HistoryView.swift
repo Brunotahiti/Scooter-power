@@ -25,6 +25,14 @@ struct HistoryView: View {
                             }
                         }
                     }
+                    ToolbarItem(placement: .bottomBar) {
+                        NavigationLink {
+                            RecordsView(trips: trips)
+                        } label: {
+                            Label("Records", systemImage: "trophy.fill")
+                                .labelStyle(.titleAndIcon)
+                        }
+                    }
                 }
         }
         .preferredColorScheme(.dark)
@@ -62,9 +70,12 @@ private struct HistoryRow: View {
     let trip: TripRecord
 
     private var details: String {
-        let distance: String = Formatters.decimal(trip.distanceMeters / 1000, digits: 1) + " km"
+        let units: UnitSystem = AppSettings.shared.units
+        let distance: String = Formatters.decimal(units.distance(fromMeters: trip.distanceMeters), digits: 1)
+            + " " + units.distanceUnit
         let duration: String = Formatters.duration(trip.totalDuration)
-        let top: String = Formatters.decimal(trip.maxSpeedKmh, digits: 0) + " km/h max"
+        let speed: String = Formatters.decimal(units.speed(fromKmh: trip.maxSpeedKmh), digits: 0)
+        let top: String = L("\(speed) \(units.speedUnit) max")
         return distance + " · " + duration + " · " + top
     }
 

@@ -4,14 +4,15 @@ import ScooterCore
 struct HeaderView: View {
     let state: TripState
     let onHistory: () -> Void
+    let onSettings: () -> Void
     let onRecalibrate: () -> Void
 
     private var title: String {
         switch state {
-        case .idle: return "Prêt à partir"
-        case .recording: return "Trajet en cours"
-        case .paused: return "En pause"
-        case .finished: return "Trajet terminé"
+        case .idle: return L("Prêt à partir")
+        case .recording: return L("Trajet en cours")
+        case .paused: return L("En pause")
+        case .finished: return L("Trajet terminé")
         }
     }
 
@@ -44,6 +45,7 @@ struct HeaderView: View {
             Menu {
                 Button("Recalibrer l'inclinaison", systemImage: "scope", action: onRecalibrate)
                     .disabled(state != .recording && state != .paused)
+                Button("Réglages", systemImage: "gearshape", action: onSettings)
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 20, weight: .bold))
@@ -59,9 +61,9 @@ struct HeaderView: View {
     private var statusPill: some View {
         switch state {
         case .recording:
-            pill(text: "Enregistrement", color: Theme.red)
+            pill(text: L("Enregistrement"), color: Theme.red)
         case .paused:
-            pill(text: "En pause", color: Theme.gaugeIdle)
+            pill(text: L("En pause"), color: Theme.gaugeIdle)
         case .idle, .finished:
             EmptyView()
         }

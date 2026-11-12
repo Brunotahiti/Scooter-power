@@ -3,13 +3,25 @@ import ScooterCore
 
 struct SummaryView: View {
     let summary: TripSummary
+    let route: [Coordinate]
+    let date: Date?
     let onDone: () -> Void
+
+    private var shareTitle: String {
+        (date ?? Date()).formatted(date: .abbreviated, time: .shortened)
+    }
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("Résumé du trajet")
-                .font(.system(size: 28, weight: .bold))
-                .padding(.top, 16)
+            HStack {
+                Text("Résumé du trajet")
+                    .font(.system(size: 28, weight: .bold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                Spacer(minLength: 8)
+                ShareMenu(summary: summary, route: route, title: shareTitle, date: date)
+            }
+            .padding(.top, 16)
 
             ScrollView {
                 TripFigures(summary: summary)

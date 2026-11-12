@@ -5,11 +5,11 @@ import ScooterCore
 extension AccelerationLevel {
     var label: String {
         switch self {
-        case .brakingHard: return "Freinage fort"
-        case .braking: return "Freinage"
-        case .stable: return "Stable"
-        case .accelerating: return "Accélération"
-        case .acceleratingHard: return "Accélération forte"
+        case .brakingHard: return L("Freinage fort")
+        case .braking: return L("Freinage")
+        case .stable: return L("Stable")
+        case .accelerating: return L("Accélération")
+        case .acceleratingHard: return L("Accélération forte")
         }
     }
 
@@ -59,7 +59,7 @@ struct AccelerationCard: View {
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Poussée d'accélération")
-        .accessibilityValue("\(valueText) mètres par seconde carrée, \(level.label)")
+        .accessibilityValue(L("\(valueText) mètres par seconde carrée, \(level.label)"))
     }
 
     private var readout: some View {
@@ -77,7 +77,7 @@ struct AccelerationCard: View {
                 .font(.system(size: 40, weight: .black, design: .rounded))
                 .monospacedDigit()
                 .contentTransition(.numericText())
-            Text("m/s²")
+            Text(verbatim: "m/s²")
                 .font(.system(size: 21, weight: .bold, design: .rounded))
         }
         .lineLimit(1)
