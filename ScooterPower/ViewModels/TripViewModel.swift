@@ -127,6 +127,8 @@ final class TripViewModel {
         location.stop()
         motion.stop()
         stopRefreshing()
+        // Le rafraîchissement s'arrête : l'annonce ne se refermerait plus toute seule.
+        recordBanner = nil
         liveActivity.end()
         UIApplication.shared.isIdleTimerDisabled = false
         // Le résumé est prêt avant que `state` ne passe à `.finished` : la vue l'enregistre à ce moment-là.
