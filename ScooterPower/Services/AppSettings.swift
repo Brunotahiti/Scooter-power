@@ -28,16 +28,23 @@ final class AppSettings {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
+
+        // Tout est d'abord calculé dans des variables locales : une propriété
+        // observable ne peut pas être relue tant que l'objet n'est pas entièrement initialisé.
+        let chosenUnits: UnitSystem
         if let raw = defaults.string(forKey: Key.units), let stored = UnitSystem(rawValue: raw) {
-            units = stored
+            chosenUnits = stored
         } else {
             // Premier lancement : miles là où la région de l'appareil les utilise.
-            units = Locale.current.measurementSystem == .metric ? .metric : .imperial
+            chosenUnits = Locale.current.measurementSystem == .metric ? .metric : .imperial
         }
-        speedAlertEnabled = defaults.bool(forKey: Key.speedAlertEnabled)
-        let storedThreshold: Double = defaults.double(forKey: Key.speedAlertKmh)
+
         // Par défaut, un seuil rond dans l'unité affichée : 90 km/h ou 55 mph.
-        let defaultThreshold: Double = units == .metric ? 90 : units.kmh(fromSpeed: 55)
+        let defaultThreshold: Double = chosenUnits == .metric ? 90 : chosenUnits.kmh(fromSpeed: 55)
+        let storedThreshold: Double = defaults.double(forKey: Key.speedAlertKmh)
+
+        units = chosenUnits
+        speedAlertEnabled = defaults.bool(forKey: Key.speedAlertEnabled)
         speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
     }
 
