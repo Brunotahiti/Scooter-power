@@ -115,8 +115,9 @@ final class TripViewModel {
         motion.stop()
         stopRefreshing()
         UIApplication.shared.isIdleTimerDisabled = false
-        refresh()
+        // Le résumé est prêt avant que `state` ne passe à `.finished` : la vue l'enregistre à ce moment-là.
         summary = session.summary(at: time)
+        refresh()
     }
 
     func reset() {

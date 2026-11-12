@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 import ScooterCore
 import UIKit
@@ -8,12 +9,17 @@ struct TripScreen: View {
     @State private var showCamera = false
     @State private var showCameraUnavailable = false
     @State private var confirmFinish = false
+    @State private var showHistory = false
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
 
     var body: some View {
         ScrollView {
             VStack(spacing: 6) {
-                HeaderView(state: model.state, onRecalibrate: { model.recalibrate() })
+                HeaderView(
+                    state: model.state,
+                    onHistory: { showHistory = true },
+                    onRecalibrate: { model.recalibrate() })
 
                 if model.locationDenied {
                     locationDeniedBanner
@@ -71,6 +77,14 @@ struct TripScreen: View {
                 onMain: { mainAction() },
                 onPhoto: { takePhoto() })
         }
+        .sheet(isPresented: $showHistory) {
+            HistoryView()
+        }
+        .onChange(of: model.state) { _, newState in
+            if newState == .finished {
+                saveTrip()
+            }
+        }
         .sheet(isPresented: $showMap) {
             MapSheet(route: model.route, showsUser: !model.isDemo)
         }
@@ -101,6 +115,13 @@ struct TripScreen: View {
                     model.reset()
                 }
             })
+    }
+
+    /// Enregistre le trajet qui vient de se terminer dans l'historique.
+    private func saveTrip() {
+        guard let summary = model.summary, let startDate = model.startDate else { return }
+        let record = TripRecord(startDate: startDate, summary: summary, route: model.route)
+        modelContext.insert(record)
     }
 
     private func mainAction() {

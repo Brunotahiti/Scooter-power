@@ -17,7 +17,7 @@ struct MapSheet: View {
     }
 
     private var coordinates: [CLLocationCoordinate2D] {
-        route.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }
+        route.map(\.mapCoordinate)
     }
 
     var body: some View {

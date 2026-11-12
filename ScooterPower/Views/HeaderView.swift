@@ -3,6 +3,7 @@ import ScooterCore
 
 struct HeaderView: View {
     let state: TripState
+    let onHistory: () -> Void
     let onRecalibrate: () -> Void
 
     private var title: String {
@@ -29,6 +30,16 @@ struct HeaderView: View {
             statusPill
 
             Spacer(minLength: 0)
+
+            if state == .idle {
+                Button(action: onHistory) {
+                    Image(systemName: "clock.arrow.circlepath")
+                        .font(.system(size: 20, weight: .semibold))
+                        .frame(width: 44, height: 40)
+                        .contentShape(Rectangle())
+                }
+                .accessibilityLabel("Historique des trajets")
+            }
 
             Menu {
                 Button("Recalibrer l'inclinaison", systemImage: "scope", action: onRecalibrate)
