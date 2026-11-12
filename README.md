@@ -3,7 +3,12 @@
 Application iPhone qui affiche en direct le tableau de bord d'un trajet en
 scooter, à partir des capteurs du téléphone fixé au guidon : vitesse GPS,
 vitesse maximale et moyenne, distance, altitude, durées, poussée
-d'accélération et inclinaison.
+d'accélération, inclinaison, temps 0–50 et 0–80 km/h.
+
+Chaque trajet terminé est conservé dans l'historique avec son tracé. Le
+trajet en cours s'affiche aussi sur l'écran verrouillé et dans la Dynamic
+Island, et l'app passe en compteur plein écran quand le téléphone est en
+paysage.
 
 ## Prérequis
 
@@ -15,14 +20,16 @@ d'accélération et inclinaison.
 ## Lancer l'app
 
 1. Ouvrir `ScooterPower.xcodeproj`.
-2. Dans la cible *ScooterPower*, onglet *Signing & Capabilities*, choisir son
-   équipe. L'identifiant de bundle est `com.brunotahiti.ScooterPower`.
-3. Lancer sur un iPhone.
+2. Choisir son équipe dans l'onglet *Signing & Capabilities* des **deux**
+   cibles : *ScooterPower* et *ScooterPowerWidgetsExtension*.
+3. Si l'identifiant de bundle de l'app est modifié, celui de l'extension doit
+   rester préfixé par lui : `<identifiant de l'app>.Widgets`.
+4. Sélectionner le schéma *ScooterPower* et lancer sur un iPhone.
 
 > **État de vérification.** La logique (`ScooterCore`) est couverte par des
-> tests qui passent. L'app elle-même a été écrite sans Xcode : elle n'a été
-> ni compilée ni lancée par son auteur. La première compilation peut
-> demander quelques retouches.
+> tests qui passent. L'interface et le projet Xcode sont écrits sans Xcode :
+> chaque nouveauté peut demander quelques retouches à la première
+> compilation.
 
 ## Utilisation
 
@@ -32,8 +39,10 @@ d'accélération et inclinaison.
    l'avant du scooter.
 3. Si le téléphone a bougé dans son support : menu **•••** puis
    **Recalibrer l'inclinaison**, scooter droit.
-4. **Terminer le trajet** affiche le résumé. Les trajets ne sont pas
-   sauvegardés.
+4. **Terminer le trajet** affiche le résumé et enregistre le trajet.
+   L'historique s'ouvre par l'icône d'horloge, visible quand aucun trajet
+   n'est en cours.
+5. En paysage, démarrer le trajet dans la position où le téléphone restera.
 
 ## Ce que mesurent les capteurs
 
@@ -43,17 +52,20 @@ d'accélération et inclinaison.
 - **Durée de roulage** : temps passé au-dessus de 3 km/h.
 - **Accélération** : accéléromètre projeté sur l'axe de marche, corrigé par
   la dérivée de la vitesse GPS. « Forte » à partir de ±2,5 m/s².
-- **Inclinaison** : direction de la gravité par rapport à la calibration.
-  En virage, la force centrifuge maintient la gravité apparente dans l'axe
-  du scooter : **l'angle affiché est inférieur à l'inclinaison réelle**.
-  La mesure est fiable à l'arrêt et à basse vitesse.
+- **0–50 et 0–80 km/h** : le chrono s'arme à l'arrêt, part quand le scooter
+  démarre et s'annule si la vitesse retombe. Le GPS ne donnant qu'un point
+  par seconde, les passages sont interpolés : précision d'environ 0,2 s.
+- **Inclinaison** : sous 10 km/h, direction de la gravité par rapport à la
+  calibration. Au-dessus de 25 km/h, physique du virage : vitesse GPS ×
+  vitesse de lacet du gyroscope ÷ gravité. Entre les deux, un mélange.
 
 ## Structure
 
 ```
 ScooterCore/      package Swift : calculs, machine à états, formatage (testé)
-ScooterPower/     app : capteurs, view model, vues SwiftUI
-Config/           Info.plist (mode d'arrière-plan « location »)
+ScooterPower/         app : capteurs, view model, vues SwiftUI, historique
+ScooterPowerWidgets/  extension : activité en direct et Dynamic Island
+Config/           fichiers Info.plist des deux cibles
 docs/superpowers/ spécification et plan d'implémentation
 ```
 
