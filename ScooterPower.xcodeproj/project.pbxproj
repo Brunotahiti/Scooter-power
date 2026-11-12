@@ -342,6 +342,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Scooter Power";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scooter Power utilise l'appareil photo pour prendre des photos pendant le trajet.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.";
@@ -378,6 +379,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Scooter Power";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scooter Power utilise l'appareil photo pour prendre des photos pendant le trajet.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.";
