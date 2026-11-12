@@ -1,8 +1,12 @@
 import Foundation
 
-/// Formatage français, sans `Locale` pour rester identique sur toutes les
-/// plateformes.
+/// Formatage des nombres, sans `Locale` pour rester identique sur toutes les
+/// plateformes. Le séparateur décimal se règle une fois au lancement.
 public enum Formatters {
+    /// Virgule par défaut (français). L'app le remplace par celui de la langue
+    /// de l'interface au démarrage.
+    public static var decimalSeparator = ","
+
     /// `HH:MM:SS`. Les durées négatives ou non finies donnent `00:00:00`.
     public static func duration(_ seconds: TimeInterval) -> String {
         guard seconds.isFinite, seconds > 0 else { return "00:00:00" }
@@ -14,7 +18,7 @@ public enum Formatters {
     public static func decimal(_ value: Double, digits: Int) -> String {
         guard value.isFinite else { return "--" }
         let text = String(format: "%.\(max(0, digits))f", value)
-        return text.replacingOccurrences(of: ".", with: ",")
+        return text.replacingOccurrences(of: ".", with: decimalSeparator)
     }
 
     /// Comme `decimal`, avec un signe explicite : `+2,8`, `−1,3`, `0,0`.
