@@ -1,8 +1,8 @@
 import SwiftUI
 import ScooterCore
 
-/// Compteur en arc. `speed` est déjà dans l'unité affichée ; `nil` affiche `--`.
-/// `scale` agrandit tout le compteur (1 = taille du portrait, 190 pt de haut).
+/// Compteur en arc du mode portrait. `speed` est déjà dans l'unité affichée ;
+/// `nil` affiche `--`. `scale` agrandit tout le compteur (1 = 190 pt d'arc).
 struct SpeedometerView: View {
     let speed: Double?
     /// « km/h » ou « mph ».
@@ -11,16 +11,21 @@ struct SpeedometerView: View {
     var maxSpeed: Double = 140
     /// Écart entre deux chiffres de l'échelle.
     var labelStep: Double = 20
-    /// Vrai quand le seuil d'alerte est dépassé : le compteur passe au rouge.
+    /// Vrai quand le seuil d'alerte est dépassé : la vitesse passe au rouge.
     var isAlert: Bool = false
+    /// Qualité du signal GPS, de 0 à 4 barres.
+    var signalBars: Int = 4
     var scale: CGFloat = 1
 
     static let baseHeight: CGFloat = 190
+    /// Hauteur de la silhouette de scooter, sous l'arc.
+    private static let iconHeight: CGFloat = 34
 
-    private var tint: Color { isAlert ? Theme.red : Theme.cyan }
-    /// L'arc couvre 200° : de 190° (0 km/h, à gauche) à −10° (140 km/h, à droite).
+    /// L'arc couvre 200° : de 190° (0, à gauche) à −10° (fin d'échelle, à droite).
     private static let startAngle: Double = 190
     private static let sweep: Double = 200
+    /// Part de l'échelle à partir de laquelle commence la zone orange.
+    private static let hotZone: Double = 100.0 / 140.0
 
     private var fraction: Double {
         min(1, max(0, (speed ?? 0) / maxSpeed))
@@ -35,13 +40,21 @@ struct SpeedometerView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Canvas { context, size in
-                draw(in: &context, size: size)
+        VStack(spacing: 0) {
+            ZStack(alignment: .bottom) {
+                Canvas { context, size in
+                    draw(in: &context, size: size)
+                }
+                readout
             }
-            readout
+            .frame(height: Self.baseHeight * scale)
+
+            Image(systemName: "scooter")
+                .font(.system(size: 30 * scale, weight: .regular))
+                .foregroundStyle(Theme.cyan)
+                .shadow(color: Theme.cyan.opacity(0.9), radius: 8)
+                .frame(height: Self.iconHeight * scale)
         }
-        .frame(height: Self.baseHeight * scale)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Vitesse actuelle")
         .accessibilityValue(speed == nil ? L("inconnue") : speedText + " " + unit)
@@ -49,31 +62,45 @@ struct SpeedometerView: View {
 
     private var readout: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 6 * scale) {
+            HStack(spacing: 5 * scale) {
                 Image(systemName: "location.north.fill")
                     .rotationEffect(.degrees(35))
-                Text("GPS")
+                Text(verbatim: "GPS")
+                signal
             }
-            .font(.system(size: 15 * scale, weight: .semibold))
-            .foregroundStyle(tint)
+            .font(.system(size: 15 * scale, weight: .bold))
+            .foregroundStyle(signalBars == 0 ? Theme.textSecondary : Theme.cyan)
 
             Text(speedText)
-                .font(.system(size: 72 * scale, weight: .black, design: .rounded))
+                .font(.system(size: 76 * scale, weight: .black))
+                .italic()
                 .monospacedDigit()
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
-                .frame(height: 74 * scale)
+                .frame(height: 76 * scale)
                 .foregroundStyle(isAlert ? Theme.red : Theme.textPrimary)
+                .shadow(color: (isAlert ? Theme.red : Theme.cyan).opacity(0.4), radius: 8)
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.2), value: roundedSpeed)
 
             Text(verbatim: unit)
-                .font(.system(size: 20 * scale, weight: .bold, design: .rounded))
+                .font(.system(size: 20 * scale, weight: .bold))
             Text("Vitesse actuelle")
-                .font(.system(size: 15 * scale))
+                .font(.system(size: 14 * scale))
                 .foregroundStyle(Theme.textSecondary)
         }
         .foregroundStyle(Theme.textPrimary)
+    }
+
+    /// Quatre barres de hauteur croissante ; celles au-delà du niveau sont éteintes.
+    private var signal: some View {
+        HStack(alignment: .bottom, spacing: 2 * scale) {
+            ForEach(0..<4, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 1)
+                    .fill(index < signalBars ? Theme.cyan : Theme.gaugeIdle)
+                    .frame(width: 3.5 * scale, height: (5 + 3 * CGFloat(index)) * scale)
+            }
+        }
     }
 
     private func draw(in context: inout GraphicsContext, size: CGSize) {
@@ -93,10 +120,27 @@ struct SpeedometerView: View {
             return CGPoint(x: center.x + dx, y: center.y - dy)
         }
 
-        let current: Double = fraction * maxSpeed
-        let accent: Color = tint
+        func arc(from: Double, to: Double, radius r: CGFloat) -> Path {
+            var path = Path()
+            let steps: Int = max(2, Int(abs(to - from) / maxSpeed * 100))
+            for index in 0...steps {
+                let value: Double = from + (to - from) * Double(index) / Double(steps)
+                let p: CGPoint = point(at: value, radius: r)
+                if index == 0 {
+                    path.move(to: p)
+                } else {
+                    path.addLine(to: p)
+                }
+            }
+            return path
+        }
 
-        // Graduations : fines toutes les 2 unités, longues toutes les 10.
+        let current: Double = fraction * maxSpeed
+        let hotStart: Double = maxSpeed * Self.hotZone
+        let accent: Color = isAlert ? Theme.red : Theme.cyan
+
+        // Graduations : fines toutes les 2 unités, longues toutes les 10. La
+        // fin d'échelle est toujours colorée, de l'orange au rouge.
         let lastStep: Int = max(1, Int((maxSpeed / 2).rounded()))
         for step in 0...lastStep {
             let value: Double = Double(step) * 2
@@ -104,49 +148,60 @@ struct SpeedometerView: View {
             let length: CGFloat = (isMajor ? 15 : 8) * k
             let width: CGFloat = (isMajor ? 2.5 : 1.2) * k
             let lit: Bool = value <= current && current > 0
-            let color: Color = lit ? accent : Theme.gaugeIdle
+            let color: Color
+            if value >= hotStart {
+                let heat: Double = (value - hotStart) / max(1, maxSpeed - hotStart)
+                let base: Color = heat < 0.5 ? Theme.orange : Theme.red
+                color = base.opacity(lit ? 1 : 0.6)
+            } else {
+                color = lit ? accent : Theme.gaugeIdle
+            }
             var tick = Path()
             tick.move(to: point(at: value, radius: radius))
             tick.addLine(to: point(at: value, radius: radius - length))
             context.stroke(tick, with: .color(color), style: StrokeStyle(lineWidth: width, lineCap: .round))
         }
 
-        // Arc parcouru, avec halo.
+        // Liseré extérieur : discret jusqu'à la zone orange, lumineux ensuite.
+        let rimRadius: CGFloat = radius + 6 * k
+        context.stroke(
+            arc(from: 0, to: hotStart, radius: rimRadius), with: .color(Theme.cyan.opacity(0.35)),
+            style: StrokeStyle(lineWidth: 2 * k, lineCap: .round))
+        var hotGlow = context
+        hotGlow.addFilter(.shadow(color: Theme.orange.opacity(0.8), radius: 6 * k))
+        hotGlow.stroke(
+            arc(from: hotStart, to: maxSpeed, radius: rimRadius),
+            with: .linearGradient(
+                Gradient(colors: [Theme.orange, Theme.red]),
+                startPoint: point(at: hotStart, radius: rimRadius), endPoint: point(at: maxSpeed, radius: rimRadius)),
+            style: StrokeStyle(lineWidth: 3 * k, lineCap: .round))
+
+        // Arc parcouru et repère, avec halo.
         if current > 0 {
-            var arc = Path()
-            let steps: Int = max(2, Int(current))
-            for index in 0...steps {
-                let value: Double = current * Double(index) / Double(steps)
-                let p: CGPoint = point(at: value, radius: radius + 5 * k)
-                if index == 0 {
-                    arc.move(to: p)
-                } else {
-                    arc.addLine(to: p)
-                }
-            }
             let thick = StrokeStyle(lineWidth: 5 * k, lineCap: .round, lineJoin: .round)
             var glow = context
             glow.addFilter(.shadow(color: accent.opacity(0.9), radius: 7 * k))
-            glow.stroke(arc, with: .color(accent), style: thick)
+            glow.stroke(arc(from: 0, to: min(current, hotStart), radius: rimRadius), with: .color(accent), style: thick)
 
             var marker = Path()
-            marker.move(to: point(at: current, radius: radius + 9 * k))
+            marker.move(to: point(at: current, radius: radius + 10 * k))
             marker.addLine(to: point(at: current, radius: radius - 20 * k))
-            glow.stroke(marker, with: .color(accent), style: thick)
+            let markerColor: Color = current > hotStart ? Theme.orange : accent
+            glow.stroke(marker, with: .color(markerColor), style: thick)
         }
 
         // Chiffres.
         for value in stride(from: 0.0, through: maxSpeed, by: max(1, labelStep)) {
             let label = Text(Formatters.decimal(value, digits: 0))
-                .font(.system(size: 14 * k, weight: .medium))
+                .font(.system(size: 14 * k, weight: .semibold))
                 .foregroundColor(Theme.textPrimary)
-            context.draw(label, at: point(at: value, radius: radius + 24 * k))
+            context.draw(label, at: point(at: value, radius: radius + 26 * k))
         }
     }
 }
 
 #Preview {
-    SpeedometerView(speed: 68)
+    SpeedometerView(speed: 82)
         .padding()
         .background(.black)
 }

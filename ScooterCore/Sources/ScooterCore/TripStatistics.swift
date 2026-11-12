@@ -24,6 +24,7 @@ public struct TripStatistics: Sendable {
     /// Horodatage du dernier point accepté, jamais effacé : garantit l'ordre.
     private var lastTimestamp: TimeInterval?
     private var lastSpeed: Double?
+    private var lastAccuracy: Double?
 
     public private(set) var maxSpeedKmh: Double = 0
     public private(set) var distanceMeters: Double = 0
@@ -89,6 +90,7 @@ public struct TripStatistics: Sendable {
         anchor = sample
         lastTimestamp = sample.timestamp
         lastSpeed = sample.speed
+        lastAccuracy = sample.horizontalAccuracy
         maxSpeedKmh = max(maxSpeedKmh, sample.speed * 3.6)
         altitudeMeters = sample.altitude
         route.append(Coordinate(latitude: sample.latitude, longitude: sample.longitude))
@@ -98,6 +100,22 @@ public struct TripStatistics: Sendable {
     public func currentSpeedKmh(at now: TimeInterval) -> Double? {
         guard let lastTimestamp, let lastSpeed, now - lastTimestamp <= Self.speedStaleAfter else { return nil }
         return lastSpeed * 3.6
+    }
+
+    /// Précision horizontale du dernier point valide, en mètres, ou `nil` s'il
+    /// n'y a pas eu de point valide récemment.
+    public func horizontalAccuracy(at now: TimeInterval) -> Double? {
+        guard let lastTimestamp, let lastAccuracy, now - lastTimestamp <= Self.speedStaleAfter else { return nil }
+        return lastAccuracy
+    }
+
+    /// Qualité du signal GPS, de 0 (aucun) à 4 barres, d'après la précision en mètres.
+    public static func signalBars(accuracy: Double?) -> Int {
+        guard let accuracy, accuracy.isFinite, accuracy >= 0 else { return 0 }
+        if accuracy <= 5 { return 4 }
+        if accuracy <= 10 { return 3 }
+        if accuracy <= 20 { return 2 }
+        return 1
     }
 
     /// Temps écoulé depuis le départ, pauses exclues.

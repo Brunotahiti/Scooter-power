@@ -13,6 +13,10 @@ final class TripViewModel {
     private(set) var isDemo: Bool
     private(set) var locationDenied = false
     private(set) var gpsWeak = false
+    /// Précision du GPS, par exemple « ± 3 m », ou `nil` sans signal récent.
+    private(set) var gpsAccuracyText: String?
+    /// Qualité du signal GPS, de 0 à 4 barres.
+    private(set) var gpsSignalBars = 0
 
     private(set) var speedKmh: Double?
     /// Vitesse dans l'unité affichée, pour le compteur.
@@ -43,6 +47,8 @@ final class TripViewModel {
     private(set) var sprintElapsedText = ""
     /// Records tous trajets confondus, ou `--`, dans l'ordre de `SpeedInterval.all`.
     private(set) var recordTexts: [String] = SpeedInterval.all.map { _ in "--" }
+    /// Par plage, de 0 à 1 : à quel point le temps du trajet approche le record.
+    private(set) var sprintProgress: [Double] = SpeedInterval.all.map { _ in 0 }
     /// Indices, dans `SpeedInterval.all`, des records battus pendant ce trajet.
     private(set) var beatenRecords: Set<Int> = []
     /// Annonce « Record battu » à afficher quelques secondes, ou `nil`.
@@ -288,6 +294,11 @@ final class TripViewModel {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         }
         gpsWeak = state == .recording && speedKmh == nil
+        let accuracy: Double? = statistics.horizontalAccuracy(at: time)
+        gpsSignalBars = TripStatistics.signalBars(accuracy: accuracy)
+        gpsAccuracyText = accuracy.map {
+            "± " + Formatters.decimal(units.altitude(fromMeters: $0), digits: 0) + " " + units.altitudeUnit
+        }
 
         let hasTrip = state != .idle
         maxSpeedText = hasTrip ? Formatters.decimal(units.speed(fromKmh: statistics.maxSpeedKmh), digits: 0) : "--"
@@ -310,6 +321,11 @@ final class TripViewModel {
         let sprint = session.sprint
         checkRecords(sprint.results, at: time)
         sprintTexts = SpeedInterval.all.map { Self.sprintText(sprint.best($0)) }
+        sprintProgress = SpeedInterval.all.map { interval in
+            // Un temps plus court est meilleur : record ÷ temps du trajet, plafonné à 1.
+            guard let best = sprint.best(interval), best > 0, let record = recordBook.records[interval] else { return 0 }
+            return min(1, record / best)
+        }
         sprintRunning = sprint.isRunning || sprint.isRolling
         sprintElapsedText = sprint.activeElapsed(at: time).map { Formatters.decimal($0, digits: 1) } ?? ""
 

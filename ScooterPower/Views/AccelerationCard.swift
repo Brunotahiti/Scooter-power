@@ -6,9 +6,9 @@ extension AccelerationLevel {
     var label: String {
         switch self {
         case .brakingHard: return L("Freinage fort")
-        case .braking: return L("Freinage")
+        case .braking: return L("Freinage modéré")
         case .stable: return L("Stable")
-        case .accelerating: return L("Accélération")
+        case .accelerating: return L("Accélération modérée")
         case .acceleratingHard: return L("Accélération forte")
         }
     }
@@ -31,41 +31,44 @@ extension AccelerationLevel {
     }
 }
 
+/// Poussée instantanée : valeur, niveau et jauge d'intensité colorée.
 struct AccelerationCard: View {
     /// m/s², signée.
     let value: Double
     let valueText: String
     let level: AccelerationLevel
-    let history: [Double]
-    let peakText: String
 
-    // Le corps est découpé en petites vues : une seule grande expression
-    // dépasse ce que le compilateur sait vérifier en temps raisonnable.
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack(alignment: .top) {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: "bolt.fill")
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundStyle(Theme.cyan)
+                    .shadow(color: Theme.cyan.opacity(0.8), radius: 6)
+                    .frame(width: 30)
+                    .padding(.top, 2)
                 readout
                 Spacer(minLength: 8)
-                thrustFigure
+                ScooterFrontShape()
+                    .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
+                    .frame(width: 34, height: 54)
+                    .padding(.trailing, 14)
             }
-            AccelerationGauge(value: value)
-            gaugeLegend
-            separator
-            historyHeader
-            AccelerationChart(history: history)
+            IntensityBar(value: value)
         }
         .foregroundStyle(Theme.textPrimary)
-        .padding(12)
-        .cardStyle()
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .cardStyle(tint: Theme.orange)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Poussée d'accélération")
         .accessibilityValue(L("\(valueText) mètres par seconde carrée, \(level.label)"))
     }
 
     private var readout: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 2) {
             Text("Poussée d'accélération")
-                .font(.system(size: 18, weight: .bold))
+                .font(.system(size: 17, weight: .semibold))
             valueLine
             levelPill
         }
@@ -74,261 +77,204 @@ struct AccelerationCard: View {
     private var valueLine: some View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
             Text(valueText)
-                .font(.system(size: 40, weight: .black, design: .rounded))
+                .font(.system(size: 38, weight: .black))
+                .italic()
                 .monospacedDigit()
                 .contentTransition(.numericText())
             Text(verbatim: "m/s²")
-                .font(.system(size: 21, weight: .bold, design: .rounded))
+                .font(.system(size: 22, weight: .bold))
+                .italic()
         }
         .lineLimit(1)
         .minimumScaleFactor(0.6)
     }
 
     private var levelPill: some View {
-        let shape = RoundedRectangle(cornerRadius: 9, style: .continuous)
-        let fill: Color = level.color.opacity(0.3)
+        let shape = Capsule()
+        let tint: Color = level.direction == 0 ? Theme.cyan : level.color
         return Text(level.label)
-            .font(.system(size: 15, weight: .medium))
-            .padding(.horizontal, 10)
-            .padding(.vertical, 4)
-            .background(fill, in: shape)
-            .overlay(shape.strokeBorder(level.color, lineWidth: 1.5))
-    }
-
-    private var gaugeLegend: some View {
-        HStack {
-            Text("Freinage").foregroundStyle(Theme.red)
-            Spacer()
-            Text("Stable").foregroundStyle(Theme.textSecondary)
-            Spacer()
-            Text("Accélération").foregroundStyle(Theme.orange)
-        }
-        .font(.system(size: 14))
-    }
-
-    private var separator: some View {
-        Rectangle()
-            .fill(Theme.cardBorder)
-            .frame(height: 1)
-    }
-
-    private var historyHeader: some View {
-        HStack {
-            Text("30 dernières secondes")
-                .font(.system(size: 14, weight: .medium))
-            Spacer()
-            peakPill
-        }
-    }
-
-    private var peakPill: some View {
-        HStack(spacing: 5) {
-            Text("Pic").foregroundStyle(Theme.orange)
-            Text(peakText).fontWeight(.bold)
-        }
-        .font(.system(size: 14))
-        .padding(.horizontal, 10)
-        .padding(.vertical, 4)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .strokeBorder(Theme.orange, lineWidth: 1.5))
-    }
-
-    /// Scooter surmonté de chevrons indiquant le sens de la poussée.
-    private var thrustFigure: some View {
-        VStack(spacing: 2) {
-            chevrons
-            ScooterFrontShape()
-                .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
-                .frame(width: 34, height: 48)
-        }
-        .frame(width: 90)
-        .animation(.easeInOut(duration: 0.25), value: level)
-    }
-
-    private var chevrons: some View {
-        let braking: Bool = level.direction < 0
-        let symbol: String = braking ? "chevron.down" : "chevron.up"
-        let glow: Color = level.color.opacity(0.8)
-        let visibility: Double = level.direction == 0 ? 0 : 1
-        return VStack(spacing: -8) {
-            ForEach(0..<3, id: \.self) { index in
-                Image(systemName: symbol)
-                    .font(.system(size: 22, weight: .black))
-                    .opacity(chevronOpacity(index: index, braking: braking))
-            }
-        }
-        .foregroundStyle(level.color)
-        .shadow(color: glow, radius: 8)
-        .opacity(visibility)
-    }
-
-    /// Le chevron le plus proche du scooter est le plus pâle.
-    private func chevronOpacity(index: Int, braking: Bool) -> Double {
-        let step: Double = 0.3 * Double(index)
-        return braking ? 0.4 + step : 1.0 - step
+            .font(.system(size: 14, weight: .medium))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 3)
+            .background(tint.opacity(0.18), in: shape)
+            .overlay(shape.strokeBorder(tint.opacity(0.7), lineWidth: 1))
     }
 }
 
-/// Jauge segmentée Freinage / Stable / Accélération avec curseur.
-struct AccelerationGauge: View {
+/// Jauge d'intensité : vingt segments du vert au rouge, allumés selon la
+/// force de la poussée, que ce soit en accélération ou au freinage.
+struct IntensityBar: View {
     let value: Double
 
-    private static let brakingSegments = 8
-    private static let stableSegments = 7
-    private static let acceleratingSegments = 12
-    private static let total = brakingSegments + stableSegments + acceleratingSegments
-    private static let stableLimit = 0.8
-    private static let fullScale = 4.0
+    private static let segments = 20
+    private static let fullScale: Double = 4
 
-    /// Position du curseur entre 0 et 1. Chaque zone de couleur couvre
-    /// exactement sa plage de valeurs, pour que la couleur sous le curseur
-    /// corresponde toujours au niveau affiché.
-    private var position: Double {
-        let total: Double = Double(Self.total)
-        let brakingEnd: Double = Double(Self.brakingSegments) / total
-        let stableEnd: Double = Double(Self.brakingSegments + Self.stableSegments) / total
-        let limit: Double = Self.stableLimit
-        let outerSpan: Double = Self.fullScale - limit
-        let v: Double = min(Self.fullScale, max(-Self.fullScale, value))
-        if v < -limit {
-            let ratio: Double = (v + Self.fullScale) / outerSpan
-            return ratio * brakingEnd
-        }
-        if v <= limit {
-            let ratio: Double = (v + limit) / (2 * limit)
-            return brakingEnd + ratio * (stableEnd - brakingEnd)
-        }
-        let ratio: Double = (v - limit) / outerSpan
-        return stableEnd + ratio * (1 - stableEnd)
+    private var litCount: Int {
+        let ratio: Double = min(1, abs(value) / Self.fullScale)
+        return Int((ratio * Double(Self.segments)).rounded())
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .leading) {
-                segments
-                knob(in: proxy.size)
+        let lit: Int = litCount
+        return HStack(spacing: 3) {
+            ForEach(0..<Self.segments, id: \.self) { index in
+                SlantedSegment()
+                    .fill(index < lit ? Self.color(at: index) : Theme.gaugeIdle.opacity(0.55))
+                    .shadow(color: index < lit ? Self.color(at: index).opacity(0.7) : Color.clear, radius: 3)
             }
         }
-        .frame(height: 24)
+        .frame(height: 9)
+        .animation(.easeOut(duration: 0.15), value: lit)
     }
 
-    private static let knobSize: CGFloat = 22
-
-    private var segments: some View {
-        HStack(spacing: 3) {
-            ForEach(0..<Self.total, id: \.self) { index in
-                Capsule()
-                    .fill(color(for: index))
-                    .frame(height: 9)
-            }
-        }
-        .padding(.horizontal, Self.knobSize / 2)
-    }
-
-    private func knob(in size: CGSize) -> some View {
-        let travel: CGFloat = size.width - Self.knobSize
-        let x: CGFloat = Self.knobSize / 2 + travel * CGFloat(position)
-        let y: CGFloat = size.height / 2
-        let tint: Color = knobColor
-        let glow: Color = tint.opacity(0.9)
-        return Circle()
-            .fill(Color.white)
-            .overlay(Circle().strokeBorder(tint, lineWidth: 3))
-            .shadow(color: glow, radius: 6)
-            .frame(width: Self.knobSize, height: Self.knobSize)
-            .position(x: x, y: y)
-            .animation(.easeOut(duration: 0.15), value: position)
-    }
-
-    private var knobColor: Color {
-        let level = AccelerationAnalyzer.level(for: value)
-        return level.direction == 0 ? Theme.gaugeIdle : level.color
-    }
-
-    private func color(for index: Int) -> Color {
-        let center: Double = (Double(index) + 0.5) / Double(Self.total)
-        let knobPosition: Double = position
-        if index < Self.brakingSegments {
-            // Allumé du curseur jusqu'à la zone stable quand on freine.
-            let isBraking: Bool = value < -Self.stableLimit
-            let dimmed: Bool = isBraking && center < knobPosition
-            let opacity: Double = dimmed ? 0.3 : 1
-            return Theme.red.opacity(opacity)
-        }
-        if index < Self.brakingSegments + Self.stableSegments {
-            return Theme.gaugeIdle
-        }
-        let opacity: Double = center <= knobPosition ? 1 : 0.25
-        return Theme.orange.opacity(opacity)
+    /// Du vert au jaune, puis à l'orange et au rouge.
+    private static func color(at index: Int) -> Color {
+        let position: Double = Double(index) / Double(segments - 1)
+        if position < 0.3 { return Color(hex: 0x2EE65A) }
+        if position < 0.5 { return Color(hex: 0xC8E619) }
+        if position < 0.7 { return Color(hex: 0xF5C211) }
+        if position < 0.85 { return Theme.orange }
+        return Theme.red
     }
 }
 
-/// Graphe des 30 dernières secondes. Les freinages sont tracés à zéro.
-struct AccelerationChart: View {
+/// Un segment penché vers la droite.
+private struct SlantedSegment: Shape {
+    func path(in rect: CGRect) -> Path {
+        let slant: CGFloat = min(rect.width * 0.35, rect.height * 0.6)
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX + slant, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - slant, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        path.closeSubpath()
+        return path
+    }
+}
+
+/// Graphe des 30 dernières secondes, accélérations et freinages.
+struct AccelerationHistoryCard: View {
     let history: [Double]
+    let peakText: String
 
     private struct Point: Identifiable {
         let id: Int
         let value: Double
     }
 
+    private static let lowest: Double = -2
+    private static let highest: Double = 4
+
     private var points: [Point] {
         let offset: Int = AccelerationAnalyzer.historyCapacity - history.count
         var result: [Point] = []
         result.reserveCapacity(history.count)
         for index in history.indices {
-            let clamped: Double = min(4, max(0, history[index]))
+            let clamped: Double = min(Self.highest, max(Self.lowest, history[index]))
             result.append(Point(id: offset + index, value: clamped))
         }
         return result
     }
 
+    /// Le point le plus haut, s'il correspond à une vraie accélération.
+    private func peak(in data: [Point]) -> Point? {
+        var best: Point?
+        for point in data where point.value >= 0.3 {
+            if best == nil || point.value > (best?.value ?? 0) {
+                best = point
+            }
+        }
+        return best
+    }
+
     var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            header
+            chart
+        }
+        .foregroundStyle(Theme.textPrimary)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 9)
+        .cardStyle()
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("30 dernières secondes")
+        .accessibilityValue(L("Pic : \(peakText)"))
+    }
+
+    private var header: some View {
+        HStack {
+            Text("30 dernières secondes")
+                .font(.system(size: 15, weight: .semibold))
+            Spacer()
+            Text(L("Pic : \(peakText)"))
+                .font(.system(size: 13, weight: .semibold))
+                .padding(.horizontal, 10)
+                .padding(.vertical, 3)
+                .overlay(Capsule().strokeBorder(Theme.orange, lineWidth: 1.5))
+        }
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
+    }
+
+    private var chart: some View {
+        let data: [Point] = points
+        let top: Point? = peak(in: data)
         let lastIndex: Int = AccelerationAnalyzer.historyCapacity - 1
-        let ticks: [Double] = [0, 2, 4]
-        return Chart(points) { point in
-            AreaMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
-                .interpolationMethod(.monotone)
-                .foregroundStyle(fillGradient)
-            LineMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
-                .interpolationMethod(.monotone)
-                .foregroundStyle(Theme.orange)
-                .lineStyle(StrokeStyle(lineWidth: 2))
+        let ticks: [Double] = [-2, 0, 2, 4]
+        return Chart {
+            ForEach(data) { point in
+                AreaMark(
+                    x: .value("Temps", point.id),
+                    yStart: .value("Accélération", 0.0),
+                    yEnd: .value("Accélération", point.value))
+                    .interpolationMethod(.monotone)
+                    .foregroundStyle(fill)
+                LineMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
+                    .interpolationMethod(.monotone)
+                    .foregroundStyle(Theme.cyan)
+                    .lineStyle(StrokeStyle(lineWidth: 2))
+            }
+            if let top {
+                PointMark(x: .value("Temps", top.id), y: .value("Accélération", top.value))
+                    .foregroundStyle(Theme.orange)
+                    .symbolSize(45)
+            }
         }
         .chartXScale(domain: 0...lastIndex)
-        .chartYScale(domain: 0.0...4.0)
+        .chartYScale(domain: Self.lowest...Self.highest)
         .chartXAxis(.hidden)
         .chartYAxis {
             AxisMarks(position: .leading, values: ticks) { mark in
                 AxisGridLine().foregroundStyle(Theme.cardBorder)
                 AxisValueLabel {
-                    Text(axisLabel(for: mark))
-                        .font(.system(size: 12))
-                        .foregroundStyle(Theme.textPrimary)
+                    Text(verbatim: axisLabel(for: mark))
+                        .font(.system(size: 11))
+                        .foregroundStyle(Theme.textPrimary.opacity(0.85))
                 }
             }
         }
-        .frame(height: 40)
+        .frame(height: 62)
     }
 
-    private var fillGradient: LinearGradient {
-        let top: Color = Theme.orange.opacity(0.55)
-        let bottom: Color = Theme.orange.opacity(0.05)
-        return LinearGradient(colors: [top, bottom], startPoint: .top, endPoint: .bottom)
+    private var fill: LinearGradient {
+        LinearGradient(
+            colors: [Theme.cyan.opacity(0.4), Theme.cyan.opacity(0.04)],
+            startPoint: .top, endPoint: .bottom)
     }
 
     private func axisLabel(for mark: AxisValue) -> String {
         guard let value = mark.as(Double.self) else { return "" }
-        return value == 0 ? "0,0" : Formatters.signed(value, digits: 1)
+        return Formatters.signed(value, digits: 1)
     }
 }
 
 #Preview {
-    AccelerationCard(
-        value: 2.8, valueText: "+2,8", level: .acceleratingHard,
-        history: [0.4, 0.6, 0.5, 0.9, 1.4, 0.8, 0.6, 1.1, 2.9, 3.6, 1.7, 1.2, 1.0, 1.3, 1.5, 1.4],
-        peakText: "+3,6 m/s²")
-        .padding()
-        .background(.black)
+    VStack {
+        AccelerationCard(value: 0.4, valueText: "+0,4", level: .stable)
+        AccelerationHistoryCard(
+            history: [0.2, 0.4, 0.3, 0.9, 1.4, 1.8, 0.6, -0.5, -1.1, 0.2, 0.8, 0.5],
+            peakText: "+1,8 m/s²")
+    }
+    .padding()
+    .background(.black)
 }

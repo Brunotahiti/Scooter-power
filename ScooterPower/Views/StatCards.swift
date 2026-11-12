@@ -8,21 +8,22 @@ struct BigStatCard: View {
     let unit: String
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.system(size: 24, weight: .medium))
                 .foregroundStyle(Theme.cyan)
-                .frame(width: 34)
+                .shadow(color: Theme.cyan.opacity(0.6), radius: 5)
+                .frame(width: 36)
             VStack(alignment: .leading, spacing: 0) {
                 Text(title)
-                    .font(.system(size: 14))
+                    .font(.system(size: 13))
                     .foregroundStyle(Theme.textSecondary)
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(value)
-                        .font(.system(size: 26, weight: .bold, design: .rounded))
+                        .font(.system(size: 25, weight: .bold, design: .rounded))
                         .monospacedDigit()
-                    Text(unit)
-                        .font(.system(size: 19, weight: .semibold, design: .rounded))
+                    Text(verbatim: unit)
+                        .font(.system(size: 18, weight: .semibold, design: .rounded))
                 }
                 .foregroundStyle(Theme.textPrimary)
             }
@@ -40,61 +41,36 @@ struct BigStatCard: View {
     }
 }
 
-/// Carte à deux valeurs côte à côte.
-struct DualStatCard: View {
-    struct Item {
-        let icon: String?
-        let title: String
-        let value: String
-    }
-
-    let first: Item
-    let second: Item
+/// Petite carte : une icône, un titre et une valeur déjà accompagnée de son unité.
+struct SmallStatCard: View {
+    let icon: String
+    let title: String
+    let value: String
 
     var body: some View {
-        HStack(spacing: 8) {
-            cell(first)
-            Rectangle()
-                .fill(Theme.cardBorder)
-                .frame(width: 1, height: 28)
-            cell(second)
+        HStack(spacing: 7) {
+            Image(systemName: icon)
+                .font(.system(size: 17, weight: .medium))
+                .foregroundStyle(Theme.cyan)
+            VStack(alignment: .leading, spacing: 0) {
+                Text(title)
+                    .font(.system(size: 11))
+                    .foregroundStyle(Theme.textSecondary)
+                Text(value)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textPrimary)
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+            Spacer(minLength: 0)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 9)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
         .cardStyle()
-    }
-
-    private func cell(_ item: Item) -> some View {
-        // Sur un écran étroit, l'icône cède sa place au texte plutôt que de le tronquer.
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: 6) {
-                if let icon = item.icon {
-                    Image(systemName: icon)
-                        .font(.system(size: 17, weight: .medium))
-                        .foregroundStyle(Theme.cyan)
-                }
-                texts(item)
-            }
-            texts(item)
-                .minimumScaleFactor(0.7)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(item.title)
-        .accessibilityValue(item.value)
-    }
-
-    private func texts(_ item: Item) -> some View {
-        VStack(alignment: .leading, spacing: 1) {
-            Text(item.title)
-                .font(.system(size: 10))
-                .foregroundStyle(Theme.textSecondary)
-            Text(item.value)
-                .font(.system(size: 16, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .foregroundStyle(Theme.textPrimary)
-        }
-        .lineLimit(1)
+        .accessibilityLabel(title)
+        .accessibilityValue(value)
     }
 }

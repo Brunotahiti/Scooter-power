@@ -100,6 +100,31 @@ final class TripStatisticsTests: XCTestCase {
         XCTAssertEqual(t.movingDuration, 1, accuracy: 1e-9)
     }
 
+    func testAccuracyOfTheLastAcceptedFix() {
+        var t = started()
+        XCTAssertNil(t.horizontalAccuracy(at: 0))
+        t.add(s(0, lon: 0, acc: 3))
+        XCTAssertEqual(t.horizontalAccuracy(at: 1), 3)
+        // Un point rejeté ne change rien ; un point accepté remplace la valeur.
+        t.add(s(1, lon: 0, acc: 80))
+        XCTAssertEqual(t.horizontalAccuracy(at: 1), 3)
+        t.add(s(2, lon: 0.00001, acc: 12))
+        XCTAssertEqual(t.horizontalAccuracy(at: 2), 12)
+        // Comme la vitesse, elle n'est plus donnée après 5 s sans point valide.
+        XCTAssertNil(t.horizontalAccuracy(at: 7.1))
+    }
+
+    func testSignalBars() {
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: nil), 0)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: 3), 4)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: 5), 4)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: 8), 3)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: 20), 2)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: 45), 1)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: .nan), 0)
+        XCTAssertEqual(TripStatistics.signalBars(accuracy: -1), 0)
+    }
+
     func testStaleSpeedIsNil() {
         var t = started()
         t.add(s(0, lon: 0))

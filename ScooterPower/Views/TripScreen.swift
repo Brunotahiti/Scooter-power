@@ -73,55 +73,17 @@ struct TripScreen: View {
     private var portrait: some View {
         ScrollView {
             VStack(spacing: 6) {
-                HeaderView(
-                    state: model.state,
-                    onHistory: { showHistory = true },
-                    onSettings: { showSettings = true },
-                    onRecalibrate: { model.recalibrate() })
-
-                if model.locationDenied {
-                    locationDeniedBanner
-                }
-                if model.gpsWeak {
-                    banner(icon: "location.slash", text: L("Signal GPS faible"))
-                }
-
-                SpeedometerView(
-                    speed: model.speedValue,
-                    unit: model.speedUnit,
-                    maxSpeed: model.speedometerMax,
-                    labelStep: model.speedometerStep,
-                    isAlert: model.speedAlertActive,
-                    scale: 0.87)
-
+                gauge
+                banners
                 speedCards
                 tripCards
-
                 AccelerationCard(
                     value: model.accelerationValue,
                     valueText: model.accelerationText,
-                    level: model.accelerationLevel,
-                    history: model.accelerationHistory,
-                    peakText: model.peakText)
-
-                SprintCard(
-                    times: model.sprintTexts,
-                    records: model.recordTexts,
-                    beaten: model.beatenRecords,
-                    isRunning: model.sprintRunning,
-                    elapsedText: model.sprintElapsedText)
-                    // À l'arrêt, toucher la carte ouvre l'écran des records.
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        if model.state == .idle {
-                            showRecords = true
-                        }
-                    }
-                    .accessibilityAddTraits(.isButton)
-                    .accessibilityHint("Ouvre les records")
-
+                    level: model.accelerationLevel)
+                AccelerationHistoryCard(history: model.accelerationHistory, peakText: model.peakText)
+                sprintCard
                 LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
-
                 if model.isDemo {
                     Text("Données d'illustration")
                         .font(.system(size: 13))
@@ -132,7 +94,7 @@ struct TripScreen: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 2)
         }
-        .background(Theme.background.ignoresSafeArea())
+        .background(backdrop.ignoresSafeArea())
         .safeAreaInset(edge: .bottom, spacing: 0) {
             BottomBar(
                 state: model.state,
@@ -143,9 +105,68 @@ struct TripScreen: View {
         }
     }
 
+    /// Fond sombre avec un halo bleuté derrière le compteur.
+    private var backdrop: some View {
+        ZStack {
+            Theme.background
+            RadialGradient(
+                colors: [Color(hex: 0x0B2A3A).opacity(0.9), Color.clear],
+                center: UnitPoint(x: 0.5, y: 0.14), startRadius: 10, endRadius: 330)
+        }
+    }
+
+    /// Le compteur, avec les commandes posées dans ses coins supérieurs.
+    private var gauge: some View {
+        ZStack(alignment: .top) {
+            SpeedometerView(
+                speed: model.speedValue,
+                unit: model.speedUnit,
+                maxSpeed: model.speedometerMax,
+                labelStep: model.speedometerStep,
+                isAlert: model.speedAlertActive,
+                signalBars: model.state == .idle ? 4 : model.gpsSignalBars)
+            HeaderView(
+                state: model.state,
+                onHistory: { showHistory = true },
+                onSettings: { showSettings = true },
+                onRecalibrate: { model.recalibrate() })
+        }
+    }
+
+    @ViewBuilder
+    private var banners: some View {
+        if model.locationDenied {
+            locationDeniedBanner
+        }
+        if model.gpsWeak {
+            banner(icon: "location.slash", text: L("Signal GPS faible"))
+        }
+    }
+
+    private var sprintCard: some View {
+        SprintCard(
+            times: model.sprintTexts,
+            records: model.recordTexts,
+            progress: model.sprintProgress,
+            beaten: model.beatenRecords,
+            isRunning: model.sprintRunning,
+            elapsedText: model.sprintElapsedText)
+            // À l'arrêt, toucher la carte ouvre l'écran des records.
+            .contentShape(Rectangle())
+            .onTapGesture {
+                if model.state == .idle {
+                    showRecords = true
+                }
+            }
+            .accessibilityAddTraits(.isButton)
+            .accessibilityHint("Ouvre les records")
+    }
+
     private var speedCards: some View {
-        HStack(spacing: 10) {
-            BigStatCard(icon: "mountain.2", title: L("Vitesse maximale"), value: model.maxSpeedText, unit: model.speedUnit)
+        HStack(spacing: 8) {
+            BigStatCard(
+                icon: "mountain.2", title: L("Vitesse maximale"),
+                value: model.maxSpeedText, unit: model.speedUnit)
             BigStatCard(
                 icon: "gauge.with.needle", title: L("Vitesse moyenne"),
                 value: model.averageSpeedText, unit: model.speedUnit)
@@ -153,13 +174,10 @@ struct TripScreen: View {
     }
 
     private var tripCards: some View {
-        HStack(spacing: 10) {
-            DualStatCard(
-                first: .init(icon: "mappin", title: L("Distance"), value: model.distanceText),
-                second: .init(icon: "triangle", title: L("Altitude"), value: model.altitudeText))
-            DualStatCard(
-                first: .init(icon: "stopwatch", title: L("Durée de roulage"), value: model.movingDurationText),
-                second: .init(icon: nil, title: L("Durée totale"), value: model.totalDurationText))
+        HStack(spacing: 8) {
+            SmallStatCard(icon: "road.lanes", title: L("Distance"), value: model.distanceText)
+            SmallStatCard(icon: "triangle", title: L("Altitude"), value: model.altitudeText)
+            SmallStatCard(icon: "stopwatch", title: L("Durée de roulage"), value: model.movingDurationText)
         }
     }
 

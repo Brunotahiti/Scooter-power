@@ -91,12 +91,32 @@
         }
       }
     },
+    "Accélération (m/s²)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acceleration (m/s²)"
+          }
+        }
+      }
+    },
     "Accélération forte": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Hard acceleration"
+          }
+        }
+      }
+    },
+    "Accélération modérée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderate acceleration"
           }
         }
       }
@@ -381,16 +401,6 @@
         }
       }
     },
-    "Freinage": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Braking"
-          }
-        }
-      }
-    },
     "Freinage fort": {
       "localizations": {
         "en": {
@@ -401,12 +411,12 @@
         }
       }
     },
-    "GPS": {
+    "Freinage modéré": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "GPS"
+            "value": "Moderate braking"
           }
         }
       }
@@ -701,12 +711,12 @@
         }
       }
     },
-    "Pic": {
+    "Pic : %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Peak"
+            "value": "Peak: %@"
           }
         }
       }
@@ -781,6 +791,16 @@
         }
       }
     },
+    "Précision : %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accuracy: %@"
+          }
+        }
+      }
+    },
     "Prêt à partir": {
       "localizations": {
         "en": {
@@ -797,6 +817,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recalibrate lean angle"
+          }
+        }
+      }
+    },
+    "Recherche du signal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Searching for signal"
           }
         }
       }
@@ -997,16 +1027,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trip B"
-          }
-        }
-      }
-    },
-    "Trajet en cours": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip in progress"
           }
         }
       }

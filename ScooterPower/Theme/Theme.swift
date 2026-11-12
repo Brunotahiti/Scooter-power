@@ -26,12 +26,18 @@ extension Color {
 }
 
 extension View {
-    /// Fond et bordure communs à toutes les cartes de l'écran.
-    func cardStyle() -> some View {
-        self
-            .background(Theme.card, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .strokeBorder(Theme.cardBorder, lineWidth: 1))
+    /// Fond et liseré communs à toutes les cartes de l'écran. `tint` colore le
+    /// liseré : cyan par défaut, orange pour la carte d'accélération.
+    func cardStyle(tint: Color = Theme.cyan) -> some View {
+        let shape = RoundedRectangle(cornerRadius: 20, style: .continuous)
+        let fill = LinearGradient(
+            colors: [Color(hex: 0x10191E), Color(hex: 0x070B0E)],
+            startPoint: .top, endPoint: .bottom)
+        let border = LinearGradient(
+            colors: [tint.opacity(0.65), tint.opacity(0.15)],
+            startPoint: .topLeading, endPoint: .bottomTrailing)
+        return self
+            .background(fill, in: shape)
+            .overlay(shape.strokeBorder(border, lineWidth: 1))
     }
 }

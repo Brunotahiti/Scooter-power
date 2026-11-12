@@ -15,47 +15,68 @@ struct LeanCard: View {
         }
     }
 
+    /// Inclinaison de chaque côté : l'une des deux est toujours nulle.
+    private var leftText: String {
+        Formatters.decimal(max(0, -degrees), digits: 0) + "°"
+    }
+
+    private var rightText: String {
+        Formatters.decimal(max(0, degrees), digits: 0) + "°"
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 14) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Inclinaison")
-                        .font(.system(size: 18, weight: .bold))
-                    Text(text)
-                        .font(.system(size: 42, weight: .black, design: .rounded))
-                        .monospacedDigit()
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.6)
-                        .contentTransition(.numericText())
-                    HStack(spacing: 6) {
-                        Text(sideText)
-                            .font(.system(size: 16))
-                            .foregroundStyle(Theme.textSecondary)
-                        if side != .upright {
-                            Image(systemName: side == .right ? "chevron.right" : "chevron.left")
-                                .font(.system(size: 14, weight: .bold))
-                                .foregroundStyle(Theme.cyan)
-                        }
-                    }
-                }
-                .frame(width: 128, alignment: .leading)
-
-                Rectangle()
-                    .fill(Theme.cardBorder)
-                    .frame(width: 1)
-                    .padding(.vertical, 8)
-
-                LeanGauge(degrees: degrees)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 88)
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "angle")
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(Theme.cyan)
+                .shadow(color: Theme.cyan.opacity(0.8), radius: 5)
+                .frame(width: 30)
+                .padding(.top, 2)
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Inclinaison")
+                    .font(.system(size: 17, weight: .semibold))
+                Text(text)
+                    .font(.system(size: 40, weight: .black))
+                    .italic()
+                    .monospacedDigit()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                    .foregroundStyle(Theme.cyan)
+                    .contentTransition(.numericText())
             }
+            .frame(width: 104, alignment: .leading)
+
+            VStack(spacing: 0) {
+                LeanGauge(degrees: degrees)
+                    .frame(height: 62)
+                sides
+            }
+            .frame(maxWidth: .infinity)
         }
         .foregroundStyle(Theme.textPrimary)
-        .padding(12)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 9)
         .cardStyle()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Inclinaison")
         .accessibilityValue(text + ", " + sideText)
+    }
+
+    private var sides: some View {
+        HStack(spacing: 4) {
+            Text("Gauche")
+            Text(verbatim: leftText)
+                .fontWeight(.bold)
+                .foregroundStyle(side == .left ? Theme.cyan : Theme.textPrimary)
+            Spacer(minLength: 4)
+            Text("Droite")
+            Text(verbatim: rightText)
+                .fontWeight(.bold)
+                .foregroundStyle(side == .right ? Theme.cyan : Theme.textPrimary)
+        }
+        .font(.system(size: 13))
+        .monospacedDigit()
+        .lineLimit(1)
     }
 }
 
@@ -64,7 +85,8 @@ struct LeanGauge: View {
     let degrees: Double
 
     private static let range: Double = 45
-    private static let labelHeight: CGFloat = 20
+    /// Marge sous le sol de la jauge.
+    private static let labelHeight: CGFloat = 3
 
     /// Géométrie calculée une fois pour le dessin et pour la silhouette.
     private struct Metrics {
@@ -106,7 +128,6 @@ struct LeanGauge: View {
                 draw(in: &context, metrics: metrics)
             }
             scooter(metrics: metrics)
-            labels
         }
     }
 
@@ -120,17 +141,6 @@ struct LeanGauge: View {
             .rotationEffect(.degrees(shown), anchor: .bottom)
             .position(x: metrics.pivot.x, y: centerY)
             .animation(.easeOut(duration: 0.15), value: shown)
-    }
-
-    private var labels: some View {
-        HStack {
-            Text("Gauche")
-            Spacer()
-            Text("Droite")
-        }
-        .font(.system(size: 13))
-        .foregroundStyle(Theme.textPrimary)
-        .frame(maxHeight: .infinity, alignment: .bottom)
     }
 
     private func draw(in context: inout GraphicsContext, metrics: Metrics) {

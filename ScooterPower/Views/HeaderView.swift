@@ -1,55 +1,26 @@
 import SwiftUI
 import ScooterCore
 
+/// Commandes posées en haut de l'écran, par-dessus le compteur : à gauche
+/// l'état du trajet (ou l'historique à l'arrêt), à droite le menu.
 struct HeaderView: View {
     let state: TripState
     let onHistory: () -> Void
     let onSettings: () -> Void
     let onRecalibrate: () -> Void
 
-    private var title: String {
-        switch state {
-        case .idle: return L("Prêt à partir")
-        case .recording: return L("Trajet en cours")
-        case .paused: return L("En pause")
-        case .finished: return L("Trajet terminé")
-        }
-    }
-
     var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "scooter")
-                .font(.system(size: 22, weight: .medium))
-            Rectangle()
-                .fill(Theme.gaugeIdle)
-                .frame(width: 1, height: 22)
-            Text(title)
-                .font(.system(size: 21, weight: .bold))
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-
-            statusPill
-
+        HStack(spacing: 8) {
+            leading
             Spacer(minLength: 0)
-
-            if state == .idle {
-                Button(action: onHistory) {
-                    Image(systemName: "clock.arrow.circlepath")
-                        .font(.system(size: 20, weight: .semibold))
-                        .frame(width: 44, height: 40)
-                        .contentShape(Rectangle())
-                }
-                .accessibilityLabel("Historique des trajets")
-            }
-
             Menu {
                 Button("Recalibrer l'inclinaison", systemImage: "scope", action: onRecalibrate)
                     .disabled(state != .recording && state != .paused)
                 Button("Réglages", systemImage: "gearshape", action: onSettings)
             } label: {
                 Image(systemName: "ellipsis")
-                    .font(.system(size: 20, weight: .bold))
-                    .frame(width: 44, height: 40)
+                    .font(.system(size: 19, weight: .bold))
+                    .frame(width: 44, height: 36)
                     .contentShape(Rectangle())
             }
             .accessibilityLabel("Plus d'options")
@@ -58,13 +29,21 @@ struct HeaderView: View {
     }
 
     @ViewBuilder
-    private var statusPill: some View {
+    private var leading: some View {
         switch state {
+        case .idle:
+            Button(action: onHistory) {
+                Image(systemName: "clock.arrow.circlepath")
+                    .font(.system(size: 19, weight: .semibold))
+                    .frame(width: 44, height: 36)
+                    .contentShape(Rectangle())
+            }
+            .accessibilityLabel("Historique des trajets")
         case .recording:
             pill(text: L("Enregistrement"), color: Theme.red)
         case .paused:
             pill(text: L("En pause"), color: Theme.gaugeIdle)
-        case .idle, .finished:
+        case .finished:
             EmptyView()
         }
     }
