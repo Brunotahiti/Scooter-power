@@ -12,7 +12,9 @@ public enum AccelerationLevel: Sendable {
 public struct AccelerationAnalyzer: Sendable {
     public static let historyCapacity = 120
     public static let historyInterval = 0.25
-    public static let smoothingTimeConstant = 0.3
+    /// Constante de temps du lissage (s). Assez longue pour gommer vibrations et
+    /// à-coups, assez courte pour qu'une vraie accélération s'affiche en moins de 2 s.
+    public static let smoothingTimeConstant = 0.8
     public static let biasTimeConstant = 2.0
     /// Pleine échelle de la jauge, en m/s².
     public static let gaugeFullScale = 4.0

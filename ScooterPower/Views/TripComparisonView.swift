@@ -140,8 +140,8 @@ struct TripComparisonView: View {
         case .totalDuration: return "Durée totale"
         case .maxSpeed: return "Vitesse maximale"
         case .averageSpeed: return "Vitesse moyenne"
-        case .sprint50: return "0–50 km/h"
-        case .sprint80: return "0–80 km/h"
+        case .sprint30, .sprint50, .sprint80, .roll90, .roll100:
+            return (metric.interval?.label ?? "") + " km/h"
         case .peakAcceleration: return "Pic d'accélération"
         case .maxLeanLeft: return "Inclinaison gauche"
         case .maxLeanRight: return "Inclinaison droite"
@@ -158,7 +158,7 @@ struct TripComparisonView: View {
             return Formatters.duration(value)
         case .maxSpeed, .averageSpeed:
             return Formatters.decimal(value, digits: digits) + " km/h"
-        case .sprint50, .sprint80:
+        case .sprint30, .sprint50, .sprint80, .roll90, .roll100:
             return Formatters.decimal(value, digits: digits) + " s"
         case .peakAcceleration:
             return Formatters.decimal(value, digits: digits) + " m/s²"

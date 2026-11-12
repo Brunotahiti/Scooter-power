@@ -53,8 +53,10 @@ paysage.
 - **Durée de roulage** : temps passé au-dessus de 3 km/h.
 - **Accélération** : accéléromètre projeté sur l'axe de marche, corrigé par
   la dérivée de la vitesse GPS. « Forte » à partir de ±2,5 m/s².
-- **0–50 et 0–80 km/h** : le chrono s'arme à l'arrêt, part quand le scooter
-  démarre et s'annule si la vitesse retombe. Le GPS ne donnant qu'un point
+- **Temps d'accélération** : départs arrêtés 0–30, 0–50 et 0–80 km/h (le
+  chrono s'arme à l'arrêt) et reprises lancées 50–90 et 50–100 km/h (le chrono
+  part quand 50 km/h est franchi en accélérant). Une mesure s'annule si la
+  vitesse retombe. Le GPS ne donnant qu'un point
   par seconde, les passages sont interpolés : précision d'environ 0,2 s.
 - **Inclinaison** : sous 10 km/h, direction de la gravité par rapport à la
   calibration. Au-dessus de 25 km/h, physique du virage : vitesse GPS ×

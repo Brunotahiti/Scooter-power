@@ -1,73 +1,73 @@
 import SwiftUI
+import ScooterCore
 
-/// Meilleurs temps départ arrêté du trajet, et chrono de la mesure en cours.
+/// Meilleurs temps d'accélération du trajet : départs arrêtés (0–30, 0–50,
+/// 0–80 km/h) et reprises lancées (50–90, 50–100 km/h). Pendant une mesure,
+/// le chrono tourne à gauche.
 struct SprintCard: View {
-    let best50Text: String
-    let best80Text: String
+    /// Un temps par plage, dans l'ordre de `SpeedInterval.all`.
+    let times: [String]
     let isRunning: Bool
+    /// Secondes écoulées de la mesure en cours, sans unité.
     let elapsedText: String
 
     var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "flag.checkered")
-                .font(.system(size: 17, weight: .medium))
-                .foregroundStyle(Theme.cyan)
-            cell(title: "0–50 km/h", value: best50Text)
-            divider
-            cell(title: "0–80 km/h", value: best80Text)
-            if isRunning {
-                divider
-                chrono
+        HStack(spacing: 4) {
+            status
+            ForEach(SpeedInterval.all.indices, id: \.self) { index in
+                cell(title: SpeedInterval.all[index].label, value: value(at: index))
             }
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 10)
         .padding(.vertical, 7)
         .frame(maxWidth: .infinity)
         .cardStyle()
         .animation(.easeInOut(duration: 0.2), value: isRunning)
     }
 
-    private var divider: some View {
-        Rectangle()
-            .fill(Theme.cardBorder)
-            .frame(width: 1, height: 24)
+    private func value(at index: Int) -> String {
+        times.indices.contains(index) ? times[index] : "--"
     }
 
-    private var chrono: some View {
-        HStack(spacing: 4) {
-            Image(systemName: "stopwatch.fill")
-            Text(elapsedText)
+    /// Drapeau au repos, chrono orange pendant une mesure.
+    private var status: some View {
+        VStack(spacing: 1) {
+            Image(systemName: isRunning ? "stopwatch.fill" : "flag.checkered")
+                .font(.system(size: 15, weight: .medium))
+            Text(isRunning ? elapsedText : "km/h")
+                .font(.system(size: 11, weight: isRunning ? .bold : .regular, design: .rounded))
                 .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
         }
-        .font(.system(size: 16, weight: .bold, design: .rounded))
-        .foregroundStyle(Theme.orange)
-        .lineLimit(1)
+        .foregroundStyle(isRunning ? Theme.orange : Theme.cyan)
+        .frame(width: 38)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Mesure en cours")
-        .accessibilityValue(elapsedText)
+        .accessibilityLabel(isRunning ? "Mesure en cours" : "Temps d'accélération")
+        .accessibilityValue(isRunning ? elapsedText + " secondes" : "")
     }
 
     private func cell(title: String, value: String) -> some View {
-        HStack(spacing: 6) {
+        VStack(spacing: 1) {
             Text(title)
-                .font(.system(size: 12))
+                .font(.system(size: 10))
                 .foregroundStyle(Theme.textSecondary)
             Text(value)
-                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .font(.system(size: 14, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(Theme.textPrimary)
         }
         .lineLimit(1)
         .minimumScaleFactor(0.7)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title)
+        .accessibilityLabel(title + " kilomètres par heure")
         .accessibilityValue(value)
     }
 }
 
 #Preview {
-    SprintCard(best50Text: "4,9 s", best80Text: "--", isRunning: true, elapsedText: "6,2 s")
+    SprintCard(times: ["2,1 s", "4,9 s", "9,8 s", "6,4 s", "--"], isRunning: true, elapsedText: "6,2")
         .padding()
         .background(.black)
 }

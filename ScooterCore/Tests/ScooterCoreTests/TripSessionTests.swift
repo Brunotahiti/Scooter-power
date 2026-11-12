@@ -64,12 +64,12 @@ final class TripSessionTests: XCTestCase {
         var s = TripSession()
         s.start(at: 0)
         s.handle(mot(0, lean: 5))
-        feed(&s, from: 0.02, seconds: 3, lean: 13, forwardG: 0.2)
+        feed(&s, from: 0.02, seconds: 6, lean: 13, forwardG: 0.2)
         XCTAssertEqual(s.lean.angleDegrees, 8, accuracy: 0.2)
         XCTAssertEqual(s.acceleration.current, 1.96, accuracy: 0.05)
         s.recalibrate()
-        s.handle(mot(3.02, lean: 13))
-        s.handle(mot(3.04, lean: 13))
+        s.handle(mot(6.02, lean: 13))
+        s.handle(mot(6.04, lean: 13))
         XCTAssertEqual(s.lean.angleDegrees, 0, accuracy: 0.05)
     }
 
@@ -102,10 +102,10 @@ final class TripSessionTests: XCTestCase {
         s.start(at: 0)
         s.handle(mot(0))
         s.pause(at: 1)
-        feed(&s, from: 1, seconds: 3, lean: -15, forwardG: 0.3)
+        feed(&s, from: 1, seconds: 6, lean: -15, forwardG: 0.3)
         XCTAssertEqual(s.lean.angleDegrees, -15, accuracy: 0.2)
         XCTAssertEqual(s.acceleration.current, 2.94, accuracy: 0.05)
-        let r = s.summary(at: 4)
+        let r = s.summary(at: 7)
         XCTAssertEqual(r.maxLeanLeftDegrees, 0)
         XCTAssertEqual(r.peakAcceleration, 0)
     }
@@ -120,6 +120,9 @@ final class TripSessionTests: XCTestCase {
         XCTAssertEqual(r.best50!, 4.9, accuracy: 1e-6)
         XCTAssertEqual(r.best80!, 7.9, accuracy: 1e-6)
         XCTAssertEqual(s.sprint.last50!, 4.9, accuracy: 1e-6)
+        XCTAssertEqual(r.bestTimes[.zeroTo30]!, 2.9, accuracy: 1e-6)
+        XCTAssertEqual(r.bestTimes[.fiftyTo90]!, 4.0, accuracy: 1e-6)
+        XCTAssertNil(r.bestTimes[.fiftyTo100])
     }
 
     func testPauseCancelsSprintAndInvalidFixesAreNotTimed() {
@@ -178,7 +181,7 @@ final class TripSessionTests: XCTestCase {
         s.handle(loc(0, lon: 0))
         s.handle(loc(10, lon: 0.001, speed: 12))
         // Virage à gauche équilibré à 12 m/s : le lacet correspond aux 9° d'inclinaison.
-        feed(&s, from: 0.02, seconds: 3, lean: -9, forwardG: 0.3, yaw: -0.12943)
+        feed(&s, from: 0.02, seconds: 6, lean: -9, forwardG: 0.3, yaw: -0.12943)
         s.finish(at: 10)
         let r = s.summary(at: 50)
         XCTAssertEqual(r.distanceMeters, 111.19, accuracy: 0.05)

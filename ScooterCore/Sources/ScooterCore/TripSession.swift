@@ -13,17 +13,25 @@ public struct TripSummary: Sendable, Equatable {
     public var maxLeanRightDegrees: Double
     public var movingDuration: TimeInterval
     public var totalDuration: TimeInterval
-    /// Meilleur 0–50 km/h du trajet, en secondes.
-    public var best50: TimeInterval?
-    /// Meilleur 0–80 km/h du trajet, en secondes.
-    public var best80: TimeInterval?
+    /// Meilleur temps du trajet pour chaque plage d'accélération mesurée, en secondes.
+    public var bestTimes: [SpeedInterval: TimeInterval]
 
+    public func best(_ interval: SpeedInterval) -> TimeInterval? { bestTimes[interval] }
+    /// Meilleur 0–50 km/h du trajet, en secondes.
+    public var best50: TimeInterval? { bestTimes[.zeroTo50] }
+    /// Meilleur 0–80 km/h du trajet, en secondes.
+    public var best80: TimeInterval? { bestTimes[.zeroTo80] }
+
+    /// `best50` et `best80` complètent `bestTimes` pour ces deux plages.
     public init(distanceMeters: Double, maxSpeedKmh: Double, averageSpeedKmh: Double,
                 peakAcceleration: Double, maxLeanLeftDegrees: Double, maxLeanRightDegrees: Double,
                 movingDuration: TimeInterval, totalDuration: TimeInterval,
-                best50: TimeInterval? = nil, best80: TimeInterval? = nil) {
-        self.best50 = best50
-        self.best80 = best80
+                best50: TimeInterval? = nil, best80: TimeInterval? = nil,
+                bestTimes: [SpeedInterval: TimeInterval] = [:]) {
+        var times = bestTimes
+        if let best50 { times[.zeroTo50] = best50 }
+        if let best80 { times[.zeroTo80] = best80 }
+        self.bestTimes = times
         self.distanceMeters = distanceMeters
         self.maxSpeedKmh = maxSpeedKmh
         self.averageSpeedKmh = averageSpeedKmh
@@ -148,7 +156,6 @@ public struct TripSession: Sendable {
             maxLeanRightDegrees: lean.maxRightDegrees,
             movingDuration: statistics.movingDuration,
             totalDuration: statistics.totalDuration(at: now),
-            best50: sprint.best50,
-            best80: sprint.best80)
+            bestTimes: sprint.bestTimes)
     }
 }

@@ -20,6 +20,97 @@ final class SprintTimerTests: XCTestCase {
         XCTAssertFalse(t.isRunning)
     }
 
+    func testStandingStartAlsoTimesThirtyAndEighty() {
+        var t = SprintTimer()
+        t.add(timestamp: 0, speedKmh: 0)
+        launch(&t, start: 0, rate: 8, seconds: 11)
+        // 30 km/h franchi à t = 3,75 ; départ à 0,125.
+        XCTAssertEqual(t.last(.zeroTo30)!, 3.625, accuracy: 1e-6)
+        XCTAssertEqual(t.best(.zeroTo50)!, 6.125, accuracy: 1e-6)
+        XCTAssertEqual(t.best(.zeroTo80)!, 9.875, accuracy: 1e-6)
+        XCTAssertEqual(t.bestTimes[.zeroTo30]!, 3.625, accuracy: 1e-6)
+    }
+
+    // MARK: - Reprises lancées
+
+    /// Vitesses successives, un point par seconde à partir de `start`.
+    private func feed(_ timer: inout SprintTimer, start: Double, speeds: [Double]) {
+        for (i, v) in speeds.enumerated() {
+            timer.add(timestamp: start + Double(i), speedKmh: v)
+        }
+    }
+
+    func testRollingFiftyToNinetyAndHundred() {
+        var t = SprintTimer()
+        feed(&t, start: 0, speeds: [40, 40, 45, 55, 65, 75, 85, 95, 105])
+        // 50 km/h franchi à t = 2,5 ; 90 à t = 6,5 ; 100 à t = 7,5.
+        XCTAssertEqual(t.last(.fiftyTo90)!, 4.0, accuracy: 1e-6)
+        XCTAssertEqual(t.last(.fiftyTo100)!, 5.0, accuracy: 1e-6)
+        XCTAssertFalse(t.isRolling)
+        // Pas de départ arrêté : rien d'autre n'est mesuré.
+        XCTAssertNil(t.last(.zeroTo50))
+    }
+
+    func testRollingIsTimedDuringAStandingStartToo() {
+        var t = SprintTimer()
+        t.add(timestamp: 0, speedKmh: 0)
+        launch(&t, start: 0, rate: 10, seconds: 10)
+        XCTAssertEqual(t.last(.fiftyTo90)!, 4.0, accuracy: 1e-6)
+        XCTAssertEqual(t.last(.fiftyTo100)!, 5.0, accuracy: 1e-6)
+    }
+
+    func testRollingNeedsToCrossFiftyUpward() {
+        var t = SprintTimer()
+        feed(&t, start: 0, speeds: [60, 70, 80, 90, 100, 110])
+        XCTAssertNil(t.last(.fiftyTo90))
+        XCTAssertFalse(t.isRolling)
+    }
+
+    func testLiftingOffCancelsRollingThenItRearmsBelowFifty() {
+        var t = SprintTimer()
+        feed(&t, start: 0, speeds: [40, 55, 70, 62])
+        XCTAssertFalse(t.isRolling)
+        feed(&t, start: 4, speeds: [95, 105])
+        XCTAssertNil(t.last(.fiftyTo90))
+        // Retour sous 50 km/h, puis nouvelle reprise.
+        feed(&t, start: 6, speeds: [45, 55, 65, 75, 85, 95])
+        XCTAssertEqual(t.last(.fiftyTo90)!, 4.0, accuracy: 1e-6)
+        XCTAssertNil(t.last(.fiftyTo100))
+        XCTAssertTrue(t.isRolling)
+        XCTAssertEqual(t.activeElapsed(at: 12)!, 5.5, accuracy: 1e-6)
+    }
+
+    func testRollingGapPauseAndImplausibleJump() {
+        var t = SprintTimer()
+        feed(&t, start: 0, speeds: [45, 55])
+        t.add(timestamp: 6, speedKmh: 95)
+        XCTAssertNil(t.last(.fiftyTo90))
+
+        feed(&t, start: 10, speeds: [45, 55])
+        XCTAssertTrue(t.isRolling)
+        t.cancelRun()
+        XCTAssertFalse(t.isRolling)
+        feed(&t, start: 12, speeds: [95])
+        XCTAssertNil(t.last(.fiftyTo90))
+
+        // 45 → 120 km/h en une seconde : saut GPS.
+        feed(&t, start: 20, speeds: [45, 120])
+        XCTAssertNil(t.last(.fiftyTo90))
+        XCTAssertNil(t.last(.fiftyTo100))
+    }
+
+    func testRollingBestKeepsFastest() {
+        var t = SprintTimer()
+        feed(&t, start: 0, speeds: [45, 55, 65, 75, 85, 95])
+        feed(&t, start: 10, speeds: [40, 50, 55, 60, 65, 70, 75, 80, 85, 90])
+        XCTAssertEqual(t.last(.fiftyTo90)!, 8.0, accuracy: 1e-6)
+        XCTAssertEqual(t.best(.fiftyTo90)!, 4.0, accuracy: 1e-6)
+    }
+
+    func testIntervalLabels() {
+        XCTAssertEqual(SpeedInterval.all.map(\.label), ["0–30", "0–50", "0–80", "50–90", "50–100"])
+    }
+
     func testNothingWithoutStandstill() {
         var t = SprintTimer()
         t.add(timestamp: 0, speedKmh: 20)

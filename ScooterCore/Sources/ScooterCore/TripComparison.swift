@@ -3,7 +3,20 @@ import Foundation
 /// Un chiffre comparable d'un trajet à l'autre.
 public enum ComparisonMetric: CaseIterable, Sendable {
     case distance, movingDuration, totalDuration, maxSpeed, averageSpeed
-    case sprint50, sprint80, peakAcceleration, maxLeanLeft, maxLeanRight
+    case sprint30, sprint50, sprint80, roll90, roll100
+    case peakAcceleration, maxLeanLeft, maxLeanRight
+
+    /// La plage d'accélération correspondante, pour les lignes de chrono.
+    public var interval: SpeedInterval? {
+        switch self {
+        case .sprint30: return .zeroTo30
+        case .sprint50: return .zeroTo50
+        case .sprint80: return .zeroTo80
+        case .roll90: return .fiftyTo90
+        case .roll100: return .fiftyTo100
+        default: return nil
+        }
+    }
 
     enum Preference {
         case higher, lower, neutral
@@ -15,7 +28,7 @@ public enum ComparisonMetric: CaseIterable, Sendable {
         switch self {
         case .distance, .movingDuration, .totalDuration:
             return .neutral
-        case .sprint50, .sprint80:
+        case .sprint30, .sprint50, .sprint80, .roll90, .roll100:
             return .lower
         case .maxSpeed, .averageSpeed, .peakAcceleration, .maxLeanLeft, .maxLeanRight:
             return .higher
@@ -26,7 +39,7 @@ public enum ComparisonMetric: CaseIterable, Sendable {
     /// même façon sont à égalité.
     public var displayDigits: Int {
         switch self {
-        case .distance, .sprint50, .sprint80, .peakAcceleration:
+        case .distance, .sprint30, .sprint50, .sprint80, .roll90, .roll100, .peakAcceleration:
             return 1
         case .movingDuration, .totalDuration, .maxSpeed, .averageSpeed, .maxLeanLeft, .maxLeanRight:
             return 0
@@ -40,8 +53,8 @@ public enum ComparisonMetric: CaseIterable, Sendable {
         case .totalDuration: return summary.totalDuration
         case .maxSpeed: return summary.maxSpeedKmh
         case .averageSpeed: return summary.averageSpeedKmh
-        case .sprint50: return summary.best50
-        case .sprint80: return summary.best80
+        case .sprint30, .sprint50, .sprint80, .roll90, .roll100:
+            return interval.flatMap { summary.bestTimes[$0] }
         case .peakAcceleration: return summary.peakAcceleration
         case .maxLeanLeft: return summary.maxLeanLeftDegrees
         case .maxLeanRight: return summary.maxLeanRightDegrees

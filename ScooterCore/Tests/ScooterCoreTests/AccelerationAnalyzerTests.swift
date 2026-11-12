@@ -19,10 +19,30 @@ final class AccelerationAnalyzerTests: XCTestCase {
         XCTAssertEqual(AccelerationAnalyzer.level(for: -2.5), .brakingHard)
     }
 
+    func testBriefJoltBarelyMovesTheReading() {
+        // Un trou dans la chaussée ou un à-coup de 0,2 s à 6 m/s² ne doit pas
+        // faire croire à une forte accélération.
+        var a = AccelerationAnalyzer()
+        feed(&a, 0, from: 0, seconds: 2)
+        feed(&a, 6, from: 2, seconds: 0.2)
+        XCTAssertLessThan(a.current, 1.5)
+        XCTAssertNotEqual(a.level, .acceleratingHard)
+        feed(&a, 0, from: 2.2, seconds: 1)
+        XCTAssertLessThan(a.tripPeak, 1.5)
+    }
+
+    func testSustainedAccelerationStillShowsWithinTwoSeconds() {
+        var a = AccelerationAnalyzer()
+        feed(&a, 0, from: 0, seconds: 2)
+        feed(&a, 3, from: 2, seconds: 2)
+        XCTAssertGreaterThan(a.current, 2.7)
+        XCTAssertEqual(a.level, .acceleratingHard)
+    }
+
     func testConvergesWithoutGPS() {
         var a = AccelerationAnalyzer()
         feed(&a, 0, from: 0, seconds: 1)
-        feed(&a, 2.8, from: 1, seconds: 3)
+        feed(&a, 2.8, from: 1, seconds: 6)
         XCTAssertEqual(a.current, 2.8, accuracy: 0.02)
         XCTAssertEqual(a.level, .acceleratingHard)
         XCTAssertEqual(a.gaugePosition, 0.7, accuracy: 0.01)
@@ -38,10 +58,10 @@ final class AccelerationAnalyzerTests: XCTestCase {
 
     func testPeakLeavesWindowButTripPeakStays() {
         var a = AccelerationAnalyzer()
-        feed(&a, 3.6, from: 0, seconds: 3)
-        feed(&a, 1, from: 3, seconds: 5)
+        feed(&a, 3.6, from: 0, seconds: 6)
+        feed(&a, 1, from: 6, seconds: 5)
         XCTAssertEqual(a.peak, 3.6, accuracy: 0.05)
-        feed(&a, 1, from: 8, seconds: 35)
+        feed(&a, 1, from: 11, seconds: 40)
         XCTAssertEqual(a.peak, 1, accuracy: 0.05)
         XCTAssertEqual(a.tripPeak, 3.6, accuracy: 0.05)
     }
@@ -87,7 +107,7 @@ final class AccelerationAnalyzerTests: XCTestCase {
         a.addSensor(timestamp: 500, longitudinal: 3)
         XCTAssertEqual(a.current, 0, accuracy: 1e-9)
         XCTAssertEqual(a.history.count, before + 1)
-        feed(&a, 3, from: 500.02, seconds: 3)
+        feed(&a, 3, from: 500.02, seconds: 6)
         XCTAssertEqual(a.current, 3, accuracy: 0.02)
     }
 
@@ -102,7 +122,7 @@ final class AccelerationAnalyzerTests: XCTestCase {
 
     func testPeakNotTrackedWhenAsked() {
         var a = AccelerationAnalyzer()
-        for i in 0..<150 {
+        for i in 0..<300 {
             a.addSensor(timestamp: Double(i) * 0.02, longitudinal: 3, trackPeak: false)
         }
         XCTAssertEqual(a.current, 3, accuracy: 0.02)
@@ -111,13 +131,13 @@ final class AccelerationAnalyzerTests: XCTestCase {
 
     func testBadInputIgnored() {
         var a = AccelerationAnalyzer()
-        feed(&a, 1, from: 0, seconds: 2)
-        a.addSensor(timestamp: 2, longitudinal: .nan)
+        feed(&a, 1, from: 0, seconds: 6)
+        a.addSensor(timestamp: 6, longitudinal: .nan)
         a.addGPSSpeed(timestamp: 0, speed: -1)
         a.addGPSSpeed(timestamp: 1, speed: .infinity)
         a.addGPSSpeed(timestamp: 5, speed: 3)
         a.addGPSSpeed(timestamp: 5, speed: 9)
-        feed(&a, 1, from: 2.02, seconds: 1)
+        feed(&a, 1, from: 6.02, seconds: 1)
         XCTAssertEqual(a.current, 1, accuracy: 0.02)
     }
 }

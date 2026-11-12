@@ -28,9 +28,9 @@ final class TripViewModel {
     private(set) var accelerationHistory: [Double] = []
     private(set) var peakText = "0,0 m/s²"
 
-    /// Meilleurs temps du trajet, ou `--`.
-    private(set) var sprint50Text = "--"
-    private(set) var sprint80Text = "--"
+    /// Meilleurs temps du trajet, ou `--`, dans l'ordre de `SpeedInterval.all`.
+    private(set) var sprintTexts: [String] = SpeedInterval.all.map { _ in "--" }
+    /// Une mesure est en cours : départ arrêté ou reprise lancée.
     private(set) var sprintRunning = false
     private(set) var sprintElapsedText = ""
 
@@ -216,10 +216,9 @@ final class TripViewModel {
         peakText = Formatters.signed(acceleration.peak, digits: 1) + " m/s²"
 
         let sprint = session.sprint
-        sprint50Text = Self.sprintText(sprint.best50)
-        sprint80Text = Self.sprintText(sprint.best80)
-        sprintRunning = sprint.isRunning
-        sprintElapsedText = sprint.runElapsed(at: time).map { Formatters.decimal($0, digits: 1) + " s" } ?? ""
+        sprintTexts = SpeedInterval.all.map { Self.sprintText(sprint.best($0)) }
+        sprintRunning = sprint.isRunning || sprint.isRolling
+        sprintElapsedText = sprint.activeElapsed(at: time).map { Formatters.decimal($0, digits: 1) } ?? ""
 
         leanDegrees = lean.angleDegrees
         leanSide = lean.side

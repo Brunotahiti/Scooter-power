@@ -12,18 +12,19 @@ struct TripFigures: View {
     }
 
     private var rows: [Row] {
-        let entries: [(String, String)] = [
+        var entries: [(String, String)] = [
             ("Distance", Formatters.decimal(summary.distanceMeters / 1000, digits: 1) + " km"),
             ("Durée de roulage", Formatters.duration(summary.movingDuration)),
             ("Durée totale", Formatters.duration(summary.totalDuration)),
             ("Vitesse maximale", Formatters.decimal(summary.maxSpeedKmh, digits: 0) + " km/h"),
             ("Vitesse moyenne", Formatters.decimal(summary.averageSpeedKmh, digits: 0) + " km/h"),
-            ("0–50 km/h", Self.sprint(summary.best50)),
-            ("0–80 km/h", Self.sprint(summary.best80)),
-            ("Pic d'accélération", Formatters.signed(summary.peakAcceleration, digits: 1) + " m/s²"),
-            ("Inclinaison max. gauche", Formatters.decimal(summary.maxLeanLeftDegrees, digits: 0) + "°"),
-            ("Inclinaison max. droite", Formatters.decimal(summary.maxLeanRightDegrees, digits: 0) + "°"),
         ]
+        for interval in SpeedInterval.all {
+            entries.append((interval.label + " km/h", Self.sprint(summary.best(interval))))
+        }
+        entries.append(("Pic d'accélération", Formatters.signed(summary.peakAcceleration, digits: 1) + " m/s²"))
+        entries.append(("Inclinaison max. gauche", Formatters.decimal(summary.maxLeanLeftDegrees, digits: 0) + "°"))
+        entries.append(("Inclinaison max. droite", Formatters.decimal(summary.maxLeanRightDegrees, digits: 0) + "°"))
         var result: [Row] = []
         for index in entries.indices {
             result.append(Row(id: index, title: entries[index].0, value: entries[index].1))

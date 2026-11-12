@@ -39,11 +39,12 @@ Power → Position et choisissez « Lorsque l'app est active ».
 Le téléphone a bougé dans son support. Scooter droit, ouvrez le menu « ••• »
 en haut de l'écran et touchez « Recalibrer l'inclinaison ».
 
-## Les temps 0–50 ou 0–80 km/h restent vides
+## Les temps d'accélération restent vides
 
-Le chrono ne se déclenche qu'après un arrêt complet, puis une accélération
-continue jusqu'à la vitesse visée. Il s'annule si vous ralentissez en cours
-de route. Le GPS ne fournissant qu'une position par seconde, les temps sont
+Les départs arrêtés (0–30, 0–50, 0–80 km/h) ne se mesurent qu'après un arrêt
+complet. Les reprises (50–90, 50–100 km/h) partent de l'instant où vous
+franchissez 50 km/h en accélérant. Dans les deux cas, l'accélération doit
+être continue : le chrono s'annule si vous ralentissez en cours de route. Le GPS ne fournissant qu'une position par seconde, les temps sont
 indicatifs.
 
 ## Rien ne s'affiche sur l'écran verrouillé

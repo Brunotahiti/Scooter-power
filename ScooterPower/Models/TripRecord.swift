@@ -19,6 +19,11 @@ final class TripRecord {
     var totalDuration: Double
     var best50: Double?
     var best80: Double?
+    // Ajoutés après la première version : facultatifs, pour que les trajets
+    // déjà enregistrés restent lisibles.
+    var best30: Double?
+    var best50to90: Double?
+    var best50to100: Double?
     /// Tracé allégé, encodé en JSON.
     @Attribute(.externalStorage) var routeData: Data
 
@@ -32,10 +37,23 @@ final class TripRecord {
         self.maxLeanRightDegrees = summary.maxLeanRightDegrees
         self.movingDuration = summary.movingDuration
         self.totalDuration = summary.totalDuration
-        self.best50 = summary.best50
-        self.best80 = summary.best80
+        self.best30 = summary.best(.zeroTo30)
+        self.best50 = summary.best(.zeroTo50)
+        self.best80 = summary.best(.zeroTo80)
+        self.best50to90 = summary.best(.fiftyTo90)
+        self.best50to100 = summary.best(.fiftyTo100)
         let light = RouteSimplifier.downsample(route, maxPoints: Self.maxRoutePoints)
         self.routeData = (try? JSONEncoder().encode(light)) ?? Data()
+    }
+
+    private var bestTimes: [SpeedInterval: TimeInterval] {
+        var times: [SpeedInterval: TimeInterval] = [:]
+        times[.zeroTo30] = best30
+        times[.zeroTo50] = best50
+        times[.zeroTo80] = best80
+        times[.fiftyTo90] = best50to90
+        times[.fiftyTo100] = best50to100
+        return times
     }
 
     var summary: TripSummary {
@@ -48,8 +66,7 @@ final class TripRecord {
             maxLeanRightDegrees: maxLeanRightDegrees,
             movingDuration: movingDuration,
             totalDuration: totalDuration,
-            best50: best50,
-            best80: best80)
+            bestTimes: bestTimes)
     }
 
     var route: [Coordinate] {

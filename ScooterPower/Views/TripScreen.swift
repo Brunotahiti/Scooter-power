@@ -77,8 +77,7 @@ struct TripScreen: View {
                     peakText: model.peakText)
 
                 SprintCard(
-                    best50Text: model.sprint50Text,
-                    best80Text: model.sprint80Text,
+                    times: model.sprintTexts,
                     isRunning: model.sprintRunning,
                     elapsedText: model.sprintElapsedText)
 
