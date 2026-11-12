@@ -61,7 +61,7 @@ Pas de compte, pas de publicité, pas de collecte : tout est mesuré et conserv�
 | Catégorie principale | Navigation |
 | Catégorie secondaire | Sports |
 | Classification par âge | 4+ (aucun contenu sensible) |
-| Prix | Gratuit |
+| Prix | 2,99 € (achat unique, sans achat intégré ni abonnement) |
 | Langue principale | Français |
 | URL de la politique de confidentialité | https://brunotahiti.github.io/Scooter-power/confidentialite.html |
 | URL d'assistance | https://brunotahiti.github.io/Scooter-power/ |
