@@ -17,6 +17,14 @@ struct HistoryView: View {
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Fermer") { dismiss() }
                     }
+                    ToolbarItem(placement: .topBarLeading) {
+                        // Il faut au moins deux trajets pour comparer.
+                        if trips.count >= 2 {
+                            NavigationLink("Comparer") {
+                                TripComparisonView(trips: trips)
+                            }
+                        }
+                    }
                 }
         }
         .preferredColorScheme(.dark)

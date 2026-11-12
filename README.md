@@ -5,7 +5,8 @@ scooter, à partir des capteurs du téléphone fixé au guidon : vitesse GPS,
 vitesse maximale et moyenne, distance, altitude, durées, poussée
 d'accélération, inclinaison, temps 0–50 et 0–80 km/h.
 
-Chaque trajet terminé est conservé dans l'historique avec son tracé. Le
+Chaque trajet terminé est conservé dans l'historique avec son tracé, et
+deux trajets peuvent être comparés côte à côte. Le
 trajet en cours s'affiche aussi sur l'écran verrouillé et dans la Dynamic
 Island, et l'app passe en compteur plein écran quand le téléphone est en
 paysage.

@@ -35,7 +35,7 @@ EN DIRECT
 
 COMPARAISON DE PERFORMANCES
 • Pic d'accélération, vitesse maximale et inclinaison maximale de chaque trajet
-• Comparez vos trajets entre eux grâce à l'historique
+• Écran de comparaison : deux trajets côte à côte, le meilleur chiffre de chaque ligne mis en évidence
 
 TOUJOURS VISIBLE
 • Activité en direct sur l'écran verrouillé et dans la Dynamic Island
