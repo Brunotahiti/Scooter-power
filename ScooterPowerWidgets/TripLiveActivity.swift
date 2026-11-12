@@ -12,7 +12,7 @@ private enum Palette {
     static let track = Color.white.opacity(0.14)
 }
 
-private typealias TripState = TripActivityAttributes.ContentState
+private typealias ActivityState = TripActivityAttributes.ContentState
 
 /// Sens de la poussée, déduit des mêmes seuils que dans l'app.
 private enum Thrust {
@@ -95,7 +95,7 @@ struct TripLiveActivity: Widget {
 // MARK: - Écran verrouillé
 
 private struct LockScreenTripView: View {
-    let state: TripState
+    let state: ActivityState
 
     var body: some View {
         VStack(spacing: 10) {
@@ -115,7 +115,7 @@ private struct LockScreenTripView: View {
 
 /// Poussée d'accélération à gauche, inclinaison à droite.
 private struct DynamicsRow: View {
-    let state: TripState
+    let state: ActivityState
 
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -217,7 +217,7 @@ private struct ThrustGauge: View {
 
 /// Chevrons colorés pour la vue compacte de la Dynamic Island.
 private struct CompactThrust: View {
-    let state: TripState
+    let state: ActivityState
 
     var body: some View {
         let thrust = Thrust(state.acceleration)
@@ -294,7 +294,7 @@ private struct LeanDial: View {
 // MARK: - Éléments communs
 
 private struct SpeedLabel: View {
-    let state: TripState
+    let state: ActivityState
     let size: CGFloat
 
     var body: some View {
