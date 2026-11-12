@@ -12,8 +12,39 @@ struct TripScreen: View {
     @State private var showHistory = false
     @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
+    /// Compacte quand l'iPhone est en paysage.
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     var body: some View {
+        layout
+            .modifier(TripPresentations(
+                model: model,
+                showMap: $showMap,
+                showCamera: $showCamera,
+                showCameraUnavailable: $showCameraUnavailable,
+                confirmFinish: $confirmFinish,
+                showHistory: $showHistory))
+            .onChange(of: model.state) { _, newState in
+                if newState == .finished {
+                    saveTrip()
+                }
+            }
+            .preferredColorScheme(.dark)
+    }
+
+    @ViewBuilder
+    private var layout: some View {
+        if verticalSizeClass == .compact {
+            LandscapeTripView(
+                model: model,
+                onTogglePause: { model.togglePause() },
+                onMain: { mainAction() })
+        } else {
+            portrait
+        }
+    }
+
+    private var portrait: some View {
         ScrollView {
             VStack(spacing: 6) {
                 HeaderView(
@@ -30,18 +61,8 @@ struct TripScreen: View {
 
                 SpeedometerView(speedKmh: model.speedKmh)
 
-                HStack(spacing: 10) {
-                    BigStatCard(icon: "mountain.2", title: "Vitesse maximale", value: model.maxSpeedText, unit: "km/h")
-                    BigStatCard(icon: "gauge.with.needle", title: "Vitesse moyenne", value: model.averageSpeedText, unit: "km/h")
-                }
-                HStack(spacing: 10) {
-                    DualStatCard(
-                        first: .init(icon: "mappin", title: "Distance", value: model.distanceText),
-                        second: .init(icon: "triangle", title: "Altitude", value: model.altitudeText))
-                    DualStatCard(
-                        first: .init(icon: "stopwatch", title: "Durée de roulage", value: model.movingDurationText),
-                        second: .init(icon: nil, title: "Durée totale", value: model.totalDurationText))
-                }
+                speedCards
+                tripCards
 
                 AccelerationCard(
                     value: model.accelerationValue,
@@ -77,44 +98,24 @@ struct TripScreen: View {
                 onMain: { mainAction() },
                 onPhoto: { takePhoto() })
         }
-        .sheet(isPresented: $showHistory) {
-            HistoryView()
-        }
-        .onChange(of: model.state) { _, newState in
-            if newState == .finished {
-                saveTrip()
-            }
-        }
-        .sheet(isPresented: $showMap) {
-            MapSheet(route: model.route, showsUser: !model.isDemo)
-        }
-        .fullScreenCover(isPresented: $showCamera) {
-            CameraPicker()
-                .ignoresSafeArea()
-        }
-        .fullScreenCover(isPresented: summaryPresented) {
-            if let summary = model.summary {
-                SummaryView(summary: summary, onDone: { model.reset() })
-            }
-        }
-        .confirmationDialog("Terminer le trajet ?", isPresented: $confirmFinish, titleVisibility: .visible) {
-            Button("Terminer", role: .destructive) { model.finish() }
-            Button("Annuler", role: .cancel) {}
-        }
-        .alert("Appareil photo indisponible", isPresented: $showCameraUnavailable) {
-            Button("OK", role: .cancel) {}
-        }
-        .preferredColorScheme(.dark)
     }
 
-    private var summaryPresented: Binding<Bool> {
-        Binding(
-            get: { model.state == .finished && model.summary != nil },
-            set: { presented in
-                if !presented {
-                    model.reset()
-                }
-            })
+    private var speedCards: some View {
+        HStack(spacing: 10) {
+            BigStatCard(icon: "mountain.2", title: "Vitesse maximale", value: model.maxSpeedText, unit: "km/h")
+            BigStatCard(icon: "gauge.with.needle", title: "Vitesse moyenne", value: model.averageSpeedText, unit: "km/h")
+        }
+    }
+
+    private var tripCards: some View {
+        HStack(spacing: 10) {
+            DualStatCard(
+                first: .init(icon: "mappin", title: "Distance", value: model.distanceText),
+                second: .init(icon: "triangle", title: "Altitude", value: model.altitudeText))
+            DualStatCard(
+                first: .init(icon: "stopwatch", title: "Durée de roulage", value: model.movingDurationText),
+                second: .init(icon: nil, title: "Durée totale", value: model.totalDurationText))
+        }
     }
 
     /// Enregistre le trajet qui vient de se terminer dans l'historique.
@@ -166,6 +167,52 @@ struct TripScreen: View {
             .padding(.vertical, 8)
             .frame(maxWidth: .infinity)
             .cardStyle()
+    }
+}
+
+/// Feuilles, alertes et dialogues de l'écran, communs au portrait et au paysage.
+private struct TripPresentations: ViewModifier {
+    let model: TripViewModel
+    @Binding var showMap: Bool
+    @Binding var showCamera: Bool
+    @Binding var showCameraUnavailable: Bool
+    @Binding var confirmFinish: Bool
+    @Binding var showHistory: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .sheet(isPresented: $showHistory) {
+                HistoryView()
+            }
+            .sheet(isPresented: $showMap) {
+                MapSheet(route: model.route, showsUser: !model.isDemo)
+            }
+            .fullScreenCover(isPresented: $showCamera) {
+                CameraPicker()
+                    .ignoresSafeArea()
+            }
+            .fullScreenCover(isPresented: summaryPresented) {
+                if let summary = model.summary {
+                    SummaryView(summary: summary, onDone: { model.reset() })
+                }
+            }
+            .confirmationDialog("Terminer le trajet ?", isPresented: $confirmFinish, titleVisibility: .visible) {
+                Button("Terminer", role: .destructive) { model.finish() }
+                Button("Annuler", role: .cancel) {}
+            }
+            .alert("Appareil photo indisponible", isPresented: $showCameraUnavailable) {
+                Button("OK", role: .cancel) {}
+            }
+    }
+
+    private var summaryPresented: Binding<Bool> {
+        Binding(
+            get: { model.state == .finished && model.summary != nil },
+            set: { presented in
+                if !presented {
+                    model.reset()
+                }
+            })
     }
 }
 
