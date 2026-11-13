@@ -13,11 +13,14 @@ public struct SpeedInterval: Hashable, Sendable, Codable {
     public static let zeroTo30 = SpeedInterval(from: 0, to: 30)
     public static let zeroTo50 = SpeedInterval(from: 0, to: 50)
     public static let zeroTo80 = SpeedInterval(from: 0, to: 80)
+    public static let zeroTo100 = SpeedInterval(from: 0, to: 100)
     public static let fiftyTo90 = SpeedInterval(from: 50, to: 90)
     public static let fiftyTo100 = SpeedInterval(from: 50, to: 100)
 
     /// Toutes les plages mesurées, dans l'ordre d'affichage.
-    public static let all: [SpeedInterval] = [.zeroTo30, .zeroTo50, .zeroTo80, .fiftyTo90, .fiftyTo100]
+    public static let all: [SpeedInterval] = [
+        .zeroTo30, .zeroTo50, .zeroTo80, .zeroTo100, .fiftyTo90, .fiftyTo100,
+    ]
 
     /// Départs arrêtés, par vitesse d'arrivée croissante.
     static let standing: [SpeedInterval] = all.filter { $0.from == 0 }.sorted { $0.to < $1.to }
@@ -38,7 +41,7 @@ public struct SprintResult: Sendable, Equatable {
     public let time: TimeInterval
 }
 
-/// Chronomètre les accélérations : départs arrêtés (0–30, 0–50, 0–80 km/h)
+/// Chronomètre les accélérations : départs arrêtés (0–30, 0–50, 0–80, 0–100 km/h)
 /// et reprises lancées (50–90, 50–100 km/h).
 ///
 /// Le GPS ne fournit qu'un point par seconde ; les instants de départ et de

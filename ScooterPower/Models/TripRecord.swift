@@ -24,11 +24,15 @@ final class TripRecord {
     var best30: Double?
     var best50to90: Double?
     var best50to100: Double?
+    var best100: Double?
+    /// Configuration du scooter pendant ce trajet ; absente des trajets anciens.
+    var setupName: String?
     /// Tracé allégé, encodé en JSON.
     @Attribute(.externalStorage) var routeData: Data
 
-    init(startDate: Date, summary: TripSummary, route: [Coordinate]) {
+    init(startDate: Date, summary: TripSummary, route: [Coordinate], setupName: String? = nil) {
         self.startDate = startDate
+        self.setupName = setupName
         self.distanceMeters = summary.distanceMeters
         self.maxSpeedKmh = summary.maxSpeedKmh
         self.averageSpeedKmh = summary.averageSpeedKmh
@@ -42,6 +46,7 @@ final class TripRecord {
         self.best80 = summary.best(.zeroTo80)
         self.best50to90 = summary.best(.fiftyTo90)
         self.best50to100 = summary.best(.fiftyTo100)
+        self.best100 = summary.best(.zeroTo100)
         let light = RouteSimplifier.downsample(route, maxPoints: Self.maxRoutePoints)
         self.routeData = (try? JSONEncoder().encode(light)) ?? Data()
     }
@@ -53,6 +58,7 @@ final class TripRecord {
         times[.zeroTo80] = best80
         times[.fiftyTo90] = best50to90
         times[.fiftyTo100] = best50to100
+        times[.zeroTo100] = best100
         return times
     }
 

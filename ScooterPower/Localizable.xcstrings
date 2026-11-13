@@ -11,6 +11,26 @@
         }
       }
     },
+    "%@ km/h · moyenne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ km/h · average"
+          }
+        }
+      }
+    },
+    "%@ km/h · record": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ km/h · record"
+          }
+        }
+      }
+    },
     "%@ mètres par seconde carrée, %@": {
       "localizations": {
         "en": {
@@ -91,12 +111,12 @@
         }
       }
     },
-    "Accélération (m/s²)": {
+    "Accélération %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Acceleration (m/s²)"
+            "value": "Acceleration %@"
           }
         }
       }
@@ -117,6 +137,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Moderate acceleration"
+          }
+        }
+      }
+    },
+    "Accélérations": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acceleration"
           }
         }
       }
@@ -171,6 +201,26 @@
         }
       }
     },
+    "Après": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After"
+          }
+        }
+      }
+    },
+    "Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After modifying your scooter, give its setup a new name in Settings. Your next trips will be compared with the earlier ones, with the difference shown as a percentage."
+          }
+        }
+      }
+    },
     "Arrivée": {
       "localizations": {
         "en": {
@@ -211,6 +261,36 @@
         }
       }
     },
+    "Aucune statistique": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No statistics"
+          }
+        }
+      }
+    },
+    "Avant": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before"
+          }
+        }
+      }
+    },
+    "Avant / après": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before / after"
+          }
+        }
+      }
+    },
     "Avantage au trajet A.": {
       "localizations": {
         "en": {
@@ -241,12 +321,42 @@
         }
       }
     },
+    "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every trip is saved with this name. Change it after modifying your scooter: the Statistics page then compares performance before and after."
+          }
+        }
+      }
+    },
     "Comparer": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Compare"
+          }
+        }
+      }
+    },
+    "Configuration": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setup"
+          }
+        }
+      }
+    },
+    "Configuration du scooter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scooter setup"
           }
         }
       }
@@ -461,26 +571,6 @@
         }
       }
     },
-    "Incl. droite": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean right"
-          }
-        }
-      }
-    },
-    "Incl. gauche": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean left"
-          }
-        }
-      }
-    },
     "Inclinaison": {
       "localizations": {
         "en": {
@@ -601,6 +691,16 @@
         }
       }
     },
+    "Mesures": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Runs"
+          }
+        }
+      }
+    },
     "Mettre en pause": {
       "localizations": {
         "en": {
@@ -617,6 +717,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Miles"
+          }
+        }
+      }
+    },
+    "Moyenne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average"
           }
         }
       }
@@ -647,6 +757,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Origine": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stock"
           }
         }
       }
@@ -731,6 +851,16 @@
         }
       }
     },
+    "Pic de poussée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peak thrust"
+          }
+        }
+      }
+    },
     "Plus d'options": {
       "localizations": {
         "en": {
@@ -781,6 +911,16 @@
         }
       }
     },
+    "Poussée moyenne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average thrust"
+          }
+        }
+      }
+    },
     "Progression du record": {
       "localizations": {
         "en": {
@@ -791,22 +931,12 @@
         }
       }
     },
-    "Précision : %@": {
+    "Puissance": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Accuracy: %@"
-          }
-        }
-      }
-    },
-    "Prêt à partir": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ready to ride"
+            "value": "Power"
           }
         }
       }
@@ -821,12 +951,22 @@
         }
       }
     },
-    "Recherche du signal": {
+    "Record": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Searching for signal"
+            "value": "Record"
+          }
+        }
+      }
+    },
+    "Record %@, moyenne %@, %@ mesures": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record %@, average %@, %@ runs"
           }
         }
       }
@@ -941,6 +1081,16 @@
         }
       }
     },
+    "Statistiques": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statistics"
+          }
+        }
+      }
+    },
     "Temps": {
       "localizations": {
         "en": {
@@ -991,6 +1141,26 @@
         }
       }
     },
+    "Totaux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totals"
+          }
+        }
+      }
+    },
+    "Toutes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        }
+      }
+    },
     "Tracé indisponible pour ce trajet.": {
       "localizations": {
         "en": {
@@ -1031,12 +1201,12 @@
         }
       }
     },
-    "Trajet terminé": {
+    "Trajets": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trip ended"
+            "value": "Trips"
           }
         }
       }
@@ -1101,6 +1271,16 @@
         }
       }
     },
+    "Vitesse max. moyenne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average top speed"
+          }
+        }
+      }
+    },
     "Vitesse maximale": {
       "localizations": {
         "en": {
@@ -1121,6 +1301,16 @@
         }
       }
     },
+    "Vos performances apparaîtront ici après votre premier trajet.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your performance will appear here after your first trip."
+          }
+        }
+      }
+    },
     "Vos trajets terminés apparaîtront ici.": {
       "localizations": {
         "en": {
@@ -1131,12 +1321,52 @@
         }
       }
     },
+    "identique": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "same"
+          }
+        }
+      }
+    },
     "inconnue": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "unknown"
+          }
+        }
+      }
+    },
+    "mieux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "better"
+          }
+        }
+      }
+    },
+    "moins bien": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "worse"
+          }
+        }
+      }
+    },
+    "non comparable": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "not comparable"
           }
         }
       }

@@ -20,6 +20,8 @@ struct SettingsView: View {
         Binding(get: { settings.speedAlertDisplayValue }, set: { settings.setSpeedAlertDisplayValue($0) })
     }
 
+    @State private var setupDraft = ""
+
     private var thresholdText: String {
         let value: String = Formatters.decimal(settings.speedAlertDisplayValue, digits: 0)
         return L("Seuil : \(value) \(settings.units.speedUnit)")
@@ -34,6 +36,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                setupSection
                 unitsSection
                 alertSection
                 aboutSection
@@ -47,6 +50,25 @@ struct SettingsView: View {
             }
         }
         .preferredColorScheme(.dark)
+    }
+
+    /// Nom de la configuration du scooter, appliqué aux prochains trajets.
+    private var setupSection: some View {
+        Section {
+            TextField("Origine", text: $setupDraft)
+                .submitLabel(.done)
+                .onSubmit { settings.setCurrentSetup(setupDraft) }
+                .onChange(of: setupDraft) { _, value in
+                    settings.setCurrentSetup(value)
+                }
+        } header: {
+            Text("Configuration du scooter")
+        } footer: {
+            Text("Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après.")
+        }
+        .onAppear {
+            setupDraft = settings.currentSetup
+        }
     }
 
     private var unitsSection: some View {

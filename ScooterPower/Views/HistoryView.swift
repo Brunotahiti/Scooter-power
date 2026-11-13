@@ -25,11 +25,18 @@ struct HistoryView: View {
                             }
                         }
                     }
-                    ToolbarItem(placement: .bottomBar) {
+                    ToolbarItemGroup(placement: .bottomBar) {
                         NavigationLink {
                             RecordsView(trips: trips)
                         } label: {
                             Label("Records", systemImage: "trophy.fill")
+                                .labelStyle(.titleAndIcon)
+                        }
+                        Spacer()
+                        NavigationLink {
+                            StatsView(trips: trips)
+                        } label: {
+                            Label("Statistiques", systemImage: "chart.bar.fill")
                                 .labelStyle(.titleAndIcon)
                         }
                     }

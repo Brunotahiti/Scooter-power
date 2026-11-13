@@ -1,8 +1,10 @@
 import SwiftUI
 import ScooterCore
 
-/// Compteur en arc du mode portrait. `speed` est déjà dans l'unité affichée ;
-/// `nil` affiche `--`. `scale` agrandit tout le compteur (1 = 190 pt d'arc).
+/// Compteur de vitesse : pastille GPS, vitesse dans un cadre hexagonal, puis
+/// une échelle graduée au-dessus d'une barre à segments inclinés, du cyan au
+/// rouge. `speed` est déjà dans l'unité affichée ; `nil` affiche `--`.
+/// `scale` agrandit l'ensemble (1 en portrait).
 struct SpeedometerView: View {
     let speed: Double?
     /// « km/h » ou « mph ».
@@ -17,13 +19,8 @@ struct SpeedometerView: View {
     var signalBars: Int = 4
     var scale: CGFloat = 1
 
-    static let baseHeight: CGFloat = 190
-
-    /// L'arc couvre 200° : de 190° (0, à gauche) à −10° (fin d'échelle, à droite).
-    private static let startAngle: Double = 190
-    private static let sweep: Double = 200
-    /// Part de l'échelle à partir de laquelle commence la zone orange.
-    private static let hotZone: Double = 100.0 / 140.0
+    /// Hauteur totale à l'échelle 1.
+    static let baseHeight: CGFloat = 196
 
     private var fraction: Double {
         min(1, max(0, (speed ?? 0) / maxSpeed))
@@ -38,11 +35,11 @@ struct SpeedometerView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Canvas { context, size in
-                draw(in: &context, size: size)
-            }
-            readout
+        VStack(spacing: 6 * scale) {
+            gpsBadge
+            panel
+            SpeedBar(fraction: fraction, maxSpeed: maxSpeed, labelStep: labelStep, scale: scale)
+                .frame(height: 58 * scale)
         }
         .frame(height: Self.baseHeight * scale)
         .accessibilityElement(children: .ignore)
@@ -50,36 +47,22 @@ struct SpeedometerView: View {
         .accessibilityValue(speed == nil ? L("inconnue") : speedText + " " + unit)
     }
 
-    private var readout: some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 5 * scale) {
-                Image(systemName: "location.north.fill")
-                    .rotationEffect(.degrees(35))
-                Text(verbatim: "GPS")
-                signal
-            }
-            .font(.system(size: 15 * scale, weight: .bold))
-            .foregroundStyle(signalBars == 0 ? Theme.textSecondary : Theme.cyan)
+    // MARK: - Pastille GPS
 
-            Text(speedText)
-                .font(.system(size: 76 * scale, weight: .black))
-                .italic()
-                .monospacedDigit()
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .frame(height: 76 * scale)
-                .foregroundStyle(isAlert ? Theme.red : Theme.textPrimary)
-                .shadow(color: (isAlert ? Theme.red : Theme.cyan).opacity(0.4), radius: 8)
-                .contentTransition(.numericText())
-                .animation(.snappy(duration: 0.2), value: roundedSpeed)
-
-            Text(verbatim: unit)
-                .font(.system(size: 20 * scale, weight: .bold))
-            Text("Vitesse actuelle")
-                .font(.system(size: 14 * scale))
-                .foregroundStyle(Theme.textSecondary)
+    private var gpsBadge: some View {
+        let shape = HexagonFrame(tip: 12 * scale)
+        return HStack(spacing: 6 * scale) {
+            Image(systemName: "location.north.fill")
+                .rotationEffect(.degrees(35))
+            Text(verbatim: "GPS")
+            signal
         }
-        .foregroundStyle(Theme.textPrimary)
+        .font(.system(size: 15 * scale, weight: .heavy))
+        .foregroundStyle(signalBars == 0 ? Theme.textSecondary : Theme.cyan)
+        .padding(.horizontal, 22 * scale)
+        .frame(height: 28 * scale)
+        .background(Color.black.opacity(0.55), in: shape)
+        .overlay(shape.stroke(Theme.cyan.opacity(0.35), lineWidth: 1))
     }
 
     /// Quatre barres de hauteur croissante ; celles au-delà du niveau sont éteintes.
@@ -88,110 +71,182 @@ struct SpeedometerView: View {
             ForEach(0..<4, id: \.self) { index in
                 RoundedRectangle(cornerRadius: 1)
                     .fill(index < signalBars ? Theme.cyan : Theme.gaugeIdle)
-                    .frame(width: 3.5 * scale, height: (5 + 3 * CGFloat(index)) * scale)
+                    .frame(width: 4 * scale, height: (5 + 3.5 * CGFloat(index)) * scale)
             }
         }
     }
 
+    // MARK: - Cadre de la vitesse
+
+    private var panel: some View {
+        let shape = HexagonFrame(tip: 34 * scale)
+        let accent: Color = isAlert ? Theme.red : Theme.cyan
+        let border = LinearGradient(
+            colors: [Theme.orange.opacity(0.9), accent, accent, Theme.orange.opacity(0.9)],
+            startPoint: .leading, endPoint: .trailing)
+        return VStack(spacing: 0) {
+            HStack(alignment: .firstTextBaseline, spacing: 8 * scale) {
+                Text(speedText)
+                    .font(.system(size: 68 * scale, weight: .black))
+                    .italic()
+                    .monospacedDigit()
+                    .contentTransition(.numericText())
+                    .animation(.snappy(duration: 0.2), value: roundedSpeed)
+                Text(verbatim: unit)
+                    .font(.system(size: 24 * scale, weight: .heavy))
+                    .italic()
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+            .foregroundStyle(isAlert ? Theme.red : Theme.textPrimary)
+            .shadow(color: accent.opacity(0.45), radius: 8)
+
+            Text("Vitesse actuelle")
+                .font(.system(size: 15 * scale))
+                .italic()
+                .foregroundStyle(Theme.textSecondary)
+        }
+        .padding(.horizontal, 46 * scale)
+        .frame(maxWidth: 330 * scale)
+        .frame(height: 98 * scale)
+        .background(Color.black.opacity(0.6), in: shape)
+        .overlay(shape.stroke(border, lineWidth: 2 * scale))
+        .shadow(color: accent.opacity(0.5), radius: 10)
+    }
+}
+
+/// Rectangle aux extrémités en pointe.
+struct HexagonFrame: Shape {
+    /// Longueur de chaque pointe.
+    let tip: CGFloat
+
+    func path(in rect: CGRect) -> Path {
+        let t: CGFloat = min(tip, rect.width / 2)
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX + t, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - t, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.maxX - t, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX + t, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.closeSubpath()
+        return path
+    }
+}
+
+/// Échelle graduée et barre de vitesse à segments inclinés.
+private struct SpeedBar: View {
+    /// Part de l'échelle atteinte, de 0 à 1.
+    let fraction: Double
+    let maxSpeed: Double
+    let labelStep: Double
+    let scale: CGFloat
+
+    private static let segments = 44
+    /// Jusqu'ici la barre est cyan, puis jaune, orange et enfin rouge.
+    private static let warmStart: Double = 0.58
+    private static let hotStart: Double = 0.66
+    private static let redStart: Double = 0.80
+
+    var body: some View {
+        Canvas { context, size in
+            draw(in: &context, size: size)
+        }
+    }
+
+    private static func color(at position: Double) -> Color {
+        if position < warmStart { return Theme.cyan }
+        if position < hotStart { return Color(hex: 0xF5D90A) }
+        if position < redStart { return Theme.orange }
+        return Theme.red
+    }
+
     private func draw(in context: inout GraphicsContext, size: CGSize) {
         let k: CGFloat = scale
-        let labelPadding: CGFloat = 40 * k
-        let byWidth: CGFloat = size.width / 2 - labelPadding
-        let byHeight: CGFloat = (size.height - labelPadding - 26 * k) / 1.18
-        let radius: CGFloat = min(byWidth, byHeight)
-        guard radius > 20 else { return }
-        let center = CGPoint(x: size.width / 2, y: labelPadding + radius)
+        let labelHeight: CGFloat = 26 * k
+        let barHeight: CGFloat = size.height - labelHeight
+        guard barHeight > 8, size.width > 60 else { return }
+        let barTop: CGFloat = labelHeight
+        let tip: CGFloat = barHeight / 2
 
-        func point(at value: Double, radius r: CGFloat) -> CGPoint {
-            let degrees: Double = Self.startAngle - Self.sweep * value / maxSpeed
-            let radians: Double = degrees * Double.pi / 180
-            let dx: CGFloat = r * CGFloat(cos(radians))
-            let dy: CGFloat = r * CGFloat(sin(radians))
-            return CGPoint(x: center.x + dx, y: center.y - dy)
+        // La zone utile laisse les pointes du cadre libres.
+        let innerLeft: CGFloat = tip * 1.25
+        let innerWidth: CGFloat = size.width - innerLeft * 2
+
+        func x(at position: Double) -> CGFloat {
+            innerLeft + innerWidth * CGFloat(position)
         }
 
-        func arc(from: Double, to: Double, radius r: CGFloat) -> Path {
-            var path = Path()
-            let steps: Int = max(2, Int(abs(to - from) / maxSpeed * 100))
-            for index in 0...steps {
-                let value: Double = from + (to - from) * Double(index) / Double(steps)
-                let p: CGPoint = point(at: value, radius: r)
-                if index == 0 {
-                    path.move(to: p)
-                } else {
-                    path.addLine(to: p)
-                }
-            }
-            return path
-        }
-
-        let current: Double = fraction * maxSpeed
-        let hotStart: Double = maxSpeed * Self.hotZone
-        let accent: Color = isAlert ? Theme.red : Theme.cyan
-
-        // Graduations : fines toutes les 2 unités, longues toutes les 10. La
-        // fin d'échelle est toujours colorée, de l'orange au rouge.
-        let lastStep: Int = max(1, Int((maxSpeed / 2).rounded()))
-        for step in 0...lastStep {
-            let value: Double = Double(step) * 2
-            let isMajor: Bool = step % 5 == 0
-            let length: CGFloat = (isMajor ? 15 : 8) * k
-            let width: CGFloat = (isMajor ? 2.5 : 1.2) * k
-            let lit: Bool = value <= current && current > 0
-            let color: Color
-            if value >= hotStart {
-                let heat: Double = (value - hotStart) / max(1, maxSpeed - hotStart)
-                let base: Color = heat < 0.5 ? Theme.orange : Theme.red
-                color = base.opacity(lit ? 1 : 0.6)
-            } else {
-                color = lit ? accent : Theme.gaugeIdle
-            }
-            var tick = Path()
-            tick.move(to: point(at: value, radius: radius))
-            tick.addLine(to: point(at: value, radius: radius - length))
-            context.stroke(tick, with: .color(color), style: StrokeStyle(lineWidth: width, lineCap: .round))
-        }
-
-        // Liseré extérieur : discret jusqu'à la zone orange, lumineux ensuite.
-        let rimRadius: CGFloat = radius + 6 * k
-        context.stroke(
-            arc(from: 0, to: hotStart, radius: rimRadius), with: .color(Theme.cyan.opacity(0.35)),
-            style: StrokeStyle(lineWidth: 2 * k, lineCap: .round))
-        var hotGlow = context
-        hotGlow.addFilter(.shadow(color: Theme.orange.opacity(0.8), radius: 6 * k))
-        hotGlow.stroke(
-            arc(from: hotStart, to: maxSpeed, radius: rimRadius),
-            with: .linearGradient(
-                Gradient(colors: [Theme.orange, Theme.red]),
-                startPoint: point(at: hotStart, radius: rimRadius), endPoint: point(at: maxSpeed, radius: rimRadius)),
-            style: StrokeStyle(lineWidth: 3 * k, lineCap: .round))
-
-        // Arc parcouru et repère, avec halo.
-        if current > 0 {
-            let thick = StrokeStyle(lineWidth: 5 * k, lineCap: .round, lineJoin: .round)
-            var glow = context
-            glow.addFilter(.shadow(color: accent.opacity(0.9), radius: 7 * k))
-            glow.stroke(arc(from: 0, to: min(current, hotStart), radius: rimRadius), with: .color(accent), style: thick)
-
-            var marker = Path()
-            marker.move(to: point(at: current, radius: radius + 10 * k))
-            marker.addLine(to: point(at: current, radius: radius - 20 * k))
-            let markerColor: Color = current > hotStart ? Theme.orange : accent
-            glow.stroke(marker, with: .color(markerColor), style: thick)
-        }
-
-        // Chiffres.
+        // Chiffres et repères de l'échelle.
         for value in stride(from: 0.0, through: maxSpeed, by: max(1, labelStep)) {
+            let position: Double = value / maxSpeed
             let label = Text(Formatters.decimal(value, digits: 0))
-                .font(.system(size: 14 * k, weight: .semibold))
+                .font(.system(size: 13 * k, weight: .bold))
+                .italic()
                 .foregroundColor(Theme.textPrimary)
-            context.draw(label, at: point(at: value, radius: radius + 26 * k))
+            context.draw(label, at: CGPoint(x: x(at: position), y: 8 * k))
+            var tick = Path()
+            tick.move(to: CGPoint(x: x(at: position), y: 17 * k))
+            tick.addLine(to: CGPoint(x: x(at: position), y: labelHeight - 2 * k))
+            context.stroke(tick, with: .color(Theme.textPrimary.opacity(0.9)), lineWidth: 1.5 * k)
+        }
+
+        // Cadre de la barre, cyan à gauche et rouge à droite.
+        let frame = CGRect(x: 0, y: barTop, width: size.width, height: barHeight)
+        let outline: Path = HexagonFrame(tip: tip).path(in: frame.insetBy(dx: 1.5 * k, dy: 1.5 * k))
+        let outlineColors = Gradient(stops: [
+            .init(color: Theme.cyan, location: 0),
+            .init(color: Theme.cyan, location: Self.warmStart),
+            .init(color: Theme.orange, location: Self.redStart),
+            .init(color: Theme.red, location: 1),
+        ])
+        var glow = context
+        glow.addFilter(.shadow(color: Theme.cyan.opacity(0.6), radius: 6 * k))
+        glow.stroke(
+            outline,
+            with: .linearGradient(
+                outlineColors,
+                startPoint: CGPoint(x: 0, y: frame.midY), endPoint: CGPoint(x: size.width, y: frame.midY)),
+            lineWidth: 2 * k)
+
+        // Segments inclinés : vifs jusqu'à la vitesse courante, éteints au-delà.
+        let inset: CGFloat = 6 * k
+        let top: CGFloat = barTop + inset
+        let bottom: CGFloat = barTop + barHeight - inset
+        let slant: CGFloat = (bottom - top) * 0.45
+        let step: CGFloat = innerWidth / CGFloat(Self.segments)
+        let width: CGFloat = step * 0.72
+        for index in 0..<Self.segments {
+            let position: Double = (Double(index) + 0.5) / Double(Self.segments)
+            let left: CGFloat = innerLeft + step * CGFloat(index)
+            var segment = Path()
+            segment.move(to: CGPoint(x: left + slant, y: top))
+            segment.addLine(to: CGPoint(x: left + slant + width, y: top))
+            segment.addLine(to: CGPoint(x: left + width, y: bottom))
+            segment.addLine(to: CGPoint(x: left, y: bottom))
+            segment.closeSubpath()
+            let lit: Bool = position <= fraction && fraction > 0
+            let color: Color = Self.color(at: position)
+            context.fill(segment, with: .color(color.opacity(lit ? 1 : 0.22)))
+        }
+
+        // Repère de la vitesse courante.
+        if fraction > 0 {
+            let position: CGFloat = x(at: fraction)
+            var marker = Path()
+            marker.move(to: CGPoint(x: position + slant * 0.9, y: barTop - 3 * k))
+            marker.addLine(to: CGPoint(x: position - slant * 0.9, y: barTop + barHeight + 3 * k))
+            var markerGlow = context
+            markerGlow.addFilter(.shadow(color: Self.color(at: fraction).opacity(0.95), radius: 7 * k))
+            markerGlow.stroke(
+                marker, with: .color(Color.white.opacity(0.95)),
+                style: StrokeStyle(lineWidth: 5 * k, lineCap: .round))
         }
     }
 }
 
 #Preview {
-    SpeedometerView(speed: 82)
+    SpeedometerView(speed: 112)
         .padding()
         .background(.black)
 }

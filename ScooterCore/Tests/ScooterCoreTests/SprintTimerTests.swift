@@ -17,6 +17,11 @@ final class SprintTimerTests: XCTestCase {
         XCTAssertEqual(t.last50!, 6.125, accuracy: 1e-6)
         XCTAssertEqual(t.last80!, 9.875, accuracy: 1e-6)
         XCTAssertEqual(t.best50!, 6.125, accuracy: 1e-6)
+        // À 88 km/h, la mesure continue vers 100 km/h, puis s'arrête une fois ce seuil passé.
+        XCTAssertTrue(t.isRunning)
+        t.add(timestamp: 12, speedKmh: 96)
+        t.add(timestamp: 13, speedKmh: 104)
+        XCTAssertEqual(t.last(.zeroTo100)!, 12.375, accuracy: 1e-6)
         XCTAssertFalse(t.isRunning)
     }
 
@@ -112,18 +117,21 @@ final class SprintTimerTests: XCTestCase {
         XCTAssertTrue(t.results.isEmpty)
         t.add(timestamp: 0, speedKmh: 0)
         launch(&t, start: 0, rate: 10, seconds: 10)
-        XCTAssertEqual(t.results.map(\.interval), [.zeroTo30, .zeroTo50, .zeroTo80, .fiftyTo90, .fiftyTo100])
+        XCTAssertEqual(
+            t.results.map(\.interval),
+            [.zeroTo30, .zeroTo50, .zeroTo80, .fiftyTo90, .fiftyTo100, .zeroTo100])
         XCTAssertEqual(t.results[1].time, 4.9, accuracy: 1e-6)
+        XCTAssertEqual(t.best(.zeroTo100)!, 9.9, accuracy: 1e-6)
         // Un second départ, plus lent, s'ajoute au journal sans remplacer le premier.
         t.add(timestamp: 20, speedKmh: 0)
         launch(&t, start: 20, rate: 5, seconds: 7)
-        XCTAssertEqual(t.results.count, 6)
-        XCTAssertEqual(t.results[5].interval, .zeroTo30)
-        XCTAssertEqual(t.results[5].time, 5.8, accuracy: 1e-6)
+        XCTAssertEqual(t.results.count, 7)
+        XCTAssertEqual(t.results[6].interval, .zeroTo30)
+        XCTAssertEqual(t.results[6].time, 5.8, accuracy: 1e-6)
     }
 
     func testIntervalLabels() {
-        XCTAssertEqual(SpeedInterval.all.map(\.label), ["0–30", "0–50", "0–80", "50–90", "50–100"])
+        XCTAssertEqual(SpeedInterval.all.map(\.label), ["0–30", "0–50", "0–80", "0–100", "50–90", "50–100"])
     }
 
     func testNothingWithoutStandstill() {

@@ -1,32 +1,48 @@
-import Charts
 import SwiftUI
 import ScooterCore
 
-/// Écran du trajet en paysage : grand cadran à gauche ; à droite l'état, quatre
-/// tuiles, le graphe d'accélération et les boutons.
+/// Écran du trajet en paysage : le compteur en grand, puis la vitesse
+/// maximale, les commandes et le temps 0–100 km/h.
 /// Carte et Photo restent réservées au portrait.
 struct LandscapeTripView: View {
     let model: TripViewModel
     let onTogglePause: () -> Void
     let onMain: () -> Void
     let onOpenSettings: () -> Void
+    let onHistory: () -> Void
+    let onStats: () -> Void
+    let onSettings: () -> Void
+
+    private static let bottomHeight: CGFloat = 64
 
     var body: some View {
         GeometryReader { proxy in
-            let gauge: CGFloat = min(proxy.size.height, proxy.size.width * 0.52)
-            HStack(spacing: 14) {
-                LandscapeSpeedometer(
-                    speed: model.speedValue,
-                    unit: model.speedUnit,
-                    maxSpeed: model.speedometerMax,
-                    labelStep: model.speedometerStep,
-                    isAlert: model.speedAlertActive,
-                    signalBars: model.gpsSignalBars)
-                    .frame(width: gauge, height: proxy.size.height)
-                sidePanel
-            }
-            .overlay(alignment: .bottomLeading) {
-                accuracyBadge
+            let available: CGFloat = proxy.size.height - Self.bottomHeight - 10
+            let byHeight: CGFloat = available / SpeedometerView.baseHeight
+            // À l'échelle 1, le compteur est fait pour environ 400 pt de large.
+            let byWidth: CGFloat = proxy.size.width / 400
+            let scale: CGFloat = max(1, min(byHeight, byWidth))
+            VStack(spacing: 10) {
+                ZStack(alignment: .top) {
+                    SpeedometerView(
+                        speed: model.speedValue,
+                        unit: model.speedUnit,
+                        maxSpeed: model.speedometerMax,
+                        labelStep: model.speedometerStep,
+                        isAlert: model.speedAlertActive,
+                        signalBars: model.state == .idle ? 4 : model.gpsSignalBars,
+                        scale: scale)
+                    HeaderView(
+                        state: model.state,
+                        detail: model.totalDurationText,
+                        onHistory: onHistory,
+                        onStats: onStats,
+                        onSettings: onSettings,
+                        onRecalibrate: { model.recalibrate() })
+                }
+                .frame(maxHeight: .infinity)
+                bottomRow
+                    .frame(height: Self.bottomHeight)
             }
         }
         .padding(.horizontal, 6)
@@ -34,135 +50,43 @@ struct LandscapeTripView: View {
         .background(backdrop.ignoresSafeArea())
     }
 
-    /// Fond sombre avec un halo bleuté derrière le cadran.
+    /// Fond sombre avec des halos cyan et orange.
     private var backdrop: some View {
         ZStack {
             Theme.background
             RadialGradient(
                 colors: [Color(hex: 0x0B2A3A).opacity(0.9), Color.clear],
-                center: UnitPoint(x: 0.28, y: 0.5), startRadius: 20, endRadius: 420)
+                center: UnitPoint(x: 0.5, y: 0.3), startRadius: 20, endRadius: 460)
             RadialGradient(
                 colors: [Color(hex: 0x3A1508).opacity(0.5), Color.clear],
-                center: UnitPoint(x: 0.5, y: 0.75), startRadius: 10, endRadius: 260)
+                center: UnitPoint(x: 0.5, y: 1), startRadius: 10, endRadius: 320)
         }
     }
 
-    // MARK: - Précision GPS
+    // MARK: - Bas de l'écran
 
-    private var accuracyBadge: some View {
-        let accuracy: String = model.gpsAccuracyText ?? ""
-        let hasFix: Bool = model.gpsAccuracyText != nil
-        let dot: Color = signalColor
-        return HStack(spacing: 8) {
-            Image(systemName: "dot.radiowaves.left.and.right")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundStyle(Theme.cyan)
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 5) {
-                    Circle()
-                        .fill(dot)
-                        .frame(width: 8, height: 8)
-                    Text(verbatim: "GPS")
-                        .font(.system(size: 13, weight: .bold))
-                }
-                Text(hasFix ? L("Précision : \(accuracy)") : L("Recherche du signal"))
-                    .font(.system(size: 11))
-                    .foregroundStyle(Theme.textSecondary)
-            }
-        }
-        .foregroundStyle(Theme.textPrimary)
-        .lineLimit(1)
-        .padding(.leading, 4)
-        .padding(.bottom, 2)
-        .opacity(model.state == .idle ? 0 : 1)
-        .accessibilityElement(children: .combine)
-    }
-
-    private var signalColor: Color {
-        switch model.gpsSignalBars {
-        case 3...: return Color(hex: 0x34D058)
-        case 1...2: return Theme.orange
-        default: return Theme.red
-        }
-    }
-
-    // MARK: - Panneau de droite
-
-    private var sidePanel: some View {
-        VStack(spacing: 8) {
+    private var bottomRow: some View {
+        HStack(spacing: 12) {
+            LandscapeTile(
+                icon: "gauge.with.needle", title: L("Vitesse max"),
+                value: model.maxSpeedText, unit: model.speedUnit)
+            buttons
             if model.locationDenied {
                 locationDenied
             } else {
-                status
-            }
-            HStack(spacing: 8) {
                 LandscapeTile(
-                    icon: "gauge.with.needle", title: L("Vitesse max"),
-                    value: model.maxSpeedText, unit: model.speedUnit, tint: Theme.textPrimary)
-                LandscapeTile(
-                    icon: "mappin.and.ellipse", title: L("Distance"),
-                    value: model.distanceText, unit: "", tint: Theme.textPrimary)
+                    icon: "bolt.fill", title: L("Accélération \(SpeedInterval.zeroTo100.label)"),
+                    value: zeroTo100Text, unit: "")
             }
-            HStack(spacing: 8) {
-                LandscapeTile(
-                    icon: "bolt.fill", title: L("Accélération"),
-                    value: model.accelerationText, unit: "m/s²", tint: accelerationTint)
-                LandscapeTile(icon: "angle", title: leanTitle, value: model.leanText, unit: "", tint: Theme.textPrimary)
-            }
-            LandscapeAccelerationChart(history: model.accelerationHistory)
-            buttons
-        }
-        .frame(maxWidth: .infinity)
-    }
-
-    private var accelerationTint: Color {
-        model.accelerationLevel.direction == 0 ? Theme.textPrimary : model.accelerationLevel.color
-    }
-
-    private var leanTitle: String {
-        switch model.leanSide {
-        case .left: return L("Incl. gauche")
-        case .upright: return L("Inclinaison")
-        case .right: return L("Incl. droite")
         }
     }
 
-    private var status: some View {
-        let text: String
-        let color: Color
-        switch model.state {
-        case .idle:
-            text = L("Prêt à partir")
-            color = Theme.textSecondary
-        case .recording:
-            if model.gpsWeak {
-                text = L("Signal GPS faible")
-                color = Theme.orange
-            } else {
-                text = L("Enregistrement") + " · " + model.totalDurationText
-                color = Theme.red
-            }
-        case .paused:
-            text = L("En pause") + " · " + model.totalDurationText
-            color = Theme.textSecondary
-        case .finished:
-            text = L("Trajet terminé")
-            color = Theme.textSecondary
-        }
-        return HStack(spacing: 7) {
-            Circle()
-                .fill(color)
-                .frame(width: 10, height: 10)
-                .shadow(color: color.opacity(0.9), radius: 4)
-            Text(text)
-                .font(.system(size: 16, weight: .bold))
-                .monospacedDigit()
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-        }
-        .foregroundStyle(Theme.textPrimary)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.leading, 4)
+    /// Meilleur 0–100 du trajet, sinon le record tous trajets confondus.
+    private var zeroTo100Text: String {
+        guard let index = SpeedInterval.all.firstIndex(of: .zeroTo100) else { return "--" }
+        let trip: String = model.sprintTexts.indices.contains(index) ? model.sprintTexts[index] : "--"
+        if trip != "--" { return trip }
+        return model.recordTexts.indices.contains(index) ? model.recordTexts[index] : "--"
     }
 
     private var locationDenied: some View {
@@ -170,12 +94,12 @@ struct LandscapeTripView: View {
             HStack(spacing: 6) {
                 Image(systemName: "location.slash")
                 Text("Position refusée · Ouvrir Réglages")
-                    .lineLimit(1)
+                    .lineLimit(2)
                     .minimumScaleFactor(0.7)
             }
             .font(.system(size: 14, weight: .semibold))
             .foregroundStyle(Theme.orange)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
@@ -186,8 +110,8 @@ struct LandscapeTripView: View {
             if isActive {
                 Button(action: onTogglePause) {
                     Image(systemName: model.state == .paused ? "play.fill" : "pause.fill")
-                        .font(.system(size: 22, weight: .bold))
-                        .frame(width: 56, height: 56)
+                        .font(.system(size: 21, weight: .bold))
+                        .frame(width: 54, height: 54)
                         .background(Theme.card, in: Circle())
                         .overlay(Circle().strokeBorder(Theme.cyan.opacity(0.45), lineWidth: 1.5))
                 }
@@ -195,10 +119,11 @@ struct LandscapeTripView: View {
             }
             Button(action: onMain) {
                 Text(isIdle ? L("Démarrer") : L("Terminer"))
-                    .font(.system(size: 22, weight: .bold))
+                    .font(.system(size: 20, weight: .bold))
                     .lineLimit(1)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
+                    .minimumScaleFactor(0.7)
+                    .padding(.horizontal, 22)
+                    .frame(height: 54)
                     .foregroundStyle(isIdle ? Color.black : Color.white)
                     .background(mainFill(isIdle: isIdle), in: Capsule())
                     .shadow(color: (isIdle ? Theme.cyan : Theme.red).opacity(0.5), radius: 10)
@@ -208,140 +133,58 @@ struct LandscapeTripView: View {
     }
 
     private func mainFill(isIdle: Bool) -> LinearGradient {
-        let colors: [Color] = isIdle ? [Theme.cyan, Theme.cyan] : [Color(hex: 0xF0504A), Color(hex: 0xC8302C)]
+        let colors: [Color] = isIdle
+            ? [Color(hex: 0x4FE3FF), Theme.cyan]
+            : [Color(hex: 0xF0504A), Color(hex: 0xC8302C)]
         return LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
     }
 }
 
-/// Tuile du panneau de droite : icône, titre, valeur.
+/// Tuile du bas de l'écran : icône, titre, valeur en cyan.
 private struct LandscapeTile: View {
     let icon: String
     let title: String
     let value: String
     let unit: String
-    let tint: Color
 
     var body: some View {
-        HStack(spacing: 10) {
+        let shape = HexagonFrame(tip: 22)
+        let border = LinearGradient(
+            colors: [Theme.orange.opacity(0.85), Theme.cyan.opacity(0.4), Theme.orange.opacity(0.85)],
+            startPoint: .leading, endPoint: .trailing)
+        return HStack(spacing: 10) {
             Image(systemName: icon)
-                .font(.system(size: 22, weight: .medium))
+                .font(.system(size: 24, weight: .medium))
                 .foregroundStyle(Theme.cyan)
                 .shadow(color: Theme.cyan.opacity(0.7), radius: 5)
-                .frame(width: 30)
             VStack(alignment: .leading, spacing: 0) {
                 Text(title)
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.textSecondary)
-                HStack(alignment: .firstTextBaseline, spacing: 3) {
+                    .font(.system(size: 14))
+                    .italic()
+                    .foregroundStyle(Theme.textPrimary.opacity(0.9))
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(value)
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .font(.system(size: 25, weight: .black))
+                        .italic()
                         .monospacedDigit()
-                        .foregroundStyle(tint)
+                        .foregroundStyle(Theme.cyan)
                     if !unit.isEmpty {
                         Text(verbatim: unit)
-                            .font(.system(size: 14, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Theme.textPrimary.opacity(0.85))
+                            .font(.system(size: 16, weight: .bold))
+                            .italic()
+                            .foregroundStyle(Theme.textPrimary)
                     }
                 }
             }
             .lineLimit(1)
             .minimumScaleFactor(0.6)
-            Spacer(minLength: 0)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.card.opacity(0.85), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(Theme.cyan.opacity(0.35), lineWidth: 1))
+        .padding(.horizontal, 30)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.55), in: shape)
+        .overlay(shape.stroke(border, lineWidth: 1.5))
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(title)
         .accessibilityValue(value + " " + unit)
-    }
-}
-
-/// Graphe de l'accélération des 30 dernières secondes. Les freinages sont tracés à zéro.
-private struct LandscapeAccelerationChart: View {
-    let history: [Double]
-
-    private struct Point: Identifiable {
-        let id: Int
-        let value: Double
-    }
-
-    private var points: [Point] {
-        let offset: Int = AccelerationAnalyzer.historyCapacity - history.count
-        var result: [Point] = []
-        result.reserveCapacity(history.count)
-        for index in history.indices {
-            result.append(Point(id: offset + index, value: max(0, history[index])))
-        }
-        return result
-    }
-
-    /// Haut de l'échelle : au moins 1 m/s², sinon le pic arrondi au demi supérieur.
-    private var top: Double {
-        let peak: Double = history.max() ?? 0
-        return max(1, (peak * 2).rounded(.up) / 2)
-    }
-
-    var body: some View {
-        let data: [Point] = points
-        let ceiling: Double = top
-        let lastIndex: Int = AccelerationAnalyzer.historyCapacity - 1
-        return VStack(alignment: .leading, spacing: 2) {
-            Text("Accélération (m/s²)")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(Theme.textPrimary)
-            Chart {
-                ForEach(data) { point in
-                    AreaMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
-                        .interpolationMethod(.monotone)
-                        .foregroundStyle(fill)
-                    LineMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
-                        .interpolationMethod(.monotone)
-                        .foregroundStyle(Theme.cyan)
-                        .lineStyle(StrokeStyle(lineWidth: 2))
-                }
-                if let last = data.last {
-                    PointMark(x: .value("Temps", last.id), y: .value("Accélération", last.value))
-                        .foregroundStyle(Theme.cyan)
-                        .symbolSize(50)
-                }
-            }
-            .chartXScale(domain: 0...lastIndex)
-            .chartYScale(domain: 0.0...ceiling)
-            .chartXAxis(.hidden)
-            .chartYAxis {
-                AxisMarks(position: .leading, values: [0, ceiling / 2, ceiling]) { mark in
-                    AxisGridLine().foregroundStyle(Theme.cardBorder)
-                    AxisValueLabel {
-                        Text(verbatim: label(for: mark))
-                            .font(.system(size: 11))
-                            .foregroundStyle(Theme.textSecondary)
-                    }
-                }
-            }
-            .frame(maxHeight: .infinity)
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-        .background(Theme.card.opacity(0.85), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(Theme.cyan.opacity(0.35), lineWidth: 1))
-    }
-
-    private var fill: LinearGradient {
-        LinearGradient(
-            colors: [Theme.cyan.opacity(0.45), Theme.cyan.opacity(0.03)],
-            startPoint: .top, endPoint: .bottom)
-    }
-
-    private func label(for mark: AxisValue) -> String {
-        guard let value = mark.as(Double.self) else { return "" }
-        return Formatters.decimal(value, digits: 1)
     }
 }

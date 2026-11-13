@@ -12,6 +12,7 @@ struct TripScreen: View {
     @State private var showHistory = false
     @State private var showSettings = false
     @State private var showRecords = false
+    @State private var showStats = false
     private let settings = AppSettings.shared
     @Environment(\.modelContext) private var modelContext
     /// Tous les trajets enregistrés : la source des records.
@@ -44,6 +45,7 @@ struct TripScreen: View {
                 showHistory: $showHistory,
                 showSettings: $showSettings,
                 showRecords: $showRecords,
+                showStats: $showStats,
                 trips: history))
             .onChange(of: verticalSizeClass) { _, _ in
                 // Le téléphone a tourné sur son support : la position verticale a changé.
@@ -64,7 +66,10 @@ struct TripScreen: View {
                 model: model,
                 onTogglePause: { model.togglePause() },
                 onMain: { mainAction() },
-                onOpenSettings: { openSettings() })
+                onOpenSettings: { openSettings() },
+                onHistory: { showHistory = true },
+                onStats: { showStats = true },
+                onSettings: { showSettings = true })
         } else {
             portrait
         }
@@ -128,6 +133,7 @@ struct TripScreen: View {
             HeaderView(
                 state: model.state,
                 onHistory: { showHistory = true },
+                onStats: { showStats = true },
                 onSettings: { showSettings = true },
                 onRecalibrate: { model.recalibrate() })
         }
@@ -184,7 +190,8 @@ struct TripScreen: View {
     /// Enregistre le trajet qui vient de se terminer dans l'historique.
     private func saveTrip() {
         guard let summary = model.summary, let startDate = model.startDate else { return }
-        let record = TripRecord(startDate: startDate, summary: summary, route: model.route)
+        let record = TripRecord(
+            startDate: startDate, summary: summary, route: model.route, setupName: settings.currentSetup)
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()
@@ -269,6 +276,7 @@ private struct TripPresentations: ViewModifier {
     @Binding var showHistory: Bool
     @Binding var showSettings: Bool
     @Binding var showRecords: Bool
+    @Binding var showStats: Bool
     /// Tous les trajets enregistrés, pour l'écran des records.
     let trips: [TripRecord]
 
@@ -282,6 +290,9 @@ private struct TripPresentations: ViewModifier {
             }
             .sheet(isPresented: $showRecords) {
                 RecordsSheet(trips: trips)
+            }
+            .sheet(isPresented: $showStats) {
+                StatsSheet(trips: trips)
             }
             .sheet(isPresented: $showMap) {
                 MapSheet(route: model.route, showsUser: !model.isDemo)
