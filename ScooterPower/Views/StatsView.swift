@@ -193,6 +193,8 @@ struct StatsSheet: View {
 
 // MARK: - Mise en forme des valeurs
 
+/// Sur le fil principal, comme les réglages qu'elle consulte.
+@MainActor
 private enum StatsFormat {
     static func speed(_ kmh: Double) -> String {
         let units: UnitSystem = AppSettings.shared.units
