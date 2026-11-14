@@ -24,6 +24,8 @@ scooter,motorcycle,speedometer,speed,GPS,acceleration,performance,statistics,rec
 
 Scooter Power turns your iPhone into a performance dashboard for scooters and maxi-scooters. Mount the phone on the handlebar, tap "Start trip" and follow everything live.
 
+Modifying your scooter? Variator, exhaust, tyres, tuning: Scooter Power compares your performance between two modifications and shows what each one gained or lost you, in percent.
+
 LIVE
 • Glanceable GPS speedometer with a speed bar from cyan to red
 • Acceleration and braking thrust in m/s², intensity gauge and a graph of the last 30 seconds
@@ -38,7 +40,7 @@ PERFORMANCE
 
 STATISTICS
 • Full statistics page: record and average for every acceleration, average thrust, top speed, totals
-• Before / after: name your scooter's setup and compare your performance after each modification, with the difference in percent (+10%, −5%…)
+• Compare two modifications: name each setup of your scooter ("Stock", "Sport variator"…) and compare any two, figure by figure, with the difference in percent (+10%, −5%…) in green or red
 • Compare two trips side by side, with the best figure on each line highlighted
 
 ALWAYS VISIBLE

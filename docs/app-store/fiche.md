@@ -26,6 +26,8 @@ scooter,moto,compteur,vitesse,GPS,accélération,performance,statistiques,record
 
 Scooter Power transforme votre iPhone en tableau de bord de performance pour scooter et maxi-scooter. Fixez le téléphone au guidon, touchez « Démarrer le trajet » et suivez tout en direct.
 
+Vous modifiez votre scooter ? Variateur, échappement, pneus, réglages : Scooter Power compare vos performances entre deux modifications et vous montre ce que chacune vous a fait gagner ou perdre, en pourcentage.
+
 EN DIRECT
 • Compteur de vitesse GPS lisible d'un coup d'œil, avec barre de vitesse du cyan au rouge
 • Poussée d'accélération et de freinage en m/s², jauge d'intensité et graphe des 30 dernières secondes
@@ -40,7 +42,7 @@ PERFORMANCES
 
 STATISTIQUES
 • Page de statistiques complète : record et moyenne de chaque accélération, poussée moyenne, vitesse maximale, totaux
-• Avant / après : nommez la configuration de votre scooter et comparez vos performances après chaque modification, avec l'écart en pourcentage (+10 %, −5 %…)
+• Comparaison entre deux modifications : nommez chaque configuration de votre scooter (« Origine », « Variateur sport »…) et comparez-en deux au choix, chiffre par chiffre, avec l'écart en pourcentage (+10 %, −5 %…) en vert ou en rouge
 • Comparaison de deux trajets côte à côte, le meilleur chiffre de chaque ligne mis en évidence
 
 TOUJOURS VISIBLE
