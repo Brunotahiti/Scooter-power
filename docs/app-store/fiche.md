@@ -10,47 +10,50 @@ Scooter Power
 
 Si le nom est déjà pris sur le Store : « Scooter Power – Compteur GPS ».
 
-## Sous-titre (28 caractères)
+## Sous-titre (25 caractères)
 
-Tableau de bord pour scooter
+Performances pour scooter
 
-## Texte promotionnel (153 caractères)
+## Texte promotionnel (145 caractères)
 
-Vitesse GPS, accélération et inclinaison en direct, sur l'écran verrouillé comme dans la Dynamic Island. Comparez vos performances d'un trajet à l'autre.
+Vitesse, poussée et inclinaison en direct. Records, statistiques et comparaison avant/après chaque modification de votre scooter, en pourcentage.
 
-## Mots-clés (95 caractères)
+## Mots-clés (97 caractères)
 
-scooter,moto,compteur,vitesse,GPS,accélération,inclinaison,trajet,chrono,deux-roues,maxiscooter
+scooter,moto,compteur,vitesse,GPS,accélération,performance,statistiques,record,chrono,maxiscooter
 
 ## Description
 
-Scooter Power transforme votre iPhone en tableau de bord pour scooter et maxi-scooter. Fixez le téléphone au guidon, touchez « Démarrer le trajet » et suivez votre trajet en direct.
+Scooter Power transforme votre iPhone en tableau de bord de performance pour scooter et maxi-scooter. Fixez le téléphone au guidon, touchez « Démarrer le trajet » et suivez tout en direct.
 
 EN DIRECT
-• Vitesse GPS sur un grand compteur lisible d'un coup d'œil
-• Vitesse maximale et moyenne, distance, altitude
-• Durée de roulage et durée totale
-• Poussée d'accélération et freinage en m/s², avec le graphe des 30 dernières secondes
+• Compteur de vitesse GPS lisible d'un coup d'œil, avec barre de vitesse du cyan au rouge
+• Poussée d'accélération et de freinage en m/s², jauge d'intensité et graphe des 30 dernières secondes
 • Inclinaison à gauche et à droite, calculée à partir du gyroscope et de la vitesse
+• Vitesse maximale et moyenne, distance, altitude, durée de roulage
+• Précision et force du signal GPS
 
-COMPARAISON DE PERFORMANCES
-• Temps d'accélération et de reprise chronométrés automatiquement, comparables d'un trajet à l'autre
+PERFORMANCES
+• Temps d'accélération départ arrêté et de reprise chronométrés automatiquement
 • Records personnels : « Record battu » s'affiche dès que vous faites mieux
 • Écran des records, avec la date de chacun et sa progression dans le temps
-• Écran de comparaison : deux trajets côte à côte, le meilleur chiffre de chaque ligne mis en évidence
+
+STATISTIQUES
+• Page de statistiques complète : record et moyenne de chaque accélération, poussée moyenne, vitesse maximale, totaux
+• Avant / après : nommez la configuration de votre scooter et comparez vos performances après chaque modification, avec l'écart en pourcentage (+10 %, −5 %…)
+• Comparaison de deux trajets côte à côte, le meilleur chiffre de chaque ligne mis en évidence
 
 TOUJOURS VISIBLE
-• Activité en direct sur l'écran verrouillé et dans la Dynamic Island
+• Activité en direct sur l'écran verrouillé et dans la Dynamic Island, avec poussée et inclinaison
 • Mode paysage avec compteur plein écran
 • Enregistrement en arrière-plan, écran verrouillé
 
 HISTORIQUE ET PARTAGE
 • Chaque trajet est conservé avec son tracé sur la carte et tous ses chiffres
 • Partagez l'image de votre résumé ou exportez le tracé au format GPX
-• Carte du trajet en cours
 
 RÉGLAGES
-• Kilomètres ou miles
+• Kilomètres ou miles, français ou anglais
 • Alerte de vitesse : le compteur passe au rouge et le téléphone vibre au-dessus du seuil choisi
 
 VOS DONNÉES RESTENT SUR VOTRE IPHONE
@@ -58,7 +61,9 @@ Pas de compte, pas de publicité, pas de collecte : tout est mesuré et conserv�
 
 À SAVOIR
 • Les mesures viennent du GPS et des capteurs du téléphone. Elles sont indicatives et ne remplacent pas le compteur du véhicule.
+• Pour comparer deux configurations, faites plusieurs trajets sur le même parcours et dans des conditions proches.
 • Le téléphone doit être solidement fixé au guidon. Ne manipulez jamais l'application en roulant.
+• Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger.
 • L'utilisation continue du GPS en arrière-plan peut réduire l'autonomie de la batterie.
 
 ## Réglages de la fiche
@@ -84,13 +89,22 @@ comme « collectées » que si elles quittent le téléphone.
 ## Captures d'écran
 
 Format iPhone 6,9" (1320 × 2868 ou 1290 × 2796 px), que l'iPhone 15 Pro Max
-produit directement. Suggestion, dans cet ordre :
+produit directement. Jusqu'à 10 images ; les 3 premières apparaissent dans
+les résultats de recherche, ce sont elles qui comptent le plus.
 
-1. L'écran de trajet en cours, avec une vitesse et une accélération visibles.
-2. Le mode paysage.
-3. L'activité en direct sur l'écran verrouillé.
-4. Le détail d'un trajet de l'historique, avec sa carte.
-5. Le résumé de fin de trajet.
+1. Trajet en cours : compteur, poussée et graphe, à une vitesse visible.
+2. Page Statistiques, section Avant / après, avec des badges + et −.
+3. Bandeau « Record battu » sur l'écran de trajet.
+4. Mode paysage, compteur plein écran.
+5. Activité en direct sur l'écran verrouillé, avec poussée et inclinaison.
+6. Écran des records, avec la courbe de progression.
+7. Comparaison de deux trajets.
+8. Détail d'un trajet de l'historique, avec sa carte.
 
-Prendre les captures pendant un vrai trajet, à l'arrêt : le mode démo du
-simulateur affiche « Données d'illustration ».
+Les captures en paysage se déposent dans un jeu à part si App Store Connect
+refuse de les mélanger aux portraits.
+
+Prendre les captures sur l'iPhone pendant de vrais trajets, à l'arrêt : le
+simulateur affiche « Données d'illustration » et des chiffres de
+démonstration. Pour la capture Avant / après, il faut au moins deux
+configurations et quelques trajets pour chacune.
