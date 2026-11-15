@@ -130,7 +130,9 @@ struct TripScreen: View {
                 maxSpeed: model.speedometerMax,
                 labelStep: model.speedometerStep,
                 isAlert: model.speedAlertActive,
-                signalBars: model.state == .idle ? 4 : model.gpsSignalBars)
+                signalBars: model.state == .idle ? 4 : model.gpsSignalBars,
+                acceleration: model.accelerationValue,
+                leanDegrees: model.leanDegrees)
             HeaderView(
                 state: model.state,
                 onHistory: { showHistory = true },

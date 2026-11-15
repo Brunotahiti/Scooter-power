@@ -1,7 +1,8 @@
 import SwiftUI
 import ScooterCore
 
-/// Compteur de vitesse : pastille GPS, grand panneau à bords rouges avec un
+/// Compteur de vitesse : pastille GPS, grand panneau dont la couleur suit la
+/// vitesse (du cyan au rouge), avec un
 /// cadran autour de la vitesse et le scooter à droite, puis l'échelle et une
 /// barre à segments du cyan au rouge avec un repère sur la vitesse actuelle.
 /// `speed` est déjà dans l'unité affichée ; `nil` affiche `--`.
@@ -18,6 +19,10 @@ struct SpeedometerView: View {
     var isAlert: Bool = false
     /// Qualité du signal GPS, de 0 à 4 barres.
     var signalBars: Int = 4
+    /// Accélération en m/s², signée, pour animer le scooter.
+    var acceleration: Double = 0
+    /// Inclinaison en degrés, positive vers la droite, pour pencher le scooter.
+    var leanDegrees: Double = 0
     var scale: CGFloat = 1
 
     /// Hauteur totale à l'échelle 1.
@@ -31,6 +36,12 @@ struct SpeedometerView: View {
 
     private var speedText: String {
         speed.map { Formatters.decimal($0, digits: 0) } ?? "--"
+    }
+
+    /// Couleur du compteur : celle de la barre à la vitesse actuelle,
+    /// du cyan au rouge ; rouge vif quand l'alerte est déclenchée.
+    private var accent: Color {
+        isAlert ? Self.neonRed : SpeedBar.color(at: fraction)
     }
 
     private var roundedSpeed: Int? {
@@ -61,22 +72,21 @@ struct SpeedometerView: View {
 
     private var panel: some View {
         let shape = HexagonFrame(tip: 30 * scale)
+        let color: Color = accent
         let edge = LinearGradient(
-            colors: [Self.neonRed, Color(hex: 0xFF6A3D), Self.neonRed], startPoint: .leading, endPoint: .trailing)
+            colors: [color, color.opacity(0.7), color], startPoint: .leading, endPoint: .trailing)
         return GeometryReader { proxy in
             let height: CGFloat = proxy.size.height
             HStack(spacing: 0) {
                 ZStack {
-                    SpeedArc(fraction: fraction)
+                    SpeedArc(fraction: fraction, color: color)
                     readout
                 }
                 .frame(maxWidth: .infinity)
-                ScooterBadge()
-                    .frame(width: height * 0.92 * 0.643, height: height * 0.92)
-                    .background(
-                        RadialGradient(
-                            colors: [Self.neonRed.opacity(0.55), Color.clear],
-                            center: .center, startRadius: 2, endRadius: height * 0.55))
+                LiveScooter(
+                    speedFraction: fraction, acceleration: acceleration,
+                    leanDegrees: leanDegrees, accent: color)
+                    .frame(width: height * 0.98 * 0.643, height: height * 0.98)
                     .padding(.trailing, 30 * scale)
             }
             .padding(.leading, 26 * scale)
@@ -87,12 +97,13 @@ struct SpeedometerView: View {
                 CarbonTexture()
                     .opacity(0.35)
                 LinearGradient(
-                    colors: [Self.neonRed.opacity(0.18), Color.clear, Self.neonRed.opacity(0.12)],
+                    colors: [color.opacity(0.22), Color.clear, color.opacity(0.15)],
                     startPoint: .leading, endPoint: .trailing)
             }
             .clipShape(shape))
         .overlay(shape.stroke(edge, lineWidth: 2.5 * scale))
-        .shadow(color: Self.neonRed.opacity(0.75), radius: 12 * scale)
+        .shadow(color: color.opacity(0.75), radius: 12 * scale)
+        .animation(.easeInOut(duration: 0.5), value: fraction)
     }
 
     private var readout: some View {
@@ -111,7 +122,7 @@ struct SpeedometerView: View {
             .lineLimit(1)
             .minimumScaleFactor(0.5)
             .foregroundStyle(isAlert ? Self.neonRed : Theme.textPrimary)
-            .shadow(color: Color.white.opacity(0.35), radius: 6)
+            .shadow(color: accent.opacity(0.6), radius: 8)
             Text("Vitesse actuelle")
                 .font(.system(size: 15 * scale, weight: .medium))
                 .italic()
@@ -166,9 +177,10 @@ struct GPSBadge: View {
     }
 }
 
-/// Cadran rouge en arc autour de la vitesse : graduations allumées jusqu'à la vitesse actuelle.
+/// Cadran en arc autour de la vitesse : graduations allumées jusqu'à la vitesse actuelle.
 private struct SpeedArc: View {
     let fraction: Double
+    let color: Color
 
     private static let startAngle: Double = 205
     private static let sweep: Double = 165
@@ -189,7 +201,7 @@ private struct SpeedArc: View {
                 tick.addLine(to: CGPoint(x: center.x + inner * CGFloat(cos(radians)), y: center.y - inner * CGFloat(sin(radians))))
                 let lit: Bool = position <= fraction && fraction > 0
                 context.stroke(
-                    tick, with: .color(SpeedometerView.neonRed.opacity(lit ? 1 : 0.35)),
+                    tick, with: .color(color.opacity(lit ? 1 : 0.35)),
                     style: StrokeStyle(lineWidth: isMajor ? 3 : 1.6, lineCap: .round))
             }
             // Arc continu, lumineux sur la partie parcourue.
@@ -204,8 +216,8 @@ private struct SpeedArc: View {
                     if step == 0 { arc.move(to: point) } else { arc.addLine(to: point) }
                 }
                 var glow = context
-                glow.addFilter(.shadow(color: SpeedometerView.neonRed, radius: 6))
-                glow.stroke(arc, with: .color(SpeedometerView.neonRed), style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                glow.addFilter(.shadow(color: color, radius: 6))
+                glow.stroke(arc, with: .color(color), style: StrokeStyle(lineWidth: 4, lineCap: .round))
             }
         }
     }
@@ -270,7 +282,7 @@ struct SpeedBar: View {
         (1.00, (0.95, 0.10, 0.12)),
     ]
 
-    private static func color(at position: Double) -> Color {
+    static func color(at position: Double) -> Color {
         let p: Double = min(1, max(0, position))
         for index in 1..<stops.count where p <= stops[index].position {
             let a = stops[index - 1]

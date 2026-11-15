@@ -210,16 +210,11 @@ struct LandscapeTripView: View {
                 isAlert: model.speedAlertActive)
                 .frame(width: gaugeSize, height: gaugeSize)
                 .zIndex(1)
-            ScooterBadge()
+            LiveScooter(
+                speedFraction: fraction, acceleration: model.accelerationValue,
+                leanDegrees: model.leanDegrees,
+                accent: model.speedAlertActive ? Self.neonRed : SpeedBar.color(at: fraction))
                 .frame(width: scooterWidth, height: scooterHeight)
-                .background(
-                    ZStack {
-                        RadialGradient(
-                            colors: [Self.neonRed.opacity(0.65), Self.neonRed.opacity(0.15), Color.clear],
-                            center: UnitPoint(x: 0.5, y: 0.6), startRadius: 4, endRadius: scooterHeight * 0.6)
-                        ScooterFlare()
-                            .opacity(0.8)
-                    })
         }
     }
 
@@ -385,6 +380,12 @@ struct RoundSpeedGauge: View {
         min(1, max(0, (speed ?? 0) / maxSpeed))
     }
 
+    /// Couleur du cadran : celle de la barre à la vitesse actuelle ;
+    /// rouge vif quand l'alerte est déclenchée.
+    private var accent: Color {
+        isAlert ? SpeedometerView.neonRed : SpeedBar.color(at: fraction)
+    }
+
     private var speedText: String {
         speed.map { Formatters.decimal($0, digits: 0) } ?? "--"
     }
@@ -402,13 +403,14 @@ struct RoundSpeedGauge: View {
             .frame(width: side, height: side)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .animation(.easeInOut(duration: 0.5), value: fraction)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Vitesse actuelle")
         .accessibilityValue(speed == nil ? L("inconnue") : speedText + " " + unit)
     }
 
     private func face(side: CGFloat) -> some View {
-        let red: Color = SpeedometerView.neonRed
+        let red: Color = accent
         return ZStack {
             Circle()
                 .fill(
@@ -439,7 +441,7 @@ struct RoundSpeedGauge: View {
         let side: CGFloat = min(size.width, size.height)
         let center = CGPoint(x: size.width / 2, y: size.height / 2)
         let radius: CGFloat = side * 0.43
-        let red: Color = SpeedometerView.neonRed
+        let red: Color = accent
 
         // Bande rouge lumineuse sur la partie parcourue.
         if fraction > 0 {
@@ -508,7 +510,7 @@ struct RoundSpeedGauge: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
                 .foregroundStyle(isAlert ? AnyShapeStyle(SpeedometerView.neonRed) : AnyShapeStyle(chrome))
-                .shadow(color: SpeedometerView.neonRed.opacity(0.9), radius: side * 0.02)
+                .shadow(color: accent.opacity(0.9), radius: side * 0.02)
                 .contentTransition(.numericText())
                 .animation(.snappy(duration: 0.2), value: speed.map { Int($0.rounded()) })
             Text(verbatim: unit)
@@ -523,32 +525,5 @@ struct RoundSpeedGauge: View {
         }
         .frame(width: side * 0.62)
         .offset(y: side * 0.06)
-    }
-}
-
-/// Traînées rouges derrière le scooter, comme des éclats de lumière.
-private struct ScooterFlare: View {
-    var body: some View {
-        Canvas { context, size in
-            let origin = CGPoint(x: size.width * 0.5, y: size.height * 0.62)
-            var glow = context
-            glow.addFilter(.blur(radius: 3))
-            let rays: [(angle: Double, length: CGFloat)] = [
-                (200, 0.55), (215, 0.42), (232, 0.5), (-20, 0.55), (-35, 0.42), (-52, 0.5), (160, 0.4), (20, 0.4),
-            ]
-            for ray in rays {
-                let radians: Double = ray.angle * Double.pi / 180
-                let length: CGFloat = size.height * ray.length
-                var path = Path()
-                path.move(to: origin)
-                path.addLine(
-                    to: CGPoint(
-                        x: origin.x + length * CGFloat(cos(radians)), y: origin.y - length * CGFloat(sin(radians))))
-                glow.stroke(
-                    path, with: .color(SpeedometerView.neonRed.opacity(0.7)),
-                    style: StrokeStyle(lineWidth: 3, lineCap: .round))
-            }
-        }
-        .allowsHitTesting(false)
     }
 }
