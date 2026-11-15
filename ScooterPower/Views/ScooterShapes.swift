@@ -1,8 +1,9 @@
 import SwiftUI
 
-/// Pilote vu de face sur sa moto : casque, dos courbé, bras tenant le
-/// guidon, carénage avec phare et roue avant. Dessiné en `Path` pour ne
-/// dépendre d'aucune image ; s'utilise en trait (`stroke`).
+/// Maxi-scooter vu de face, au style agressif : bulle haute, rétroviseurs
+/// effilés, carénage anguleux avec phares plissés, tablier, garde-boue et
+/// roue. Dessiné en `Path` pour ne dépendre d'aucune image ; s'utilise en
+/// trait (`stroke`).
 struct ScooterFrontShape: Shape {
     func path(in rect: CGRect) -> Path {
         let w: CGFloat = rect.width
@@ -15,25 +16,49 @@ struct ScooterFrontShape: Shape {
         }
 
         var path = Path()
-        path.addEllipse(in: box(0.33, 0.03, 0.34, 0.21))
-        path.move(to: p(0.38, 0.12))
-        path.addQuadCurve(to: p(0.62, 0.12), control: p(0.50, 0.17))
-        path.move(to: p(0.22, 0.41))
-        path.addQuadCurve(to: p(0.50, 0.25), control: p(0.24, 0.25))
-        path.addQuadCurve(to: p(0.78, 0.41), control: p(0.76, 0.25))
-        path.move(to: p(0.24, 0.35))
-        path.addQuadCurve(to: p(0.09, 0.56), control: p(0.04, 0.42))
-        path.move(to: p(0.76, 0.35))
-        path.addQuadCurve(to: p(0.91, 0.56), control: p(0.96, 0.42))
-        path.move(to: p(0.01, 0.56))
-        path.addLine(to: p(0.99, 0.56))
-        path.move(to: p(0.31, 0.50))
-        path.addLine(to: p(0.69, 0.50))
-        path.addLine(to: p(0.76, 0.67))
-        path.addQuadCurve(to: p(0.24, 0.67), control: p(0.50, 0.77))
+        path.move(to: p(0.31, 0.32))
+        path.addLine(to: p(0.38, 0.04))
+        path.addQuadCurve(to: p(0.62, 0.04), control: p(0.50, 0.00))
+        path.addLine(to: p(0.69, 0.32))
+        path.move(to: p(0.27, 0.31))
+        path.addLine(to: p(0.15, 0.22))
+        path.move(to: p(0.01, 0.19))
+        path.addLine(to: p(0.19, 0.17))
+        path.addLine(to: p(0.16, 0.23))
+        path.addLine(to: p(0.04, 0.24))
         path.closeSubpath()
-        path.addEllipse(in: box(0.40, 0.57, 0.20, 0.07))
-        path.addRoundedRect(in: box(0.41, 0.73, 0.18, 0.27), cornerSize: CGSize(width: 0.09 * w, height: 0.09 * w))
+        path.move(to: p(0.73, 0.31))
+        path.addLine(to: p(0.85, 0.22))
+        path.move(to: p(0.99, 0.19))
+        path.addLine(to: p(0.81, 0.17))
+        path.addLine(to: p(0.84, 0.23))
+        path.addLine(to: p(0.96, 0.24))
+        path.closeSubpath()
+        path.move(to: p(0.12, 0.32))
+        path.addLine(to: p(0.88, 0.32))
+        path.addLine(to: p(0.95, 0.41))
+        path.addLine(to: p(0.79, 0.50))
+        path.addLine(to: p(0.21, 0.50))
+        path.addLine(to: p(0.05, 0.41))
+        path.closeSubpath()
+        path.move(to: p(0.12, 0.38))
+        path.addLine(to: p(0.41, 0.42))
+        path.addLine(to: p(0.37, 0.46))
+        path.addLine(to: p(0.20, 0.45))
+        path.closeSubpath()
+        path.move(to: p(0.88, 0.38))
+        path.addLine(to: p(0.59, 0.42))
+        path.addLine(to: p(0.63, 0.46))
+        path.addLine(to: p(0.80, 0.45))
+        path.closeSubpath()
+        path.move(to: p(0.23, 0.50))
+        path.addLine(to: p(0.33, 0.71))
+        path.addLine(to: p(0.67, 0.71))
+        path.addLine(to: p(0.77, 0.50))
+        path.addRoundedRect(in: box(0.40, 0.57, 0.20, 0.05), cornerSize: CGSize(width: 0.03 * w, height: 0.03 * w))
+        path.move(to: p(0.34, 0.79))
+        path.addQuadCurve(to: p(0.66, 0.79), control: p(0.50, 0.69))
+        path.addRoundedRect(in: box(0.42, 0.73, 0.16, 0.27), cornerSize: CGSize(width: 0.08 * w, height: 0.08 * w))
         return path
     }
 }
