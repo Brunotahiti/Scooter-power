@@ -113,20 +113,15 @@ struct LandscapeTripView: View {
         }
     }
 
+    /// Simple point lumineux ; le texte reste lu par VoiceOver.
     private func pill(text: String, color: Color) -> some View {
-        HStack(spacing: 6) {
-            Circle()
-                .fill(color)
-                .frame(width: 8, height: 8)
-            Text(text)
-                .font(.system(size: 12, weight: .semibold))
-                .lineLimit(1)
-        }
-        .padding(.horizontal, 9)
-        .padding(.vertical, 5)
-        .background(color.opacity(0.22), in: Capsule())
-        .overlay(Capsule().strokeBorder(color.opacity(0.8), lineWidth: 1))
-        .fixedSize()
+        Circle()
+            .fill(color)
+            .frame(width: 12, height: 12)
+            .shadow(color: color, radius: 5)
+            .frame(width: 30, height: 36)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(text)
     }
 
     private var controls: some View {

@@ -57,20 +57,14 @@ struct HeaderView: View {
         return text + " · " + detail
     }
 
+    /// Simple point lumineux ; le texte reste lu par VoiceOver.
     private func pill(text: String, color: Color) -> some View {
-        HStack(spacing: 6) {
-            Circle()
-                .fill(color)
-                .frame(width: 9, height: 9)
-            Text(text)
-                .font(.system(size: 13, weight: .semibold))
-                .monospacedDigit()
-                .lineLimit(1)
-        }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 6)
-        .background(color.opacity(0.22), in: Capsule())
-        .overlay(Capsule().strokeBorder(color.opacity(0.8), lineWidth: 1))
-        .fixedSize()
+        Circle()
+            .fill(color)
+            .frame(width: 12, height: 12)
+            .shadow(color: color, radius: 5)
+            .frame(width: 30, height: 36)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(text)
     }
 }
