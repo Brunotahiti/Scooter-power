@@ -12,6 +12,8 @@ struct SummaryView: View {
     let date: Date?
     /// Records tous trajets confondus, trajet terminé compris.
     let recordTimes: [SpeedInterval: TimeInterval]
+    /// Records battus pendant ce trajet.
+    let trophies: [Trophy]
     /// Poussée des 30 dernières secondes du trajet.
     let accelerationHistory: [Double]
     let onDone: () -> Void
@@ -41,6 +43,9 @@ struct SummaryView: View {
             ScrollView {
                 VStack(spacing: 12) {
                     header
+                    if !trophies.isEmpty {
+                        SummaryTrophiesCard(trophies: trophies)
+                    }
                     speedRow
                     timesCard
                     SummaryIntervalsCard(times: summary.bestTimes, records: recordTimes)
@@ -541,5 +546,100 @@ private struct SummaryThrustCard: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Accélération")
         .accessibilityValue(L("Pic : \(Formatters.signed(peak, digits: 1) + " m/s²")"))
+    }
+}
+
+/// Records battus pendant ce trajet.
+private struct SummaryTrophiesCard: View {
+    let trophies: [Trophy]
+
+    static let gold = Color(hex: 0xFFC83D)
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 10) {
+                Image(systemName: "trophy.fill")
+                    .font(.system(size: 22))
+                    .foregroundStyle(Self.gold)
+                    .shadow(color: Self.gold.opacity(0.8), radius: 6)
+                Text(trophies.count == 1 ? L("Record battu !") : L("\(String(trophies.count)) records battus !"))
+                    .font(.system(size: 20, weight: .heavy))
+                    .italic()
+            }
+            VStack(spacing: 0) {
+                ForEach(trophies.indices, id: \.self) { index in
+                    row(trophies[index])
+                    if index < trophies.count - 1 {
+                        Rectangle()
+                            .fill(Theme.cardBorder)
+                            .frame(height: 1)
+                    }
+                }
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .cardStyle(tint: Self.gold)
+        .shadow(color: Self.gold.opacity(0.25), radius: 12)
+    }
+
+    private func row(_ trophy: Trophy) -> some View {
+        let value: String = Self.text(trophy.value, for: trophy.kind)
+        let previous: String = Self.text(trophy.previous, for: trophy.kind)
+        let gain: String = "+" + Formatters.decimal(trophy.improvementPercent, digits: 0) + " %"
+        return HStack(spacing: 10) {
+            Image(systemName: "medal.fill")
+                .font(.system(size: 18))
+                .foregroundStyle(Self.gold)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(verbatim: Self.title(trophy.kind))
+                    .font(.system(size: 15, weight: .semibold))
+                Text(L("ancien \(previous)"))
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.textSecondary)
+            }
+            Spacer(minLength: 6)
+            Text(verbatim: value)
+                .font(.system(size: 20, weight: .black))
+                .italic()
+                .foregroundStyle(Theme.orange)
+            Text(verbatim: gain)
+                .font(.system(size: 13, weight: .heavy))
+                .foregroundStyle(Color.black)
+                .padding(.horizontal, 7)
+                .padding(.vertical, 3)
+                .background(Color(hex: 0x34D058), in: Capsule())
+        }
+        .monospacedDigit()
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
+        .padding(.vertical, 8)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L("Record battu") + ", " + Self.title(trophy.kind))
+        .accessibilityValue(value + ", " + L("ancien \(previous)") + ", " + gain)
+    }
+
+    private static func title(_ kind: Trophy.Kind) -> String {
+        switch kind {
+        case .interval(let interval): return interval.label + " km/h"
+        case .topSpeed: return L("Vitesse maximale")
+        case .peakAcceleration: return L("Pic de poussée")
+        case .maxLean: return L("Inclinaison max.")
+        }
+    }
+
+    @MainActor
+    private static func text(_ value: Double, for kind: Trophy.Kind) -> String {
+        switch kind {
+        case .interval:
+            return Formatters.decimal(value, digits: 1) + " s"
+        case .topSpeed:
+            let units: UnitSystem = AppSettings.shared.units
+            return Formatters.decimal(units.speed(fromKmh: value), digits: 0) + " " + units.speedUnit
+        case .peakAcceleration:
+            return Formatters.signed(value, digits: 1) + " m/s²"
+        case .maxLean:
+            return Formatters.decimal(value, digits: 0) + "°"
+        }
     }
 }

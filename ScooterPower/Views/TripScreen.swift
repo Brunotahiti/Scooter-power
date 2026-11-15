@@ -314,6 +314,7 @@ private struct TripPresentations: ViewModifier {
                         highlights: model.highlights,
                         date: model.startDate,
                         recordTimes: recordTimes,
+                        trophies: trophies(for: summary),
                         accelerationHistory: model.accelerationHistory,
                         onDone: { model.reset() })
                 }
@@ -325,6 +326,15 @@ private struct TripPresentations: ViewModifier {
             .alert("Appareil photo indisponible", isPresented: $showCameraUnavailable) {
                 Button("OK", role: .cancel) {}
             }
+    }
+
+    /// Records battus par le trajet tout juste terminé, face aux trajets précédents.
+    private func trophies(for summary: TripSummary) -> [Trophy] {
+        var history: [TripSummary] = []
+        for trip in trips where trip.startDate != model.startDate {
+            history.append(trip.summary)
+        }
+        return TripTrophies.compute(trip: summary, history: history)
     }
 
     /// Records tous trajets confondus, trajet tout juste terminé compris.
