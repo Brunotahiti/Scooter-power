@@ -12,9 +12,9 @@ Scooter Power
 
 Scooter speed & performance
 
-## Promotional text (138 characters)
+## Promotional text (143 characters)
 
-Live speed, thrust and lean angle. Records, statistics and a before/after comparison every time you modify your scooter, shown in percent.
+Neon dashboard, live speed, thrust and lean. Beat your records, compare your scooter mods in percent and challenge your friends with a QR code!
 
 ## Keywords (95 characters)
 
@@ -27,7 +27,8 @@ Scooter Power turns your iPhone into a performance dashboard for scooters and ma
 Modifying your scooter? Variator, exhaust, tyres, tuning: Scooter Power compares your performance between two modifications and shows what each one gained or lost you, in percent.
 
 LIVE
-• Glanceable GPS speedometer with a speed bar from cyan to red
+• Neon GPS speedometer whose color shifts from cyan to red as your speed rises
+• Animated scooter that leans into corners, rears up when you accelerate and dives when you brake
 • Acceleration and braking thrust in m/s², intensity gauge and a graph of the last 30 seconds
 • Lean angle left and right, computed from the gyroscope and your speed
 • Top and average speed, distance, altitude, moving time
@@ -37,15 +38,21 @@ PERFORMANCE
 • Standing-start and roll-on acceleration times measured automatically
 • Personal records: "New record" appears the moment you do better
 • Records screen with the date of each record and its progression over time
+• Trophies in the trip summary for every record you just broke
+• Acceleration map: see on your route where you made your best accelerations
 
 STATISTICS
 • Full statistics page: record and average for every acceleration, average thrust, top speed, totals
 • Compare two modifications: name each setup of your scooter ("Stock", "Sport variator"…) and compare any two, figure by figure, with the difference in percent (+10%, −5%…) in green or red
 • Compare two trips side by side, with the best figure on each line highlighted
 
+CHALLENGE YOUR FRIENDS
+• Share your performance card by QR code or link, no account needed
+• Compare your times and top speed with another rider, figure by figure
+
 ALWAYS VISIBLE
 • Live Activity on the Lock Screen and in the Dynamic Island, with thrust and lean angle
-• Landscape mode with a full-screen speedometer
+• Landscape dashboard with all your stats around the speedometer
 • Background recording with the screen locked
 
 HISTORY AND SHARING
