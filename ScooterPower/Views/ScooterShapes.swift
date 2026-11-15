@@ -1,11 +1,29 @@
 import SwiftUI
+import UIKit
 
-/// Maxi-scooter vu de face, au style moderne et agressif : nez en V avec deux
-/// bandeaux LED lumineux, carrosserie en dégradé sombre, bulle translucide,
-/// rétroviseurs, tablier, garde-boue et roue. Dessiné en code, sans image.
+/// Maxi-scooter vu de face.
+///
+/// Si le catalogue d'images contient une image nommée « ScooterPhoto » (un
+/// scooter vu de face sur fond transparent), c'est elle qui s'affiche. Sinon,
+/// le dessin en code ci-dessous prend le relais : nez en V avec deux bandeaux
+/// LED lumineux, carrosserie en dégradé sombre, bulle translucide.
 /// Le cadre attendu a une largeur d'environ 0,62 fois sa hauteur.
 struct ScooterBadge: View {
+    /// Nom de l'image à ajouter au catalogue d'images de l'app.
+    static let photoName = "ScooterPhoto"
+
     var body: some View {
+        if let photo = UIImage(named: Self.photoName) {
+            Image(uiImage: photo)
+                .resizable()
+                .scaledToFit()
+                .accessibilityHidden(true)
+        } else {
+            drawing
+        }
+    }
+
+    private var drawing: some View {
         GeometryReader { proxy in
             let lw: CGFloat = max(0.8, proxy.size.width / 42)
             ZStack {
