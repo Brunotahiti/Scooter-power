@@ -21,6 +21,7 @@ struct SettingsView: View {
     }
 
     @State private var setupDraft = ""
+    @State private var riderDraft = ""
 
     private var thresholdText: String {
         let value: String = Formatters.decimal(settings.speedAlertDisplayValue, digits: 0)
@@ -61,13 +62,19 @@ struct SettingsView: View {
                 .onChange(of: setupDraft) { _, value in
                     settings.setCurrentSetup(value)
                 }
+            TextField("Pseudo", text: $riderDraft)
+                .textInputAutocapitalization(.words)
+                .onChange(of: riderDraft) { _, value in
+                    settings.setRiderName(value)
+                }
         } header: {
             Text("Configuration du scooter")
         } footer: {
-            Text("Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après.")
+            Text("Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez.")
         }
         .onAppear {
             setupDraft = settings.currentSetup
+            riderDraft = settings.riderName
         }
     }
 

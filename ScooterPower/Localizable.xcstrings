@@ -241,6 +241,16 @@
         }
       }
     },
+    "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tip: choose a nickname in Settings so the other rider recognises you."
+          }
+        }
+      }
+    },
     "Aucun temps mesuré pour l'instant.": {
       "localizations": {
         "en": {
@@ -257,6 +267,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "No trips"
+          }
+        }
+      }
+    },
+    "Aucune carte trouvée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No card found"
           }
         }
       }
@@ -321,12 +341,62 @@
         }
       }
     },
-    "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après.": {
+    "Carte illisible": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Every trip is saved with this name. Change it after modifying your scooter: the Statistics page then compares performance before and after."
+            "value": "Unreadable card"
+          }
+        }
+      }
+    },
+    "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This link does not contain a valid performance card. Ask the other rider to send it again."
+          }
+        }
+      }
+    },
+    "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each line: the other rider's figure, then yours. The percentage is your difference: green when you do better, red otherwise."
+          }
+        }
+      }
+    },
+    "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every trip is saved with this name. Change it after modifying your scooter: the Statistics page then compares performance before and after. Your nickname appears on the performance card you share."
+          }
+        }
+      }
+    },
+    "Chiffres gagnés : %@. Chiffres perdus : %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Figures won: %@. Figures lost: %@."
+          }
+        }
+      }
+    },
+    "Coller une carte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste a card"
           }
         }
       }
@@ -357,6 +427,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scooter setup"
+          }
+        }
+      }
+    },
+    "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte ».": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First copy the message or link you received from the other rider, then tap \"Paste a card\"."
           }
         }
       }
@@ -431,6 +511,16 @@
         }
       }
     },
+    "Défi entre pilotes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rider challenge"
+          }
+        }
+      }
+    },
     "Démarrer": {
       "localizations": {
         "en": {
@@ -477,6 +567,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recording"
+          }
+        }
+      }
+    },
+    "Envoyer ma carte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send my card"
           }
         }
       }
@@ -651,6 +751,16 @@
         }
       }
     },
+    "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The other rider scans this code with their iPhone camera, or opens the link you send them."
+          }
+        }
+      }
+    },
     "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran.": {
       "localizations": {
         "en": {
@@ -671,12 +781,42 @@
         }
       }
     },
+    "Ma carte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My card"
+          }
+        }
+      }
+    },
+    "Ma configuration": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My setup"
+          }
+        }
+      }
+    },
     "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Best figure on each line. Distance and times are not ranked."
+          }
+        }
+      }
+    },
+    "Mes performances Scooter Power : %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My Scooter Power performance: %@"
           }
         }
       }
@@ -717,6 +857,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Miles"
+          }
+        }
+      }
+    },
+    "Moi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me"
           }
         }
       }
@@ -821,6 +971,16 @@
         }
       }
     },
+    "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share your performance card with another rider, add theirs, and compare yourselves figure by figure."
+          }
+        }
+      }
+    },
     "Photo": {
       "localizations": {
         "en": {
@@ -857,6 +1017,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Peak thrust"
+          }
+        }
+      }
+    },
+    "Pilote": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rider"
           }
         }
       }
@@ -937,6 +1107,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Power"
+          }
+        }
+      }
+    },
+    "QR code de ma carte de performances": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR code of my performance card"
           }
         }
       }
@@ -1087,6 +1267,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Statistics"
+          }
+        }
+      }
+    },
+    "Supprimer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
           }
         }
       }

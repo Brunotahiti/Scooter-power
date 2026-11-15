@@ -55,6 +55,7 @@ struct StatsView: View {
                     } else {
                         comparisonHint
                     }
+                    ChallengeSection(trips: trips, setups: names)
                 }
             }
             .padding(16)
@@ -195,7 +196,7 @@ struct StatsSheet: View {
 
 /// Sur le fil principal, comme les réglages qu'elle consulte.
 @MainActor
-private enum StatsFormat {
+enum StatsFormat {
     static func speed(_ kmh: Double) -> String {
         let units: UnitSystem = AppSettings.shared.units
         return Formatters.decimal(units.speed(fromKmh: kmh), digits: 0)
@@ -238,7 +239,7 @@ private enum StatsFormat {
 // MARK: - Éléments
 
 /// Titre de section : barre inclinée orange et texte en capitales italiques.
-private struct StatsSectionTitle: View {
+struct StatsSectionTitle: View {
     let text: String
 
     var body: some View {
@@ -482,7 +483,7 @@ private struct StatsTotals: View {
 }
 
 /// Une ligne de la comparaison : valeurs avant et après, et l'écart en pourcentage.
-private struct StatsDeltaRow: View {
+struct StatsDeltaRow: View {
     let delta: StatDelta
 
     private var badgeColor: Color {

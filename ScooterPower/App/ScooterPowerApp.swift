@@ -20,6 +20,6 @@ struct ScooterPowerApp: App {
                 SafetyNoticeView(onAccept: { safetyNoticeAccepted = true })
             }
         }
-        .modelContainer(for: TripRecord.self)
+        .modelContainer(for: [TripRecord.self, RivalRecord.self])
     }
 }

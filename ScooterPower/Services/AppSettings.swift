@@ -18,6 +18,7 @@ final class AppSettings {
         static let speedAlertEnabled = "speedAlertEnabled"
         static let speedAlertKmh = "speedAlertKmh"
         static let currentSetup = "currentSetup"
+        static let riderName = "riderName"
     }
 
     private(set) var units: UnitSystem
@@ -27,6 +28,8 @@ final class AppSettings {
     /// Nom de la configuration actuelle du scooter (« Origine », « Variateur sport »…).
     /// Chaque trajet est enregistré avec ce nom, pour comparer avant et après une modification.
     private(set) var currentSetup: String
+    /// Pseudo affiché sur la carte de performances partagée.
+    private(set) var riderName: String
 
     @ObservationIgnored private let defaults: UserDefaults
 
@@ -51,6 +54,13 @@ final class AppSettings {
         speedAlertEnabled = defaults.bool(forKey: Key.speedAlertEnabled)
         speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
         currentSetup = Self.cleaned(defaults.string(forKey: Key.currentSetup) ?? "")
+        riderName = defaults.string(forKey: Key.riderName) ?? ""
+    }
+
+    func setRiderName(_ name: String) {
+        let value: String = String(name.trimmingCharacters(in: .whitespacesAndNewlines).prefix(PerformanceCard.maxNameLength))
+        riderName = value
+        defaults.set(value, forKey: Key.riderName)
     }
 
     /// Nom donné aux trajets enregistrés sans configuration.

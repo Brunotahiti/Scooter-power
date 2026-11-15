@@ -51,6 +51,7 @@ struct TripScreen: View {
                 // Le téléphone a tourné sur son support : la position verticale a changé.
                 model.recalibrate()
             }
+            .modifier(CardReceiver(showStats: $showStats))
             .onChange(of: model.state) { _, newState in
                 if newState == .finished {
                     saveTrip()
@@ -332,5 +333,5 @@ private struct TripPresentations: ViewModifier {
 
 #Preview {
     TripScreen()
-        .modelContainer(for: TripRecord.self, inMemory: true)
+        .modelContainer(for: [TripRecord.self, RivalRecord.self], inMemory: true)
 }

@@ -1,6 +1,6 @@
 # Politique de confidentialité de Scooter Power
 
-Dernière mise à jour : 13 novembre 2026
+Dernière mise à jour : 15 novembre 2026
 
 Scooter Power est une application iPhone qui affiche le tableau de bord
 d'un trajet en scooter. Elle est éditée par Bruno Seite.
@@ -33,6 +33,19 @@ l'historique. Supprimer l'application efface tout l'historique.
 Si la sauvegarde iCloud ou sur ordinateur de votre iPhone est activée, les
 données de l'application peuvent être incluses dans cette sauvegarde, gérée
 par Apple selon ses propres règles.
+
+## Défi entre pilotes
+
+Vous pouvez partager une carte de performances avec un autre pilote, par QR
+code ou par message. Elle contient le pseudo que vous avez choisi, le nom de
+la configuration de votre scooter et vos statistiques de performance (temps
+d'accélération, vitesses, poussée, inclinaison). Elle ne contient ni votre
+position, ni vos tracés, ni aucun identifiant.
+
+Ce partage n'a lieu que lorsque vous le décidez, directement entre vous et
+la personne de votre choix : la carte ne transite par aucun serveur de
+l'éditeur. Les cartes reçues sont conservées sur votre iPhone et peuvent être
+supprimées à tout moment depuis la page Statistiques.
 
 ## Partage avec des tiers
 
