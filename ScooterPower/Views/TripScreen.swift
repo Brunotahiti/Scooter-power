@@ -308,6 +308,8 @@ private struct TripPresentations: ViewModifier {
                         summary: summary,
                         route: model.route,
                         date: model.startDate,
+                        recordTimes: recordTimes,
+                        accelerationHistory: model.accelerationHistory,
                         onDone: { model.reset() })
                 }
             }
@@ -318,6 +320,18 @@ private struct TripPresentations: ViewModifier {
             .alert("Appareil photo indisponible", isPresented: $showCameraUnavailable) {
                 Button("OK", role: .cancel) {}
             }
+    }
+
+    /// Records tous trajets confondus, trajet tout juste terminé compris.
+    private var recordTimes: [SpeedInterval: TimeInterval] {
+        var all: [[SpeedInterval: TimeInterval]] = []
+        for trip in trips {
+            all.append(trip.summary.bestTimes)
+        }
+        if let summary = model.summary {
+            all.append(summary.bestTimes)
+        }
+        return RecordBook.best(of: all)
     }
 
     private var summaryPresented: Binding<Bool> {

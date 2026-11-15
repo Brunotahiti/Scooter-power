@@ -1,6 +1,16 @@
 {
   "sourceLanguage": "fr",
   "strings": {
+    "% du record": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "% of record"
+          }
+        }
+      }
+    },
     "%@ %@ max": {
       "localizations": {
         "en": {
@@ -151,6 +161,16 @@
         }
       }
     },
+    "Accélérations du trajet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trip acceleration"
+          }
+        }
+      }
+    },
     "Alerte de vitesse": {
       "localizations": {
         "en": {
@@ -287,6 +307,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "No statistics"
+          }
+        }
+      }
+    },
+    "Aujourd'hui": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
           }
         }
       }
@@ -991,12 +1021,32 @@
         }
       }
     },
+    "Pic": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peak"
+          }
+        }
+      }
+    },
     "Pic : %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Peak: %@"
+          }
+        }
+      }
+    },
+    "Pic d'accél.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peak accel."
           }
         }
       }
@@ -1097,6 +1147,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Record progression"
+          }
+        }
+      }
+    },
+    "Pseudo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nickname"
           }
         }
       }
@@ -1452,6 +1512,16 @@
       }
     },
     "Vitesse max": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top speed"
+          }
+        }
+      }
+    },
+    "Vitesse max.": {
       "localizations": {
         "en": {
           "stringUnit": {
