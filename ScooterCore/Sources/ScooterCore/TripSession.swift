@@ -51,6 +51,26 @@ public struct TripSession: Sendable {
     public private(set) var acceleration = AccelerationAnalyzer()
     public private(set) var lean = LeanAngleEstimator()
     public private(set) var sprint = SprintTimer()
+    /// Poussée au moment de chaque point du tracé, alignée sur `statistics.route`.
+    public private(set) var thrustTrack: [Double] = []
+
+    /// Meilleur temps de chaque plage, puis le pic de poussée, à placer sur la carte.
+    public var highlights: [TripHighlight] {
+        var list: [TripHighlight] = []
+        for interval in SpeedInterval.all {
+            if let best = bestSprints[interval] { list.append(best) }
+        }
+        if let peakHighlight { list.append(peakHighlight) }
+        return list
+    }
+
+    private var bestSprints: [SpeedInterval: TripHighlight] = [:]
+    private var peakHighlight: TripHighlight?
+    /// Positions valides récentes, pour retrouver où une mesure a commencé et fini.
+    private var recentFixes: [(time: TimeInterval, coordinate: Coordinate)] = []
+    private var lastCoordinate: Coordinate?
+    private var processedSprints = 0
+    private static let recentFixLimit = 120
 
     /// Au-delà (s), la dernière vitesse GPS n'est plus utilisée pour l'inclinaison.
     public static let speedValidity = 5.0
@@ -103,15 +123,44 @@ public struct TripSession: Sendable {
 
     public mutating func handle(_ sample: LocationSample) {
         guard state == .recording || state == .paused else { return }
+        let routeBefore = statistics.route.count
         statistics.add(sample)
+        if statistics.route.count > routeBefore {
+            thrustTrack.append(acceleration.current)
+        }
         acceleration.addGPSSpeed(timestamp: sample.timestamp, speed: sample.speed)
 
         guard TripStatistics.isValid(sample) else { return }
+        let coordinate = Coordinate(latitude: sample.latitude, longitude: sample.longitude)
+        lastCoordinate = coordinate
+        recentFixes.append((sample.timestamp, coordinate))
+        if recentFixes.count > Self.recentFixLimit {
+            recentFixes.removeFirst(recentFixes.count - Self.recentFixLimit)
+        }
         latestSpeed = sample.speed
         latestSpeedMotionTime = lastMotionTime
         if state == .recording {
             sprint.add(timestamp: sample.timestamp, speedKmh: sample.speed * 3.6)
+            placeNewSprints()
         }
+    }
+
+    /// Place sur le tracé les mesures terminées, en gardant la meilleure de chaque plage.
+    private mutating func placeNewSprints() {
+        let results = sprint.results
+        guard results.count > processedSprints else { return }
+        for result in results[processedSprints...] {
+            if let current = bestSprints[result.interval], current.value <= result.time { continue }
+            guard let end = nearestFix(to: result.start + result.time) else { continue }
+            bestSprints[result.interval] = TripHighlight(
+                kind: .sprint(result.interval), value: result.time,
+                start: nearestFix(to: result.start), end: end)
+        }
+        processedSprints = results.count
+    }
+
+    private func nearestFix(to time: TimeInterval) -> Coordinate? {
+        recentFixes.min { abs($0.time - time) < abs($1.time - time) }?.coordinate
     }
 
     /// Dernière vitesse GPS si elle est assez récente. Les horloges GPS et
@@ -140,10 +189,15 @@ public struct TripSession: Sendable {
         lean.update(gravity: sample.gravity, timestamp: sample.timestamp,
                     rotationRate: sample.rotationRate, speed: speed,
                     trackExtremes: counts && rolling)
+        let peakBefore = acceleration.tripPeak
         acceleration.addSensor(
             timestamp: sample.timestamp,
             longitudinal: calibration.longitudinalAcceleration(userAccelerationG: sample.userAcceleration),
             trackPeak: counts)
+        if acceleration.tripPeak > peakBefore, let lastCoordinate {
+            peakHighlight = TripHighlight(
+                kind: .peakAcceleration, value: acceleration.tripPeak, start: nil, end: lastCoordinate)
+        }
     }
 
     public func summary(at now: TimeInterval) -> TripSummary {

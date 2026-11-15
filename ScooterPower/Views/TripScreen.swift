@@ -192,7 +192,8 @@ struct TripScreen: View {
     private func saveTrip() {
         guard let summary = model.summary, let startDate = model.startDate else { return }
         let record = TripRecord(
-            startDate: startDate, summary: summary, route: model.route, setupName: settings.currentSetup)
+            startDate: startDate, summary: summary, route: model.route, setupName: settings.currentSetup,
+            thrust: model.thrustTrack, highlights: model.highlights)
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()
@@ -296,7 +297,9 @@ private struct TripPresentations: ViewModifier {
                 StatsSheet(trips: trips)
             }
             .sheet(isPresented: $showMap) {
-                MapSheet(route: model.route, showsUser: !model.isDemo)
+                MapSheet(
+                    route: model.route, thrust: model.thrustTrack, highlights: model.highlights,
+                    showsUser: !model.isDemo)
             }
             .fullScreenCover(isPresented: $showCamera) {
                 CameraPicker()
@@ -307,6 +310,8 @@ private struct TripPresentations: ViewModifier {
                     SummaryView(
                         summary: summary,
                         route: model.route,
+                        thrust: model.thrustTrack,
+                        highlights: model.highlights,
                         date: model.startDate,
                         recordTimes: recordTimes,
                         accelerationHistory: model.accelerationHistory,

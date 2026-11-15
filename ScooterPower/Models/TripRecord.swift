@@ -27,12 +27,23 @@ final class TripRecord {
     var best100: Double?
     /// Configuration du scooter pendant ce trajet ; absente des trajets anciens.
     var setupName: String?
+    /// Poussée le long du tracé allégé, encodée en JSON ; absente des trajets anciens.
+    var thrustData: Data?
+    /// Meilleures accélérations et pic de poussée, encodés en JSON ; absents des trajets anciens.
+    var highlightsData: Data?
     /// Tracé allégé, encodé en JSON.
     @Attribute(.externalStorage) var routeData: Data
 
-    init(startDate: Date, summary: TripSummary, route: [Coordinate], setupName: String? = nil) {
+    init(startDate: Date, summary: TripSummary, route: [Coordinate], setupName: String? = nil,
+         thrust: [Double] = [], highlights: [TripHighlight] = []) {
         self.startDate = startDate
         self.setupName = setupName
+        // Tracé et poussée sont allégés ensemble pour rester alignés.
+        let kept: [Int] = RouteSimplifier.indices(count: route.count, maxPoints: Self.maxRoutePoints)
+        if thrust.count == route.count {
+            self.thrustData = try? JSONEncoder().encode(kept.map { thrust[$0] })
+        }
+        self.highlightsData = try? JSONEncoder().encode(highlights)
         self.distanceMeters = summary.distanceMeters
         self.maxSpeedKmh = summary.maxSpeedKmh
         self.averageSpeedKmh = summary.averageSpeedKmh
@@ -73,6 +84,16 @@ final class TripRecord {
             movingDuration: movingDuration,
             totalDuration: totalDuration,
             bestTimes: bestTimes)
+    }
+
+    var thrust: [Double] {
+        guard let thrustData else { return [] }
+        return (try? JSONDecoder().decode([Double].self, from: thrustData)) ?? []
+    }
+
+    var highlights: [TripHighlight] {
+        guard let highlightsData else { return [] }
+        return (try? JSONDecoder().decode([TripHighlight].self, from: highlightsData)) ?? []
     }
 
     var route: [Coordinate] {

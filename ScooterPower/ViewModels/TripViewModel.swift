@@ -59,6 +59,10 @@ final class TripViewModel {
     private(set) var leanSide = LeanSide.upright
 
     private(set) var route: [Coordinate] = []
+    /// Poussée à chaque point du tracé, alignée sur `route`.
+    private(set) var thrustTrack: [Double] = []
+    /// Meilleures accélérations et pic de poussée, à placer sur la carte.
+    private(set) var highlights: [TripHighlight] = []
     private(set) var summary: TripSummary?
     /// Début du trajet en cours ou du dernier trajet terminé.
     private(set) var startDate: Date?
@@ -335,6 +339,11 @@ final class TripViewModel {
 
         if route.count != statistics.route.count {
             route = statistics.route
+            thrustTrack = session.thrustTrack
+        }
+        let newHighlights: [TripHighlight] = session.highlights
+        if newHighlights != highlights {
+            highlights = newHighlights
         }
 
         if state == .recording || state == .paused {

@@ -39,6 +39,8 @@ public struct SpeedInterval: Hashable, Sendable, Codable {
 public struct SprintResult: Sendable, Equatable {
     public let interval: SpeedInterval
     public let time: TimeInterval
+    /// Instant du départ de la mesure, sur l'horloge des positions GPS.
+    public let start: TimeInterval
 }
 
 /// Chronomètre les accélérations : départs arrêtés (0–30, 0–50, 0–80, 0–100 km/h)
@@ -140,10 +142,10 @@ public struct SprintTimer: Sendable {
         updateStanding(from: before, to: now)
     }
 
-    private mutating func record(_ interval: SpeedInterval, _ time: TimeInterval) {
+    private mutating func record(_ interval: SpeedInterval, _ time: TimeInterval, start: TimeInterval) {
         lastTimes[interval] = time
         bestTimes[interval] = min(bestTimes[interval] ?? time, time)
-        results.append(SprintResult(interval: interval, time: time))
+        results.append(SprintResult(interval: interval, time: time, start: start))
     }
 
     // MARK: Départ arrêté
@@ -205,7 +207,7 @@ public struct SprintTimer: Sendable {
                 standing = .idle
                 return
             }
-            record(interval, time)
+            record(interval, time, start: start)
             next += 1
         }
         standing = next < targets.count ? .running(start: start, maxSpeed: maxSpeed, next: next) : .idle
@@ -247,7 +249,7 @@ public struct SprintTimer: Sendable {
                 rolling = nil
                 return
             }
-            record(interval, time)
+            record(interval, time, start: run.start)
             run.next += 1
         }
         rolling = run.next < targets.count ? run : nil

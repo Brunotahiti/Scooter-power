@@ -6,6 +6,9 @@ import ScooterCore
 struct SummaryView: View {
     let summary: TripSummary
     let route: [Coordinate]
+    /// Poussée à chaque point du tracé, alignée sur `route`.
+    let thrust: [Double]
+    let highlights: [TripHighlight]
     let date: Date?
     /// Records tous trajets confondus, trajet terminé compris.
     let recordTimes: [SpeedInterval: TimeInterval]
@@ -55,7 +58,7 @@ struct SummaryView: View {
         .background(backdrop.ignoresSafeArea())
         .sharePresentation($share)
         .sheet(isPresented: $showMap) {
-            MapSheet(route: route, showsUser: false)
+            MapSheet(route: route, thrust: thrust, highlights: highlights, showsUser: false)
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()

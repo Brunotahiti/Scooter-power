@@ -641,6 +641,16 @@
         }
       }
     },
+    "Freinage": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Braking"
+          }
+        }
+      }
+    },
     "Freinage fort": {
       "localizations": {
         "en": {
@@ -1097,16 +1107,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Privacy policy"
-          }
-        }
-      }
-    },
-    "Position": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Position"
           }
         }
       }

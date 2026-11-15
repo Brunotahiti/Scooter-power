@@ -33,15 +33,20 @@ struct TripDetailView: View {
     @ViewBuilder
     private func routeMap(_ coordinates: [CLLocationCoordinate2D]) -> some View {
         if coordinates.count > 1 {
+            let segments: [RouteMap.Segment] = RouteMap.segments(route: trip.route, thrust: trip.thrust)
+            let pins: [RouteMap.Pin] = RouteMap.pins(trip.highlights)
             Map(initialPosition: .automatic) {
-                MapPolyline(coordinates: coordinates)
-                    .stroke(Theme.cyan, lineWidth: 5)
+                RouteMap.content(segments: segments, pins: pins)
                 Marker("Départ", systemImage: "flag", coordinate: coordinates[0])
                     .tint(.green)
-                Marker("Arrivée", systemImage: "flag.checkered", coordinate: coordinates[coordinates.count - 1])
+                Marker("Arrivée", systemImage: "stop.fill", coordinate: coordinates[coordinates.count - 1])
                     .tint(Theme.finish)
             }
-            .frame(height: 300)
+            .frame(height: 340)
+            .overlay(alignment: .bottom) {
+                RouteMapLegend()
+                    .padding(.bottom, 10)
+            }
             .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
         } else {
             Text("Tracé indisponible pour ce trajet.")
