@@ -41,6 +41,16 @@
         }
       }
     },
+    "%@ max": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ max"
+          }
+        }
+      }
+    },
     "%@ mètres par seconde carrée, %@": {
       "localizations": {
         "en": {
@@ -1477,6 +1487,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trips"
+          }
+        }
+      }
+    },
+    "Trajets enregistrés": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved trips"
           }
         }
       }

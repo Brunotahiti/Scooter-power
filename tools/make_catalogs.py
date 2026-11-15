@@ -119,6 +119,8 @@ EN = {
  "Pic d'accél.": "Peak accel.",
  "Vitesse moy.": "Avg speed",
  "Durée roulage": "Ride time",
+ "%@ max": "%@ max",
+ "Trajets enregistrés": "Saved trips",
  "Accélérations du trajet": "Trip acceleration",
  "% du record": "% of record",
  "Accélération %@": "Acceleration %@",

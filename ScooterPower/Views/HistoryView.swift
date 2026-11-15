@@ -2,48 +2,84 @@ import SwiftData
 import SwiftUI
 import ScooterCore
 
-/// Liste des trajets enregistrés, du plus récent au plus ancien.
+/// Liste des trajets enregistrés, du plus récent au plus ancien, façon
+/// tableau de bord néon : les trajets qui ont battu un record sont en rouge,
+/// les autres en cyan.
 struct HistoryView: View {
     @Query(sort: \TripRecord.startDate, order: .reverse) private var trips: [TripRecord]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @State private var path: [HistoryRoute] = []
+
+    static let neonRed: Color = SpeedometerView.neonRed
 
     var body: some View {
-        NavigationStack {
-            content
-                .navigationTitle("Historique")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Fermer") { dismiss() }
-                    }
-                    ToolbarItem(placement: .topBarLeading) {
-                        // Il faut au moins deux trajets pour comparer.
-                        if trips.count >= 2 {
-                            NavigationLink("Comparer") {
-                                TripComparisonView(trips: trips)
-                            }
-                        }
-                    }
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        NavigationLink {
-                            RecordsView(trips: trips)
-                        } label: {
-                            Label("Records", systemImage: "trophy.fill")
-                                .labelStyle(.titleAndIcon)
-                        }
-                        Spacer()
-                        NavigationLink {
-                            StatsView(trips: trips)
-                        } label: {
-                            Label("Statistiques", systemImage: "chart.bar.fill")
-                                .labelStyle(.titleAndIcon)
-                        }
-                    }
-                }
+        NavigationStack(path: $path) {
+            VStack(spacing: 0) {
+                HistoryHeader()
+                tabs
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 10)
+                content
+                bottomBar
+            }
+            .background(backdrop.ignoresSafeArea())
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(for: HistoryRoute.self) { route in
+                destination(route)
+            }
         }
         .preferredColorScheme(.dark)
     }
+
+    @ViewBuilder
+    private func destination(_ route: HistoryRoute) -> some View {
+        switch route {
+        case .trip(let trip):
+            TripDetailView(trip: trip)
+        case .compare:
+            TripComparisonView(trips: trips)
+        case .records:
+            RecordsView(trips: trips)
+        case .stats:
+            StatsView(trips: trips)
+        }
+    }
+
+    private var backdrop: some View {
+        ZStack {
+            Color.black
+            CarbonTexture()
+                .opacity(0.18)
+            RadialGradient(
+                colors: [Self.neonRed.opacity(0.25), Color.clear],
+                center: UnitPoint(x: 0.75, y: 0), startRadius: 10, endRadius: 320)
+            RadialGradient(
+                colors: [Self.neonRed.opacity(0.25), Color.clear],
+                center: UnitPoint(x: 0.5, y: 1), startRadius: 10, endRadius: 300)
+        }
+    }
+
+    // MARK: - Onglets
+
+    private var tabs: some View {
+        HStack(spacing: 8) {
+            NeonTabButton(title: L("Comparer"), icon: "scalemass", isActive: false) {
+                path.append(.compare)
+            }
+            // Il faut au moins deux trajets pour comparer.
+            .disabled(trips.count < 2)
+            .opacity(trips.count < 2 ? 0.45 : 1)
+            NeonTabButton(title: L("Historique"), icon: "clock.arrow.circlepath", isActive: true) {}
+                .allowsHitTesting(false)
+            NeonTabButton(title: L("Fermer"), icon: "xmark", isActive: false) {
+                dismiss()
+            }
+        }
+        .frame(height: 46)
+    }
+
+    // MARK: - Liste
 
     @ViewBuilder
     private var content: some View {
@@ -52,17 +88,25 @@ struct HistoryView: View {
                 "Aucun trajet",
                 systemImage: "clock.arrow.circlepath",
                 description: Text("Vos trajets terminés apparaîtront ici."))
+                .frame(maxHeight: .infinity)
         } else {
+            let records: Set<PersistentIdentifier> = Self.recordTrips(trips)
             List {
                 ForEach(trips) { trip in
-                    NavigationLink {
-                        TripDetailView(trip: trip)
+                    Button {
+                        path.append(.trip(trip))
                     } label: {
-                        HistoryRow(trip: trip)
+                        HistoryRow(trip: trip, isRecord: records.contains(trip.persistentModelID))
                     }
+                    .buttonStyle(.plain)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
                 }
                 .onDelete(perform: delete)
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
         }
     }
 
@@ -71,30 +115,318 @@ struct HistoryView: View {
             modelContext.delete(trips[index])
         }
     }
+
+    /// Trajets qui, au moment où ils ont été faits, ont battu la vitesse
+    /// maximale ou un temps d'accélération de tous les trajets précédents.
+    /// Le tout premier trajet n'a rien à battre.
+    static func recordTrips(_ trips: [TripRecord]) -> Set<PersistentIdentifier> {
+        var result: Set<PersistentIdentifier> = []
+        var bestSpeed: Double?
+        var bestTimes: [SpeedInterval: TimeInterval] = [:]
+        for trip in trips.sorted(by: { $0.startDate < $1.startDate }) {
+            let speed: Double = trip.maxSpeedKmh.rounded()
+            let times: [SpeedInterval: TimeInterval] = trip.summary.bestTimes
+            var beaten = false
+            if let previous = bestSpeed, speed > previous { beaten = true }
+            for (interval, time) in times where time > 0 {
+                let tenths: Double = (time * 10).rounded() / 10
+                if let previous = bestTimes[interval] {
+                    if tenths < previous { beaten = true }
+                    bestTimes[interval] = min(previous, tenths)
+                } else {
+                    // Premier temps sur cet intervalle : record seulement s'il y avait déjà des trajets.
+                    if bestSpeed != nil { beaten = true }
+                    bestTimes[interval] = tenths
+                }
+            }
+            if beaten { result.insert(trip.persistentModelID) }
+            bestSpeed = max(bestSpeed ?? 0, speed)
+        }
+        return result
+    }
+
+    // MARK: - Bas de l'écran
+
+    private var bottomBar: some View {
+        HStack {
+            RoundNeonButton(icon: "trophy.fill", label: L("Records")) {
+                path.append(.records)
+            }
+            Spacer()
+            ZStack {
+                Circle()
+                    .fill(Color.black)
+                    .overlay(Circle().stroke(Self.neonRed, lineWidth: 2))
+                    .shadow(color: Self.neonRed.opacity(0.8), radius: 12)
+                ScooterBadge()
+                    .padding(10)
+            }
+            .frame(width: 92, height: 92)
+            .accessibilityHidden(true)
+            Spacer()
+            RoundNeonButton(icon: "chart.bar.fill", label: L("Statistiques")) {
+                path.append(.stats)
+            }
+        }
+        .padding(.horizontal, 28)
+        .padding(.top, 8)
+        .padding(.bottom, 4)
+        .background(
+            LinearGradient(
+                colors: [Color.clear, Self.neonRed.opacity(0.18)], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea())
+    }
 }
+
+enum HistoryRoute: Hashable {
+    case trip(TripRecord)
+    case compare
+    case records
+    case stats
+}
+
+// MARK: - En-tête
+
+private struct HistoryHeader: View {
+    var body: some View {
+        HStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 8) {
+                    slashes
+                    Text("Historique")
+                        .font(.system(size: 34, weight: .black))
+                        .italic()
+                        .foregroundStyle(Theme.textPrimary)
+                        .shadow(color: HistoryView.neonRed.opacity(0.6), radius: 6)
+                }
+                Text("Trajets enregistrés")
+                    .font(.system(size: 15, weight: .medium))
+                    .italic()
+                    .foregroundStyle(Theme.textPrimary.opacity(0.8))
+                    .padding(.leading, 46)
+            }
+            Spacer(minLength: 0)
+            LiveScooter(speedFraction: 0.7, acceleration: 2, leanDegrees: 0, accent: HistoryView.neonRed)
+                .frame(width: 70, height: 100)
+        }
+        .padding(.horizontal, 18)
+        .padding(.top, 8)
+        .padding(.bottom, 6)
+        .background(alignment: .bottom) {
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        colors: [Color.clear, HistoryView.neonRed, Color.clear],
+                        startPoint: .leading, endPoint: .trailing))
+                .frame(height: 1.5)
+                .shadow(color: HistoryView.neonRed, radius: 4)
+        }
+        .padding(.bottom, 10)
+    }
+
+    /// Trois barres obliques rouges devant le titre.
+    private var slashes: some View {
+        HStack(spacing: 3) {
+            ForEach(0..<3, id: \.self) { index in
+                Rectangle()
+                    .fill(HistoryView.neonRed.opacity(1 - 0.2 * Double(index)))
+                    .frame(width: 7, height: 24)
+                    .rotationEffect(.degrees(25))
+            }
+        }
+        .shadow(color: HistoryView.neonRed, radius: 4)
+        .frame(width: 38)
+        .accessibilityHidden(true)
+    }
+}
+
+// MARK: - Boutons
+
+private struct NeonTabButton: View {
+    let title: String
+    let icon: String
+    let isActive: Bool
+    let action: () -> Void
+
+    var body: some View {
+        let shape = HexagonFrame(tip: 12)
+        let red: Color = HistoryView.neonRed
+        return Button(action: action) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.system(size: 15, weight: .semibold))
+                Text(title)
+                    .font(.system(size: 15, weight: .bold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
+            .foregroundStyle(Theme.textPrimary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                isActive
+                    ? AnyShapeStyle(LinearGradient(
+                        colors: [red.opacity(0.9), Color(hex: 0x7A0A0A)], startPoint: .top, endPoint: .bottom))
+                    : AnyShapeStyle(Color(hex: 0x15181C)),
+                in: shape)
+            .overlay(shape.stroke(isActive ? red : Color.white.opacity(0.25), lineWidth: 1.5))
+            .shadow(color: isActive ? red.opacity(0.8) : Color.clear, radius: 8)
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isActive ? .isSelected : [])
+    }
+}
+
+private struct RoundNeonButton: View {
+    let icon: String
+    let label: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
+                .frame(width: 62, height: 62)
+                .background(
+                    RadialGradient(
+                        colors: [Color(hex: 0x2A2E33), Color(hex: 0x0B0D0F)],
+                        center: .center, startRadius: 2, endRadius: 34),
+                    in: Circle())
+                .overlay(Circle().stroke(HistoryView.neonRed, lineWidth: 2))
+                .shadow(color: HistoryView.neonRed.opacity(0.7), radius: 8)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+    }
+}
+
+// MARK: - Ligne de trajet
 
 private struct HistoryRow: View {
     let trip: TripRecord
+    /// Vrai si ce trajet a battu un record : la carte est rouge.
+    let isRecord: Bool
 
-    private var details: String {
-        let units: UnitSystem = AppSettings.shared.units
-        let distance: String = Formatters.decimal(units.distance(fromMeters: trip.distanceMeters), digits: 1)
-            + " " + units.distanceUnit
-        let duration: String = Formatters.duration(trip.totalDuration)
-        let speed: String = Formatters.decimal(units.speed(fromKmh: trip.maxSpeedKmh), digits: 0)
-        let top: String = L("\(speed) \(units.speedUnit) max")
-        return distance + " · " + duration + " · " + top
+    private var color: Color { isRecord ? HistoryView.neonRed : Theme.cyan }
+
+    private var units: UnitSystem { AppSettings.shared.units }
+
+    private var distanceText: String {
+        Formatters.decimal(units.distance(fromMeters: trip.distanceMeters), digits: 1) + " " + units.distanceUnit
     }
 
+    private var speedValue: Double { units.speed(fromKmh: trip.maxSpeedKmh) }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 3) {
-            Text(trip.title)
-                .font(.system(size: 17, weight: .semibold))
-            Text(details)
-                .font(.system(size: 14))
-                .monospacedDigit()
-                .foregroundStyle(Theme.textSecondary)
+        let shape = HexagonFrame(tip: 16)
+        return HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 10) {
+                    Image(systemName: "calendar")
+                        .font(.system(size: 18))
+                        .frame(width: 26)
+                    Text(trip.title)
+                        .font(.system(size: 18, weight: .bold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                HStack(spacing: 10) {
+                    Image(systemName: "point.topleft.down.to.point.bottomright.curvepath")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Theme.cyan)
+                        .frame(width: 26)
+                    Text(verbatim: distanceText + "  |  " + Formatters.duration(trip.totalDuration))
+                        .font(.system(size: 15, weight: .medium))
+                        .monospacedDigit()
+                        .foregroundStyle(Theme.textPrimary.opacity(0.85))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+            }
+            .foregroundStyle(Theme.textPrimary)
+            Spacer(minLength: 4)
+            MiniSpeedGauge(
+                value: speedValue, maxValue: units.speedometerMax,
+                unit: units.speedUnit, color: color)
+                .frame(width: 76, height: 58)
+            Image(systemName: "chevron.right")
+                .font(.system(size: 17, weight: .bold))
+                .foregroundStyle(isRecord ? HistoryView.neonRed : Theme.textPrimary)
         }
-        .padding(.vertical, 2)
+        .padding(.leading, 22)
+        .padding(.trailing, 18)
+        .padding(.vertical, 10)
+        .background(
+            ZStack {
+                Color(hex: 0x0B0E12)
+                LinearGradient(
+                    colors: [color.opacity(isRecord ? 0.35 : 0.18), Color.clear, color.opacity(0.12)],
+                    startPoint: .leading, endPoint: .trailing)
+            }
+            .clipShape(shape))
+        .overlay(shape.stroke(color, lineWidth: 1.8))
+        .shadow(color: color.opacity(0.6), radius: 6)
+        .contentShape(shape)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(trip.title)
+        .accessibilityValue(
+            distanceText + ", " + Formatters.duration(trip.totalDuration) + ", "
+                + L("\(Formatters.decimal(speedValue, digits: 0)) \(units.speedUnit) max")
+                + (isRecord ? ", " + L("Record battu") : ""))
+        .accessibilityAddTraits(.isButton)
+    }
+}
+
+/// Petit compteur en demi-cercle : graduations, arc rempli jusqu'à la
+/// vitesse maximale du trajet, valeur au centre.
+private struct MiniSpeedGauge: View {
+    let value: Double
+    let maxValue: Double
+    let unit: String
+    let color: Color
+
+    private var fraction: Double { min(1, max(0, value / max(1, maxValue))) }
+
+    var body: some View {
+        ZStack {
+            Canvas { context, size in
+                let center = CGPoint(x: size.width / 2, y: size.height * 0.78)
+                let radius: CGFloat = min(size.width / 2, size.height * 0.78) - 3
+                let ticks = 14
+                for index in 0...ticks {
+                    let position: Double = Double(index) / Double(ticks)
+                    let radians: Double = (180 - 180 * position) * Double.pi / 180
+                    let outer: CGFloat = radius
+                    let inner: CGFloat = radius - (index % 2 == 0 ? 7 : 4)
+                    var tick = Path()
+                    tick.move(to: CGPoint(x: center.x + outer * CGFloat(cos(radians)), y: center.y - outer * CGFloat(sin(radians))))
+                    tick.addLine(to: CGPoint(x: center.x + inner * CGFloat(cos(radians)), y: center.y - inner * CGFloat(sin(radians))))
+                    let lit: Bool = position <= fraction
+                    context.stroke(
+                        tick, with: .color(lit ? color : Color.white.opacity(0.25)),
+                        style: StrokeStyle(lineWidth: 1.6, lineCap: .round))
+                }
+                var arc = Path()
+                arc.addArc(
+                    center: center, radius: radius + 2,
+                    startAngle: .degrees(180), endAngle: .degrees(180 + 180 * fraction), clockwise: false)
+                var glow = context
+                glow.addFilter(.shadow(color: color, radius: 4))
+                glow.stroke(arc, with: .color(color), style: StrokeStyle(lineWidth: 3.5, lineCap: .round))
+            }
+            VStack(spacing: -2) {
+                Text(verbatim: Formatters.decimal(value, digits: 0))
+                    .font(.system(size: 22, weight: .black))
+                    .italic()
+                    .monospacedDigit()
+                Text("\(unit) max")
+                    .font(.system(size: 11, weight: .medium))
+                    .italic()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
+            .foregroundStyle(Theme.textPrimary)
+            .offset(y: 9)
+        }
     }
 }
