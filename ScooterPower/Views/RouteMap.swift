@@ -77,6 +77,8 @@ enum RouteMap {
         return result
     }
 
+    /// Sur le fil principal, comme les éléments de carte qu'elle crée.
+    @MainActor
     @MapContentBuilder
     static func content(segments: [Segment], pins: [Pin]) -> some MapContent {
         ForEach(segments) { segment in
