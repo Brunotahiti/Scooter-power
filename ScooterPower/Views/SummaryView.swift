@@ -427,8 +427,14 @@ private struct SummaryLeanCard: View {
                 Spacer()
                 side(L("Droite"), right, Theme.orange, alignment: .trailing)
             }
-            Canvas { context, size in
-                draw(in: &context, size: size)
+            ZStack(alignment: .bottom) {
+                Canvas { context, size in
+                    draw(in: &context, size: size)
+                }
+                ScooterFrontShape()
+                    .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                    .frame(width: 32, height: 52)
+                    .shadow(color: Theme.cyan.opacity(0.6), radius: 4)
             }
             .frame(height: 64)
         }

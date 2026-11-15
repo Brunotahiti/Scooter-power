@@ -51,7 +51,7 @@ struct AccelerationCard: View {
                 Spacer(minLength: 8)
                 ScooterFrontShape()
                     .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
-                    .frame(width: 34, height: 54)
+                    .frame(width: 36, height: 58)
                     .padding(.trailing, 14)
             }
             IntensityBar(value: value)
