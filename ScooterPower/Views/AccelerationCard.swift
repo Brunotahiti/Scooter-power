@@ -49,9 +49,9 @@ struct AccelerationCard: View {
                     .padding(.top, 2)
                 readout
                 Spacer(minLength: 8)
-                ScooterBadge()
-                    .frame(width: 36, height: 58)
-                    .padding(.trailing, 14)
+                ThrustScooter(value: value, level: level)
+                    .frame(width: 64, height: 66)
+                    .padding(.trailing, 4)
             }
             IntensityBar(value: value)
         }
@@ -264,6 +264,62 @@ struct AccelerationHistoryCard: View {
     private func axisLabel(for mark: AxisValue) -> String {
         guard let value = mark.as(Double.self) else { return "" }
         return Formatters.signed(value, digits: 1)
+    }
+}
+
+/// Le scooter réagit à la poussée : il grossit et se cabre en accélération,
+/// recule et plonge au freinage, avec des traînées de vitesse et un halo de
+/// la couleur du niveau.
+struct ThrustScooter: View {
+    /// m/s², signée.
+    let value: Double
+    let level: AccelerationLevel
+
+    private static let fullScale: Double = 4
+
+    /// De −1 (freinage maximal) à +1 (accélération maximale).
+    private var intensity: Double {
+        min(1, max(-1, value / Self.fullScale))
+    }
+
+    var body: some View {
+        let k: CGFloat = CGFloat(intensity)
+        let glow: Color = level.direction == 0 ? Color.clear : level.color
+        return ZStack {
+            streaks(k: k)
+            ScooterBadge()
+                .frame(width: 36, height: 58)
+                // Accélération : il avance vers nous et se cabre ; freinage : il recule et plonge.
+                .scaleEffect(1 + 0.22 * k)
+                .offset(y: -5 * k)
+                .rotation3DEffect(.degrees(Double(-14 * k)), axis: (x: 1, y: 0, z: 0), perspective: 0.6)
+                .shadow(color: glow.opacity(0.85), radius: 4 + 10 * abs(k))
+        }
+        .animation(.spring(response: 0.35, dampingFraction: 0.6), value: intensity)
+        .accessibilityHidden(true)
+    }
+
+    /// Traînées de vitesse de chaque côté, plus longues et plus vives quand ça pousse fort.
+    private func streaks(k: CGFloat) -> some View {
+        let strength: CGFloat = max(0, k)
+        let color: Color = level.direction < 0 ? RouteMap.brakingColor : Theme.orange
+        return HStack(spacing: 40) {
+            streakColumn(strength: strength, color: color)
+            streakColumn(strength: strength, color: color)
+        }
+        .opacity(Double(strength))
+        .offset(y: 8 + 10 * strength)
+    }
+
+    private func streakColumn(strength: CGFloat, color: Color) -> some View {
+        VStack(spacing: 5) {
+            ForEach(0..<3, id: \.self) { index in
+                Capsule()
+                    .fill(color)
+                    .frame(width: 2.5, height: 6 + 14 * strength * CGFloat(3 - index) / 3)
+            }
+        }
+        .shadow(color: color, radius: 4)
     }
 }
 
