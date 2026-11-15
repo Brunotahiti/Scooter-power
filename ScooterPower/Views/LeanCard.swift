@@ -135,8 +135,7 @@ struct LeanGauge: View {
         let height: CGFloat = metrics.scooterHeight
         let width: CGFloat = height * 0.62
         let centerY: CGFloat = metrics.pivot.y - height / 2
-        return ScooterFrontShape()
-            .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+        return ScooterBadge()
             .frame(width: width, height: height)
             .rotationEffect(.degrees(shown), anchor: .bottom)
             .position(x: metrics.pivot.x, y: centerY)

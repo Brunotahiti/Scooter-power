@@ -49,8 +49,7 @@ struct AccelerationCard: View {
                     .padding(.top, 2)
                 readout
                 Spacer(minLength: 8)
-                ScooterFrontShape()
-                    .stroke(Theme.textPrimary, style: StrokeStyle(lineWidth: 2.2, lineCap: .round, lineJoin: .round))
+                ScooterBadge()
                     .frame(width: 36, height: 58)
                     .padding(.trailing, 14)
             }
