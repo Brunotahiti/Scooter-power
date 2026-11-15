@@ -313,7 +313,7 @@ private struct SpeedBar: View {
             lineWidth: 2.2 * k)
         context.fill(outline, with: .color(Color.black.opacity(0.55)))
 
-        // Segments inclinés, vifs jusqu'à la vitesse actuelle, un peu atténués au-delà.
+        // Segments inclinés, du cyan au rouge.
         let inset: CGFloat = 7 * k
         let top: CGFloat = barTop + inset
         let bottom: CGFloat = barTop + barHeight - inset
@@ -331,13 +331,8 @@ private struct SpeedBar: View {
             segment.addLine(to: CGPoint(x: left + width, y: bottom))
             segment.addLine(to: CGPoint(x: left, y: bottom))
             segment.closeSubpath()
-            let reached: Bool = position <= fraction && fraction > 0
-            let color: Color = Self.color(at: position)
-            if reached {
-                lit.fill(segment, with: .color(color))
-            } else {
-                context.fill(segment, with: .color(color.opacity(0.55)))
-            }
+            // Toute la barre est allumée ; le repère indique la vitesse actuelle.
+            lit.fill(segment, with: .color(Self.color(at: position)))
         }
 
         // Repère : triangle au-dessus de la barre et trait lumineux à travers.
