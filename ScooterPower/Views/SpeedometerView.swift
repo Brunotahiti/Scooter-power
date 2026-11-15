@@ -54,36 +54,7 @@ struct SpeedometerView: View {
     // MARK: - Pastille GPS
 
     private var gpsBadge: some View {
-        let shape = HexagonFrame(tip: 12 * scale)
-        return HStack(spacing: 7 * scale) {
-            Image(systemName: "location.north.fill")
-                .rotationEffect(.degrees(35))
-                .foregroundStyle(Theme.cyan)
-            Text(verbatim: "GPS")
-                .italic()
-                .foregroundStyle(Theme.textPrimary)
-            signal
-        }
-        .font(.system(size: 16 * scale, weight: .heavy))
-        .padding(.horizontal, 24 * scale)
-        .frame(height: 30 * scale)
-        .background(Color.black.opacity(0.7), in: shape)
-        .overlay(
-            shape.stroke(
-                LinearGradient(colors: [Self.neonRed, Theme.cyan, Self.neonRed], startPoint: .leading, endPoint: .trailing),
-                lineWidth: 1.5))
-        .shadow(color: Theme.cyan.opacity(0.4), radius: 6)
-    }
-
-    /// Quatre barres de hauteur croissante ; celles au-delà du niveau sont éteintes.
-    private var signal: some View {
-        HStack(alignment: .bottom, spacing: 2 * scale) {
-            ForEach(0..<4, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 1)
-                    .fill(index < signalBars ? Theme.cyan : Theme.gaugeIdle)
-                    .frame(width: 4 * scale, height: (5 + 3.5 * CGFloat(index)) * scale)
-            }
-        }
+        GPSBadge(signalBars: signalBars, scale: scale)
     }
 
     // MARK: - Panneau principal
@@ -150,6 +121,51 @@ struct SpeedometerView: View {
     }
 }
 
+/// Pastille « GPS » à bords en pointe, avec la qualité du signal.
+struct GPSBadge: View {
+    /// Qualité du signal GPS, de 0 à 4 barres.
+    let signalBars: Int
+    var scale: CGFloat = 1
+
+    var body: some View {
+        let shape = HexagonFrame(tip: 12 * scale)
+        return HStack(spacing: 7 * scale) {
+            Image(systemName: "location.north.fill")
+                .rotationEffect(.degrees(35))
+                .foregroundStyle(Theme.cyan)
+            Text(verbatim: "GPS")
+                .italic()
+                .foregroundStyle(Theme.textPrimary)
+            signal
+        }
+        .font(.system(size: 16 * scale, weight: .heavy))
+        .padding(.horizontal, 24 * scale)
+        .frame(height: 30 * scale)
+        .background(Color.black.opacity(0.7), in: shape)
+        .overlay(
+            shape.stroke(
+                LinearGradient(
+                    colors: [SpeedometerView.neonRed, Theme.cyan, SpeedometerView.neonRed],
+                    startPoint: .leading, endPoint: .trailing),
+                lineWidth: 1.5))
+        .shadow(color: Theme.cyan.opacity(0.4), radius: 6)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: "GPS"))
+        .accessibilityValue(Text(verbatim: "\(signalBars) / 4"))
+    }
+
+    /// Quatre barres de hauteur croissante ; celles au-delà du niveau sont éteintes.
+    private var signal: some View {
+        HStack(alignment: .bottom, spacing: 2 * scale) {
+            ForEach(0..<4, id: \.self) { index in
+                RoundedRectangle(cornerRadius: 1)
+                    .fill(index < signalBars ? Theme.cyan : Theme.gaugeIdle)
+                    .frame(width: 4 * scale, height: (5 + 3.5 * CGFloat(index)) * scale)
+            }
+        }
+    }
+}
+
 /// Cadran rouge en arc autour de la vitesse : graduations allumées jusqu'à la vitesse actuelle.
 private struct SpeedArc: View {
     let fraction: Double
@@ -196,7 +212,7 @@ private struct SpeedArc: View {
 }
 
 /// Fines rayures diagonales, façon fibre de carbone.
-private struct CarbonTexture: View {
+struct CarbonTexture: View {
     var body: some View {
         Canvas { context, size in
             var path = Path()
@@ -232,12 +248,14 @@ struct HexagonFrame: Shape {
 
 /// Échelle graduée et barre de vitesse à segments inclinés, du cyan au rouge,
 /// avec un repère triangulaire sur la vitesse actuelle.
-private struct SpeedBar: View {
+struct SpeedBar: View {
     /// Part de l'échelle atteinte, de 0 à 1.
     let fraction: Double
     let maxSpeed: Double
     let labelStep: Double
     let scale: CGFloat
+    /// Chiffres au-dessus de la barre (portrait) ou en dessous (paysage).
+    var labelsOnTop: Bool = true
 
     private static let segments = 40
 
@@ -275,9 +293,10 @@ private struct SpeedBar: View {
     private func draw(in context: inout GraphicsContext, size: CGSize) {
         let k: CGFloat = scale
         let labelHeight: CGFloat = 30 * k
-        let barHeight: CGFloat = size.height - labelHeight
+        let barHeight: CGFloat = size.height - labelHeight - (labelsOnTop ? 0 : 8 * k)
         guard barHeight > 8, size.width > 60 else { return }
-        let barTop: CGFloat = labelHeight
+        let barTop: CGFloat = labelsOnTop ? labelHeight : 8 * k
+        let labelTop: CGFloat = labelsOnTop ? 0 : barTop + barHeight
         let tip: CGFloat = barHeight / 2
         let innerLeft: CGFloat = tip * 1.25
         let innerWidth: CGFloat = size.width - innerLeft * 2
@@ -293,11 +312,15 @@ private struct SpeedBar: View {
                 .font(.system(size: 15 * k, weight: .heavy))
                 .italic()
                 .foregroundColor(Theme.textPrimary)
-            context.draw(label, at: CGPoint(x: x(at: position), y: 9 * k))
-            var tick = Path()
-            tick.move(to: CGPoint(x: x(at: position), y: 19 * k))
-            tick.addLine(to: CGPoint(x: x(at: position), y: labelHeight - 3 * k))
-            context.stroke(tick, with: .color(Theme.textPrimary.opacity(0.9)), lineWidth: 2 * k)
+            if labelsOnTop {
+                context.draw(label, at: CGPoint(x: x(at: position), y: 9 * k))
+                var tick = Path()
+                tick.move(to: CGPoint(x: x(at: position), y: 19 * k))
+                tick.addLine(to: CGPoint(x: x(at: position), y: labelHeight - 3 * k))
+                context.stroke(tick, with: .color(Theme.textPrimary.opacity(0.9)), lineWidth: 2 * k)
+            } else {
+                context.draw(label, at: CGPoint(x: x(at: position), y: labelTop + labelHeight * 0.55))
+            }
         }
 
         // Cadre de la barre : bleu à gauche, rouge à droite, lumineux.

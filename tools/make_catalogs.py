@@ -117,6 +117,8 @@ EN = {
  "Aujourd'hui": "Today",
  "Vitesse max.": "Top speed",
  "Pic d'accél.": "Peak accel.",
+ "Vitesse moy.": "Avg speed",
+ "Durée roulage": "Ride time",
  "Accélérations du trajet": "Trip acceleration",
  "% du record": "% of record",
  "Accélération %@": "Acceleration %@",

@@ -131,16 +131,6 @@
         }
       }
     },
-    "Accélération %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceleration %@"
-          }
-        }
-      }
-    },
     "Accélération forte": {
       "localizations": {
         "en": {
@@ -537,6 +527,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Moving time"
+          }
+        }
+      }
+    },
+    "Durée roulage": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ride time"
           }
         }
       }
@@ -1531,16 +1531,6 @@
         }
       }
     },
-    "Vitesse max": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Top speed"
-          }
-        }
-      }
-    },
     "Vitesse max.": {
       "localizations": {
         "en": {
@@ -1567,6 +1557,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Top speed"
+          }
+        }
+      }
+    },
+    "Vitesse moy.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avg speed"
           }
         }
       }
