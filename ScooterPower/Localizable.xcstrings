@@ -661,6 +661,16 @@
         }
       }
     },
+    "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English or French. Opens the iPhone Settings, Language section."
+          }
+        }
+      }
+    },
     "Freinage": {
       "localizations": {
         "en": {
@@ -817,6 +827,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "The other rider scans this code with their iPhone camera, or opens the link you send them."
+          }
+        }
+      }
+    },
+    "Langue": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Language"
           }
         }
       }

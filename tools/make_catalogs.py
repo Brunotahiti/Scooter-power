@@ -121,6 +121,8 @@ EN = {
  "Durée roulage": "Ride time",
  "%@ max": "%@ max",
  "Trajets enregistrés": "Saved trips",
+ "Langue": "Language",
+ "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue.": "English or French. Opens the iPhone Settings, Language section.",
  "Accélérations du trajet": "Trip acceleration",
  "% du record": "% of record",
  "Accélération %@": "Acceleration %@",

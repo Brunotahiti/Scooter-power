@@ -5,8 +5,29 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     private let settings = AppSettings.shared
 
-    private static let supportURL = URL(string: "https://brunotahiti.github.io/Scooter-power/")
-    private static let privacyURL = URL(string: "https://brunotahiti.github.io/Scooter-power/confidentialite.html")
+    /// Pages d'assistance et de confidentialité dans la langue de l'app.
+    private static var isFrench: Bool {
+        Bundle.main.preferredLocalizations.first?.hasPrefix("fr") ?? false
+    }
+
+    private static var supportURL: URL? {
+        URL(string: isFrench
+            ? "https://brunotahiti.github.io/Scooter-power/"
+            : "https://brunotahiti.github.io/Scooter-power/en/")
+    }
+
+    private static var privacyURL: URL? {
+        URL(string: isFrench
+            ? "https://brunotahiti.github.io/Scooter-power/confidentialite.html"
+            : "https://brunotahiti.github.io/Scooter-power/en/privacy.html")
+    }
+
+    /// Nom de la langue de l'app, dans cette langue (« Français », « English »).
+    private var languageName: String {
+        let code: String = Bundle.main.preferredLocalizations.first ?? "en"
+        let name: String = Locale(identifier: code).localizedString(forLanguageCode: code) ?? code
+        return name.prefix(1).uppercased() + name.dropFirst()
+    }
 
     private var units: Binding<UnitSystem> {
         Binding(get: { settings.units }, set: { settings.setUnits($0) })
@@ -38,6 +59,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 setupSection
+                languageSection
                 unitsSection
                 alertSection
                 aboutSection
@@ -75,6 +97,21 @@ struct SettingsView: View {
         .onAppear {
             setupDraft = settings.currentSetup
             riderDraft = settings.riderName
+        }
+    }
+
+    /// La langue se choisit dans les Réglages d'iOS, page de l'app.
+    private var languageSection: some View {
+        Section {
+            Button {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url)
+                }
+            } label: {
+                LabeledContent("Langue", value: languageName)
+            }
+        } footer: {
+            Text("Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue.")
         }
     }
 
