@@ -14,9 +14,9 @@ Si le nom est déjà pris sur le Store : « Scooter Power – Compteur GPS ».
 
 Performances pour scooter
 
-## Texte promotionnel (145 caractères)
+## Texte promotionnel (135 caractères)
 
-Vitesse, poussée et inclinaison en direct. Records, statistiques et comparaison avant/après chaque modification de votre scooter, en pourcentage.
+Compteur néon, vitesse, poussée et inclinaison en direct. Battez vos records, comparez vos modifs en % et défiez vos amis par QR code !
 
 ## Mots-clés (97 caractères)
 
