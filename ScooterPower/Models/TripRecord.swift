@@ -31,17 +31,23 @@ final class TripRecord {
     var thrustData: Data?
     /// Meilleures accélérations et pic de poussée, encodés en JSON ; absents des trajets anciens.
     var highlightsData: Data?
+    /// Vitesse, poussée et inclinaison le long du tracé allégé, encodées en JSON,
+    /// pour revoir le trajet ; absentes des trajets anciens.
+    @Attribute(.externalStorage) var replayData: Data?
     /// Tracé allégé, encodé en JSON.
     @Attribute(.externalStorage) var routeData: Data
 
     init(startDate: Date, summary: TripSummary, route: [Coordinate], setupName: String? = nil,
-         thrust: [Double] = [], highlights: [TripHighlight] = []) {
+         thrust: [Double] = [], highlights: [TripHighlight] = [], replay: [ReplayPoint] = []) {
         self.startDate = startDate
         self.setupName = setupName
         // Tracé et poussée sont allégés ensemble pour rester alignés.
         let kept: [Int] = RouteSimplifier.indices(count: route.count, maxPoints: Self.maxRoutePoints)
         if thrust.count == route.count {
             self.thrustData = try? JSONEncoder().encode(kept.map { thrust[$0] })
+        }
+        if replay.count == route.count {
+            self.replayData = try? JSONEncoder().encode(kept.map { replay[$0] })
         }
         self.highlightsData = try? JSONEncoder().encode(highlights)
         self.distanceMeters = summary.distanceMeters
@@ -94,6 +100,23 @@ final class TripRecord {
     var highlights: [TripHighlight] {
         guard let highlightsData else { return [] }
         return (try? JSONDecoder().decode([TripHighlight].self, from: highlightsData)) ?? []
+    }
+
+    var replayPoints: [ReplayPoint] {
+        guard let replayData else { return [] }
+        return (try? JSONDecoder().decode([ReplayPoint].self, from: replayData)) ?? []
+    }
+
+    /// Le trajet prêt à être revu ; à vitesse moyenne constante pour les trajets anciens.
+    var replay: TripReplay {
+        TripReplay(route: route, points: replayPoints, averageSpeedKmh: averageSpeedKmh)
+    }
+
+    /// Le trajet tel qu'il est envoyé à un ami.
+    func shared(riderName: String) -> SharedTrip {
+        SharedTrip(
+            riderName: riderName, setupName: setupName ?? "", date: startDate, summary: summary,
+            route: route, points: replayPoints)
     }
 
     var route: [Coordinate] {

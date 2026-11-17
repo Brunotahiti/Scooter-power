@@ -61,6 +61,8 @@ final class TripViewModel {
     private(set) var route: [Coordinate] = []
     /// Poussée à chaque point du tracé, alignée sur `route`.
     private(set) var thrustTrack: [Double] = []
+    /// Vitesse, poussée et inclinaison le long du tracé, pour revoir le trajet.
+    private(set) var replayTrack: [ReplayPoint] = []
     /// Meilleures accélérations et pic de poussée, à placer sur la carte.
     private(set) var highlights: [TripHighlight] = []
     private(set) var summary: TripSummary?
@@ -340,6 +342,7 @@ final class TripViewModel {
         if route.count != statistics.route.count {
             route = statistics.route
             thrustTrack = session.thrustTrack
+            replayTrack = session.replayTrack
         }
         let newHighlights: [TripHighlight] = session.highlights
         if newHighlights != highlights {

@@ -7,6 +7,8 @@ import ScooterCore
 /// les autres en cyan.
 struct HistoryView: View {
     @Query(sort: \TripRecord.startDate, order: .reverse) private var trips: [TripRecord]
+    @Query(sort: \FriendTrip.receivedDate, order: .reverse) private var friendTrips: [FriendTrip]
+    @State private var replayFriend: FriendTrip?
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var path: [HistoryRoute] = []
@@ -27,6 +29,15 @@ struct HistoryView: View {
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: HistoryRoute.self) { route in
                 destination(route)
+            }
+            .fullScreenCover(item: $replayFriend) { friend in
+                if let shared = friend.shared {
+                    TripReplayView(
+                        main: ReplayTrack(
+                            id: "friend", name: friend.displayName + " · " + friend.title,
+                            replay: shared.replay, color: Theme.cyan),
+                        friends: friendTrips.filter { $0.persistentModelID != friend.persistentModelID })
+                }
             }
         }
         .preferredColorScheme(.dark)
@@ -83,7 +94,7 @@ struct HistoryView: View {
 
     @ViewBuilder
     private var content: some View {
-        if trips.isEmpty {
+        if trips.isEmpty && friendTrips.isEmpty {
             ContentUnavailableView(
                 "Aucun trajet",
                 systemImage: "clock.arrow.circlepath",
@@ -92,6 +103,9 @@ struct HistoryView: View {
         } else {
             let records: Set<PersistentIdentifier> = Self.recordTrips(trips)
             List {
+                if !friendTrips.isEmpty {
+                    friendsSection
+                }
                 ForEach(trips) { trip in
                     Button {
                         path.append(.trip(trip))
@@ -107,6 +121,35 @@ struct HistoryView: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
+        }
+    }
+
+    /// Trajets reçus d'amis : un toucher les rejoue sur la carte.
+    private var friendsSection: some View {
+        Section {
+            ForEach(friendTrips) { friend in
+                Button {
+                    replayFriend = friend
+                } label: {
+                    FriendTripRow(friend: friend)
+                }
+                .buttonStyle(.plain)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+            }
+            .onDelete { offsets in
+                for index in offsets { modelContext.delete(friendTrips[index]) }
+            }
+        } header: {
+            Text("Trajets des amis")
+                .font(.system(size: 15, weight: .heavy))
+                .italic()
+                .foregroundStyle(Theme.cyan)
+        } footer: {
+            Text("Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami.")
+                .font(.system(size: 12))
+                .foregroundStyle(Theme.textSecondary)
         }
     }
 
@@ -428,5 +471,59 @@ private struct MiniSpeedGauge: View {
             .foregroundStyle(Theme.textPrimary)
             .offset(y: 9)
         }
+    }
+}
+
+/// Trajet d'un ami : pseudo, date, distance, durée et vitesse max, en cyan.
+private struct FriendTripRow: View {
+    let friend: FriendTrip
+
+    private var units: UnitSystem { AppSettings.shared.units }
+
+    var body: some View {
+        let shape = HexagonFrame(tip: 16)
+        let distance: String = Formatters.decimal(units.distance(fromMeters: friend.distanceMeters), digits: 1)
+            + " " + units.distanceUnit
+        let speed: String = Formatters.decimal(units.speed(fromKmh: friend.maxSpeedKmh), digits: 0)
+        return HStack(spacing: 12) {
+            Image(systemName: "person.fill")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundStyle(Theme.cyan)
+                .frame(width: 30)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(verbatim: friend.displayName)
+                    .font(.system(size: 18, weight: .bold))
+                Text(verbatim: friend.title + "  |  " + distance + "  |  " + Formatters.duration(friend.totalDuration))
+                    .font(.system(size: 13, weight: .medium))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textPrimary.opacity(0.8))
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.7)
+            Spacer(minLength: 4)
+            VStack(spacing: 0) {
+                Text(verbatim: speed)
+                    .font(.system(size: 22, weight: .black))
+                    .italic()
+                Text("\(units.speedUnit) max")
+                    .font(.system(size: 11, weight: .medium))
+                    .italic()
+            }
+            Image(systemName: "play.fill")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(Theme.cyan)
+        }
+        .foregroundStyle(Theme.textPrimary)
+        .padding(.leading, 20)
+        .padding(.trailing, 18)
+        .padding(.vertical, 10)
+        .background(Color(hex: 0x0B0E12).clipShape(shape))
+        .overlay(shape.stroke(Theme.cyan, lineWidth: 1.8))
+        .shadow(color: Theme.cyan.opacity(0.5), radius: 6)
+        .contentShape(shape)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(friend.displayName + ", " + friend.title)
+        .accessibilityValue(distance + ", " + L("\(speed) \(units.speedUnit) max"))
+        .accessibilityHint("Revoir le trajet")
     }
 }

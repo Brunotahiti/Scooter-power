@@ -31,6 +31,6 @@ struct ScooterPowerApp: App {
                 }
             }
         }
-        .modelContainer(for: [TripRecord.self, RivalRecord.self])
+        .modelContainer(for: [TripRecord.self, RivalRecord.self, FriendTrip.self])
     }
 }

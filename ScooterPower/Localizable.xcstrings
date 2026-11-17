@@ -281,6 +281,16 @@
         }
       }
     },
+    "Aucun": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None"
+          }
+        }
+      }
+    },
     "Aucun temps mesuré pour l'instant.": {
       "localizations": {
         "en": {
@@ -391,6 +401,16 @@
         }
       }
     },
+    "Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This file does not contain a valid trip, or it comes from a newer version of the app."
+          }
+        }
+      }
+    },
     "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer.": {
       "localizations": {
         "en": {
@@ -447,6 +467,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compare"
+          }
+        }
+      }
+    },
+    "Comparer avec un ami": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compare with a friend"
           }
         }
       }
@@ -617,6 +647,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recording"
+          }
+        }
+      }
+    },
+    "Envoyer le trajet à un ami": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send trip to a friend"
           }
         }
       }
@@ -847,6 +887,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "The speedometer turns red and the phone vibrates when the limit is exceeded. The alert only works while the app is on screen."
+          }
+        }
+      }
+    },
+    "Lecture": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play"
           }
         }
       }
@@ -1151,12 +1201,32 @@
         }
       }
     },
+    "Position dans le trajet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Position in the trip"
+          }
+        }
+      }
+    },
     "Position refusée · Ouvrir Réglages": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Location denied · Open Settings"
+          }
+        }
+      }
+    },
+    "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To receive one, ask a friend to open a trip in their history, then Share → Send trip to a friend."
           }
         }
       }
@@ -1301,6 +1371,16 @@
         }
       }
     },
+    "Revoir le trajet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replay trip"
+          }
+        }
+      }
+    },
     "Roulez en sécurité": {
       "localizations": {
         "en": {
@@ -1377,6 +1457,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Statistics"
+          }
+        }
+      }
+    },
+    "Suivre le scooter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow the scooter"
           }
         }
       }
@@ -1501,12 +1591,32 @@
         }
       }
     },
+    "Trajet illisible": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unreadable trip"
+          }
+        }
+      }
+    },
     "Trajets": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Trips"
+          }
+        }
+      }
+    },
+    "Trajets des amis": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Friends' trips"
           }
         }
       }
@@ -1571,6 +1681,16 @@
         }
       }
     },
+    "Vitesse de lecture": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playback speed"
+          }
+        }
+      }
+    },
     "Vitesse max.": {
       "localizations": {
         "en": {
@@ -1617,6 +1737,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Average speed"
+          }
+        }
+      }
+    },
+    "Vitesse moyenne (trajet ancien)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average speed (older trip)"
           }
         }
       }

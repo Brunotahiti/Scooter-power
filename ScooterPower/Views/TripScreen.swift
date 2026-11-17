@@ -195,7 +195,7 @@ struct TripScreen: View {
         guard let summary = model.summary, let startDate = model.startDate else { return }
         let record = TripRecord(
             startDate: startDate, summary: summary, route: model.route, setupName: settings.currentSetup,
-            thrust: model.thrustTrack, highlights: model.highlights)
+            thrust: model.thrustTrack, highlights: model.highlights, replay: model.replayTrack)
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()

@@ -133,11 +133,18 @@ enum CardInbox {
 struct CardReceiver: ViewModifier {
     @Binding var showStats: Bool
     @Environment(\.modelContext) private var modelContext
+    @Query(sort: \FriendTrip.receivedDate, order: .reverse) private var friendTrips: [FriendTrip]
     @State private var failed = false
+    @State private var tripFailed = false
+    @State private var receivedTrip: FriendTrip?
 
     func body(content: Content) -> some View {
         content
             .onOpenURL { url in
+                if url.isFileURL {
+                    receiveTrip(url)
+                    return
+                }
                 guard url.scheme?.lowercased() == PerformanceCard.scheme else { return }
                 if let card = try? PerformanceCard(link: url) {
                     CardInbox.save(card, in: modelContext)
@@ -151,6 +158,40 @@ struct CardReceiver: ViewModifier {
             } message: {
                 Text("Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer.")
             }
+            .alert("Trajet illisible", isPresented: $tripFailed) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app.")
+            }
+            .fullScreenCover(item: $receivedTrip) { friend in
+                if let shared = friend.shared {
+                    TripReplayView(
+                        main: ReplayTrack(
+                            id: "friend", name: friend.displayName + " · " + friend.title,
+                            replay: shared.replay, color: Theme.cyan),
+                        friends: friendTrips.filter { $0.persistentModelID != friend.persistentModelID })
+                }
+            }
+    }
+
+    /// Fichier « .scooterpower » reçu d'un ami : il rejoint l'historique et se rejoue aussitôt.
+    private func receiveTrip(_ url: URL) {
+        guard url.pathExtension.lowercased() == SharedTrip.fileExtension else { return }
+        let scoped: Bool = url.startAccessingSecurityScopedResource()
+        defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+        guard let data = try? Data(contentsOf: url), let trip = try? SharedTrip(data: data) else {
+            tripFailed = true
+            return
+        }
+        // Le même trajet reçu deux fois n'est gardé qu'une fois.
+        if let existing = friendTrips.first(where: { $0.fileData == data }) {
+            receivedTrip = existing
+            return
+        }
+        let friend = FriendTrip(trip: trip, data: data)
+        modelContext.insert(friend)
+        try? modelContext.save()
+        receivedTrip = friend
     }
 }
 

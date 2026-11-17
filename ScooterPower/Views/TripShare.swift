@@ -155,6 +155,12 @@ enum TripExporter {
         return write(Data(text.utf8), name: GPXExporter.fileName(for: title) + ".gpx")
     }
 
+    /// Fichier « .scooterpower » que l'ami ouvre avec l'app pour revoir le trajet.
+    static func tripFile(_ trip: SharedTrip, title: String) -> URL? {
+        guard let data = try? trip.encoded() else { return nil }
+        return write(data, name: trip.fileName(title: title))
+    }
+
     private static func write(_ data: Data, name: String) -> URL? {
         let url: URL = FileManager.default.temporaryDirectory.appendingPathComponent(name)
         do {
@@ -193,11 +199,18 @@ struct ShareMenu: View {
     let route: [Coordinate]
     let title: String
     let date: Date?
+    /// Trajet complet à envoyer à un ami, s'il est disponible.
+    var sharedTrip: SharedTrip?
     /// Reçoit le fichier produit, ou `nil` si sa création a échoué.
     let onShare: (URL?) -> Void
 
     var body: some View {
         Menu {
+            if let sharedTrip {
+                Button("Envoyer le trajet à un ami", systemImage: "person.2.fill") {
+                    onShare(TripExporter.tripFile(sharedTrip, title: title))
+                }
+            }
             Button("Partager l'image du résumé", systemImage: "photo") {
                 onShare(TripExporter.imageFile(summary: summary, route: route, title: title))
             }

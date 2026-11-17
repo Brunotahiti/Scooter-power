@@ -1,4 +1,5 @@
 import MapKit
+import SwiftData
 import SwiftUI
 import ScooterCore
 
@@ -6,12 +7,17 @@ import ScooterCore
 struct TripDetailView: View {
     let trip: TripRecord
 
+    @Query(sort: \FriendTrip.receivedDate, order: .reverse) private var friendTrips: [FriendTrip]
     @State private var share = ShareState()
+    @State private var showReplay = false
 
     var body: some View {
         let coordinates: [CLLocationCoordinate2D] = trip.route.map(\.mapCoordinate)
         return ScrollView {
             VStack(spacing: 14) {
+                if coordinates.count > 1 {
+                    replayButton
+                }
                 routeMap(coordinates)
                 TripFigures(summary: trip.summary)
             }
@@ -22,12 +28,39 @@ struct TripDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                ShareMenu(summary: trip.summary, route: trip.route, title: trip.title, date: trip.startDate) { url in
+                ShareMenu(
+                    summary: trip.summary, route: trip.route, title: trip.title, date: trip.startDate,
+                    sharedTrip: trip.shared(riderName: AppSettings.shared.riderName)
+                ) { url in
                     share.receive(url)
                 }
             }
         }
         .sharePresentation($share)
+        .fullScreenCover(isPresented: $showReplay) {
+            TripReplayView(
+                main: ReplayTrack(id: "mine", name: trip.title, replay: trip.replay, color: SpeedometerView.neonRed),
+                friends: friendTrips)
+        }
+    }
+
+    private var replayButton: some View {
+        Button {
+            showReplay = true
+        } label: {
+            Label("Revoir le trajet", systemImage: "play.circle.fill")
+                .font(.system(size: 18, weight: .heavy))
+                .italic()
+                .frame(maxWidth: .infinity)
+                .frame(height: 54)
+                .foregroundStyle(Color.white)
+                .background(
+                    LinearGradient(
+                        colors: [Color(hex: 0xFF4A3D), Color(hex: 0xB01515)], startPoint: .top, endPoint: .bottom),
+                    in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .shadow(color: SpeedometerView.neonRed.opacity(0.6), radius: 10)
+        }
+        .buttonStyle(.plain)
     }
 
     @ViewBuilder

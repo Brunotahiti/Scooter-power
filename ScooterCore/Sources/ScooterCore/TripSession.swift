@@ -53,6 +53,11 @@ public struct TripSession: Sendable {
     public private(set) var sprint = SprintTimer()
     /// Poussée au moment de chaque point du tracé, alignée sur `statistics.route`.
     public private(set) var thrustTrack: [Double] = []
+    /// Vitesse, poussée et inclinaison à chaque point du tracé, alignées sur
+    /// `statistics.route`, pour revoir le trajet.
+    public private(set) var replayTrack: [ReplayPoint] = []
+    /// Heure du premier point du tracé, origine des temps de `replayTrack`.
+    private var replayOrigin: TimeInterval?
 
     /// Meilleur temps de chaque plage, puis le pic de poussée, à placer sur la carte.
     public var highlights: [TripHighlight] {
@@ -127,6 +132,11 @@ public struct TripSession: Sendable {
         statistics.add(sample)
         if statistics.route.count > routeBefore {
             thrustTrack.append(acceleration.current)
+            let origin: TimeInterval = replayOrigin ?? sample.timestamp
+            replayOrigin = origin
+            replayTrack.append(ReplayPoint(
+                time: sample.timestamp - origin, speedKmh: max(0, sample.speed * 3.6),
+                acceleration: acceleration.current, leanDegrees: lean.angleDegrees))
         }
         acceleration.addGPSSpeed(timestamp: sample.timestamp, speed: sample.speed)
 
