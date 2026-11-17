@@ -34,6 +34,8 @@ struct TripReplayView: View {
     @State private var lastTick: Date?
     /// Trajets d'amis ajoutés, dans l'ordre de leur ajout.
     @State private var ghosts: [ReplayTrack] = []
+    /// Fond de carte en photo satellite plutôt qu'en plan.
+    @AppStorage(TripMapStyle.storageKey) private var satellite = false
 
     /// Pilote principal + 4 amis : 5, comme une balade de groupe.
     static let maxGhosts = GroupRoster.capacity - 1
@@ -209,7 +211,7 @@ struct TripReplayView: View {
                 }
             }
         }
-        .mapStyle(.standard(elevation: .flat, emphasis: .muted, pointsOfInterest: .excludingAll))
+        .mapStyle(TripMapStyle.style(satellite: satellite))
         .onMapCameraChange(frequency: .continuous) { context in
             mapHeading = context.camera.heading
             cameraDistance = context.camera.distance
@@ -223,6 +225,7 @@ struct TripReplayView: View {
 
     private var mapButtons: some View {
         VStack(spacing: 8) {
+            SatelliteToggle(satellite: $satellite)
             Button {
                 follow = true
                 cameraHeading = nil

@@ -337,6 +337,38 @@
         }
       }
     },
+    "Afficher la photo satellite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show satellite view"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher la photo satellite"
+          }
+        }
+      }
+    },
+    "Afficher le plan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show map"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le plan"
+          }
+        }
+      }
+    },
     "Alerte de vitesse" : {
       "localizations" : {
         "en" : {

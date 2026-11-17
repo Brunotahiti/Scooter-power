@@ -121,6 +121,8 @@ EN = {
  "Durée roulage": "Ride time",
  "%@ max": "%@ max",
  "Trajets enregistrés": "Saved trips",
+ "Afficher le plan": "Show map",
+ "Afficher la photo satellite": "Show satellite view",
  "Les demandes d'autorisation et l'écran verrouillé changent de langue au prochain lancement de l'app.": "Permission prompts and the Lock Screen switch language the next time the app opens.",
  "%@ · moyenne": "%@ · average",
  "%@ · record": "%@ · record",

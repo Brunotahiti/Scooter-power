@@ -13,6 +13,8 @@ struct GroupRideView: View {
     @State private var position: MapCameraPosition = .automatic
     @State private var showInvite = false
     @State private var showScanner = false
+    /// Fond de carte en photo satellite plutôt qu'en plan.
+    @AppStorage(TripMapStyle.storageKey) private var satellite = false
 
     /// Couleur de chaque place, dans l'ordre d'arrivée.
     static let colors: [Color] = [
@@ -204,7 +206,7 @@ struct GroupRideView: View {
                 }
             }
         }
-        .mapStyle(.standard(elevation: .flat, emphasis: .muted, pointsOfInterest: .excludingAll))
+        .mapStyle(TripMapStyle.style(satellite: satellite))
         .mapControls { MapCompass() }
     }
 
@@ -224,18 +226,21 @@ struct GroupRideView: View {
     }
 
     private var fitButton: some View {
-        Button {
-            withAnimation(.easeInOut(duration: 0.5)) { position = .automatic }
-        } label: {
-            Image(systemName: "arrow.up.left.and.arrow.down.right")
-                .font(.system(size: 15, weight: .bold))
-                .foregroundStyle(Theme.textPrimary)
-                .frame(width: 38, height: 38)
-                .background(Color.black.opacity(0.7), in: Circle())
+        VStack(spacing: 8) {
+            SatelliteToggle(satellite: $satellite)
+            Button {
+                withAnimation(.easeInOut(duration: 0.5)) { position = .automatic }
+            } label: {
+                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(Theme.textPrimary)
+                    .frame(width: 38, height: 38)
+                    .background(Color.black.opacity(0.7), in: Circle())
+            }
+            .accessibilityLabel("Voir tous les pilotes")
         }
         .padding(10)
         .padding(.top, 34)
-        .accessibilityLabel("Voir tous les pilotes")
     }
 
     private var riderCards: some View {
