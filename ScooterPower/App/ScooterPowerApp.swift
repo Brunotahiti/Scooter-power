@@ -24,8 +24,8 @@ struct ScooterPowerApp: App {
     }()
 
     init() {
-        // L'app est en anglais pour tout le monde : point décimal (« 0.5 mi »).
-        Formatters.decimalSeparator = "."
+        // Langue choisie dans les réglages (anglais par défaut) et séparateur décimal assorti.
+        AppLanguage.apply(AppLanguage.stored)
     }
 
     var body: some Scene {
@@ -44,9 +44,18 @@ struct ScooterPowerApp: App {
                     .zIndex(1)
                 }
             }
-            // Graphiques, sélecteurs et dates d'iOS en anglais, comme le reste de l'app.
-            .environment(\.locale, AppDates.locale)
+            // Textes SwiftUI, graphiques, sélecteurs et dates dans la langue de l'app.
+            .modifier(AppLanguageEnvironment())
         }
         .modelContainer(container)
+    }
+}
+
+/// Pose la langue choisie dans l'environnement ; suit ses changements en direct.
+private struct AppLanguageEnvironment: ViewModifier {
+    private let settings = AppSettings.shared
+
+    func body(content: Content) -> some View {
+        content.environment(\.locale, settings.language.locale)
     }
 }

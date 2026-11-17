@@ -121,6 +121,7 @@ EN = {
  "Durée roulage": "Ride time",
  "%@ max": "%@ max",
  "Trajets enregistrés": "Saved trips",
+ "Les demandes d'autorisation et l'écran verrouillé changent de langue au prochain lancement de l'app.": "Permission prompts and the Lock Screen switch language the next time the app opens.",
  "%@ · moyenne": "%@ · average",
  "%@ · record": "%@ · record",
  "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet.": "In miles, speed, distance and acceleration times switch to mph: 0–60 mph, 30–50 mph… Both sets are measured on every trip.",
@@ -253,16 +254,17 @@ INFO = {
    "Scooter Power saves your trip photos to your photo library."),
 }
 
-# L'app est en anglais pour tout le monde, quelle que soit la langue de
-# l'iPhone. Les clés restent les textes français du code : seule la
-# traduction anglaise est livrée.
+# Langue de référence : l'anglais (langue par défaut de l'app). Le français est
+# proposé dans les réglages de l'app. Les clés restent les textes français du
+# code ; le français est donc écrit explicitement pour chaque clé.
 SOURCE = "en"
 
 def catalog(entries):
     strings = {}
     for key in sorted(entries):
         strings[key] = {"localizations": {
-            "en": {"stringUnit": {"state": "translated", "value": entries[key]}}}}
+            "en": {"stringUnit": {"state": "translated", "value": entries[key]}},
+            "fr": {"stringUnit": {"state": "translated", "value": key}}}}
     return {"sourceLanguage": SOURCE, "strings": strings, "version": "1.0"}
 
 def write(path, data):
@@ -288,7 +290,8 @@ for folder in ("ScooterPower", "ScooterPowerWidgets"):
 info = {"sourceLanguage": SOURCE, "version": "1.0", "strings": {}}
 for key, (fr, en) in INFO.items():
     info["strings"][key] = {"extractionState": "manual", "localizations": {
-        "en": {"stringUnit": {"state": "translated", "value": en}}}}
+        "en": {"stringUnit": {"state": "translated", "value": en}},
+        "fr": {"stringUnit": {"state": "translated", "value": fr}}}}
 write(f"{root}/ScooterPower/InfoPlist.xcstrings", info)
 write(f"{root}/ScooterPowerWidgets/InfoPlist.xcstrings", {"sourceLanguage": SOURCE, "version": "1.0", "strings": {
     "CFBundleDisplayName": info["strings"]["CFBundleDisplayName"]}})

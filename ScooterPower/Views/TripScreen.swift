@@ -24,6 +24,8 @@ struct TripScreen: View {
 
     var body: some View {
         layout
+            // Changer de langue reconstruit l'écran (le trajet en cours, gardé par `model`, continue).
+            .id(settings.language)
             .overlay(alignment: .top) {
                 recordBanner
             }
@@ -43,6 +45,10 @@ struct TripScreen: View {
                 loadRecords()
             }
             .onChange(of: settings.units) { _, _ in
+                model.settingsChanged()
+            }
+            .onChange(of: settings.language) { _, _ in
+                // Textes déjà calculés (vitesses, chronos, records) recalculés dans la nouvelle langue.
                 model.settingsChanged()
             }
             .modifier(TripPresentations(

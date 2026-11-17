@@ -22,6 +22,8 @@ final class AppSettings {
     }
 
     private(set) var units: UnitSystem
+    /// Langue de l'app ; anglais par défaut.
+    private(set) var language: AppLanguage = AppLanguage.stored
     private(set) var speedAlertEnabled: Bool
     /// Seuil d'alerte, toujours conservé en km/h.
     private(set) var speedAlertKmh: Double
@@ -55,6 +57,11 @@ final class AppSettings {
         speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
         currentSetup = Self.cleaned(defaults.string(forKey: Key.currentSetup) ?? "")
         riderName = defaults.string(forKey: Key.riderName) ?? ""
+    }
+
+    func setLanguage(_ value: AppLanguage) {
+        AppLanguage.apply(value)
+        language = value
     }
 
     func setRiderName(_ name: String) {

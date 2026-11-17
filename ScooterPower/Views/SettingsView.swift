@@ -5,9 +5,18 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     private let settings = AppSettings.shared
 
-    /// Pages d'assistance et de confidentialité, en anglais comme l'app.
-    private static let supportURL = URL(string: "https://brunotahiti.github.io/Scooter-power/en/")
-    private static let privacyURL = URL(string: "https://brunotahiti.github.io/Scooter-power/en/privacy.html")
+    /// Pages d'assistance et de confidentialité dans la langue de l'app.
+    private var supportURL: URL? {
+        URL(string: settings.language == .french
+            ? "https://brunotahiti.github.io/Scooter-power/"
+            : "https://brunotahiti.github.io/Scooter-power/en/")
+    }
+
+    private var privacyURL: URL? {
+        URL(string: settings.language == .french
+            ? "https://brunotahiti.github.io/Scooter-power/confidentialite.html"
+            : "https://brunotahiti.github.io/Scooter-power/en/privacy.html")
+    }
 
     private var units: Binding<UnitSystem> {
         Binding(get: { settings.units }, set: { settings.setUnits($0) })
@@ -39,6 +48,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 setupSection
+                languageSection
                 unitsSection
                 alertSection
                 aboutSection
@@ -79,6 +89,26 @@ struct SettingsView: View {
         }
     }
 
+    private var language: Binding<AppLanguage> {
+        Binding(get: { settings.language }, set: { settings.setLanguage($0) })
+    }
+
+    /// Langue de l'app, indépendante de celle de l'iPhone.
+    private var languageSection: some View {
+        Section {
+            Picker("Langue", selection: language) {
+                ForEach(AppLanguage.allCases) { option in
+                    Text(verbatim: option.nativeName).tag(option)
+                }
+            }
+            .pickerStyle(.segmented)
+        } header: {
+            Text("Langue")
+        } footer: {
+            Text("Les demandes d'autorisation et l'écran verrouillé changent de langue au prochain lancement de l'app.")
+        }
+    }
+
     private var unitsSection: some View {
         Section {
             Picker("Unités", selection: units) {
@@ -111,10 +141,10 @@ struct SettingsView: View {
 
     private var aboutSection: some View {
         Section {
-            if let url = Self.supportURL {
+            if let url = supportURL {
                 Link("Assistance", destination: url)
             }
-            if let url = Self.privacyURL {
+            if let url = privacyURL {
                 Link("Politique de confidentialité", destination: url)
             }
             LabeledContent("Version", value: version)
