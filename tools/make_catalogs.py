@@ -253,11 +253,18 @@ INFO = {
    "Scooter Power saves your trip photos to your photo library."),
 }
 
+# Langue de référence : l'anglais. iOS l'utilise pour toute langue que l'app ne
+# propose pas (allemand, espagnol, japonais…). Les clés restent les textes
+# français du code ; le français est donc écrit explicitement pour chaque clé.
+SOURCE = "en"
+
 def catalog(entries):
     strings = {}
     for key in sorted(entries):
-        strings[key] = {"localizations": {"en": {"stringUnit": {"state": "translated", "value": entries[key]}}}}
-    return {"sourceLanguage": "fr", "strings": strings, "version": "1.0"}
+        strings[key] = {"localizations": {
+            "en": {"stringUnit": {"state": "translated", "value": entries[key]}},
+            "fr": {"stringUnit": {"state": "translated", "value": key}}}}
+    return {"sourceLanguage": SOURCE, "strings": strings, "version": "1.0"}
 
 def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
@@ -277,13 +284,13 @@ for folder in ("ScooterPower", "ScooterPowerWidgets"):
     write(f"{root}/{folder}/Localizable.xcstrings", catalog(entries))
     print(folder, len(entries), "textes traduits")
 
-info = {"sourceLanguage": "fr", "version": "1.0", "strings": {}}
+info = {"sourceLanguage": SOURCE, "version": "1.0", "strings": {}}
 for key, (fr, en) in INFO.items():
     info["strings"][key] = {"extractionState": "manual", "localizations": {
         "fr": {"stringUnit": {"state": "translated", "value": fr}},
         "en": {"stringUnit": {"state": "translated", "value": en}}}}
 write(f"{root}/ScooterPower/InfoPlist.xcstrings", info)
-write(f"{root}/ScooterPowerWidgets/InfoPlist.xcstrings", {"sourceLanguage": "fr", "version": "1.0", "strings": {
+write(f"{root}/ScooterPowerWidgets/InfoPlist.xcstrings", {"sourceLanguage": SOURCE, "version": "1.0", "strings": {
     "CFBundleDisplayName": info["strings"]["CFBundleDisplayName"]}})
 
 unused = sorted(k for k in EN if k not in keys(root + "/ScooterPower") and k not in keys(root + "/ScooterPowerWidgets"))

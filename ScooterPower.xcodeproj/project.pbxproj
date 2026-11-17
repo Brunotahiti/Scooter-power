@@ -174,11 +174,11 @@
 				};
 			};
 			buildConfigurationList = 5C000000000000000000000F /* Build configuration list for PBXProject "ScooterPower" */;
-			developmentRegion = fr;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				fr,
 				en,
+				fr,
 				Base,
 			);
 			mainGroup = 5C0000000000000000000006;
