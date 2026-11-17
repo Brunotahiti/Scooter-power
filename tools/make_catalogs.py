@@ -253,17 +253,16 @@ INFO = {
    "Scooter Power saves your trip photos to your photo library."),
 }
 
-# Langue de référence : l'anglais. iOS l'utilise pour toute langue que l'app ne
-# propose pas (allemand, espagnol, japonais…). Les clés restent les textes
-# français du code ; le français est donc écrit explicitement pour chaque clé.
+# L'app est en anglais pour tout le monde, quelle que soit la langue de
+# l'iPhone. Les clés restent les textes français du code : seule la
+# traduction anglaise est livrée.
 SOURCE = "en"
 
 def catalog(entries):
     strings = {}
     for key in sorted(entries):
         strings[key] = {"localizations": {
-            "en": {"stringUnit": {"state": "translated", "value": entries[key]}},
-            "fr": {"stringUnit": {"state": "translated", "value": key}}}}
+            "en": {"stringUnit": {"state": "translated", "value": entries[key]}}}}
     return {"sourceLanguage": SOURCE, "strings": strings, "version": "1.0"}
 
 def write(path, data):
@@ -289,7 +288,6 @@ for folder in ("ScooterPower", "ScooterPowerWidgets"):
 info = {"sourceLanguage": SOURCE, "version": "1.0", "strings": {}}
 for key, (fr, en) in INFO.items():
     info["strings"][key] = {"extractionState": "manual", "localizations": {
-        "fr": {"stringUnit": {"state": "translated", "value": fr}},
         "en": {"stringUnit": {"state": "translated", "value": en}}}}
 write(f"{root}/ScooterPower/InfoPlist.xcstrings", info)
 write(f"{root}/ScooterPowerWidgets/InfoPlist.xcstrings", {"sourceLanguage": SOURCE, "version": "1.0", "strings": {

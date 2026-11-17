@@ -8,12 +8,6 @@
             "state" : "translated",
             "value" : "%@ right"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ droite"
-          }
         }
       }
     },
@@ -23,12 +17,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ left"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ gauche"
           }
         }
       }
@@ -40,24 +28,12 @@
             "state" : "translated",
             "value" : "Acceleration"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accélération"
-          }
         }
       }
     },
     "Distance" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Distance"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Distance"
@@ -72,12 +48,6 @@
             "state" : "translated",
             "value" : "Upright"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Droit"
-          }
         }
       }
     },
@@ -87,12 +57,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Time"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Durée"
           }
         }
       }
@@ -104,12 +68,6 @@
             "state" : "translated",
             "value" : "Paused"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En pause"
-          }
         }
       }
     },
@@ -119,12 +77,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Braking"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Freinage"
           }
         }
       }
@@ -136,12 +88,6 @@
             "state" : "translated",
             "value" : "Lean angle"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison"
-          }
         }
       }
     },
@@ -151,12 +97,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Steady"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stable"
           }
         }
       }

@@ -8,24 +8,12 @@
             "state" : "translated",
             "value" : "% of record"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "% du record"
-          }
         }
       }
     },
     "%@ %@ max" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ %@ max"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ %@ max"
@@ -40,12 +28,6 @@
             "state" : "translated",
             "value" : "%@ max"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ max"
-          }
         }
       }
     },
@@ -55,12 +37,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ metres per second squared, %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ mètres par seconde carrée, %@"
           }
         }
       }
@@ -72,12 +48,6 @@
             "state" : "translated",
             "value" : "%@ riders"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ pilotes"
-          }
         }
       }
     },
@@ -87,12 +57,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ riders connected"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ pilotes connectés"
           }
         }
       }
@@ -104,12 +68,6 @@
             "state" : "translated",
             "value" : "%@ new records!"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ records battus !"
-          }
         }
       }
     },
@@ -119,12 +77,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ seconds"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ secondes"
           }
         }
       }
@@ -136,12 +88,6 @@
             "state" : "translated",
             "value" : "%@ · previous %@"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ · ancien %@"
-          }
         }
       }
     },
@@ -152,24 +98,12 @@
             "state" : "translated",
             "value" : "%@ · average"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ · moyenne"
-          }
         }
       }
     },
     "%@ · record" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ · record"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ · record"
@@ -184,24 +118,12 @@
             "state" : "translated",
             "value" : "%@, %@, previous record %@"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@, %@, ancien record %@"
-          }
         }
       }
     },
     "%@, record %@" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@, record %@"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@, record %@"
@@ -216,12 +138,6 @@
             "state" : "translated",
             "value" : "%@, record %@, beaten on this trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@, record %@, battu pendant ce trajet"
-          }
         }
       }
     },
@@ -231,12 +147,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1 rider connected"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1 pilote connecté"
           }
         }
       }
@@ -248,12 +158,6 @@
             "state" : "translated",
             "value" : "Last 30 seconds"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "30 dernières secondes"
-          }
         }
       }
     },
@@ -263,12 +167,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Acceleration"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accélération"
           }
         }
       }
@@ -280,12 +178,6 @@
             "state" : "translated",
             "value" : "Hard acceleration"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accélération forte"
-          }
         }
       }
     },
@@ -295,12 +187,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Moderate acceleration"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accélération modérée"
           }
         }
       }
@@ -312,12 +198,6 @@
             "state" : "translated",
             "value" : "Acceleration"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accélérations"
-          }
         }
       }
     },
@@ -327,12 +207,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trip acceleration"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accélérations du trajet"
           }
         }
       }
@@ -344,12 +218,6 @@
             "state" : "translated",
             "value" : "Speed alert"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alerte de vitesse"
-          }
         }
       }
     },
@@ -360,24 +228,12 @@
             "state" : "translated",
             "value" : "Alert above a limit"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alerter au-dessus d'un seuil"
-          }
         }
       }
     },
     "Altitude" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Altitude"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Altitude"
@@ -392,12 +248,6 @@
             "state" : "translated",
             "value" : "Cancel"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Annuler"
-          }
         }
       }
     },
@@ -407,12 +257,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Camera unavailable"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Appareil photo indisponible"
           }
         }
       }
@@ -424,12 +268,6 @@
             "state" : "translated",
             "value" : "After"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Après"
-          }
         }
       }
     },
@@ -439,12 +277,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "After modifying your scooter, give its setup a new name in Settings. Your next trips will be compared with the earlier ones, with the difference shown as a percentage."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage."
           }
         }
       }
@@ -456,12 +288,6 @@
             "state" : "translated",
             "value" : "Finished"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arrivé"
-          }
         }
       }
     },
@@ -471,12 +297,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finish"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arrivée"
           }
         }
       }
@@ -488,12 +308,6 @@
             "state" : "translated",
             "value" : "Support"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Assistance"
-          }
         }
       }
     },
@@ -503,12 +317,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tip: choose a nickname in Settings so the other rider recognises you."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse."
           }
         }
       }
@@ -520,12 +328,6 @@
             "state" : "translated",
             "value" : "No time recorded yet."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun temps mesuré pour l'instant."
-          }
         }
       }
     },
@@ -535,12 +337,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No trips"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun trajet"
           }
         }
       }
@@ -552,12 +348,6 @@
             "state" : "translated",
             "value" : "No card found"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune carte trouvée"
-          }
         }
       }
     },
@@ -567,12 +357,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No statistics"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune statistique"
           }
         }
       }
@@ -584,12 +368,6 @@
             "state" : "translated",
             "value" : "Today"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aujourd'hui"
-          }
         }
       }
     },
@@ -599,12 +377,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Before"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avant"
           }
         }
       }
@@ -616,12 +388,6 @@
             "state" : "translated",
             "value" : "Before / after"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avant / après"
-          }
         }
       }
     },
@@ -631,12 +397,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trip A is better."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avantage au trajet A."
           }
         }
       }
@@ -648,12 +408,6 @@
             "state" : "translated",
             "value" : "Trip B is better."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avantage au trajet B."
-          }
         }
       }
     },
@@ -663,12 +417,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Group ride"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balade de groupe"
           }
         }
       }
@@ -680,12 +428,6 @@
             "state" : "translated",
             "value" : "Ride not found. Ask for a new QR code."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balade introuvable. Demandez un nouveau QR code."
-          }
         }
       }
     },
@@ -695,12 +437,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Group rides"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Balades de groupe"
           }
         }
       }
@@ -712,12 +448,6 @@
             "state" : "translated",
             "value" : "Map"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Carte"
-          }
         }
       }
     },
@@ -727,12 +457,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unreadable card"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Carte illisible"
           }
         }
       }
@@ -744,12 +468,6 @@
             "state" : "translated",
             "value" : "This file does not contain a valid trip, or it comes from a newer version of the app."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app."
-          }
         }
       }
     },
@@ -759,12 +477,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This link does not contain a valid performance card. Ask the other rider to send it again."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer."
           }
         }
       }
@@ -776,12 +488,6 @@
             "state" : "translated",
             "value" : "This ride is full: 5 riders maximum."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cette balade est complète : 5 pilotes au maximum."
-          }
         }
       }
     },
@@ -791,12 +497,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Each line: the other rider's figure, then yours. The percentage is your difference: green when you do better, red otherwise."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon."
           }
         }
       }
@@ -808,12 +508,6 @@
             "state" : "translated",
             "value" : "Every trip is saved with this name. Change it after modifying your scooter: the Statistics page then compares performance before and after. Your nickname appears on the performance card you share."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez."
-          }
         }
       }
     },
@@ -823,12 +517,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Figures won: %@. Figures lost: %@."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chiffres gagnés : %@. Chiffres perdus : %@."
           }
         }
       }
@@ -840,12 +528,6 @@
             "state" : "translated",
             "value" : "Paste a card"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Coller une carte"
-          }
         }
       }
     },
@@ -855,12 +537,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Compare"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Comparer"
           }
         }
       }
@@ -872,12 +548,6 @@
             "state" : "translated",
             "value" : "Compare with a friend"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Comparer avec un ami"
-          }
         }
       }
     },
@@ -887,12 +557,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setup"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuration"
           }
         }
       }
@@ -904,12 +568,6 @@
             "state" : "translated",
             "value" : "Scooter setup"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuration du scooter"
-          }
         }
       }
     },
@@ -919,12 +577,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign in to iCloud in the iPhone Settings to ride as a group."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connectez-vous à iCloud dans les Réglages de l'iPhone pour rouler en groupe."
           }
         }
       }
@@ -936,12 +588,6 @@
             "state" : "translated",
             "value" : "Could not connect to iCloud. Check your network and try again."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connexion à iCloud impossible. Vérifiez le réseau et réessayez."
-          }
         }
       }
     },
@@ -951,12 +597,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Joining the ride…"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connexion à la balade…"
           }
         }
       }
@@ -968,12 +608,6 @@
             "state" : "translated",
             "value" : "First copy the message or link you received from the other rider, then tap \"Paste a card\"."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »."
-          }
         }
       }
     },
@@ -984,24 +618,12 @@
             "state" : "translated",
             "value" : "Start a ride"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Créer une balade"
-          }
         }
       }
     },
     "Date" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Date"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date"
@@ -1016,12 +638,6 @@
             "state" : "translated",
             "value" : "Distance"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Distance"
-          }
         }
       }
     },
@@ -1031,12 +647,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sample data"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Données d'illustration"
           }
         }
       }
@@ -1048,12 +658,6 @@
             "state" : "translated",
             "value" : "Upright"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Droit"
-          }
         }
       }
     },
@@ -1063,12 +667,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Right"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Droite"
           }
         }
       }
@@ -1080,12 +678,6 @@
             "state" : "translated",
             "value" : "Moving time"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Durée de roulage"
-          }
         }
       }
     },
@@ -1095,12 +687,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ride time"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Durée roulage"
           }
         }
       }
@@ -1112,12 +698,6 @@
             "state" : "translated",
             "value" : "Total time"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Durée totale"
-          }
         }
       }
     },
@@ -1127,12 +707,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rider challenge"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Défi entre pilotes"
           }
         }
       }
@@ -1144,12 +718,6 @@
             "state" : "translated",
             "value" : "Start"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Démarrer"
-          }
         }
       }
     },
@@ -1159,12 +727,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start trip"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Démarrer le trajet"
           }
         }
       }
@@ -1176,12 +738,6 @@
             "state" : "translated",
             "value" : "Start your trip so the others can see you."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Démarrez le trajet pour que les autres vous voient."
-          }
         }
       }
     },
@@ -1191,12 +747,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Départ"
           }
         }
       }
@@ -1208,12 +758,6 @@
             "state" : "translated",
             "value" : "In miles, speed, distance and acceleration times switch to mph: 0–60 mph, 30–50 mph… Both sets are measured on every trip."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet."
-          }
         }
       }
     },
@@ -1223,12 +767,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paused"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En pause"
           }
         }
       }
@@ -1240,12 +778,6 @@
             "state" : "translated",
             "value" : "Recording"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enregistrement"
-          }
         }
       }
     },
@@ -1255,12 +787,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send the link"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envoyer le lien"
           }
         }
       }
@@ -1272,12 +798,6 @@
             "state" : "translated",
             "value" : "Send trip to a friend"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envoyer le trajet à un ami"
-          }
         }
       }
     },
@@ -1287,12 +807,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Send my card"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Envoyer ma carte"
           }
         }
       }
@@ -1304,12 +818,6 @@
             "state" : "translated",
             "value" : "Export route (GPX)"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Exporter le tracé (GPX)"
-          }
         }
       }
     },
@@ -1319,12 +827,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fermer"
           }
         }
       }
@@ -1336,28 +838,6 @@
             "state" : "translated",
             "value" : "Mount the phone firmly on the handlebar before setting off."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fixez solidement le téléphone au guidon avant de partir."
-          }
-        }
-      }
-    },
-    "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "English or French. Opens the iPhone Settings, Language section."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue."
-          }
         }
       }
     },
@@ -1367,12 +847,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Braking"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Freinage"
           }
         }
       }
@@ -1384,12 +858,6 @@
             "state" : "translated",
             "value" : "Hard braking"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Freinage fort"
-          }
         }
       }
     },
@@ -1399,12 +867,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Moderate braking"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Freinage modéré"
           }
         }
       }
@@ -1416,12 +878,6 @@
             "state" : "translated",
             "value" : "Keep your eyes on the road. Readings are indicative and do not replace the vehicle's speedometer."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule."
-          }
         }
       }
     },
@@ -1431,12 +887,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Left"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gauche"
           }
         }
       }
@@ -1448,12 +898,6 @@
             "state" : "translated",
             "value" : "History"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Historique"
-          }
         }
       }
     },
@@ -1463,12 +907,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trip history"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Historique des trajets"
           }
         }
       }
@@ -1480,12 +918,6 @@
             "state" : "translated",
             "value" : "Lean angle"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison"
-          }
         }
       }
     },
@@ -1495,12 +927,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lean right"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison droite"
           }
         }
       }
@@ -1512,12 +938,6 @@
             "state" : "translated",
             "value" : "Lean left"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison gauche"
-          }
         }
       }
     },
@@ -1527,12 +947,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Max lean"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison max."
           }
         }
       }
@@ -1544,12 +958,6 @@
             "state" : "translated",
             "value" : "Max lean right"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison max. droite"
-          }
         }
       }
     },
@@ -1559,12 +967,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Max lean left"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inclinaison max. gauche"
           }
         }
       }
@@ -1576,12 +978,6 @@
             "state" : "translated",
             "value" : "Invite"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inviter"
-          }
         }
       }
     },
@@ -1591,12 +987,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invite with QR code"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inviter par QR code"
           }
         }
       }
@@ -1608,12 +998,6 @@
             "state" : "translated",
             "value" : "I understand"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "J'ai compris"
-          }
         }
       }
     },
@@ -1623,12 +1007,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Up to 5 riders on the same map"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Jusqu'à 5 pilotes sur la même carte"
           }
         }
       }
@@ -1640,12 +1018,6 @@
             "state" : "translated",
             "value" : "Kilometres"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kilomètres"
-          }
         }
       }
     },
@@ -1655,28 +1027,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The other rider scans this code with their iPhone camera, or opens the link you send them."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez."
-          }
-        }
-      }
-    },
-    "Langue" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Language"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Langue"
           }
         }
       }
@@ -1688,12 +1038,6 @@
             "state" : "translated",
             "value" : "The speedometer turns red and the phone vibrates when the limit is exceeded. The alert only works while the app is on screen."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."
-          }
         }
       }
     },
@@ -1703,12 +1047,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "One rider starts the ride and shows the QR code; the others scan it. Positions go through iCloud and are deleted when you leave the ride."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade."
           }
         }
       }
@@ -1720,12 +1058,6 @@
             "state" : "translated",
             "value" : "The scanner is not available. Allow the camera in Settings → Scooter Power, or scan the code with the Camera app."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo."
-          }
         }
       }
     },
@@ -1735,12 +1067,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Play"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lecture"
           }
         }
       }
@@ -1752,12 +1078,6 @@
             "state" : "translated",
             "value" : "The other riders scan this code with the iPhone camera, or in Scooter Power → Group ride → Scan a QR code. 5 riders maximum."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum."
-          }
         }
       }
     },
@@ -1767,12 +1087,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "My card"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ma carte"
           }
         }
       }
@@ -1784,12 +1098,6 @@
             "state" : "translated",
             "value" : "My setup"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ma configuration"
-          }
         }
       }
     },
@@ -1799,12 +1107,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Best figure on each line. Distance and times are not ranked."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées."
           }
         }
       }
@@ -1816,12 +1118,6 @@
             "state" : "translated",
             "value" : "My Scooter Power performance: %@"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mes performances Scooter Power : %@"
-          }
         }
       }
     },
@@ -1831,12 +1127,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Timing in progress"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mesure en cours"
           }
         }
       }
@@ -1848,12 +1138,6 @@
             "state" : "translated",
             "value" : "Runs"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mesures"
-          }
         }
       }
     },
@@ -1864,24 +1148,12 @@
             "state" : "translated",
             "value" : "Pause"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mettre en pause"
-          }
         }
       }
     },
     "Miles" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Miles"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Miles"
@@ -1896,12 +1168,6 @@
             "state" : "translated",
             "value" : "Me"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moi"
-          }
         }
       }
     },
@@ -1911,12 +1177,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Average"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moyenne"
           }
         }
       }
@@ -1928,12 +1188,6 @@
             "state" : "translated",
             "value" : "Never operate the app while riding. Start and end the trip while stopped."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt."
-          }
         }
       }
     },
@@ -1944,24 +1198,12 @@
             "state" : "translated",
             "value" : "New trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nouveau trajet"
-          }
         }
       }
     },
     "OK" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -1976,12 +1218,6 @@
             "state" : "translated",
             "value" : "Stock"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Origine"
-          }
         }
       }
     },
@@ -1991,12 +1227,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opens your records"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvre les records"
           }
         }
       }
@@ -2008,12 +1238,6 @@
             "state" : "translated",
             "value" : "Open Settings"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvrir Réglages"
-          }
         }
       }
     },
@@ -2023,12 +1247,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unable to share"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Partage impossible"
           }
         }
       }
@@ -2040,12 +1258,6 @@
             "state" : "translated",
             "value" : "Share"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Partager"
-          }
         }
       }
     },
@@ -2055,12 +1267,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share summary image"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Partager l'image du résumé"
           }
         }
       }
@@ -2072,24 +1278,12 @@
             "state" : "translated",
             "value" : "Share your performance card with another rider, add theirs, and compare yourselves figure by figure."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."
-          }
         }
       }
     },
     "Photo" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Photo"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Photo"
@@ -2104,12 +1298,6 @@
             "state" : "translated",
             "value" : "Peak"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pic"
-          }
         }
       }
     },
@@ -2119,12 +1307,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Peak: %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pic : %@"
           }
         }
       }
@@ -2136,12 +1318,6 @@
             "state" : "translated",
             "value" : "Peak accel."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pic d'accél."
-          }
         }
       }
     },
@@ -2151,12 +1327,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Peak acceleration"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pic d'accélération"
           }
         }
       }
@@ -2168,12 +1338,6 @@
             "state" : "translated",
             "value" : "Peak thrust"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pic de poussée"
-          }
         }
       }
     },
@@ -2183,12 +1347,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rider"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pilote"
           }
         }
       }
@@ -2200,12 +1358,6 @@
             "state" : "translated",
             "value" : "More options"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plus d'options"
-          }
         }
       }
     },
@@ -2215,12 +1367,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy policy"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Politique de confidentialité"
           }
         }
       }
@@ -2232,12 +1378,6 @@
             "state" : "translated",
             "value" : "Position in the trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Position dans le trajet"
-          }
         }
       }
     },
@@ -2247,12 +1387,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Location denied · Open Settings"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Position refusée · Ouvrir Réglages"
           }
         }
       }
@@ -2264,12 +1398,6 @@
             "state" : "translated",
             "value" : "To receive one, ask a friend to open a trip in their history, then Share → Send trip to a friend."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami."
-          }
         }
       }
     },
@@ -2279,12 +1407,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thrust"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Poussée"
           }
         }
       }
@@ -2296,12 +1418,6 @@
             "state" : "translated",
             "value" : "Acceleration thrust"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Poussée d'accélération"
-          }
         }
       }
     },
@@ -2311,12 +1427,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Average thrust"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Poussée moyenne"
           }
         }
       }
@@ -2328,12 +1438,6 @@
             "state" : "translated",
             "value" : "Record progression"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Progression du record"
-          }
         }
       }
     },
@@ -2343,12 +1447,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nickname"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pseudo"
           }
         }
       }
@@ -2360,12 +1458,6 @@
             "state" : "translated",
             "value" : "Power"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Puissance"
-          }
         }
       }
     },
@@ -2375,12 +1467,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ride QR code"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "QR code de la balade"
           }
         }
       }
@@ -2392,12 +1478,6 @@
             "state" : "translated",
             "value" : "QR code of my performance card"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "QR code de ma carte de performances"
-          }
         }
       }
     },
@@ -2407,12 +1487,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Leave"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quitter"
           }
         }
       }
@@ -2424,24 +1498,12 @@
             "state" : "translated",
             "value" : "Recalibrate lean angle"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recalibrer l'inclinaison"
-          }
         }
       }
     },
     "Record" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Record"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Record"
@@ -2456,12 +1518,6 @@
             "state" : "translated",
             "value" : "Record %@, average %@, %@ runs"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Record %@, moyenne %@, %@ mesures"
-          }
         }
       }
     },
@@ -2471,12 +1527,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "New record"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Record battu"
           }
         }
       }
@@ -2488,24 +1538,12 @@
             "state" : "translated",
             "value" : "New record!"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Record battu !"
-          }
         }
       }
     },
     "Records" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Records"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Records"
@@ -2520,12 +1558,6 @@
             "state" : "translated",
             "value" : "Resume"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reprendre"
-          }
         }
       }
     },
@@ -2535,12 +1567,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obey traffic laws. Acceleration timing is only for places where it is legal and safe."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger."
           }
         }
       }
@@ -2552,12 +1578,6 @@
             "state" : "translated",
             "value" : "Replay trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Revoir le trajet"
-          }
         }
       }
     },
@@ -2567,12 +1587,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ride safely"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Roulez en sécurité"
           }
         }
       }
@@ -2584,12 +1598,6 @@
             "state" : "translated",
             "value" : "Ride together and see where your friends are, live."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Roulez ensemble et voyez où sont vos amis, en direct."
-          }
         }
       }
     },
@@ -2599,12 +1607,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réglages"
           }
         }
       }
@@ -2616,12 +1618,6 @@
             "state" : "translated",
             "value" : "Trip summary"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Résumé du trajet"
-          }
         }
       }
     },
@@ -2631,12 +1627,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scan a QR code"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scanner un QR code"
           }
         }
       }
@@ -2648,12 +1638,6 @@
             "state" : "translated",
             "value" : "Scooter Power needs your location to measure the trip."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scooter Power a besoin de votre position pour mesurer le trajet."
-          }
         }
       }
     },
@@ -2663,12 +1647,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limit: %@ %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seuil : %@ %@"
           }
         }
       }
@@ -2680,12 +1658,6 @@
             "state" : "translated",
             "value" : "Weak GPS signal"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Signal GPS faible"
-          }
         }
       }
     },
@@ -2695,12 +1667,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Steady"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stable"
           }
         }
       }
@@ -2712,12 +1678,6 @@
             "state" : "translated",
             "value" : "Statistics"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Statistiques"
-          }
         }
       }
     },
@@ -2727,12 +1687,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Follow the scooter"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Suivre le scooter"
           }
         }
       }
@@ -2744,12 +1698,6 @@
             "state" : "translated",
             "value" : "Delete"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supprimer"
-          }
         }
       }
     },
@@ -2759,12 +1707,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Time"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Temps"
           }
         }
       }
@@ -2776,12 +1718,6 @@
             "state" : "translated",
             "value" : "Acceleration times"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Temps d'accélération"
-          }
         }
       }
     },
@@ -2791,12 +1727,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "End"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer"
           }
         }
       }
@@ -2808,12 +1738,6 @@
             "state" : "translated",
             "value" : "End trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer le trajet"
-          }
         }
       }
     },
@@ -2823,12 +1747,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "End trip?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer le trajet ?"
           }
         }
       }
@@ -2840,12 +1758,6 @@
             "state" : "translated",
             "value" : "Totals"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Totaux"
-          }
         }
       }
     },
@@ -2855,12 +1767,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "All"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toutes"
           }
         }
       }
@@ -2872,12 +1778,6 @@
             "state" : "translated",
             "value" : "No route available for this trip."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tracé indisponible pour ce trajet."
-          }
         }
       }
     },
@@ -2887,12 +1787,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trip A"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajet A"
           }
         }
       }
@@ -2904,12 +1798,6 @@
             "state" : "translated",
             "value" : "Trip A: %@. Trip B: %@."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajet A : %@. Trajet B : %@."
-          }
         }
       }
     },
@@ -2919,12 +1807,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trip B"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajet B"
           }
         }
       }
@@ -2936,12 +1818,6 @@
             "state" : "translated",
             "value" : "Unreadable trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajet illisible"
-          }
         }
       }
     },
@@ -2951,12 +1827,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trips"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajets"
           }
         }
       }
@@ -2968,12 +1838,6 @@
             "state" : "translated",
             "value" : "Friends' trips"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajets des amis"
-          }
         }
       }
     },
@@ -2983,12 +1847,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Saved trips"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trajets enregistrés"
           }
         }
       }
@@ -3000,12 +1858,6 @@
             "state" : "translated",
             "value" : "Units"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unités"
-          }
         }
       }
     },
@@ -3015,12 +1867,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "To the right"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vers la droite"
           }
         }
       }
@@ -3032,24 +1878,12 @@
             "state" : "translated",
             "value" : "To the left"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vers la gauche"
-          }
         }
       }
     },
     "Version" : {
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Version"
-          }
-        },
-        "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
@@ -3064,12 +1898,6 @@
             "state" : "translated",
             "value" : "Point at the ride QR code"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Visez le QR code de la balade"
-          }
         }
       }
     },
@@ -3079,12 +1907,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Current speed"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse actuelle"
           }
         }
       }
@@ -3096,12 +1918,6 @@
             "state" : "translated",
             "value" : "Playback speed"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse de lecture"
-          }
         }
       }
     },
@@ -3111,12 +1927,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Top speed"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse max."
           }
         }
       }
@@ -3128,12 +1938,6 @@
             "state" : "translated",
             "value" : "Average top speed"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse max. moyenne"
-          }
         }
       }
     },
@@ -3143,12 +1947,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Top speed"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse maximale"
           }
         }
       }
@@ -3160,12 +1958,6 @@
             "state" : "translated",
             "value" : "Avg speed"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse moy."
-          }
         }
       }
     },
@@ -3175,12 +1967,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Average speed"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse moyenne"
           }
         }
       }
@@ -3192,12 +1978,6 @@
             "state" : "translated",
             "value" : "Average speed (older trip)"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vitesse moyenne (trajet ancien)"
-          }
         }
       }
     },
@@ -3207,12 +1987,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show all riders"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Voir tous les pilotes"
           }
         }
       }
@@ -3224,12 +1998,6 @@
             "state" : "translated",
             "value" : "Show the whole trip"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Voir tout le trajet"
-          }
         }
       }
     },
@@ -3239,12 +2007,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your performance will appear here after your first trip."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vos performances apparaîtront ici après votre premier trajet."
           }
         }
       }
@@ -3256,12 +2018,6 @@
             "state" : "translated",
             "value" : "Your finished trips will appear here."
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vos trajets terminés apparaîtront ici."
-          }
         }
       }
     },
@@ -3271,12 +2027,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "previous %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ancien %@"
           }
         }
       }
@@ -3288,12 +2038,6 @@
             "state" : "translated",
             "value" : "offline"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "hors ligne"
-          }
         }
       }
     },
@@ -3303,12 +2047,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "same"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "identique"
           }
         }
       }
@@ -3320,12 +2058,6 @@
             "state" : "translated",
             "value" : "unknown"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "inconnue"
-          }
         }
       }
     },
@@ -3335,12 +2067,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "better"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "mieux"
           }
         }
       }
@@ -3352,12 +2078,6 @@
             "state" : "translated",
             "value" : "worse"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "moins bien"
-          }
         }
       }
     },
@@ -3367,12 +2087,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "not comparable"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "non comparable"
           }
         }
       }
@@ -3384,12 +2098,6 @@
             "state" : "translated",
             "value" : "About"
           }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "À propos"
-          }
         }
       }
     },
@@ -3399,12 +2107,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tie."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Égalité."
           }
         }
       }

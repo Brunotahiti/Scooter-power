@@ -60,7 +60,7 @@ HISTORY AND SHARING
 • Share an image of your summary or export the route as a GPX file
 
 SETTINGS
-• Kilometres or miles (mph, including 0–60 mph times), English or French
+• Kilometres or miles (mph, including 0–60 mph times)
 • Speed alert: the speedometer turns red and the phone vibrates above the limit you choose
 
 YOUR DATA STAYS ON YOUR IPHONE
