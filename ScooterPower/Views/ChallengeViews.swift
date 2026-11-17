@@ -327,7 +327,7 @@ struct RivalComparisonView: View {
 
     var body: some View {
         let rivalStats: PerformanceStats = rival.card?.stats ?? PerformanceStats(trips: [])
-        let deltas: [StatDelta] = PerformanceComparison.deltas(baseline: rivalStats, modified: myStats)
+        let deltas: [StatDelta] = PerformanceComparison.deltas(baseline: rivalStats, modified: myStats, units: AppSettings.shared.units)
         var shown: [StatDelta] = []
         for delta in deltas where delta.baseline != nil || delta.modified != nil {
             shown.append(delta)

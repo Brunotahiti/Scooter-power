@@ -21,26 +21,6 @@
         }
       }
     },
-    "%@ km/h · moyenne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ km/h · average"
-          }
-        }
-      }
-    },
-    "%@ km/h · record": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ km/h · record"
-          }
-        }
-      }
-    },
     "%@ max": {
       "localizations": {
         "en": {
@@ -107,6 +87,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ · previous %@"
+          }
+        }
+      }
+    },
+    "%@ · moyenne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · average"
+          }
+        }
+      }
+    },
+    "%@ · record": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · record"
           }
         }
       }
@@ -751,6 +751,16 @@
         }
       }
     },
+    "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In miles, speed, distance and acceleration times switch to mph: 0–60 mph, 30–50 mph… Both sets are measured on every trip."
+          }
+        }
+      }
+    },
     "En pause": {
       "localizations": {
         "en": {
@@ -1087,16 +1097,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "The other riders scan this code with the iPhone camera, or in Scooter Power → Group ride → Scan a QR code. 5 riders maximum."
-          }
-        }
-      }
-    },
-    "Les temps d'accélération restent mesurés en km/h.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceleration times are still measured in km/h."
           }
         }
       }

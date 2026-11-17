@@ -21,12 +21,15 @@ public enum StatMetric: Hashable, Sendable {
         }
     }
 
-    /// Toutes les lignes, dans l'ordre d'affichage.
-    public static var all: [StatMetric] {
+    /// Toutes les lignes, dans l'ordre d'affichage (plages en km/h).
+    public static var all: [StatMetric] { all(for: .metric) }
+
+    /// Toutes les lignes, avec les plages de l'unité choisie.
+    public static func all(for units: UnitSystem) -> [StatMetric] {
         var list: [StatMetric] = [
             .topSpeed, .averageTopSpeed, .overallAverageSpeed, .bestPeakAcceleration, .averagePeakAcceleration,
         ]
-        for interval in SpeedInterval.all {
+        for interval in SpeedInterval.shown(for: units) {
             list.append(.intervalBest(interval))
             list.append(.intervalAverage(interval))
         }
@@ -73,8 +76,9 @@ public enum PerformanceComparison {
     /// En dessous de cet écart, en pourcentage, les deux valeurs sont jugées égales.
     public static let sameThreshold = 0.5
 
-    public static func deltas(baseline: PerformanceStats, modified: PerformanceStats) -> [StatDelta] {
-        StatMetric.all.map { metric in
+    public static func deltas(baseline: PerformanceStats, modified: PerformanceStats,
+                              units: UnitSystem = .metric) -> [StatDelta] {
+        StatMetric.all(for: units).map { metric in
             let a = metric.value(in: baseline)
             let b = metric.value(in: modified)
             guard let a, let b else {

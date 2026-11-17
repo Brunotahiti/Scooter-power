@@ -125,7 +125,7 @@ struct SettingsView: View {
         } header: {
             Text("Unités")
         } footer: {
-            Text("Les temps d'accélération restent mesurés en km/h.")
+            Text("En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet.")
         }
     }
 

@@ -40,16 +40,16 @@ final class TripViewModel {
     private(set) var accelerationHistory: [Double] = []
     private(set) var peakText = "--"
 
-    /// Meilleurs temps du trajet, ou `--`, dans l'ordre de `SpeedInterval.all`.
-    private(set) var sprintTexts: [String] = SpeedInterval.all.map { _ in "--" }
+    /// Meilleurs temps du trajet, ou `--`, dans l'ordre de `SpeedInterval.displayed`.
+    private(set) var sprintTexts: [String] = SpeedInterval.displayed.map { _ in "--" }
     /// Une mesure est en cours : départ arrêté ou reprise lancée.
     private(set) var sprintRunning = false
     private(set) var sprintElapsedText = ""
-    /// Records tous trajets confondus, ou `--`, dans l'ordre de `SpeedInterval.all`.
-    private(set) var recordTexts: [String] = SpeedInterval.all.map { _ in "--" }
+    /// Records tous trajets confondus, ou `--`, dans l'ordre de `SpeedInterval.displayed`.
+    private(set) var recordTexts: [String] = SpeedInterval.displayed.map { _ in "--" }
     /// Par plage, de 0 à 1 : à quel point le temps du trajet approche le record.
-    private(set) var sprintProgress: [Double] = SpeedInterval.all.map { _ in 0 }
-    /// Indices, dans `SpeedInterval.all`, des records battus pendant ce trajet.
+    private(set) var sprintProgress: [Double] = SpeedInterval.displayed.map { _ in 0 }
+    /// Indices, dans `SpeedInterval.displayed`, des records battus pendant ce trajet.
     private(set) var beatenRecords: Set<Int> = []
     /// Annonce « Record battu » à afficher quelques secondes, ou `nil`.
     private(set) var recordBanner: RecordBanner?
@@ -194,6 +194,8 @@ final class TripViewModel {
 
     /// À appeler quand un réglage d'affichage change : les textes sont recalculés.
     func settingsChanged() {
+        beatenRecords = []
+        publishRecords()
         refresh()
     }
 
@@ -248,13 +250,15 @@ final class TripViewModel {
         for result in results[checkedResults...] {
             let outcome = recordBook.submit(result.interval, time: result.time)
             guard case .beaten(let previous) = outcome else { continue }
-            if let index = SpeedInterval.all.firstIndex(of: result.interval) {
+            // Les deux séries sont mesurées ; on n'annonce que celle de l'unité affichée.
+            guard SpeedInterval.displayed.contains(result.interval) else { continue }
+            if let index = SpeedInterval.displayed.firstIndex(of: result.interval) {
                 beatenRecords.insert(index)
             }
             bannerCount += 1
             recordBanner = RecordBanner(
                 id: bannerCount,
-                title: result.interval.label + " km/h",
+                title: result.interval.fullLabel,
                 time: Self.sprintText(result.time),
                 previous: Self.sprintText(previous))
             bannerHideTime = time + RecordBanner.duration
@@ -265,7 +269,7 @@ final class TripViewModel {
     }
 
     private func publishRecords() {
-        recordTexts = SpeedInterval.all.map { Self.sprintText(recordBook.records[$0]) }
+        recordTexts = SpeedInterval.displayed.map { Self.sprintText(recordBook.records[$0]) }
     }
 
     private static func sprintText(_ time: TimeInterval?) -> String {
@@ -342,8 +346,8 @@ final class TripViewModel {
 
         let sprint = session.sprint
         checkRecords(sprint.results, at: time)
-        sprintTexts = SpeedInterval.all.map { Self.sprintText(sprint.best($0)) }
-        sprintProgress = SpeedInterval.all.map { interval in
+        sprintTexts = SpeedInterval.displayed.map { Self.sprintText(sprint.best($0)) }
+        sprintProgress = SpeedInterval.displayed.map { interval in
             // Un temps plus court est meilleur : record ÷ temps du trajet, plafonné à 1.
             guard let best = sprint.best(interval), best > 0, let record = recordBook.records[interval] else { return 0 }
             return min(1, record / best)

@@ -30,9 +30,9 @@ struct TripShareCard: View {
             (L("Pic d'accélération"), Formatters.signed(summary.peakAcceleration, digits: 1) + " m/s²"),
             (L("Inclinaison max."), lean),
         ]
-        for interval in SpeedInterval.all {
+        for interval in SpeedInterval.displayed {
             if let time = summary.best(interval) {
-                list.append((interval.label + " km/h", Formatters.decimal(time, digits: 1) + " s"))
+                list.append((interval.fullLabel, Formatters.decimal(time, digits: 1) + " s"))
             }
         }
         var result: [Figure] = []

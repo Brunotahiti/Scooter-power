@@ -6,7 +6,7 @@ import ScooterCore
 /// trajet, une barre qui se remplit à l'approche du record, et le record
 /// tous trajets confondus. Pendant une mesure, le chrono tourne à gauche.
 struct SprintCard: View {
-    /// Meilleur temps du trajet par plage, dans l'ordre de `SpeedInterval.all`.
+    /// Meilleur temps du trajet par plage, dans l'ordre de `SpeedInterval.displayed`.
     let times: [String]
     /// Record tous trajets confondus par plage, dans le même ordre.
     let records: [String]
@@ -21,7 +21,7 @@ struct SprintCard: View {
     var body: some View {
         HStack(spacing: 4) {
             status
-            ForEach(SpeedInterval.all.indices, id: \.self) { index in
+            ForEach(SpeedInterval.displayed.indices, id: \.self) { index in
                 cell(index)
             }
         }
@@ -41,7 +41,7 @@ struct SprintCard: View {
         VStack(spacing: 1) {
             Image(systemName: isRunning ? "stopwatch.fill" : "gauge.with.needle")
                 .font(.system(size: 18, weight: .medium))
-            Text(verbatim: isRunning ? elapsedText : "km/h")
+            Text(verbatim: isRunning ? elapsedText : AppSettings.shared.units.speedUnit)
                 .font(.system(size: 11, weight: isRunning ? .bold : .regular, design: .rounded))
                 .monospacedDigit()
                 .lineLimit(1)
@@ -55,7 +55,7 @@ struct SprintCard: View {
     }
 
     private func cell(_ index: Int) -> some View {
-        let title: String = SpeedInterval.all[index].label
+        let title: String = SpeedInterval.displayed[index].label
         let value: String = text(times, at: index)
         let record: String = text(records, at: index)
         let isBeaten: Bool = beaten.contains(index)
@@ -75,7 +75,7 @@ struct SprintCard: View {
         .minimumScaleFactor(0.7)
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(title + " km/h")
+        .accessibilityLabel(SpeedInterval.displayed[index].fullLabel)
         .accessibilityValue(
             isBeaten ? L("\(value), record \(record), battu pendant ce trajet") : L("\(value), record \(record)"))
     }

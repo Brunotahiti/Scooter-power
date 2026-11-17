@@ -25,6 +25,9 @@ final class TripRecord {
     var best50to90: Double?
     var best50to100: Double?
     var best100: Double?
+    /// Meilleurs temps sur les plages en mph (« 0-60 » → secondes), encodés en JSON ;
+    /// absents des trajets faits avant la version qui les mesure.
+    var imperialTimesData: Data?
     /// Configuration du scooter pendant ce trajet ; absente des trajets anciens.
     var setupName: String?
     /// Poussée le long du tracé allégé, encodée en JSON ; absente des trajets anciens.
@@ -64,6 +67,11 @@ final class TripRecord {
         self.best50to90 = summary.best(.fiftyTo90)
         self.best50to100 = summary.best(.fiftyTo100)
         self.best100 = summary.best(.zeroTo100)
+        var imperial: [String: Double] = [:]
+        for interval in SpeedInterval.imperial {
+            if let time = summary.best(interval) { imperial[Self.key(interval)] = time }
+        }
+        self.imperialTimesData = imperial.isEmpty ? nil : try? JSONEncoder().encode(imperial)
         let light = RouteSimplifier.downsample(route, maxPoints: Self.maxRoutePoints)
         self.routeData = (try? JSONEncoder().encode(light)) ?? Data()
     }
@@ -76,7 +84,17 @@ final class TripRecord {
         times[.fiftyTo90] = best50to90
         times[.fiftyTo100] = best50to100
         times[.zeroTo100] = best100
+        if let imperialTimesData,
+           let imperial = try? JSONDecoder().decode([String: Double].self, from: imperialTimesData) {
+            for interval in SpeedInterval.imperial {
+                if let time = imperial[Self.key(interval)], time.isFinite, time > 0 { times[interval] = time }
+            }
+        }
         return times
+    }
+
+    private static func key(_ interval: SpeedInterval) -> String {
+        "\(interval.from)-\(interval.to)"
     }
 
     var summary: TripSummary {

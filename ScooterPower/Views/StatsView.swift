@@ -123,7 +123,7 @@ struct StatsView: View {
 
     private func comparison(_ names: [String]) -> some View {
         let deltas: [StatDelta] = PerformanceComparison.deltas(
-            baseline: stats(for: baseline), modified: stats(for: modified))
+            baseline: stats(for: baseline), modified: stats(for: modified), units: AppSettings.shared.units)
         var shown: [StatDelta] = []
         for delta in deltas where delta.baseline != nil || delta.modified != nil {
             shown.append(delta)
@@ -229,8 +229,8 @@ enum StatsFormat {
         case .overallAverageSpeed: return L("Vitesse moyenne")
         case .bestPeakAcceleration: return L("Pic de poussée")
         case .averagePeakAcceleration: return L("Poussée moyenne")
-        case .intervalBest(let interval): return L("\(interval.label) km/h · record")
-        case .intervalAverage(let interval): return L("\(interval.label) km/h · moyenne")
+        case .intervalBest(let interval): return L("\(interval.fullLabel) · record")
+        case .intervalAverage(let interval): return L("\(interval.fullLabel) · moyenne")
         case .maxLean: return L("Inclinaison max.")
         }
     }
@@ -331,11 +331,11 @@ private struct StatsAccelerations: View {
             StatsSectionTitle(text: L("Accélérations"))
             VStack(spacing: 0) {
                 header
-                ForEach(SpeedInterval.all.indices, id: \.self) { index in
+                ForEach(SpeedInterval.displayed.indices, id: \.self) { index in
                     Rectangle()
                         .fill(Theme.cardBorder)
                         .frame(height: 1)
-                    row(SpeedInterval.all[index])
+                    row(SpeedInterval.displayed[index])
                 }
             }
             .padding(.horizontal, 12)
@@ -345,7 +345,7 @@ private struct StatsAccelerations: View {
 
     private var header: some View {
         HStack(spacing: 6) {
-            Text(verbatim: "km/h")
+            Text(verbatim: AppSettings.shared.units.speedUnit)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Record")
                 .frame(width: 74, alignment: .trailing)
@@ -397,7 +397,7 @@ private struct StatsAccelerations: View {
         .foregroundStyle(Theme.textPrimary)
         .padding(.vertical, 9)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(interval.label + " km/h")
+        .accessibilityLabel(interval.fullLabel)
         .accessibilityValue(L("Record \(best), moyenne \(average), \(count) mesures"))
     }
 }

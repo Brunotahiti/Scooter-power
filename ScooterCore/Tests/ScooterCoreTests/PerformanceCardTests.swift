@@ -94,3 +94,18 @@ final class PerformanceCardTests: XCTestCase {
         XCTAssertEqual(Array(odd.stats.intervals.keys), [.zeroTo50])
     }
 }
+
+final class PerformanceCardUnitsTests: XCTestCase {
+    func testMilesPerHourIntervalsSurviveTheLink() throws {
+        var stats = PerformanceStats(trips: [])
+        stats.tripCount = 1
+        stats.intervals[.zeroTo60mph] = PerformanceStats.IntervalStats(best: 7.1, average: 7.5, worst: 8, count: 2)
+        stats.intervals[.zeroTo30] = PerformanceStats.IntervalStats(best: 2.4, average: 2.6, worst: 3, count: 2)
+        let card = PerformanceCard(riderName: "A", setupName: "", date: Date(timeIntervalSince1970: 0), stats: stats)
+        let decoded = try PerformanceCard(link: card.link)
+        XCTAssertEqual(decoded.stats.intervals[.zeroTo60mph]?.best, 7.1)
+        XCTAssertEqual(decoded.stats.intervals[.zeroTo30]?.best, 2.4)
+        // 0–30 en km/h et 0–30 mph restent distincts.
+        XCTAssertNil(decoded.stats.intervals[.zeroTo30mph])
+    }
+}

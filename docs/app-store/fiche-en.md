@@ -60,7 +60,7 @@ HISTORY AND SHARING
 • Share an image of your summary or export the route as a GPX file
 
 SETTINGS
-• Kilometres or miles, English or French
+• Kilometres or miles (mph, including 0–60 mph times), English or French
 • Speed alert: the speedometer turns red and the phone vibrates above the limit you choose
 
 YOUR DATA STAYS ON YOUR IPHONE
@@ -68,7 +68,7 @@ No account, no ads, no data collection: everything is measured and stored on the
 
 GOOD TO KNOW
 • Readings come from the phone's GPS and sensors. They are indicative and do not replace the vehicle's speedometer.
-• Acceleration times are measured in km/h.
+• Acceleration times follow your units: 0–100 km/h and 50–90 km/h, or 0–60 mph and 30–50 mph in miles.
 • To compare two setups, do several trips on the same route in similar conditions.
 • The phone must be firmly mounted on the handlebar. Never operate the app while riding.
 • Acceleration timing is only for places where it is legal and safe.

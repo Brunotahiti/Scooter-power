@@ -67,11 +67,16 @@ final class PerformanceComparisonTests: XCTestCase {
         let metrics = PerformanceComparison.deltas(baseline: s, modified: s).map(\.metric)
         var expected: [StatMetric] = [.topSpeed, .averageTopSpeed, .overallAverageSpeed,
                                       .bestPeakAcceleration, .averagePeakAcceleration]
-        for interval in SpeedInterval.all {
+        for interval in SpeedInterval.metric {
             expected.append(.intervalBest(interval))
             expected.append(.intervalAverage(interval))
         }
         expected.append(.maxLean)
         XCTAssertEqual(metrics, expected)
+        let imperial = PerformanceComparison.deltas(baseline: s, modified: s, units: .imperial).compactMap { delta -> SpeedInterval? in
+            if case .intervalBest(let interval) = delta.metric { return interval }
+            return nil
+        }
+        XCTAssertEqual(imperial, SpeedInterval.imperial)
     }
 }

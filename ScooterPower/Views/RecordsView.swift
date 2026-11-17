@@ -19,10 +19,10 @@ struct RecordsView: View {
         let all: [SpeedInterval: [RecordPoint]] = progression
         return ScrollView {
             VStack(spacing: 14) {
-                ForEach(SpeedInterval.all.indices, id: \.self) { index in
+                ForEach(SpeedInterval.displayed.indices, id: \.self) { index in
                     RecordSection(
-                        interval: SpeedInterval.all[index],
-                        points: all[SpeedInterval.all[index]] ?? [],
+                        interval: SpeedInterval.displayed[index],
+                        points: all[SpeedInterval.displayed[index]] ?? [],
                         trips: trips)
                 }
             }
@@ -111,7 +111,7 @@ private struct RecordSection: View {
 
     private var header: some View {
         HStack(alignment: .firstTextBaseline) {
-            Text(interval.label + " km/h")
+            Text(interval.fullLabel)
                 .font(.system(size: 18, weight: .bold))
             Spacer()
             if let current = points.last {

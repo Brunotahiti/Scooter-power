@@ -117,21 +117,52 @@ final class SprintTimerTests: XCTestCase {
         XCTAssertTrue(t.results.isEmpty)
         t.add(timestamp: 0, speedKmh: 0)
         launch(&t, start: 0, rate: 10, seconds: 10)
+        let metric: [SprintResult] = t.results.filter { $0.interval.unit == .kmh }
         XCTAssertEqual(
-            t.results.map(\.interval),
+            metric.map(\.interval),
             [.zeroTo30, .zeroTo50, .zeroTo80, .fiftyTo90, .fiftyTo100, .zeroTo100])
-        XCTAssertEqual(t.results[1].time, 4.9, accuracy: 1e-6)
+        XCTAssertEqual(metric[1].time, 4.9, accuracy: 1e-6)
         XCTAssertEqual(t.best(.zeroTo100)!, 9.9, accuracy: 1e-6)
         // Un second départ, plus lent, s'ajoute au journal sans remplacer le premier.
         t.add(timestamp: 20, speedKmh: 0)
         launch(&t, start: 20, rate: 5, seconds: 7)
-        XCTAssertEqual(t.results.count, 7)
-        XCTAssertEqual(t.results[6].interval, .zeroTo30)
-        XCTAssertEqual(t.results[6].time, 5.8, accuracy: 1e-6)
+        let after: [SprintResult] = t.results.filter { $0.interval.unit == .kmh }
+        XCTAssertEqual(after.count, 7)
+        XCTAssertEqual(after[6].interval, .zeroTo30)
+        XCTAssertEqual(after[6].time, 5.8, accuracy: 1e-6)
     }
 
     func testIntervalLabels() {
-        XCTAssertEqual(SpeedInterval.all.map(\.label), ["0–30", "0–50", "0–80", "0–100", "50–90", "50–100"])
+        XCTAssertEqual(SpeedInterval.metric.map(\.label), ["0–30", "0–50", "0–80", "0–100", "50–90", "50–100"])
+        XCTAssertEqual(SpeedInterval.imperial.map(\.fullLabel),
+                       ["0–20 mph", "0–30 mph", "0–50 mph", "0–60 mph", "30–50 mph", "30–60 mph"])
+        XCTAssertEqual(SpeedInterval.zeroTo100.fullLabel, "0–100 km/h")
+        XCTAssertEqual(SpeedInterval.shown(for: .imperial), SpeedInterval.imperial)
+        XCTAssertEqual(SpeedInterval.flagship(for: .imperial), .zeroTo60mph)
+    }
+
+    func testMeasuresMilesPerHourAtTheSameTime() {
+        var t = SprintTimer()
+        t.add(timestamp: 0, speedKmh: 0)
+        // 10 km/h par seconde : 60 mph (96,56 km/h) est atteint vers 9,7 s.
+        launch(&t, start: 0, rate: 10, seconds: 10)
+        let sixty: Double = 60 * SpeedInterval.kmPerMile / 10
+        XCTAssertEqual(t.best(.zeroTo60mph)!, sixty - 0.1, accuracy: 0.05)
+        XCTAssertNotNil(t.best(.zeroTo20mph))
+        // Reprise 30–50 mph : de 48,3 à 80,5 km/h, soit environ 3,2 s.
+        XCTAssertEqual(t.best(.thirtyTo50mph)!, 20 * SpeedInterval.kmPerMile / 10, accuracy: 0.05)
+        // Les plages en km/h sont mesurées aussi.
+        XCTAssertNotNil(t.best(.zeroTo100))
+    }
+
+    func testIntervalsFromEarlierVersionsStillDecode() throws {
+        // Les versions précédentes n'écrivaient pas l'unité : c'était toujours des km/h.
+        let old = Data(#"{"from":0,"to":50}"#.utf8)
+        XCTAssertEqual(try JSONDecoder().decode(SpeedInterval.self, from: old), .zeroTo50)
+        let metric = try JSONEncoder().encode(SpeedInterval.zeroTo50)
+        XCTAssertFalse(String(decoding: metric, as: UTF8.self).contains("unit"))
+        let mph = try JSONDecoder().decode(SpeedInterval.self, from: JSONEncoder().encode(SpeedInterval.zeroTo60mph))
+        XCTAssertEqual(mph, .zeroTo60mph)
     }
 
     func testNothingWithoutStandstill() {

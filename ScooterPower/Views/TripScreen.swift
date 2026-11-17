@@ -350,7 +350,12 @@ private struct TripPresentations: ViewModifier {
         for trip in trips where trip.startDate != model.startDate {
             history.append(trip.summary)
         }
-        return TripTrophies.compute(trip: summary, history: history)
+        // Les deux séries sont mesurées ; seuls les trophées de l'unité affichée sont montrés.
+        let displayed: [SpeedInterval] = SpeedInterval.displayed
+        return TripTrophies.compute(trip: summary, history: history).filter { trophy in
+            if case .interval(let interval) = trophy.kind { return displayed.contains(interval) }
+            return true
+        }
     }
 
     /// Records tous trajets confondus, trajet tout juste terminé compris.

@@ -51,6 +51,18 @@ final class TripComparisonTests: XCTestCase {
         XCTAssertEqual(ComparisonMetric.sprint100.interval, .zeroTo100)
     }
 
+    func testImperialRowsUseMilesPerHourIntervals() {
+        let a = TripSummary(distanceMeters: 0, maxSpeedKmh: 0, averageSpeedKmh: 0, peakAcceleration: 0,
+                            maxLeanLeftDegrees: 0, maxLeanRightDegrees: 0, movingDuration: 0, totalDuration: 0,
+                            bestTimes: [.zeroTo60mph: 7.2])
+        let b = TripSummary(distanceMeters: 0, maxSpeedKmh: 0, averageSpeedKmh: 0, peakAcceleration: 0,
+                            maxLeanLeftDegrees: 0, maxLeanRightDegrees: 0, movingDuration: 0, totalDuration: 0,
+                            bestTimes: [.zeroTo60mph: 6.9])
+        let rows = TripComparison.rows(a, b, units: .imperial)
+        XCTAssertEqual(rows.compactMap(\.metric.interval), SpeedInterval.imperial)
+        XCTAssertEqual(rows.first { $0.metric == .interval(.zeroTo60mph) }?.winner, .second)
+    }
+
     func testBestTimesAndLegacyFieldsAgree() {
         let s = trip(best50: 4.2, best80: 9.1)
         XCTAssertEqual(s.bestTimes, [.zeroTo50: 4.2, .zeroTo80: 9.1])

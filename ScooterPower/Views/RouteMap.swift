@@ -65,7 +65,7 @@ enum RouteMap {
             case .sprint(let interval):
                 let time: String = Formatters.decimal(highlight.value, digits: 1) + " s"
                 result.append(Pin(
-                    id: result.count, title: interval.label + " · " + time,
+                    id: result.count, title: interval.fullLabel + " · " + time,
                     icon: "flag.checkered", tint: Theme.orange, coordinate: coordinate))
             case .peakAcceleration:
                 let value: String = Formatters.signed(highlight.value, digits: 1) + " m/s²"

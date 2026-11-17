@@ -69,7 +69,7 @@ struct TripComparisonView: View {
     @ViewBuilder
     private var table: some View {
         if let first, let second {
-            let rows: [ComparisonRow] = TripComparison.rows(first.summary, second.summary)
+            let rows: [ComparisonRow] = TripComparison.rows(first.summary, second.summary, units: AppSettings.shared.units)
             VStack(spacing: 0) {
                 ForEach(rows.indices, id: \.self) { index in
                     line(rows[index])
@@ -140,8 +140,8 @@ struct TripComparisonView: View {
         case .totalDuration: return L("Durée totale")
         case .maxSpeed: return L("Vitesse maximale")
         case .averageSpeed: return L("Vitesse moyenne")
-        case .sprint30, .sprint50, .sprint80, .sprint100, .roll90, .roll100:
-            return (metric.interval?.label ?? "") + " km/h"
+        case .interval(let interval):
+            return interval.fullLabel
         case .peakAcceleration: return L("Pic d'accélération")
         case .maxLeanLeft: return L("Inclinaison gauche")
         case .maxLeanRight: return L("Inclinaison droite")
@@ -159,7 +159,7 @@ struct TripComparisonView: View {
             return Formatters.duration(value)
         case .maxSpeed, .averageSpeed:
             return Formatters.decimal(units.speed(fromKmh: value), digits: digits) + " " + units.speedUnit
-        case .sprint30, .sprint50, .sprint80, .sprint100, .roll90, .roll100:
+        case .interval:
             return Formatters.decimal(value, digits: digits) + " s"
         case .peakAcceleration:
             return Formatters.decimal(value, digits: digits) + " m/s²"

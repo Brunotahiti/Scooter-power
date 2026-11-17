@@ -365,8 +365,8 @@ private struct SummaryIntervalsCard: View {
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.textSecondary)
             }
-            ForEach(SpeedInterval.all.indices, id: \.self) { index in
-                row(SpeedInterval.all[index])
+            ForEach(SpeedInterval.displayed.indices, id: \.self) { index in
+                row(SpeedInterval.displayed[index])
             }
         }
         .padding(14)
@@ -384,7 +384,7 @@ private struct SummaryIntervalsCard: View {
         let percent: String = time == nil ? "--" : Formatters.decimal(fraction * 100, digits: 0) + " %"
         let isRecord: Bool = time != nil && fraction >= 0.999
         return HStack(spacing: 10) {
-            Text(verbatim: interval.label + " km/h")
+            Text(verbatim: interval.fullLabel)
                 .font(.system(size: 14))
                 .frame(width: 92, alignment: .leading)
             GeometryReader { proxy in
@@ -410,7 +410,7 @@ private struct SummaryIntervalsCard: View {
         .lineLimit(1)
         .minimumScaleFactor(0.7)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(interval.label + " km/h")
+        .accessibilityLabel(interval.fullLabel)
         .accessibilityValue(timeText + ", " + percent)
     }
 }
@@ -621,7 +621,7 @@ private struct SummaryTrophiesCard: View {
 
     private static func title(_ kind: Trophy.Kind) -> String {
         switch kind {
-        case .interval(let interval): return interval.label + " km/h"
+        case .interval(let interval): return interval.fullLabel
         case .topSpeed: return L("Vitesse maximale")
         case .peakAcceleration: return L("Pic de poussée")
         case .maxLean: return L("Inclinaison max.")

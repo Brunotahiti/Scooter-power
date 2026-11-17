@@ -92,6 +92,8 @@ public struct PerformanceCard: Sendable, Equatable {
             var a: Double
             var w: Double?
             var c: Int
+            /// « mph » pour les plages en mph ; absent pour les km/h (cartes des versions précédentes).
+            var u: String?
         }
 
         var tc: Int?
@@ -123,7 +125,8 @@ public struct PerformanceCard: Sendable, Equatable {
             s.maxLeanRightDegrees = clean(lr)
             s.averageMaxLeanDegrees = clean(al)
             for entry in iv ?? [] {
-                let interval = SpeedInterval(from: entry.f, to: entry.t)
+                let unit: SpeedUnit = entry.u == SpeedUnit.mph.rawValue ? .mph : .kmh
+                let interval = SpeedInterval(from: entry.f, to: entry.t, unit: unit)
                 // Seules les plages connues de l'app, avec des temps valides.
                 guard SpeedInterval.all.contains(interval),
                       entry.b.isFinite, entry.b > 0, entry.a.isFinite, entry.a > 0, entry.c > 0
@@ -151,7 +154,8 @@ public struct PerformanceCard: Sendable, Equatable {
                   let best = rounded(entry.best, 100), let average = rounded(entry.average, 100)
             else { continue }
             intervals.append(Payload.Interval(
-                f: interval.from, t: interval.to, b: best, a: average, w: rounded(entry.worst, 100), c: entry.count))
+                f: interval.from, t: interval.to, b: best, a: average, w: rounded(entry.worst, 100), c: entry.count,
+                u: interval.unit == .mph ? SpeedUnit.mph.rawValue : nil))
         }
         return Payload(
             tc: s.tripCount, dm: rounded(s.totalDistanceMeters, 1), md: rounded(s.totalMovingDuration, 1),

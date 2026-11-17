@@ -25,8 +25,8 @@ struct TripFigures: View {
             (L("Vitesse maximale"), top),
             (L("Vitesse moyenne"), average),
         ]
-        for interval in SpeedInterval.all {
-            entries.append((interval.label + " km/h", Self.sprint(summary.best(interval))))
+        for interval in SpeedInterval.displayed {
+            entries.append((interval.fullLabel, Self.sprint(summary.best(interval))))
         }
         entries.append((L("Pic d'accélération"), Formatters.signed(summary.peakAcceleration, digits: 1) + " m/s²"))
         entries.append((L("Inclinaison max. gauche"), Formatters.decimal(summary.maxLeanLeftDegrees, digits: 0) + "°"))
