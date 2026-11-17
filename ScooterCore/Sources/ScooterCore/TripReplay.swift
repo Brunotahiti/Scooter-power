@@ -65,18 +65,30 @@ public struct TripReplay: Sendable {
 
     /// `points` doit être aligné sur `route` ; sinon le trajet est rejoué à
     /// vitesse constante (`averageSpeedKmh`), pour les trajets anciens.
-    public init(route: [Coordinate], points: [ReplayPoint], averageSpeedKmh: Double) {
+    ///
+    /// `absoluteTimes` (balades de groupe) garde les temps tels quels, sans
+    /// raccourcir les pauses ni repartir de zéro, pour que tous les pilotes
+    /// restent synchronisés.
+    public init(route: [Coordinate], points: [ReplayPoint], averageSpeedKmh: Double, absoluteTimes: Bool = false) {
         let valid: [Coordinate] = route
         if points.count == valid.count, valid.count > 1 {
             self.route = valid
             self.points = points
             self.isRecorded = true
-            var times: [TimeInterval] = [0]
-            for index in 1..<points.count {
-                let gap: TimeInterval = max(0, points[index].time - points[index - 1].time)
-                times.append(times[index - 1] + min(gap, Self.maxGap))
+            if absoluteTimes {
+                var times: [TimeInterval] = []
+                for point in points {
+                    times.append(max(point.time, times.last ?? point.time))
+                }
+                self.times = times
+            } else {
+                var times: [TimeInterval] = [0]
+                for index in 1..<points.count {
+                    let gap: TimeInterval = max(0, points[index].time - points[index - 1].time)
+                    times.append(times[index - 1] + min(gap, Self.maxGap))
+                }
+                self.times = times
             }
-            self.times = times
         } else {
             self.route = valid
             self.isRecorded = false
@@ -104,7 +116,7 @@ public struct TripReplay: Sendable {
                 coordinate: first, heading: 0, speedKmh: firstPoint.speedKmh,
                 acceleration: firstPoint.acceleration, leanDegrees: firstPoint.leanDegrees, time: 0, index: 0)
         }
-        let t: TimeInterval = min(max(0, time), duration)
+        let t: TimeInterval = min(max(times.first ?? 0, time), duration)
         // Dernier point dont le temps est ≤ t (recherche dichotomique).
         var low = 0
         var high = times.count - 1

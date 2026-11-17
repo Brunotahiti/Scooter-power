@@ -137,3 +137,71 @@ public struct RiderTrail: Sendable, Equatable {
         }
     }
 }
+
+/// Trajet d'un pilote pendant une balade de groupe, pour la revoir ensuite.
+public struct GroupRideTrack: Sendable, Equatable, Codable {
+    public var riderID: String
+    public var name: String
+    public var colorIndex: Int
+    public var isMe: Bool
+    public var route: [Coordinate]
+    /// Temps comptés depuis le début de la balade, communs à tous les pilotes.
+    public var points: [ReplayPoint]
+
+    public init(riderID: String, name: String, colorIndex: Int, isMe: Bool,
+                route: [Coordinate], points: [ReplayPoint]) {
+        self.riderID = riderID
+        self.name = name
+        self.colorIndex = colorIndex
+        self.isMe = isMe
+        self.route = route
+        self.points = points
+    }
+
+    public var replay: TripReplay {
+        TripReplay(route: route, points: points, averageSpeedKmh: 0, absoluteTimes: true)
+    }
+}
+
+/// Enregistre les positions reçues pendant une balade de groupe.
+public struct GroupRideRecorder: Sendable {
+    /// Points gardés par pilote au plus (environ 2 h à un point toutes les 3 s).
+    public static let maxPointsPerRider = 2500
+
+    public private(set) var start: Date?
+    private var tracks: [String: GroupRideTrack] = [:]
+    private var order: [String] = []
+    private var lastUpdate: [String: Date] = [:]
+
+    public init() {}
+
+    /// Ajoute une position ; ignorée si elle n'est pas plus récente que la précédente du même pilote.
+    public mutating func add(_ position: RiderPosition, colorIndex: Int, isMe: Bool) {
+        guard position.coordinate.latitude.isFinite, position.coordinate.longitude.isFinite else { return }
+        if let last = lastUpdate[position.riderID], position.updatedAt <= last { return }
+        lastUpdate[position.riderID] = position.updatedAt
+        let origin: Date = start ?? position.updatedAt
+        start = origin
+        var track: GroupRideTrack = tracks[position.riderID] ?? GroupRideTrack(
+            riderID: position.riderID, name: position.name, colorIndex: colorIndex, isMe: isMe, route: [], points: [])
+        if !position.name.isEmpty { track.name = position.name }
+        track.colorIndex = colorIndex
+        track.route.append(position.coordinate)
+        track.points.append(ReplayPoint(
+            time: max(0, position.updatedAt.timeIntervalSince(origin)), speedKmh: max(0, position.speedKmh),
+            acceleration: position.acceleration, leanDegrees: position.leanDegrees))
+        if track.route.count > Self.maxPointsPerRider {
+            track.route.removeFirst()
+            track.points.removeFirst()
+        }
+        if tracks[position.riderID] == nil { order.append(position.riderID) }
+        tracks[position.riderID] = track
+    }
+
+    /// Pilotes avec au moins deux points, dans l'ordre d'arrivée.
+    public var recordedTracks: [GroupRideTrack] {
+        order.compactMap { tracks[$0] }.filter { $0.route.count > 1 }
+    }
+
+    public var isEmpty: Bool { recordedTracks.isEmpty }
+}

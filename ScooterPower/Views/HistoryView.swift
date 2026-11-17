@@ -9,6 +9,8 @@ struct HistoryView: View {
     @Query(sort: \TripRecord.startDate, order: .reverse) private var trips: [TripRecord]
     @Query(sort: \FriendTrip.receivedDate, order: .reverse) private var friendTrips: [FriendTrip]
     @State private var replayFriend: FriendTrip?
+    @Query(sort: \GroupRideRecord.startDate, order: .reverse) private var groupRides: [GroupRideRecord]
+    @State private var replayGroup: GroupRideRecord?
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var path: [HistoryRoute] = []
@@ -29,6 +31,12 @@ struct HistoryView: View {
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: HistoryRoute.self) { route in
                 destination(route)
+            }
+            .fullScreenCover(item: $replayGroup) { ride in
+                let tracks: [ReplayTrack] = ride.replayTracks
+                if let first = tracks.first {
+                    TripReplayView(main: first, friends: [], riders: Array(tracks.dropFirst()))
+                }
             }
             .fullScreenCover(item: $replayFriend) { friend in
                 if let shared = friend.shared {
@@ -94,7 +102,7 @@ struct HistoryView: View {
 
     @ViewBuilder
     private var content: some View {
-        if trips.isEmpty && friendTrips.isEmpty {
+        if trips.isEmpty && friendTrips.isEmpty && groupRides.isEmpty {
             ContentUnavailableView(
                 "Aucun trajet",
                 systemImage: "clock.arrow.circlepath",
@@ -103,6 +111,9 @@ struct HistoryView: View {
         } else {
             let records: Set<PersistentIdentifier> = Self.recordTrips(trips)
             List {
+                if !groupRides.isEmpty {
+                    groupSection
+                }
                 if !friendTrips.isEmpty {
                     friendsSection
                 }
@@ -121,6 +132,31 @@ struct HistoryView: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
+        }
+    }
+
+    /// Balades de groupe enregistrées : un toucher les rejoue avec tous les pilotes.
+    private var groupSection: some View {
+        Section {
+            ForEach(groupRides) { ride in
+                Button {
+                    replayGroup = ride
+                } label: {
+                    GroupRideRow(ride: ride)
+                }
+                .buttonStyle(.plain)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+            }
+            .onDelete { offsets in
+                for index in offsets { modelContext.delete(groupRides[index]) }
+            }
+        } header: {
+            Text("Balades de groupe")
+                .font(.system(size: 15, weight: .heavy))
+                .italic()
+                .foregroundStyle(HistoryView.neonRed)
         }
     }
 
@@ -524,6 +560,57 @@ private struct FriendTripRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(friend.displayName + ", " + friend.title)
         .accessibilityValue(distance + ", " + L("\(speed) \(units.speedUnit) max"))
+        .accessibilityHint("Revoir le trajet")
+    }
+}
+
+/// Balade de groupe : date, pastilles de couleur et prénoms des pilotes.
+private struct GroupRideRow: View {
+    let ride: GroupRideRecord
+
+    var body: some View {
+        let shape = HexagonFrame(tip: 16)
+        let tracks: [GroupRideTrack] = ride.tracks
+        let names: String = ride.riderNames.joined(separator: ", ")
+        return HStack(spacing: 12) {
+            Image(systemName: "person.3.fill")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(HistoryView.neonRed)
+                .frame(width: 34)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(verbatim: ride.title)
+                    .font(.system(size: 17, weight: .bold))
+                HStack(spacing: 5) {
+                    ForEach(Array(tracks.enumerated()), id: \.offset) { _, track in
+                        Circle()
+                            .fill(GroupRideView.color(track.colorIndex))
+                            .frame(width: 9, height: 9)
+                            .shadow(color: GroupRideView.color(track.colorIndex), radius: 3)
+                    }
+                    Text(verbatim: names)
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(Theme.textPrimary.opacity(0.8))
+                        .lineLimit(1)
+                }
+            }
+            .lineLimit(1)
+            .minimumScaleFactor(0.7)
+            Spacer(minLength: 4)
+            Image(systemName: "play.fill")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(HistoryView.neonRed)
+        }
+        .foregroundStyle(Theme.textPrimary)
+        .padding(.leading, 20)
+        .padding(.trailing, 18)
+        .padding(.vertical, 12)
+        .background(Color(hex: 0x0B0E12).clipShape(shape))
+        .overlay(shape.stroke(HistoryView.neonRed, lineWidth: 1.8))
+        .shadow(color: HistoryView.neonRed.opacity(0.5), radius: 6)
+        .contentShape(shape)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L("Balade de groupe") + ", " + ride.title)
+        .accessibilityValue(names)
         .accessibilityHint("Revoir le trajet")
     }
 }

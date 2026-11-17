@@ -34,6 +34,10 @@ struct TripScreen: View {
                 GroupRideService.shared.positionProvider = { [model] in
                     model.groupPosition(name: AppSettings.shared.riderName)
                 }
+                GroupRideService.shared.onRideRecorded = { [modelContext] start, tracks in
+                    modelContext.insert(GroupRideRecord(startDate: start, tracks: tracks))
+                    try? modelContext.save()
+                }
             }
             .onChange(of: history.count) { _, _ in
                 loadRecords()

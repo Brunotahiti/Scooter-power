@@ -121,6 +121,7 @@ EN = {
  "Durée roulage": "Ride time",
  "%@ max": "%@ max",
  "Trajets enregistrés": "Saved trips",
+ "Balades de groupe": "Group rides",
  "%@ pilotes": "%@ riders",
  "Arrivé": "Finished",
  "Poussée": "Thrust",

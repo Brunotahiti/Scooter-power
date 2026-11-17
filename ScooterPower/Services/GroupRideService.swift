@@ -51,6 +51,11 @@ final class GroupRideService {
 
     /// Fournit la position actuelle de ce téléphone, `nil` s'il n'y en a pas.
     var positionProvider: (() -> RiderPosition?)?
+    /// Reçoit la balade enregistrée quand on la quitte, pour l'historique.
+    var onRideRecorded: ((Date, [GroupRideTrack]) -> Void)?
+
+    /// Positions de tous les pilotes depuis le début de la balade.
+    private var recorder = GroupRideRecorder()
 
     private var timer: Timer?
     private var trails: [String: RiderTrail] = [:]
@@ -93,6 +98,7 @@ final class GroupRideService {
             }
             self.link = link
             trails = [:]
+            recorder = GroupRideRecorder()
             phase = .active
             await sync()
             startTimer()
@@ -110,6 +116,11 @@ final class GroupRideService {
         timer = nil
         guard let link else { phase = .idle; return }
         let rideID = link.rideID
+        // La balade rejoint l'historique, pour la revoir avec tous les pilotes.
+        if let start = recorder.start, !recorder.isEmpty {
+            onRideRecorded?(start, recorder.recordedTracks)
+        }
+        recorder = GroupRideRecorder()
         self.link = nil
         riders = []
         trails = [:]
@@ -162,6 +173,11 @@ final class GroupRideService {
             updated[index].position = mine
         }
         riders = updated
+        for rider in updated {
+            if let position = rider.position {
+                recorder.add(position, colorIndex: rider.colorIndex, isMe: rider.isMe)
+            }
+        }
     }
 
     // MARK: - Enregistrements

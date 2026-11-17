@@ -19,6 +19,8 @@ struct TripReplayView: View {
     let main: ReplayTrack
     /// Trajets d'amis proposés en comparaison.
     var friends: [FriendTrip] = []
+    /// Autres pilotes affichés dès l'ouverture (balade de groupe enregistrée).
+    var riders: [ReplayTrack] = []
 
     @Environment(\.dismiss) private var dismiss
     @State private var time: TimeInterval = 0
@@ -67,7 +69,10 @@ struct TripReplayView: View {
             }
         }
         .preferredColorScheme(.dark)
-        .onAppear { jump(to: 0) }
+        .onAppear {
+            if ghosts.isEmpty { ghosts = Array(riders.prefix(Self.maxGhosts)) }
+            jump(to: 0)
+        }
         .onReceive(ticker) { now in tick(now) }
     }
 
@@ -89,6 +94,7 @@ struct TripReplayView: View {
 
     private var subtitle: String {
         if ghosts.isEmpty { return main.name }
+        if !riders.isEmpty { return L("Balade de groupe") + " · " + L("\(String(tracks.count)) pilotes") }
         return L("\(String(tracks.count)) pilotes") + " · " + main.name
     }
 
@@ -176,10 +182,13 @@ struct TripReplayView: View {
         } else if ghosts.count < Self.maxGhosts, let shared = friend.shared {
             ghosts.append(ReplayTrack(id: id, name: friend.displayName, replay: shared.replay, color: .clear))
         }
-        // Couleurs dans l'ordre de la balade, en sautant celle du trajet principal.
-        let palette: [Color] = GroupRideView.colors.filter { $0 != main.color }
-        ghosts = ghosts.enumerated().map { index, track in
-            ReplayTrack(id: track.id, name: track.name, replay: track.replay, color: palette[index % palette.count])
+        // Couleurs libres, dans l'ordre de la balade, pour les trajets d'amis ajoutés.
+        var used: [Color] = [main.color] + riders.map(\.color)
+        ghosts = ghosts.map { track in
+            if track.color != .clear { return track }
+            let color: Color = GroupRideView.colors.first { !used.contains($0) } ?? Theme.cyan
+            used.append(color)
+            return ReplayTrack(id: track.id, name: track.name, replay: track.replay, color: color)
         }
     }
 

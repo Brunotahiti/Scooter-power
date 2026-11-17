@@ -59,3 +59,48 @@ final class GroupRideTests: XCTestCase {
         XCTAssertEqual(trail.points.last?.longitude ?? 0, 0.02, accuracy: 1e-9)
     }
 }
+
+final class GroupRideRecorderTests: XCTestCase {
+    private func position(_ id: String, _ seconds: Double, lon: Double, speed: Double = 30) -> RiderPosition {
+        RiderPosition(
+            riderID: id, name: id.uppercased(), coordinate: Coordinate(latitude: 0, longitude: lon),
+            speedKmh: speed, heading: 90, leanDegrees: 5, acceleration: 1,
+            updatedAt: Date(timeIntervalSince1970: 1000 + seconds))
+    }
+
+    func testRecordsTracksOnACommonClock() throws {
+        var recorder = GroupRideRecorder()
+        recorder.add(position("a", 0, lon: 0), colorIndex: 0, isMe: true)
+        recorder.add(position("a", 3, lon: 0.001), colorIndex: 0, isMe: true)
+        recorder.add(position("a", 3, lon: 0.002), colorIndex: 0, isMe: true) // déjà reçu : ignoré
+        recorder.add(position("b", 30, lon: 0.01), colorIndex: 1, isMe: false)
+        recorder.add(position("b", 33, lon: 0.011), colorIndex: 1, isMe: false)
+        let tracks = recorder.recordedTracks
+        XCTAssertEqual(tracks.map(\.riderID), ["a", "b"])
+        XCTAssertEqual(tracks[0].points.map(\.time), [0, 3])
+        XCTAssertEqual(tracks[1].points.map(\.time), [30, 33])
+        // B commence à 30 s : avant, il attend à son premier point.
+        let replay = tracks[1].replay
+        XCTAssertEqual(replay.duration, 33, accuracy: 1e-9)
+        XCTAssertEqual(try XCTUnwrap(replay.frame(at: 0)).coordinate.longitude, 0.01, accuracy: 1e-9)
+        XCTAssertEqual(try XCTUnwrap(replay.frame(at: 31.5)).coordinate.longitude, 0.0105, accuracy: 1e-9)
+    }
+
+    func testSinglePointRidersAreLeftOut() {
+        var recorder = GroupRideRecorder()
+        recorder.add(position("a", 0, lon: 0), colorIndex: 0, isMe: true)
+        XCTAssertTrue(recorder.isEmpty)
+    }
+
+    func testTrackRoundTripsThroughJSON() throws {
+        let track = GroupRideTrack(
+            riderID: "a", name: "A", colorIndex: 2, isMe: false,
+            route: [Coordinate(latitude: 0, longitude: 0), Coordinate(latitude: 0, longitude: 0.001)],
+            points: [
+                ReplayPoint(time: 10, speedKmh: 20, acceleration: 0, leanDegrees: 0),
+                ReplayPoint(time: 13, speedKmh: 25, acceleration: 0, leanDegrees: 0),
+            ])
+        let decoded = try JSONDecoder().decode([GroupRideTrack].self, from: JSONEncoder().encode([track]))
+        XCTAssertEqual(decoded, [track])
+    }
+}
