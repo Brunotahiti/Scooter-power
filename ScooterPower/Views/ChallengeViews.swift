@@ -132,6 +132,7 @@ enum CardInbox {
 /// Reçoit les liens `scooterpower://card` ouverts depuis l'appareil photo ou un message.
 struct CardReceiver: ViewModifier {
     @Binding var showStats: Bool
+    @Binding var showGroupRide: Bool
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \FriendTrip.receivedDate, order: .reverse) private var friendTrips: [FriendTrip]
     @State private var failed = false
@@ -146,6 +147,12 @@ struct CardReceiver: ViewModifier {
                     return
                 }
                 guard url.scheme?.lowercased() == PerformanceCard.scheme else { return }
+                // QR code d'une balade de groupe : on la rejoint.
+                if let ride = RideLink(url: url) {
+                    GroupRideService.shared.join(ride)
+                    showGroupRide = true
+                    return
+                }
                 if let card = try? PerformanceCard(link: url) {
                     CardInbox.save(card, in: modelContext)
                     showStats = true

@@ -11,6 +11,7 @@ struct HeaderView: View {
     let onStats: () -> Void
     let onSettings: () -> Void
     let onRecalibrate: () -> Void
+    var onGroupRide: () -> Void = {}
 
     var body: some View {
         HStack(spacing: 8) {
@@ -19,6 +20,7 @@ struct HeaderView: View {
             Menu {
                 Button("Recalibrer l'inclinaison", systemImage: "scope", action: onRecalibrate)
                     .disabled(state != .recording && state != .paused)
+                Button("Balade de groupe", systemImage: "person.3.fill", action: onGroupRide)
                 Button("Statistiques", systemImage: "chart.bar.fill", action: onStats)
                 Button("Réglages", systemImage: "gearshape", action: onSettings)
             } label: {

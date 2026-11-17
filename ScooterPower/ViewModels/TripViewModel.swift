@@ -168,6 +168,22 @@ final class TripViewModel {
     }
 
     /// Records issus de l'historique des trajets. À rappeler quand l'historique change.
+    /// Ma position pour la balade de groupe : seulement pendant un trajet.
+    func groupPosition(name: String) -> RiderPosition? {
+        guard state == .recording || state == .paused, let last = route.last else { return nil }
+        // Cap : depuis le dernier point assez éloigné, pour ne pas tourner sur place à l'arrêt.
+        var heading: Double = 0
+        for previous in route.dropLast().reversed().prefix(20)
+        where TripStatistics.haversine(previous, last) > 3 {
+            heading = TripReplay.bearing(from: previous, to: last)
+            break
+        }
+        return RiderPosition(
+            riderID: GroupRideService.shared.myID, name: name, coordinate: last,
+            speedKmh: speedKmh ?? 0, heading: heading, leanDegrees: leanDegrees,
+            acceleration: accelerationValue, updatedAt: Date())
+    }
+
     func setHistoryRecords(_ records: [SpeedInterval: TimeInterval]) {
         var book = RecordBook(records: records)
         // Le trajet en cours n'est pas encore dans l'historique.

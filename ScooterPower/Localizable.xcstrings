@@ -61,6 +61,16 @@
         }
       }
     },
+    "%@ pilotes connectés": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ riders connected"
+          }
+        }
+      }
+    },
     "%@ records battus !": {
       "localizations": {
         "en": {
@@ -117,6 +127,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@, record %@, beaten on this trip"
+          }
+        }
+      }
+    },
+    "1 pilote connecté": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 rider connected"
           }
         }
       }
@@ -381,6 +401,26 @@
         }
       }
     },
+    "Balade de groupe": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Group ride"
+          }
+        }
+      }
+    },
+    "Balade introuvable. Demandez un nouveau QR code.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ride not found. Ask for a new QR code."
+          }
+        }
+      }
+    },
     "Carte": {
       "localizations": {
         "en": {
@@ -417,6 +457,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "This link does not contain a valid performance card. Ask the other rider to send it again."
+          }
+        }
+      }
+    },
+    "Cette balade est complète : 5 pilotes au maximum.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This ride is full: 5 riders maximum."
           }
         }
       }
@@ -501,12 +551,52 @@
         }
       }
     },
+    "Connectez-vous à iCloud dans les Réglages de l'iPhone pour rouler en groupe.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to iCloud in the iPhone Settings to ride as a group."
+          }
+        }
+      }
+    },
+    "Connexion à iCloud impossible. Vérifiez le réseau et réessayez.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not connect to iCloud. Check your network and try again."
+          }
+        }
+      }
+    },
+    "Connexion à la balade…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Joining the ride…"
+          }
+        }
+      }
+    },
     "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte ».": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "First copy the message or link you received from the other rider, then tap \"Paste a card\"."
+          }
+        }
+      }
+    },
+    "Créer une balade": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a ride"
           }
         }
       }
@@ -621,6 +711,16 @@
         }
       }
     },
+    "Démarrez le trajet pour que les autres vous voient.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start your trip so the others can see you."
+          }
+        }
+      }
+    },
     "Départ": {
       "localizations": {
         "en": {
@@ -647,6 +747,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recording"
+          }
+        }
+      }
+    },
+    "Envoyer le lien": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send the link"
           }
         }
       }
@@ -841,12 +951,42 @@
         }
       }
     },
+    "Inviter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invite"
+          }
+        }
+      }
+    },
+    "Inviter par QR code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invite with QR code"
+          }
+        }
+      }
+    },
     "J'ai compris": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "I understand"
+          }
+        }
+      }
+    },
+    "Jusqu'à 5 pilotes sur la même carte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Up to 5 riders on the same map"
           }
         }
       }
@@ -891,12 +1031,42 @@
         }
       }
     },
+    "Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One rider starts the ride and shows the QR code; the others scan it. Positions go through iCloud and are deleted when you leave the ride."
+          }
+        }
+      }
+    },
+    "Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The scanner is not available. Allow the camera in Settings → Scooter Power, or scan the code with the Camera app."
+          }
+        }
+      }
+    },
     "Lecture": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Play"
+          }
+        }
+      }
+    },
+    "Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The other riders scan this code with the iPhone camera, or in Scooter Power → Group ride → Scan a QR code. 5 riders maximum."
           }
         }
       }
@@ -1281,12 +1451,32 @@
         }
       }
     },
+    "QR code de la balade": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ride QR code"
+          }
+        }
+      }
+    },
     "QR code de ma carte de performances": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "QR code of my performance card"
+          }
+        }
+      }
+    },
+    "Quitter": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave"
           }
         }
       }
@@ -1391,6 +1581,16 @@
         }
       }
     },
+    "Roulez ensemble et voyez où sont vos amis, en direct.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ride together and see where your friends are, live."
+          }
+        }
+      }
+    },
     "Réglages": {
       "localizations": {
         "en": {
@@ -1407,6 +1607,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trip summary"
+          }
+        }
+      }
+    },
+    "Scanner un QR code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan a QR code"
           }
         }
       }
@@ -1671,6 +1881,16 @@
         }
       }
     },
+    "Visez le QR code de la balade": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Point at the ride QR code"
+          }
+        }
+      }
+    },
     "Vitesse actuelle": {
       "localizations": {
         "en": {
@@ -1751,6 +1971,16 @@
         }
       }
     },
+    "Voir tous les pilotes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show all riders"
+          }
+        }
+      }
+    },
     "Vos performances apparaîtront ici après votre premier trajet.": {
       "localizations": {
         "en": {
@@ -1777,6 +2007,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "previous %@"
+          }
+        }
+      }
+    },
+    "hors ligne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "offline"
           }
         }
       }

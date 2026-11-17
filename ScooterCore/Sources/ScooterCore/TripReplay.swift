@@ -35,6 +35,17 @@ public struct ReplayFrame: Sendable, Equatable {
     public var time: TimeInterval
     /// Index du dernier point du tracé atteint.
     public var index: Int
+
+    public init(coordinate: Coordinate, heading: Double, speedKmh: Double, acceleration: Double,
+                leanDegrees: Double, time: TimeInterval, index: Int) {
+        self.coordinate = coordinate
+        self.heading = heading
+        self.speedKmh = speedKmh
+        self.acceleration = acceleration
+        self.leanDegrees = leanDegrees
+        self.time = time
+        self.index = index
+    }
 }
 
 /// Rejoue un trajet : position, cap, vitesse, poussée et inclinaison à

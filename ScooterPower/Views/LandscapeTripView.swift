@@ -14,6 +14,7 @@ struct LandscapeTripView: View {
     let onHistory: () -> Void
     let onStats: () -> Void
     let onSettings: () -> Void
+    var onGroupRide: () -> Void = {}
 
     private static let neonRed: Color = SpeedometerView.neonRed
 
@@ -163,6 +164,7 @@ struct LandscapeTripView: View {
         Menu {
             Button("Recalibrer l'inclinaison", systemImage: "scope") { model.recalibrate() }
                 .disabled(model.state != .recording && model.state != .paused)
+            Button("Balade de groupe", systemImage: "person.3.fill", action: onGroupRide)
             Button("Statistiques", systemImage: "chart.bar.fill", action: onStats)
             Button("Réglages", systemImage: "gearshape", action: onSettings)
         } label: {

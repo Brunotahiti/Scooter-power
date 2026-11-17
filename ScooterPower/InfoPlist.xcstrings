@@ -24,13 +24,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scooter Power uses the camera to take photos during a trip."
+            "value": "Scooter Power uses the camera to take photos during a trip and to scan a group ride QR code."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scooter Power utilise l'appareil photo pour prendre des photos pendant le trajet."
+            "value": "Scooter Power utilise l'appareil photo pour prendre des photos pendant le trajet et scanner le QR code d'une balade de groupe."
           }
         }
       }

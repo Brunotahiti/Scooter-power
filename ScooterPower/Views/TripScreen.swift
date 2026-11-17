@@ -13,6 +13,7 @@ struct TripScreen: View {
     @State private var showSettings = false
     @State private var showRecords = false
     @State private var showStats = false
+    @State private var showGroupRide = false
     private let settings = AppSettings.shared
     @Environment(\.modelContext) private var modelContext
     /// Tous les trajets enregistrés : la source des records.
@@ -29,6 +30,10 @@ struct TripScreen: View {
             .animation(.spring(duration: 0.4), value: model.recordBanner)
             .onAppear {
                 loadRecords()
+                // La balade de groupe lit ma position dans le trajet en cours.
+                GroupRideService.shared.positionProvider = { [model] in
+                    model.groupPosition(name: AppSettings.shared.riderName)
+                }
             }
             .onChange(of: history.count) { _, _ in
                 loadRecords()
@@ -51,7 +56,10 @@ struct TripScreen: View {
                 // Le téléphone a tourné sur son support : la position verticale a changé.
                 model.recalibrate()
             }
-            .modifier(CardReceiver(showStats: $showStats))
+            .modifier(CardReceiver(showStats: $showStats, showGroupRide: $showGroupRide))
+            .fullScreenCover(isPresented: $showGroupRide) {
+                GroupRideView()
+            }
             .onChange(of: model.state) { _, newState in
                 if newState == .finished {
                     saveTrip()
@@ -70,7 +78,8 @@ struct TripScreen: View {
                 onOpenSettings: { openSettings() },
                 onHistory: { showHistory = true },
                 onStats: { showStats = true },
-                onSettings: { showSettings = true })
+                onSettings: { showSettings = true },
+                onGroupRide: { showGroupRide = true })
         } else {
             portrait
         }
@@ -138,7 +147,8 @@ struct TripScreen: View {
                 onHistory: { showHistory = true },
                 onStats: { showStats = true },
                 onSettings: { showSettings = true },
-                onRecalibrate: { model.recalibrate() })
+                onRecalibrate: { model.recalibrate() },
+                onGroupRide: { showGroupRide = true })
         }
     }
 
