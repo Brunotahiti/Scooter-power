@@ -195,7 +195,7 @@ struct LandscapeTripView: View {
 
     private func center(gaugeSize: CGFloat, height: CGFloat) -> some View {
         let scooterHeight: CGFloat = height * 0.98
-        let scooterWidth: CGFloat = scooterHeight * 0.643
+        let scooterWidth: CGFloat = scooterHeight * 0.95
         return HStack(spacing: -gaugeSize * 0.08) {
             RoundSpeedGauge(
                 speed: model.speedValue,

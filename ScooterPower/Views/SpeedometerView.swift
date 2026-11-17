@@ -86,8 +86,8 @@ struct SpeedometerView: View {
                 LiveScooter(
                     speedFraction: fraction, acceleration: acceleration,
                     leanDegrees: leanDegrees, accent: color)
-                    .frame(width: height * 0.98 * 0.643, height: height * 0.98)
-                    .padding(.trailing, 30 * scale)
+                    .frame(width: height * 1.0, height: height * 0.96)
+                    .padding(.trailing, 26 * scale)
             }
             .padding(.leading, 26 * scale)
         }
