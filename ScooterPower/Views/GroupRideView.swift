@@ -301,7 +301,7 @@ private struct RiderMarker: View {
     }
 }
 
-private struct NameTag: View {
+struct NameTag: View {
     let name: String
     let color: Color
 
@@ -325,7 +325,7 @@ private struct NameTag: View {
     }
 }
 
-private struct Triangle: Shape {
+struct Triangle: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         path.move(to: CGPoint(x: rect.minX, y: rect.minY))

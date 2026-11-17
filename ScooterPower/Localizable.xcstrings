@@ -61,6 +61,16 @@
         }
       }
     },
+    "%@ pilotes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ riders"
+          }
+        }
+      }
+    },
     "%@ pilotes connectés": {
       "localizations": {
         "en": {
@@ -271,6 +281,16 @@
         }
       }
     },
+    "Arrivé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finished"
+          }
+        }
+      }
+    },
     "Arrivée": {
       "localizations": {
         "en": {
@@ -297,16 +317,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tip: choose a nickname in Settings so the other rider recognises you."
-          }
-        }
-      }
-    },
-    "Aucun": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "None"
           }
         }
       }
@@ -1401,6 +1411,16 @@
         }
       }
     },
+    "Poussée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thrust"
+          }
+        }
+      }
+    },
     "Poussée d'accélération": {
       "localizations": {
         "en": {
@@ -1977,6 +1997,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show all riders"
+          }
+        }
+      }
+    },
+    "Voir tout le trajet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show the whole trip"
           }
         }
       }

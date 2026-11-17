@@ -11,10 +11,10 @@ struct ReplayTrack: Identifiable {
     let color: Color
 }
 
-/// Revoir un trajet comme si on y était : vu du dessus, le scooter suit le
-/// tracé à la vitesse réelle, s'oriente dans les virages, penche, freine.
-/// En bas, le compteur et la vue de dos rejouent vitesse, poussée et
-/// inclinaison. On peut ajouter le trajet d'un ami, rejoué en même temps.
+/// Revoir un trajet comme une balade de groupe : carte de nuit, scooter vu
+/// du dessus avec sa traînée lumineuse et son étiquette, une carte par
+/// pilote avec sa vitesse. On peut ajouter jusqu'à 4 trajets d'amis, rejoués
+/// en même temps, chacun avec sa couleur.
 struct TripReplayView: View {
     let main: ReplayTrack
     /// Trajets d'amis proposés en comparaison.
@@ -30,65 +30,177 @@ struct TripReplayView: View {
     @State private var cameraHeading: Double?
     @State private var cameraDistance: Double = 450
     @State private var lastTick: Date?
-    @State private var ghost: ReplayTrack?
+    /// Trajets d'amis ajoutés, dans l'ordre de leur ajout.
+    @State private var ghosts: [ReplayTrack] = []
 
+    /// Pilote principal + 4 amis : 5, comme une balade de groupe.
+    static let maxGhosts = GroupRoster.capacity - 1
     private static let rates: [Double] = [1, 2, 4, 10, 20]
+    private static let red: Color = SpeedometerView.neonRed
     private let ticker = Timer.publish(every: 1.0 / 30, on: .main, in: .common).autoconnect()
     private let units: UnitSystem = AppSettings.shared.units
 
+    /// Tous les trajets affichés, le principal en premier.
+    private var tracks: [ReplayTrack] { [main] + ghosts }
+
     private var duration: TimeInterval {
-        max(main.replay.duration, ghost?.replay.duration ?? 0)
+        tracks.map(\.replay.duration).max() ?? 0
     }
 
     var body: some View {
-        let frame: ReplayFrame? = main.replay.frame(at: time)
-        let ghostFrame: ReplayFrame? = ghost?.replay.frame(at: time)
-        return ZStack(alignment: .top) {
-            map(frame: frame, ghostFrame: ghostFrame)
-                .ignoresSafeArea()
-            topBar
-            VStack {
-                Spacer()
-                dashboard(frame: frame, ghostFrame: ghostFrame)
+        let frames: [ReplayFrame?] = tracks.map { $0.replay.frame(at: time) }
+        return ZStack {
+            backdrop.ignoresSafeArea()
+            VStack(spacing: 8) {
+                header
+                map(frames: frames)
+                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(Self.red.opacity(0.8), lineWidth: 1.5))
+                    .shadow(color: Self.red.opacity(0.5), radius: 8)
+                    .overlay(alignment: .topTrailing) { mapButtons }
+                    .padding(.horizontal, 8)
+                riderCards(frames: frames)
+                    .padding(.horizontal, 8)
+                dashboard(frame: frames.first ?? nil)
             }
         }
-        .background(Color.black)
         .preferredColorScheme(.dark)
         .onAppear { jump(to: 0) }
         .onReceive(ticker) { now in tick(now) }
-        .statusBarHidden()
+    }
+
+    private var backdrop: some View {
+        ZStack {
+            Color.black
+            CarbonTexture()
+                .opacity(0.18)
+            RadialGradient(
+                colors: [Self.red.opacity(0.22), Color.clear],
+                center: UnitPoint(x: 0.5, y: 0), startRadius: 10, endRadius: 320)
+            RadialGradient(
+                colors: [Self.red.opacity(0.22), Color.clear],
+                center: UnitPoint(x: 0.5, y: 1), startRadius: 10, endRadius: 300)
+        }
+    }
+
+    // MARK: - En-tête
+
+    private var subtitle: String {
+        if ghosts.isEmpty { return main.name }
+        return L("\(String(tracks.count)) pilotes") + " · " + main.name
+    }
+
+    private var header: some View {
+        let shape = HexagonFrame(tip: 22)
+        return HStack(spacing: 8) {
+            Button { dismiss() } label: {
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 17, weight: .bold))
+                    .frame(width: 36, height: 36)
+            }
+            .accessibilityLabel("Fermer")
+            Spacer(minLength: 0)
+            VStack(spacing: 2) {
+                HStack(spacing: 8) {
+                    NeonSlashes()
+                    Text("Revoir le trajet")
+                        .font(.system(size: 26, weight: .black))
+                        .italic()
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                Text(verbatim: subtitle)
+                    .font(.system(size: 13, weight: .medium))
+                    .italic()
+                    .foregroundStyle(Theme.textPrimary.opacity(0.8))
+                    .lineLimit(1)
+                if !main.replay.isRecorded {
+                    Text("Vitesse moyenne (trajet ancien)")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(Theme.orange)
+                }
+            }
+            Spacer(minLength: 0)
+            if friends.isEmpty {
+                Color.clear.frame(width: 36, height: 36)
+            } else {
+                friendsMenu
+            }
+        }
+        .foregroundStyle(Theme.textPrimary)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 8)
+        .background(Color.black.opacity(0.75), in: shape)
+        .overlay(shape.stroke(Self.red, lineWidth: 1.8))
+        .shadow(color: Self.red.opacity(0.7), radius: 10)
+        .padding(.horizontal, 8)
+        .padding(.top, 4)
+    }
+
+    /// Ajouter ou retirer des trajets d'amis, 4 au maximum.
+    private var friendsMenu: some View {
+        Menu {
+            ForEach(friends) { friend in
+                let id: String = friendID(friend)
+                let added: Bool = ghosts.contains { $0.id == id }
+                Button {
+                    toggle(friend)
+                } label: {
+                    if added {
+                        Label(friend.displayName + " · " + friend.title, systemImage: "checkmark")
+                    } else {
+                        Text(verbatim: friend.displayName + " · " + friend.title)
+                    }
+                }
+                .disabled(!added && ghosts.count >= Self.maxGhosts)
+            }
+        } label: {
+            Image(systemName: ghosts.isEmpty ? "person.2.badge.plus" : "person.3.fill")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(ghosts.isEmpty ? Theme.textPrimary : Theme.cyan)
+                .frame(width: 36, height: 36)
+        }
+        .accessibilityLabel("Comparer avec un ami")
+    }
+
+    private func friendID(_ friend: FriendTrip) -> String {
+        String(describing: friend.persistentModelID)
+    }
+
+    private func toggle(_ friend: FriendTrip) {
+        let id: String = friendID(friend)
+        if let index = ghosts.firstIndex(where: { $0.id == id }) {
+            ghosts.remove(at: index)
+        } else if ghosts.count < Self.maxGhosts, let shared = friend.shared {
+            ghosts.append(ReplayTrack(id: id, name: friend.displayName, replay: shared.replay, color: .clear))
+        }
+        // Couleurs dans l'ordre de la balade, en sautant celle du trajet principal.
+        let palette: [Color] = GroupRideView.colors.filter { $0 != main.color }
+        ghosts = ghosts.enumerated().map { index, track in
+            ReplayTrack(id: track.id, name: track.name, replay: track.replay, color: palette[index % palette.count])
+        }
     }
 
     // MARK: - Carte
 
-    private func map(frame: ReplayFrame?, ghostFrame: ReplayFrame?) -> some View {
-        let route: [CLLocationCoordinate2D] = main.replay.route.map(\.mapCoordinate)
-        let done: [CLLocationCoordinate2D] = traveled(main.replay, frame: frame)
-        return Map(position: $position, interactionModes: [.pan, .zoom, .rotate]) {
-            if let ghost {
-                MapPolyline(coordinates: ghost.replay.route.map(\.mapCoordinate))
-                    .stroke(ghost.color.opacity(0.35), style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
+    private func map(frames: [ReplayFrame?]) -> some View {
+        Map(position: $position, interactionModes: [.pan, .zoom, .rotate]) {
+            ForEach(Array(tracks.enumerated()), id: \.element.id) { index, track in
+                ReplayMapContent.route(track, frame: frames[index], isMain: index == 0)
             }
-            MapPolyline(coordinates: route)
-                .stroke(Color.white.opacity(0.35), style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
-            if done.count > 1 {
-                MapPolyline(coordinates: done)
-                    .stroke(main.color, style: StrokeStyle(lineWidth: 6, lineCap: .round, lineJoin: .round))
-            }
-            if let ghost, let ghostFrame {
-                Annotation(ghost.name, coordinate: ghostFrame.coordinate.mapCoordinate, anchor: .center) {
-                    TopViewScooter(frame: ghostFrame, rotation: ghostFrame.heading - mapHeading, tint: ghost.color)
+            ForEach(Array(tracks.enumerated()), id: \.element.id) { index, track in
+                if let frame = frames[index] {
+                    Annotation("", coordinate: frame.coordinate.mapCoordinate, anchor: .bottom) {
+                        ReplayMarker(name: markerName(index: index, track: track), color: track.color,
+                                     frame: frame, rotation: frame.heading - mapHeading)
+                    }
+                    .annotationTitles(.hidden)
                 }
-                .annotationTitles(.visible)
-            }
-            if let frame {
-                Annotation("", coordinate: frame.coordinate.mapCoordinate, anchor: .center) {
-                    TopViewScooter(frame: frame, rotation: frame.heading - mapHeading, tint: main.color)
-                }
-                .annotationTitles(.hidden)
             }
         }
-        .mapStyle(.standard(elevation: .flat, pointsOfInterest: .excludingAll))
+        .mapStyle(.standard(elevation: .flat, emphasis: .muted, pointsOfInterest: .excludingAll))
         .onMapCameraChange(frequency: .continuous) { context in
             mapHeading = context.camera.heading
             cameraDistance = context.camera.distance
@@ -96,13 +208,37 @@ struct TripReplayView: View {
         .simultaneousGesture(DragGesture(minimumDistance: 8).onChanged { _ in follow = false })
     }
 
-    /// Partie déjà parcourue, jusqu'à la position actuelle.
-    private func traveled(_ replay: TripReplay, frame: ReplayFrame?) -> [CLLocationCoordinate2D] {
-        guard let frame else { return [] }
-        let end: Int = min(frame.index, replay.route.count - 1)
-        var points: [CLLocationCoordinate2D] = replay.route[0...end].map(\.mapCoordinate)
-        points.append(frame.coordinate.mapCoordinate)
-        return points
+    private func markerName(index: Int, track: ReplayTrack) -> String {
+        index == 0 && main.id == "mine" ? L("Moi") : track.name
+    }
+
+    private var mapButtons: some View {
+        VStack(spacing: 8) {
+            Button {
+                follow = true
+                cameraHeading = nil
+                updateCamera(animated: true)
+            } label: {
+                Image(systemName: follow ? "location.north.line.fill" : "location.north.line")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(follow ? main.color : Theme.textPrimary)
+                    .frame(width: 38, height: 38)
+                    .background(Color.black.opacity(0.7), in: Circle())
+            }
+            .accessibilityLabel("Suivre le scooter")
+            Button {
+                follow = false
+                withAnimation(.easeInOut(duration: 0.5)) { position = .automatic }
+            } label: {
+                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(Theme.textPrimary)
+                    .frame(width: 38, height: 38)
+                    .background(Color.black.opacity(0.7), in: Circle())
+            }
+            .accessibilityLabel("Voir tout le trajet")
+        }
+        .padding(10)
     }
 
     // MARK: - Lecture
@@ -124,7 +260,7 @@ struct TripReplayView: View {
         updateCamera(animated: false)
     }
 
-    /// Caméra au-dessus du scooter, orientée dans son sens de marche ;
+    /// Caméra au-dessus du scooter principal, orientée dans son sens de marche ;
     /// le cap est lissé pour que la carte tourne en douceur dans les virages.
     private func updateCamera(animated: Bool) {
         guard let frame = main.replay.frame(at: time) else { return }
@@ -133,12 +269,13 @@ struct TripReplayView: View {
         var delta: Double = (target - heading).truncatingRemainder(dividingBy: 360)
         if delta > 180 { delta -= 360 }
         if delta < -180 { delta += 360 }
-        heading += delta * min(1, 0.12 * max(1, rate / 2))
+        let smoothing: Double = min(1, 0.12 * max(1, rate / 2))
+        heading += delta * smoothing
         heading = (heading + 360).truncatingRemainder(dividingBy: 360)
         cameraHeading = heading
+        let distance: Double = min(3000, max(150, cameraDistance))
         let camera = MapCamera(
-            centerCoordinate: frame.coordinate.mapCoordinate,
-            distance: min(3000, max(150, cameraDistance)), heading: heading, pitch: 0)
+            centerCoordinate: frame.coordinate.mapCoordinate, distance: distance, heading: heading, pitch: 0)
         if animated {
             withAnimation(.easeInOut(duration: 0.4)) { position = .camera(camera) }
         } else {
@@ -146,85 +283,22 @@ struct TripReplayView: View {
         }
     }
 
-    // MARK: - Haut de l'écran
+    // MARK: - Cartes des pilotes
 
-    private var topBar: some View {
-        HStack(spacing: 10) {
-            Button { dismiss() } label: {
-                Image(systemName: "xmark")
-                    .font(.system(size: 16, weight: .bold))
-                    .frame(width: 40, height: 40)
-                    .background(.ultraThinMaterial, in: Circle())
+    private func riderCards(frames: [ReplayFrame?]) -> some View {
+        HStack(spacing: 6) {
+            ForEach(Array(tracks.enumerated()), id: \.element.id) { index, track in
+                ReplayRiderCard(
+                    name: markerName(index: index, track: track), color: track.color,
+                    speedKmh: frames[index]?.speedKmh, finished: time >= track.replay.duration && time > 0)
             }
-            .accessibilityLabel("Fermer")
-            VStack(alignment: .leading, spacing: 0) {
-                Text(main.name)
-                    .font(.system(size: 15, weight: .bold))
-                    .lineLimit(1)
-                Text(main.replay.isRecorded ? L("Revoir le trajet") : L("Vitesse moyenne (trajet ancien)"))
-                    .font(.system(size: 12))
-                    .foregroundStyle(Theme.textSecondary)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(.ultraThinMaterial, in: Capsule())
-            Spacer(minLength: 0)
-            if !friends.isEmpty {
-                ghostMenu
-            }
-            Button {
-                follow = true
-                cameraHeading = nil
-                updateCamera(animated: true)
-            } label: {
-                Image(systemName: follow ? "location.north.line.fill" : "location.north.line")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundStyle(follow ? main.color : Theme.textPrimary)
-                    .frame(width: 40, height: 40)
-                    .background(.ultraThinMaterial, in: Circle())
-            }
-            .accessibilityLabel("Suivre le scooter")
         }
-        .foregroundStyle(Theme.textPrimary)
-        .padding(.horizontal, 14)
-        .padding(.top, 8)
-    }
-
-    private var ghostMenu: some View {
-        Menu {
-            Button {
-                ghost = nil
-            } label: {
-                if ghost == nil {
-                    Label("Aucun", systemImage: "checkmark")
-                } else {
-                    Text("Aucun")
-                }
-            }
-            ForEach(friends) { friend in
-                Button {
-                    if let shared = friend.shared {
-                        ghost = ReplayTrack(
-                            id: friend.persistentModelID.hashValue.description,
-                            name: friend.displayName, replay: shared.replay, color: Theme.cyan)
-                    }
-                } label: {
-                    Text(verbatim: friend.displayName + " · " + friend.title)
-                }
-            }
-        } label: {
-            Image(systemName: "person.2.fill")
-                .font(.system(size: 15, weight: .bold))
-                .foregroundStyle(ghost == nil ? Theme.textPrimary : Theme.cyan)
-                .frame(width: 40, height: 40)
-                .background(.ultraThinMaterial, in: Circle())
-        }
-        .accessibilityLabel("Comparer avec un ami")
+        .frame(height: 70)
     }
 
     // MARK: - Tableau de bord
 
-    private func dashboard(frame: ReplayFrame?, ghostFrame: ReplayFrame?) -> some View {
+    private func dashboard(frame: ReplayFrame?) -> some View {
         let speedKmh: Double = frame?.speedKmh ?? 0
         let speed: Double = units.speed(fromKmh: speedKmh)
         let fraction: Double = min(1, speed / units.speedometerMax)
@@ -232,75 +306,53 @@ struct TripReplayView: View {
         let acceleration: Double = frame?.acceleration ?? 0
         let lean: Double = frame?.leanDegrees ?? 0
         let accelText: String = Formatters.signed(acceleration, digits: 1) + " m/s²"
-        let accelColor: Color = acceleration < -0.8 ? SpeedometerView.neonRed : Theme.orange
+        let accelColor: Color = acceleration < -0.8 ? Self.red : Theme.orange
         let leanText: String = Formatters.decimal(abs(lean), digits: 0) + "°"
-        let speedText: String = Formatters.decimal(speed, digits: 0)
-        return VStack(spacing: 10) {
+        let shape = HexagonFrame(tip: 18)
+        return VStack(spacing: 8) {
             HStack(alignment: .center, spacing: 12) {
-                LiveScooter(
-                    speedFraction: fraction, acceleration: acceleration,
-                    leanDegrees: lean, accent: accent)
-                    .frame(width: 112, height: 112)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(alignment: .firstTextBaseline, spacing: 5) {
-                        Text(verbatim: speedText)
-                            .font(.system(size: 50, weight: .black))
-                            .italic()
-                            .monospacedDigit()
-                            .foregroundStyle(accent)
-                            .shadow(color: accent.opacity(0.6), radius: 8)
-                        Text(verbatim: units.speedUnit)
-                            .font(.system(size: 17, weight: .heavy))
-                            .italic()
-                    }
-                    HStack(spacing: 14) {
-                        figure(icon: "bolt.fill", text: accelText, color: accelColor)
-                        figure(icon: "angle", text: leanText, color: Theme.cyan)
-                    }
-                    if let ghost, let ghostFrame {
-                        Text(verbatim: ghostText(ghost, ghostFrame))
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundStyle(ghost.color)
-                            .lineLimit(1)
-                    }
+                LiveScooter(speedFraction: fraction, acceleration: acceleration, leanDegrees: lean, accent: accent)
+                    .frame(width: 96, height: 96)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                VStack(alignment: .leading, spacing: 6) {
+                    figure(icon: "bolt.fill", title: L("Poussée"), text: accelText, color: accelColor)
+                    figure(icon: "angle", title: L("Inclinaison"), text: leanText, color: Theme.cyan)
                 }
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
                 Spacer(minLength: 0)
             }
             controls
         }
         .foregroundStyle(Theme.textPrimary)
-        .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(Color.black.opacity(0.78))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 24, style: .continuous)
-                        .stroke(accent.opacity(0.7), lineWidth: 1.5))
-                .shadow(color: accent.opacity(0.4), radius: 10))
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 22)
+        .padding(.vertical, 10)
+        .background(Color.black.opacity(0.8), in: shape)
+        .overlay(shape.stroke(accent.opacity(0.8), lineWidth: 1.5))
+        .shadow(color: accent.opacity(0.4), radius: 8)
+        .padding(.horizontal, 8)
         .padding(.bottom, 6)
     }
 
-    private func ghostText(_ ghost: ReplayTrack, _ frame: ReplayFrame) -> String {
-        let speed: String = Formatters.decimal(units.speed(fromKmh: frame.speedKmh), digits: 0)
-        return ghost.name + " : " + speed + " " + units.speedUnit
-    }
-
-    private func figure(icon: String, text: String, color: Color) -> some View {
-        HStack(spacing: 4) {
+    private func figure(icon: String, title: String, text: String, color: Color) -> some View {
+        HStack(spacing: 6) {
             Image(systemName: icon)
                 .foregroundStyle(color)
+                .frame(width: 20)
+            Text(verbatim: title)
+                .font(.system(size: 13, weight: .medium))
+                .italic()
+                .foregroundStyle(Theme.textSecondary)
             Text(verbatim: text)
+                .font(.system(size: 17, weight: .heavy))
+                .italic()
                 .monospacedDigit()
         }
         .font(.system(size: 15, weight: .bold))
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
     }
 
     private var controls: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 2) {
             Slider(
                 value: Binding(get: { time }, set: { jump(to: $0) }),
                 in: 0...max(1, duration))
@@ -315,8 +367,14 @@ struct TripReplayView: View {
                 } label: {
                     Image(systemName: playing ? "pause.fill" : "play.fill")
                         .font(.system(size: 22, weight: .bold))
-                        .frame(width: 54, height: 44)
-                        .background(main.color.opacity(0.25), in: Capsule())
+                        .foregroundStyle(Color.white)
+                        .frame(width: 64, height: 42)
+                        .background(
+                            LinearGradient(
+                                colors: [Color(hex: 0xFF4A3D), Color(hex: 0xA80F0F)],
+                                startPoint: .top, endPoint: .bottom),
+                            in: Capsule())
+                        .shadow(color: Self.red.opacity(0.7), radius: 8)
                 }
                 .accessibilityLabel(playing ? L("Mettre en pause") : L("Lecture"))
                 Menu {
@@ -330,8 +388,10 @@ struct TripReplayView: View {
                 } label: {
                     Text(verbatim: "×" + Formatters.decimal(rate, digits: 0))
                         .font(.system(size: 15, weight: .heavy))
-                        .frame(width: 54, height: 44)
-                        .background(Color.white.opacity(0.1), in: Capsule())
+                        .foregroundStyle(Theme.textPrimary)
+                        .frame(width: 54, height: 42)
+                        .background(Color(hex: 0x1A1D21), in: Capsule())
+                        .overlay(Capsule().stroke(Color.white.opacity(0.3), lineWidth: 1))
                 }
                 .accessibilityLabel("Vitesse de lecture")
                 Spacer()
@@ -341,6 +401,110 @@ struct TripReplayView: View {
             .monospacedDigit()
             .foregroundStyle(Theme.textSecondary)
         }
+    }
+}
+
+// MARK: - Carte : tracés et marqueurs
+
+enum ReplayMapContent {
+    /// Tracé complet en pointillé discret, partie parcourue en traînée lumineuse.
+    @MainActor @MapContentBuilder
+    static func route(_ track: ReplayTrack, frame: ReplayFrame?, isMain: Bool) -> some MapContent {
+        let full: [CLLocationCoordinate2D] = track.replay.route.map(\.mapCoordinate)
+        let done: [CLLocationCoordinate2D] = traveled(track.replay, frame: frame)
+        let width: CGFloat = isMain ? 4.5 : 3.5
+        MapPolyline(coordinates: full)
+            .stroke(track.color.opacity(0.25), style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+        if done.count > 1 {
+            MapPolyline(coordinates: done)
+                .stroke(track.color.opacity(0.3), style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
+            MapPolyline(coordinates: done)
+                .stroke(track.color, style: StrokeStyle(lineWidth: width, lineCap: .round, lineJoin: .round))
+        }
+    }
+
+    /// Partie déjà parcourue, jusqu'à la position actuelle.
+    static func traveled(_ replay: TripReplay, frame: ReplayFrame?) -> [CLLocationCoordinate2D] {
+        guard let frame, !replay.route.isEmpty else { return [] }
+        let end: Int = min(frame.index, replay.route.count - 1)
+        var points: [CLLocationCoordinate2D] = replay.route[0...end].map(\.mapCoordinate)
+        points.append(frame.coordinate.mapCoordinate)
+        return points
+    }
+}
+
+/// Étiquette néon du pilote au-dessus de son scooter vu du dessus.
+private struct ReplayMarker: View {
+    let name: String
+    let color: Color
+    let frame: ReplayFrame
+    let rotation: Double
+
+    var body: some View {
+        VStack(spacing: 0) {
+            NameTag(name: name, color: color)
+            TopViewScooter(frame: frame, rotation: rotation, tint: color)
+                .scaleEffect(0.85)
+                .frame(width: 66, height: 66)
+        }
+    }
+}
+
+/// Carte d'un pilote : pastille de couleur, nom et vitesse du moment.
+private struct ReplayRiderCard: View {
+    let name: String
+    let color: Color
+    let speedKmh: Double?
+    let finished: Bool
+
+    private var units: UnitSystem { AppSettings.shared.units }
+
+    var body: some View {
+        let shape = HexagonFrame(tip: 9)
+        let speed: String = speedKmh.map { Formatters.decimal(units.speed(fromKmh: $0), digits: 0) } ?? "--"
+        return VStack(spacing: 2) {
+            HStack(spacing: 4) {
+                Circle()
+                    .fill(color)
+                    .frame(width: 8, height: 8)
+                    .shadow(color: color, radius: 3)
+                Text(verbatim: name)
+                    .font(.system(size: 12, weight: .bold))
+                    .italic()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+            }
+            Rectangle()
+                .fill(color.opacity(0.35))
+                .frame(height: 1)
+                .padding(.horizontal, 6)
+            if finished {
+                Image(systemName: "flag.checkered")
+                    .font(.system(size: 18, weight: .bold))
+            } else {
+                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                    Text(verbatim: speed)
+                        .font(.system(size: 22, weight: .black))
+                        .italic()
+                        .monospacedDigit()
+                    Text(verbatim: units.speedUnit)
+                        .font(.system(size: 9, weight: .bold))
+                        .italic()
+                }
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
+            }
+        }
+        .foregroundStyle(Theme.textPrimary)
+        .padding(.horizontal, 6)
+        .frame(maxWidth: 140, maxHeight: .infinity)
+        .frame(maxWidth: .infinity)
+        .background(Color.black.opacity(0.8), in: shape)
+        .overlay(shape.stroke(SpeedometerView.neonRed.opacity(0.9), lineWidth: 1.4))
+        .shadow(color: SpeedometerView.neonRed.opacity(0.45), radius: 5)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(name)
+        .accessibilityValue(finished ? L("Arrivé") : speed + " " + units.speedUnit)
     }
 }
 
