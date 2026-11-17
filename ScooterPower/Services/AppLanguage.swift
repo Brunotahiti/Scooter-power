@@ -75,7 +75,7 @@ extension AppLanguage {
 }
 
 /// `Bundle.main`, dont les traductions viennent de la langue choisie dans l'app.
-private final class LanguageBundle: Bundle {
+private final class LanguageBundle: Bundle, @unchecked Sendable {
     override func localizedString(forKey key: String, value: String?, table tableName: String?) -> String {
         let chosen: Bundle = AppLanguage.bundle
         // `AppLanguage.bundle` vaut `Bundle.main` si le dossier .lproj manque : pas de boucle.
