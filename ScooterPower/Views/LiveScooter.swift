@@ -146,11 +146,15 @@ final class RoadClock {
     var phase: Double = 0
     var lastTime: Double?
 
+    /// `speed` : part de l'échelle de vitesse, de 0 à 1.
     func advance(to time: Double, speed: Double) -> Double {
         if let lastTime {
             let dt: Double = min(0.1, max(0, time - lastTime))
-            // Jusqu'à environ 2,6 tirets par seconde à pleine échelle.
-            phase += dt * (0.05 + 2.6 * speed)
+            // Immobile à l'arrêt ; le défilement s'accélère plus vite que la
+            // vitesse (courbe en puissance 1,3) pour bien sentir la montée en régime.
+            let s: Double = min(1, max(0, speed))
+            let rate: Double = s < 0.01 ? 0 : 0.15 + 3.4 * pow(s, 1.3)
+            phase += dt * rate
         }
         lastTime = time
         phase = phase.truncatingRemainder(dividingBy: 1000)
@@ -158,8 +162,9 @@ final class RoadClock {
     }
 }
 
-/// Route en perspective : asphalte, bords lumineux et ligne centrale en
-/// tirets qui défilent vers nous ; elle s'incurve du côté de l'inclinaison.
+/// Route en perspective : asphalte, bords lumineux, deux lignes de voie en
+/// pointillés de part et d'autre du scooter et balises sur les bords, qui
+/// défilent vers nous ; elle s'incurve du côté de l'inclinaison.
 private struct RoadView: View {
     let clock: RoadClock
     let time: Double
@@ -176,64 +181,137 @@ private struct RoadView: View {
         }
     }
 
-    private func draw(in context: inout GraphicsContext, size: CGSize, phase: Double) {
-        let horizon: CGFloat = size.height * 0.18
-        let bottom: CGFloat = size.height
-        let depth: CGFloat = bottom - horizon
-        let center: CGFloat = size.width / 2
-        let halfBottom: CGFloat = size.width * 0.62
-        let halfTop: CGFloat = size.width * 0.04
-        let curve: CGFloat = bend * size.width * 0.45
+    /// Géométrie de la route : `u` va de 0 (horizon) à 1 (bas de l'image).
+    private struct Geometry {
+        let horizon: CGFloat
+        let depth: CGFloat
+        let center: CGFloat
+        let halfTop: CGFloat
+        let halfBottom: CGFloat
+        let curve: CGFloat
 
-        /// Abscisse du milieu de la route à la profondeur `u` (0 à l'horizon, 1 en bas).
         func middle(_ u: CGFloat) -> CGFloat { center + curve * (1 - u) * (1 - u) }
         func half(_ u: CGFloat) -> CGFloat { halfTop + (halfBottom - halfTop) * u }
         func y(_ u: CGFloat) -> CGFloat { horizon + depth * u }
+        func point(_ u: CGFloat, lane: CGFloat) -> CGPoint {
+            CGPoint(x: middle(u) + half(u) * lane, y: y(u))
+        }
+    }
 
-        // Bords de la route, échantillonnés pour suivre la courbe.
+    private func draw(in context: inout GraphicsContext, size: CGSize, phase: Double) {
+        let horizon: CGFloat = size.height * 0.16
+        let g = Geometry(
+            horizon: horizon, depth: size.height - horizon, center: size.width / 2,
+            halfTop: size.width * 0.04, halfBottom: size.width * 0.66, curve: bend * size.width * 0.45)
+
+        drawAsphalt(in: &context, g: g, size: size)
+        drawEdges(in: &context, g: g)
+        // Deux lignes de voie, de part et d'autre du scooter.
+        for lane in [-0.56, 0.56] as [CGFloat] {
+            drawDashes(in: &context, g: g, lane: lane, phase: phase)
+        }
+        drawPosts(in: &context, g: g, phase: phase)
+        if speed > 0.45 {
+            drawSpeedLines(in: &context, size: size, phase: phase)
+        }
+    }
+
+    private func drawAsphalt(in context: inout GraphicsContext, g: Geometry, size: CGSize) {
         let steps = 24
-        var left: [CGPoint] = []
-        var right: [CGPoint] = []
+        var road = Path()
         for step in 0...steps {
             let u: CGFloat = CGFloat(step) / CGFloat(steps)
-            left.append(CGPoint(x: middle(u) - half(u), y: y(u)))
-            right.append(CGPoint(x: middle(u) + half(u), y: y(u)))
+            let p: CGPoint = g.point(u, lane: -1)
+            if step == 0 { road.move(to: p) } else { road.addLine(to: p) }
         }
-        var asphalt = Path()
-        asphalt.addLines(left)
-        asphalt.addLines(right.reversed())
-        asphalt.closeSubpath()
+        for step in stride(from: steps, through: 0, by: -1) {
+            road.addLine(to: g.point(CGFloat(step) / CGFloat(steps), lane: 1))
+        }
+        road.closeSubpath()
         context.fill(
-            asphalt,
+            road,
             with: .linearGradient(
-                Gradient(colors: [Color(white: 0.02), Color(white: 0.13)]),
-                startPoint: CGPoint(x: 0, y: horizon), endPoint: CGPoint(x: 0, y: bottom)))
+                Gradient(colors: [Color(white: 0.04), Color(white: 0.17)]),
+                startPoint: CGPoint(x: 0, y: g.horizon), endPoint: CGPoint(x: 0, y: size.height)))
+    }
 
-        var edges = context
-        edges.addFilter(.shadow(color: accent, radius: 4))
-        for side in [left, right] {
+    private func drawEdges(in context: inout GraphicsContext, g: Geometry) {
+        var glow = context
+        glow.addFilter(.shadow(color: accent, radius: 5))
+        for lane in [-1, 1] as [CGFloat] {
             var line = Path()
-            line.addLines(side)
-            edges.stroke(line, with: .color(accent.opacity(0.85)), lineWidth: 2)
+            for step in 0...24 {
+                let p: CGPoint = g.point(CGFloat(step) / 24, lane: lane)
+                if step == 0 { line.move(to: p) } else { line.addLine(to: p) }
+            }
+            glow.stroke(line, with: .color(accent.opacity(0.9)), lineWidth: 2.5)
         }
+    }
 
-        // Tirets centraux : régulièrement espacés en profondeur, ils
-        // grossissent en approchant.
-        let dashes = 7
-        for index in 0..<dashes {
-            var t: Double = (Double(index) / Double(dashes) + phase).truncatingRemainder(dividingBy: 1)
+    /// Tirets régulièrement espacés en profondeur : petits à l'horizon,
+    /// larges et lumineux en approchant.
+    private func drawDashes(in context: inout GraphicsContext, g: Geometry, lane: CGFloat, phase: Double) {
+        let count = 6
+        var glow = context
+        glow.addFilter(.shadow(color: Color.white.opacity(0.6), radius: 3))
+        for index in 0..<count {
+            var t: Double = (Double(index) / Double(count) + phase).truncatingRemainder(dividingBy: 1)
             if t < 0 { t += 1 }
+            let t1: Double = min(1, t + 0.07)
             let u0: CGFloat = CGFloat(t * t)
-            let u1: CGFloat = CGFloat(min(1, (t + 0.06) * (t + 0.06)))
-            let w0: CGFloat = 1 + 5 * u0
-            let w1: CGFloat = 1 + 5 * u1
+            let u1: CGFloat = CGFloat(t1 * t1)
+            let w0: CGFloat = 1 + 9 * u0
+            let w1: CGFloat = 1 + 9 * u1
+            let a: CGPoint = g.point(u0, lane: lane)
+            let b: CGPoint = g.point(u1, lane: lane)
             var dash = Path()
-            dash.move(to: CGPoint(x: middle(u0) - w0 / 2, y: y(u0)))
-            dash.addLine(to: CGPoint(x: middle(u0) + w0 / 2, y: y(u0)))
-            dash.addLine(to: CGPoint(x: middle(u1) + w1 / 2, y: y(u1)))
-            dash.addLine(to: CGPoint(x: middle(u1) - w1 / 2, y: y(u1)))
+            dash.move(to: CGPoint(x: a.x - w0 / 2, y: a.y))
+            dash.addLine(to: CGPoint(x: a.x + w0 / 2, y: a.y))
+            dash.addLine(to: CGPoint(x: b.x + w1 / 2, y: b.y))
+            dash.addLine(to: CGPoint(x: b.x - w1 / 2, y: b.y))
             dash.closeSubpath()
-            context.fill(dash, with: .color(Color.white.opacity(0.25 + 0.6 * Double(u0))))
+            let opacity: Double = 0.35 + 0.65 * Double(u0)
+            glow.fill(dash, with: .color(Color.white.opacity(opacity)))
+        }
+    }
+
+    /// Balises sur les bords, en décalé des tirets : elles renforcent la sensation de vitesse.
+    private func drawPosts(in context: inout GraphicsContext, g: Geometry, phase: Double) {
+        let count = 5
+        for index in 0..<count {
+            var t: Double = (Double(index) / Double(count) + phase * 1.0 + 0.5 / Double(count))
+                .truncatingRemainder(dividingBy: 1)
+            if t < 0 { t += 1 }
+            let u: CGFloat = CGFloat(t * t)
+            let height: CGFloat = 4 + 26 * u
+            let width: CGFloat = 1.5 + 4 * u
+            for lane in [-1.08, 1.08] as [CGFloat] {
+                let base: CGPoint = g.point(u, lane: lane)
+                let post = Path(roundedRect: CGRect(x: base.x - width / 2, y: base.y - height, width: width, height: height),
+                                cornerRadius: width / 2)
+                context.fill(post, with: .color(accent.opacity(0.4 + 0.6 * Double(u))))
+            }
+        }
+    }
+
+    /// Traînées blanches sur les côtés, au-delà de la moitié de l'échelle.
+    private func drawSpeedLines(in context: inout GraphicsContext, size: CGSize, phase: Double) {
+        let strength: Double = min(1, (speed - 0.45) / 0.55)
+        let count = 8
+        for index in 0..<count {
+            let seed: Double = Double(index) * 0.618
+            var t: Double = (seed + phase * 1.6).truncatingRemainder(dividingBy: 1)
+            if t < 0 { t += 1 }
+            let side: CGFloat = index % 2 == 0 ? -1 : 1
+            let x: CGFloat = size.width / 2 + side * size.width * (0.36 + 0.12 * CGFloat(seed.truncatingRemainder(dividingBy: 1)))
+            let y: CGFloat = size.height * (0.2 + 0.8 * CGFloat(t))
+            let length: CGFloat = size.height * (0.08 + 0.18 * CGFloat(strength))
+            var line = Path()
+            line.move(to: CGPoint(x: x, y: y))
+            line.addLine(to: CGPoint(x: x + side * length * 0.25, y: y + length))
+            context.stroke(
+                line, with: .color(Color.white.opacity(0.35 * strength)),
+                style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
         }
     }
 }
