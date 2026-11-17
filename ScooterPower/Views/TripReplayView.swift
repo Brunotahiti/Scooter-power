@@ -229,16 +229,22 @@ struct TripReplayView: View {
         let speed: Double = units.speed(fromKmh: speedKmh)
         let fraction: Double = min(1, speed / units.speedometerMax)
         let accent: Color = SpeedBar.color(at: fraction)
+        let acceleration: Double = frame?.acceleration ?? 0
+        let lean: Double = frame?.leanDegrees ?? 0
+        let accelText: String = Formatters.signed(acceleration, digits: 1) + " m/s²"
+        let accelColor: Color = acceleration < -0.8 ? SpeedometerView.neonRed : Theme.orange
+        let leanText: String = Formatters.decimal(abs(lean), digits: 0) + "°"
+        let speedText: String = Formatters.decimal(speed, digits: 0)
         return VStack(spacing: 10) {
             HStack(alignment: .center, spacing: 12) {
                 LiveScooter(
-                    speedFraction: fraction, acceleration: frame?.acceleration ?? 0,
-                    leanDegrees: frame?.leanDegrees ?? 0, accent: accent)
+                    speedFraction: fraction, acceleration: acceleration,
+                    leanDegrees: lean, accent: accent)
                     .frame(width: 112, height: 112)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(alignment: .firstTextBaseline, spacing: 5) {
-                        Text(verbatim: Formatters.decimal(speed, digits: 0))
+                        Text(verbatim: speedText)
                             .font(.system(size: 50, weight: .black))
                             .italic()
                             .monospacedDigit()
@@ -249,19 +255,11 @@ struct TripReplayView: View {
                             .italic()
                     }
                     HStack(spacing: 14) {
-                        figure(
-                            icon: "bolt.fill",
-                            text: Formatters.signed(frame?.acceleration ?? 0, digits: 1) + " m/s²",
-                            color: (frame?.acceleration ?? 0) < -0.8 ? SpeedometerView.neonRed : Theme.orange)
-                        figure(
-                            icon: "angle",
-                            text: Formatters.decimal(abs(frame?.leanDegrees ?? 0), digits: 0) + "°",
-                            color: Theme.cyan)
+                        figure(icon: "bolt.fill", text: accelText, color: accelColor)
+                        figure(icon: "angle", text: leanText, color: Theme.cyan)
                     }
                     if let ghost, let ghostFrame {
-                        Text(verbatim: ghost.name + " : "
-                            + Formatters.decimal(units.speed(fromKmh: ghostFrame.speedKmh), digits: 0)
-                            + " " + units.speedUnit)
+                        Text(verbatim: ghostText(ghost, ghostFrame))
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundStyle(ghost.color)
                             .lineLimit(1)
@@ -284,6 +282,11 @@ struct TripReplayView: View {
                 .shadow(color: accent.opacity(0.4), radius: 10))
         .padding(.horizontal, 10)
         .padding(.bottom, 6)
+    }
+
+    private func ghostText(_ ghost: ReplayTrack, _ frame: ReplayFrame) -> String {
+        let speed: String = Formatters.decimal(units.speed(fromKmh: frame.speedKmh), digits: 0)
+        return ghost.name + " : " + speed + " " + units.speedUnit
     }
 
     private func figure(icon: String, text: String, color: Color) -> some View {
@@ -358,35 +361,45 @@ struct TopViewScooter: View {
         let leanFactor: CGFloat = CGFloat(abs(lean) / 45)
         let braking: CGFloat = CGFloat(min(1, max(0, -frame.acceleration / 4)))
         let speed: CGFloat = CGFloat(min(1, frame.speedKmh / 120))
+        let halfHeight: CGFloat = Self.height * 0.5
+        let beamOffset: CGFloat = -halfHeight - 20
+        let trailLength: CGFloat = 12 + 60 * speed
+        let trailOffset: CGFloat = halfHeight + 6 + 30 * speed
+        let shadowShift: CGFloat = CGFloat(lean / 45 * 9)
+        let squeeze: CGFloat = 1 - 0.3 * leanFactor
+        let brakeBlur: CGFloat = 1 + 3 * braking
+        let brakeGlow: CGFloat = 2 + 10 * braking
+        let brakeOpacity: Double = 0.4 + 0.6 * Double(braking)
+        let brakeOffset: CGFloat = halfHeight - 2
         return ZStack {
             // Faisceau du phare.
             LinearGradient(colors: [Color.white.opacity(0.35), Color.clear], startPoint: .bottom, endPoint: .top)
                 .frame(width: 34, height: 46)
                 .clipShape(BeamShape())
-                .offset(y: -Self.height * 0.5 - 20)
+                .offset(y: beamOffset)
             // Traînée de vitesse.
             LinearGradient(colors: [tint.opacity(0.7), Color.clear], startPoint: .top, endPoint: .bottom)
-                .frame(width: 10, height: 12 + 60 * speed)
+                .frame(width: 10, height: trailLength)
                 .clipShape(Capsule())
-                .offset(y: Self.height * 0.5 + (6 + 30 * speed))
+                .offset(y: trailOffset)
             // Ombre au sol, décalée du côté de l'inclinaison.
             Capsule()
                 .fill(Color.black.opacity(0.5))
                 .frame(width: Self.width * 0.8, height: Self.height * 0.9)
-                .offset(x: CGFloat(lean) / 45 * 9, y: 3)
+                .offset(x: shadowShift, y: 3)
                 .blur(radius: 3)
             image
                 .frame(width: Self.width, height: Self.height)
-                .scaleEffect(x: 1 - 0.3 * leanFactor, y: 1, anchor: .center)
+                .scaleEffect(x: squeeze, y: 1, anchor: .center)
                 .shadow(color: tint.opacity(0.9), radius: 4)
             // Feu stop.
             Capsule()
                 .fill(Color.red)
                 .frame(width: 12, height: 4)
-                .blur(radius: 1 + 3 * braking)
-                .shadow(color: .red, radius: 2 + 10 * braking)
-                .opacity(0.4 + 0.6 * Double(braking))
-                .offset(y: Self.height * 0.5 - 2)
+                .blur(radius: brakeBlur)
+                .shadow(color: .red, radius: brakeGlow)
+                .opacity(brakeOpacity)
+                .offset(y: brakeOffset)
         }
         .rotationEffect(.degrees(rotation))
         .frame(width: 90, height: 90)
