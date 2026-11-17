@@ -24,7 +24,7 @@ final class GroupRideRecord {
     }
 
     var title: String {
-        startDate.formatted(date: .abbreviated, time: .shortened)
+        AppDates.dateTime(startDate)
     }
 
     /// Pistes prêtes à rejouer : la mienne d'abord, chacune avec la couleur qu'elle avait pendant la balade.

@@ -69,7 +69,9 @@ final class AppSettings {
     /// Nom sans espaces superflus, limité à 40 caractères ; le nom par défaut s'il est vide.
     static func cleaned(_ name: String) -> String {
         let trimmed: String = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? defaultSetup : String(trimmed.prefix(40))
+        // « Origine » était le nom par défaut quand l'app était en français.
+        if trimmed.isEmpty || trimmed == "Origine" { return defaultSetup }
+        return String(trimmed.prefix(40))
     }
 
     func setCurrentSetup(_ name: String) {

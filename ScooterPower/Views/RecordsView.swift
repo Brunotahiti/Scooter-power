@@ -86,7 +86,7 @@ private struct RecordSection: View {
     }
 
     private static func day(_ date: Date) -> String {
-        date.formatted(date: .abbreviated, time: .omitted)
+        AppDates.day(date)
     }
 
     var body: some View {

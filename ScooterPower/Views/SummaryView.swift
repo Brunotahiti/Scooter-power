@@ -26,12 +26,12 @@ struct SummaryView: View {
     private var tripDate: Date { date ?? Date() }
 
     private var shareTitle: String {
-        tripDate.formatted(date: .abbreviated, time: .shortened)
+        AppDates.dateTime(tripDate)
     }
 
     private var dateLine: String {
-        let day: String = tripDate.formatted(date: .abbreviated, time: .omitted)
-        let time: String = tripDate.formatted(date: .omitted, time: .shortened)
+        let day: String = AppDates.day(tripDate)
+        let time: String = AppDates.time(tripDate)
         if Calendar.current.isDateInToday(tripDate) {
             return L("Aujourd'hui") + " · " + day + " · " + time
         }

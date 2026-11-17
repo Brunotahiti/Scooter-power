@@ -143,6 +143,6 @@ final class TripRecord {
 
     /// Date et heure de départ, dans la langue de l'interface.
     var title: String {
-        startDate.formatted(date: .abbreviated, time: .shortened)
+        AppDates.dateTime(startDate)
     }
 }

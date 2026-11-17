@@ -475,7 +475,8 @@ private struct DarkPillButton: View {
 /// Cinq scooters vus du dessus, chacun avec sa couleur, en éventail.
 private struct LobbyIllustration: View {
     var body: some View {
-        HStack(spacing: -6) {
+        // Cinq colonnes de même largeur : l'illustration tient toujours dans l'écran.
+        HStack(spacing: 0) {
             ForEach(0..<5, id: \.self) { index in
                 let color: Color = GroupRideView.color(index)
                 let offset: CGFloat = CGFloat(abs(index - 2)) * 22
@@ -484,10 +485,14 @@ private struct LobbyIllustration: View {
                         coordinate: Coordinate(latitude: 0, longitude: 0), heading: 0, speedKmh: 70,
                         acceleration: 1, leanDegrees: 0, time: 0, index: 0),
                     rotation: 0, tint: color)
-                    .scaleEffect(1.25)
+                    .scaleEffect(1.1)
                     .offset(y: offset)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 110)
             }
         }
+        .frame(maxWidth: .infinity)
+        .clipped()
         .accessibilityHidden(true)
     }
 }

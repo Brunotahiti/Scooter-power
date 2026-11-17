@@ -54,7 +54,7 @@ private enum Thrust {
 struct TripLiveActivity: Widget {
     init() {
         // L'extension tourne dans son propre processus : le séparateur décimal s'y règle à part.
-        Formatters.decimalSeparator = Locale.current.decimalSeparator ?? ","
+        Formatters.decimalSeparator = "."
     }
 
     var body: some WidgetConfiguration {

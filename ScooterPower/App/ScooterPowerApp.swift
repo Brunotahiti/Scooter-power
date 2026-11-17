@@ -24,8 +24,8 @@ struct ScooterPowerApp: App {
     }()
 
     init() {
-        // Virgule ou point décimal, selon la langue et la région de l'appareil.
-        Formatters.decimalSeparator = Locale.current.decimalSeparator ?? ","
+        // L'app est en anglais pour tout le monde : point décimal (« 0.5 mi »).
+        Formatters.decimalSeparator = "."
     }
 
     var body: some Scene {
@@ -44,6 +44,8 @@ struct ScooterPowerApp: App {
                     .zIndex(1)
                 }
             }
+            // Graphiques, sélecteurs et dates d'iOS en anglais, comme le reste de l'app.
+            .environment(\.locale, AppDates.locale)
         }
         .modelContainer(container)
     }

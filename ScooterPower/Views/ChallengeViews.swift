@@ -80,7 +80,7 @@ struct ChallengeSection: View {
                 Text(verbatim: rival.displayName)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundStyle(Theme.textPrimary)
-                Text(verbatim: rival.setupName + " · " + rival.cardDate.formatted(date: .abbreviated, time: .omitted))
+                Text(verbatim: rival.setupName + " · " + AppDates.day(rival.cardDate))
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.textSecondary)
             }

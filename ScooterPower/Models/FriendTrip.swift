@@ -38,6 +38,6 @@ final class FriendTrip {
     }
 
     var title: String {
-        startDate.formatted(date: .abbreviated, time: .shortened)
+        AppDates.dateTime(startDate)
     }
 }
