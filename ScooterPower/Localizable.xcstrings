@@ -1,3414 +1,3414 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "% du record": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "% of record"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "% du record" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "% of record"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "% du record"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "% du record"
           }
         }
       }
     },
-    "%@ %@ max": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ %@ max"
+    "%@ %@ max" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@ max"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ %@ max"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ %@ max"
           }
         }
       }
     },
-    "%@ max": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ max"
+    "%@ max" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ max"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ max"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ max"
           }
         }
       }
     },
-    "%@ mètres par seconde carrée, %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ metres per second squared, %@"
+    "%@ mètres par seconde carrée, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ metres per second squared, %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ mètres par seconde carrée, %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ mètres par seconde carrée, %@"
           }
         }
       }
     },
-    "%@ pilotes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ riders"
+    "%@ pilotes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ riders"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ pilotes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ pilotes"
           }
         }
       }
     },
-    "%@ pilotes connectés": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ riders connected"
+    "%@ pilotes connectés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ riders connected"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ pilotes connectés"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ pilotes connectés"
           }
         }
       }
     },
-    "%@ records battus !": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ new records!"
+    "%@ records battus !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ new records!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ records battus !"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ records battus !"
           }
         }
       }
     },
-    "%@ secondes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ seconds"
+    "%@ secondes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ seconds"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ secondes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ secondes"
           }
         }
       }
     },
-    "%@ · ancien %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · previous %@"
+    "%@ · ancien %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · previous %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · ancien %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · ancien %@"
           }
         }
       }
     },
-    "%@ · moyenne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · average"
+    "%@ · moyenne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · average"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · moyenne"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · moyenne"
           }
         }
       }
     },
-    "%@ · record": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · record"
+    "%@ · record" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · record"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · record"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · record"
           }
         }
       }
     },
-    "%@, %@, ancien record %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, %@, previous record %@"
+    "%@, %@, ancien record %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@, previous record %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, %@, ancien record %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@, ancien record %@"
           }
         }
       }
     },
-    "%@, record %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, record %@"
+    "%@, record %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, record %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, record %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, record %@"
           }
         }
       }
     },
-    "%@, record %@, battu pendant ce trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, record %@, beaten on this trip"
+    "%@, record %@, battu pendant ce trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, record %@, beaten on this trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@, record %@, battu pendant ce trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, record %@, battu pendant ce trajet"
           }
         }
       }
     },
-    "1 pilote connecté": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 rider connected"
+    "1 pilote connecté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 rider connected"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 pilote connecté"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 pilote connecté"
           }
         }
       }
     },
-    "30 dernières secondes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Last 30 seconds"
+    "30 dernières secondes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 30 seconds"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "30 dernières secondes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "30 dernières secondes"
           }
         }
       }
     },
-    "Accélération": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceleration"
+    "Accélération" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceleration"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accélération"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accélération"
           }
         }
       }
     },
-    "Accélération forte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hard acceleration"
+    "Accélération forte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hard acceleration"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accélération forte"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accélération forte"
           }
         }
       }
     },
-    "Accélération modérée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Moderate acceleration"
+    "Accélération modérée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderate acceleration"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accélération modérée"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accélération modérée"
           }
         }
       }
     },
-    "Accélérations": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceleration"
+    "Accélérations" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceleration"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accélérations"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accélérations"
           }
         }
       }
     },
-    "Accélérations du trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip acceleration"
+    "Accélérations du trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip acceleration"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accélérations du trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accélérations du trajet"
           }
         }
       }
     },
-    "Alerte de vitesse": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Speed alert"
+    "Alerte de vitesse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed alert"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alerte de vitesse"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerte de vitesse"
           }
         }
       }
     },
-    "Alerter au-dessus d'un seuil": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alert above a limit"
+    "Alerter au-dessus d'un seuil" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alert above a limit"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alerter au-dessus d'un seuil"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerter au-dessus d'un seuil"
           }
         }
       }
     },
-    "Altitude": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Altitude"
+    "Altitude" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altitude"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Altitude"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altitude"
           }
         }
       }
     },
-    "Annuler": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cancel"
+    "Annuler" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Annuler"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
           }
         }
       }
     },
-    "Appareil photo indisponible": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Camera unavailable"
+    "Appareil photo indisponible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera unavailable"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Appareil photo indisponible"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appareil photo indisponible"
           }
         }
       }
     },
-    "Après": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "After"
+    "Après" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Après"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après"
           }
         }
       }
     },
-    "Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "After modifying your scooter, give its setup a new name in Settings. Your next trips will be compared with the earlier ones, with the difference shown as a percentage."
+    "Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After modifying your scooter, give its setup a new name in Settings. Your next trips will be compared with the earlier ones, with the difference shown as a percentage."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage."
           }
         }
       }
     },
-    "Arrivé": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finished"
+    "Arrivé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finished"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrivé"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrivé"
           }
         }
       }
     },
-    "Arrivée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Finish"
+    "Arrivée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrivée"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrivée"
           }
         }
       }
     },
-    "Assistance": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Support"
+    "Assistance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Assistance"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistance"
           }
         }
       }
     },
-    "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tip: choose a nickname in Settings so the other rider recognises you."
+    "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip: choose a nickname in Settings so the other rider recognises you."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse."
           }
         }
       }
     },
-    "Aucun temps mesuré pour l'instant.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No time recorded yet."
+    "Aucun temps mesuré pour l'instant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No time recorded yet."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucun temps mesuré pour l'instant."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun temps mesuré pour l'instant."
           }
         }
       }
     },
-    "Aucun trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No trips"
+    "Aucun trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No trips"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucun trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun trajet"
           }
         }
       }
     },
-    "Aucune carte trouvée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No card found"
+    "Aucune carte trouvée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No card found"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucune carte trouvée"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune carte trouvée"
           }
         }
       }
     },
-    "Aucune statistique": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No statistics"
+    "Aucune statistique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No statistics"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucune statistique"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune statistique"
           }
         }
       }
     },
-    "Aujourd'hui": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Today"
+    "Aujourd'hui" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aujourd'hui"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aujourd'hui"
           }
         }
       }
     },
-    "Avant": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Before"
+    "Avant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avant"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avant"
           }
         }
       }
     },
-    "Avant / après": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Before / after"
+    "Avant / après" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before / after"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avant / après"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avant / après"
           }
         }
       }
     },
-    "Avantage au trajet A.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip A is better."
+    "Avantage au trajet A." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip A is better."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avantage au trajet A."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avantage au trajet A."
           }
         }
       }
     },
-    "Avantage au trajet B.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip B is better."
+    "Avantage au trajet B." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip B is better."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avantage au trajet B."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avantage au trajet B."
           }
         }
       }
     },
-    "Balade de groupe": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Group ride"
+    "Balade de groupe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group ride"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Balade de groupe"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balade de groupe"
           }
         }
       }
     },
-    "Balade introuvable. Demandez un nouveau QR code.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ride not found. Ask for a new QR code."
+    "Balade introuvable. Demandez un nouveau QR code." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride not found. Ask for a new QR code."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Balade introuvable. Demandez un nouveau QR code."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balade introuvable. Demandez un nouveau QR code."
           }
         }
       }
     },
-    "Balades de groupe": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Group rides"
+    "Balades de groupe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group rides"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Balades de groupe"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balades de groupe"
           }
         }
       }
     },
-    "Carte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Map"
+    "Carte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carte"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carte"
           }
         }
       }
     },
-    "Carte illisible": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unreadable card"
+    "Carte illisible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unreadable card"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Carte illisible"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carte illisible"
           }
         }
       }
     },
-    "Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This file does not contain a valid trip, or it comes from a newer version of the app."
+    "Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file does not contain a valid trip, or it comes from a newer version of the app."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app."
           }
         }
       }
     },
-    "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This link does not contain a valid performance card. Ask the other rider to send it again."
+    "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This link does not contain a valid performance card. Ask the other rider to send it again."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer."
           }
         }
       }
     },
-    "Cette balade est complète : 5 pilotes au maximum.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This ride is full: 5 riders maximum."
+    "Cette balade est complète : 5 pilotes au maximum." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This ride is full: 5 riders maximum."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cette balade est complète : 5 pilotes au maximum."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette balade est complète : 5 pilotes au maximum."
           }
         }
       }
     },
-    "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Each line: the other rider's figure, then yours. The percentage is your difference: green when you do better, red otherwise."
+    "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Each line: the other rider's figure, then yours. The percentage is your difference: green when you do better, red otherwise."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon."
           }
         }
       }
     },
-    "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Every trip is saved with this name. Change it after modifying your scooter: the Statistics page then compares performance before and after. Your nickname appears on the performance card you share."
+    "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every trip is saved with this name. Change it after modifying your scooter: the Statistics page then compares performance before and after. Your nickname appears on the performance card you share."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez."
           }
         }
       }
     },
-    "Chiffres gagnés : %@. Chiffres perdus : %@.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Figures won: %@. Figures lost: %@."
+    "Chiffres gagnés : %@. Chiffres perdus : %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Figures won: %@. Figures lost: %@."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chiffres gagnés : %@. Chiffres perdus : %@."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiffres gagnés : %@. Chiffres perdus : %@."
           }
         }
       }
     },
-    "Coller une carte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paste a card"
+    "Coller une carte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste a card"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coller une carte"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coller une carte"
           }
         }
       }
     },
-    "Comparer": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compare"
+    "Comparer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compare"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comparer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparer"
           }
         }
       }
     },
-    "Comparer avec un ami": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compare with a friend"
+    "Comparer avec un ami" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compare with a friend"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Comparer avec un ami"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparer avec un ami"
           }
         }
       }
     },
-    "Configuration": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Setup"
+    "Configuration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuration"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
           }
         }
       }
     },
-    "Configuration du scooter": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scooter setup"
+    "Configuration du scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter setup"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuration du scooter"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration du scooter"
           }
         }
       }
     },
-    "Connectez-vous à iCloud dans les Réglages de l'iPhone pour rouler en groupe.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sign in to iCloud in the iPhone Settings to ride as a group."
+    "Connectez-vous à iCloud dans les Réglages de l'iPhone pour rouler en groupe." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in to iCloud in the iPhone Settings to ride as a group."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connectez-vous à iCloud dans les Réglages de l'iPhone pour rouler en groupe."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connectez-vous à iCloud dans les Réglages de l'iPhone pour rouler en groupe."
           }
         }
       }
     },
-    "Connexion à iCloud impossible. Vérifiez le réseau et réessayez.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Could not connect to iCloud. Check your network and try again."
+    "Connexion à iCloud impossible. Vérifiez le réseau et réessayez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not connect to iCloud. Check your network and try again."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connexion à iCloud impossible. Vérifiez le réseau et réessayez."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion à iCloud impossible. Vérifiez le réseau et réessayez."
           }
         }
       }
     },
-    "Connexion à la balade…": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Joining the ride…"
+    "Connexion à la balade…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joining the ride…"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connexion à la balade…"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion à la balade…"
           }
         }
       }
     },
-    "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte ».": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "First copy the message or link you received from the other rider, then tap \"Paste a card\"."
+    "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First copy the message or link you received from the other rider, then tap \"Paste a card\"."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »."
           }
         }
       }
     },
-    "Créer une balade": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start a ride"
+    "Créer une balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a ride"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Créer une balade"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer une balade"
           }
         }
       }
     },
-    "Date": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Date"
+    "Date" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Date"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
           }
         }
       }
     },
-    "Distance": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Distance"
+    "Distance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distance"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Distance"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distance"
           }
         }
       }
     },
-    "Données d'illustration": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sample data"
+    "Données d'illustration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sample data"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Données d'illustration"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Données d'illustration"
           }
         }
       }
     },
-    "Droit": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Upright"
+    "Droit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upright"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Droit"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Droit"
           }
         }
       }
     },
-    "Droite": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Right"
+    "Droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Droite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Droite"
           }
         }
       }
     },
-    "Durée de roulage": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Moving time"
+    "Durée de roulage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moving time"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Durée de roulage"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durée de roulage"
           }
         }
       }
     },
-    "Durée roulage": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ride time"
+    "Durée roulage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride time"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Durée roulage"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durée roulage"
           }
         }
       }
     },
-    "Durée totale": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Total time"
+    "Durée totale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total time"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Durée totale"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durée totale"
           }
         }
       }
     },
-    "Défi entre pilotes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rider challenge"
+    "Défi entre pilotes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rider challenge"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Défi entre pilotes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Défi entre pilotes"
           }
         }
       }
     },
-    "Démarrer": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+    "Démarrer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Démarrer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer"
           }
         }
       }
     },
-    "Démarrer le trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start trip"
+    "Démarrer le trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Démarrer le trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer le trajet"
           }
         }
       }
     },
-    "Démarrez le trajet pour que les autres vous voient.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start your trip so the others can see you."
+    "Démarrez le trajet pour que les autres vous voient." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start your trip so the others can see you."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Démarrez le trajet pour que les autres vous voient."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrez le trajet pour que les autres vous voient."
           }
         }
       }
     },
-    "Départ": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start"
+    "Départ" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Départ"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Départ"
           }
         }
       }
     },
-    "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "In miles, speed, distance and acceleration times switch to mph: 0–60 mph, 30–50 mph… Both sets are measured on every trip."
+    "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In miles, speed, distance and acceleration times switch to mph: 0–60 mph, 30–50 mph… Both sets are measured on every trip."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet."
           }
         }
       }
     },
-    "En pause": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paused"
+    "En pause" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "En pause"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En pause"
           }
         }
       }
     },
-    "Enregistrement": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recording"
+    "Enregistrement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enregistrement"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrement"
           }
         }
       }
     },
-    "Envoyer le lien": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Send the link"
+    "Envoyer le lien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send the link"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envoyer le lien"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer le lien"
           }
         }
       }
     },
-    "Envoyer le trajet à un ami": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Send trip to a friend"
+    "Envoyer le trajet à un ami" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send trip to a friend"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envoyer le trajet à un ami"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer le trajet à un ami"
           }
         }
       }
     },
-    "Envoyer ma carte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Send my card"
+    "Envoyer ma carte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send my card"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envoyer ma carte"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer ma carte"
           }
         }
       }
     },
-    "Exporter le tracé (GPX)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Export route (GPX)"
+    "Exporter le tracé (GPX)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export route (GPX)"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Exporter le tracé (GPX)"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporter le tracé (GPX)"
           }
         }
       }
     },
-    "Fermer": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Close"
+    "Fermer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fermer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
           }
         }
       }
     },
-    "Fixez solidement le téléphone au guidon avant de partir.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mount the phone firmly on the handlebar before setting off."
+    "Fixez solidement le téléphone au guidon avant de partir." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mount the phone firmly on the handlebar before setting off."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fixez solidement le téléphone au guidon avant de partir."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixez solidement le téléphone au guidon avant de partir."
           }
         }
       }
     },
-    "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "English or French. Opens the iPhone Settings, Language section."
+    "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English or French. Opens the iPhone Settings, Language section."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Français ou anglais. Ouvre les Réglages de l'iPhone, rubrique Langue."
           }
         }
       }
     },
-    "Freinage": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Braking"
+    "Freinage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Braking"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Freinage"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freinage"
           }
         }
       }
     },
-    "Freinage fort": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hard braking"
+    "Freinage fort" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hard braking"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Freinage fort"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freinage fort"
           }
         }
       }
     },
-    "Freinage modéré": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Moderate braking"
+    "Freinage modéré" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moderate braking"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Freinage modéré"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freinage modéré"
           }
         }
       }
     },
-    "Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keep your eyes on the road. Readings are indicative and do not replace the vehicle's speedometer."
+    "Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep your eyes on the road. Readings are indicative and do not replace the vehicle's speedometer."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gardez les yeux sur la route. Les mesures sont indicatives et ne remplacent pas le compteur du véhicule."
           }
         }
       }
     },
-    "Gauche": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Left"
+    "Gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gauche"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gauche"
           }
         }
       }
     },
-    "Historique": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "History"
+    "Historique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Historique"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique"
           }
         }
       }
     },
-    "Historique des trajets": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip history"
+    "Historique des trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip history"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Historique des trajets"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique des trajets"
           }
         }
       }
     },
-    "Inclinaison": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean angle"
+    "Inclinaison" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean angle"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclinaison"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclinaison"
           }
         }
       }
     },
-    "Inclinaison droite": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean right"
+    "Inclinaison droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean right"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclinaison droite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclinaison droite"
           }
         }
       }
     },
-    "Inclinaison gauche": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lean left"
+    "Inclinaison gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lean left"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclinaison gauche"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclinaison gauche"
           }
         }
       }
     },
-    "Inclinaison max.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Max lean"
+    "Inclinaison max." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max lean"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclinaison max."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclinaison max."
           }
         }
       }
     },
-    "Inclinaison max. droite": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Max lean right"
+    "Inclinaison max. droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max lean right"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclinaison max. droite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclinaison max. droite"
           }
         }
       }
     },
-    "Inclinaison max. gauche": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Max lean left"
+    "Inclinaison max. gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Max lean left"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inclinaison max. gauche"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inclinaison max. gauche"
           }
         }
       }
     },
-    "Inviter": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Invite"
+    "Inviter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inviter"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inviter"
           }
         }
       }
     },
-    "Inviter par QR code": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Invite with QR code"
+    "Inviter par QR code" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite with QR code"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inviter par QR code"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inviter par QR code"
           }
         }
       }
     },
-    "J'ai compris": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I understand"
+    "J'ai compris" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I understand"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "J'ai compris"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "J'ai compris"
           }
         }
       }
     },
-    "Jusqu'à 5 pilotes sur la même carte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Up to 5 riders on the same map"
+    "Jusqu'à 5 pilotes sur la même carte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up to 5 riders on the same map"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jusqu'à 5 pilotes sur la même carte"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jusqu'à 5 pilotes sur la même carte"
           }
         }
       }
     },
-    "Kilomètres": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kilometres"
+    "Kilomètres" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilometres"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kilomètres"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilomètres"
           }
         }
       }
     },
-    "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The other rider scans this code with their iPhone camera, or opens the link you send them."
+    "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The other rider scans this code with their iPhone camera, or opens the link you send them."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez."
           }
         }
       }
     },
-    "Langue": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Language"
+    "Langue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Langue"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Langue"
           }
         }
       }
     },
-    "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The speedometer turns red and the phone vibrates when the limit is exceeded. The alert only works while the app is on screen."
+    "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The speedometer turns red and the phone vibrates when the limit is exceeded. The alert only works while the app is on screen."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."
           }
         }
       }
     },
-    "Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "One rider starts the ride and shows the QR code; the others scan it. Positions go through iCloud and are deleted when you leave the ride."
+    "Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One rider starts the ride and shows the QR code; the others scan it. Positions go through iCloud and are deleted when you leave the ride."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade."
           }
         }
       }
     },
-    "Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The scanner is not available. Allow the camera in Settings → Scooter Power, or scan the code with the Camera app."
+    "Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The scanner is not available. Allow the camera in Settings → Scooter Power, or scan the code with the Camera app."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo."
           }
         }
       }
     },
-    "Lecture": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Play"
+    "Lecture" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lecture"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture"
           }
         }
       }
     },
-    "Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The other riders scan this code with the iPhone camera, or in Scooter Power → Group ride → Scan a QR code. 5 riders maximum."
+    "Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The other riders scan this code with the iPhone camera, or in Scooter Power → Group ride → Scan a QR code. 5 riders maximum."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum."
           }
         }
       }
     },
-    "Ma carte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My card"
+    "Ma carte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My card"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ma carte"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ma carte"
           }
         }
       }
     },
-    "Ma configuration": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My setup"
+    "Ma configuration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My setup"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ma configuration"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ma configuration"
           }
         }
       }
     },
-    "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Best figure on each line. Distance and times are not ranked."
+    "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best figure on each line. Distance and times are not ranked."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées."
           }
         }
       }
     },
-    "Mes performances Scooter Power : %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My Scooter Power performance: %@"
+    "Mes performances Scooter Power : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Scooter Power performance: %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mes performances Scooter Power : %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mes performances Scooter Power : %@"
           }
         }
       }
     },
-    "Mesure en cours": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Timing in progress"
+    "Mesure en cours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timing in progress"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mesure en cours"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesure en cours"
           }
         }
       }
     },
-    "Mesures": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Runs"
+    "Mesures" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runs"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mesures"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesures"
           }
         }
       }
     },
-    "Mettre en pause": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pause"
+    "Mettre en pause" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mettre en pause"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre en pause"
           }
         }
       }
     },
-    "Miles": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Miles"
+    "Miles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miles"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Miles"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miles"
           }
         }
       }
     },
-    "Moi": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Me"
+    "Moi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Moi"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moi"
           }
         }
       }
     },
-    "Moyenne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Average"
+    "Moyenne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Moyenne"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moyenne"
           }
         }
       }
     },
-    "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Never operate the app while riding. Start and end the trip while stopped."
+    "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never operate the app while riding. Start and end the trip while stopped."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt."
           }
         }
       }
     },
-    "Nouveau trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New trip"
+    "Nouveau trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nouveau trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau trajet"
           }
         }
       }
     },
-    "OK": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+    "OK" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OK"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         }
       }
     },
-    "Origine": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stock"
+    "Origine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stock"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Origine"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Origine"
           }
         }
       }
     },
-    "Ouvre les records": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Opens your records"
+    "Ouvre les records" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens your records"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvre les records"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre les records"
           }
         }
       }
     },
-    "Ouvrir Réglages": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open Settings"
+    "Ouvrir Réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvrir Réglages"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir Réglages"
           }
         }
       }
     },
-    "Partage impossible": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unable to share"
+    "Partage impossible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to share"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Partage impossible"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partage impossible"
           }
         }
       }
     },
-    "Partager": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Share"
+    "Partager" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Partager"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager"
           }
         }
       }
     },
-    "Partager l'image du résumé": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Share summary image"
+    "Partager l'image du résumé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share summary image"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Partager l'image du résumé"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager l'image du résumé"
           }
         }
       }
     },
-    "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Share your performance card with another rider, add theirs, and compare yourselves figure by figure."
+    "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share your performance card with another rider, add theirs, and compare yourselves figure by figure."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."
           }
         }
       }
     },
-    "Photo": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Photo"
+    "Photo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Photo"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo"
           }
         }
       }
     },
-    "Pic": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peak"
+    "Pic" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peak"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pic"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pic"
           }
         }
       }
     },
-    "Pic : %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peak: %@"
+    "Pic : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peak: %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pic : %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pic : %@"
           }
         }
       }
     },
-    "Pic d'accél.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peak accel."
+    "Pic d'accél." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peak accel."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pic d'accél."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pic d'accél."
           }
         }
       }
     },
-    "Pic d'accélération": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peak acceleration"
+    "Pic d'accélération" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peak acceleration"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pic d'accélération"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pic d'accélération"
           }
         }
       }
     },
-    "Pic de poussée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Peak thrust"
+    "Pic de poussée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peak thrust"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pic de poussée"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pic de poussée"
           }
         }
       }
     },
-    "Pilote": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rider"
+    "Pilote" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rider"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pilote"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilote"
           }
         }
       }
     },
-    "Plus d'options": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "More options"
+    "Plus d'options" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More options"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Plus d'options"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus d'options"
           }
         }
       }
     },
-    "Politique de confidentialité": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Privacy policy"
+    "Politique de confidentialité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Politique de confidentialité"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politique de confidentialité"
           }
         }
       }
     },
-    "Position dans le trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Position in the trip"
+    "Position dans le trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position in the trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Position dans le trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position dans le trajet"
           }
         }
       }
     },
-    "Position refusée · Ouvrir Réglages": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Location denied · Open Settings"
+    "Position refusée · Ouvrir Réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location denied · Open Settings"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Position refusée · Ouvrir Réglages"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position refusée · Ouvrir Réglages"
           }
         }
       }
     },
-    "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To receive one, ask a friend to open a trip in their history, then Share → Send trip to a friend."
+    "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To receive one, ask a friend to open a trip in their history, then Share → Send trip to a friend."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami."
           }
         }
       }
     },
-    "Poussée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thrust"
+    "Poussée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thrust"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Poussée"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poussée"
           }
         }
       }
     },
-    "Poussée d'accélération": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceleration thrust"
+    "Poussée d'accélération" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceleration thrust"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Poussée d'accélération"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poussée d'accélération"
           }
         }
       }
     },
-    "Poussée moyenne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Average thrust"
+    "Poussée moyenne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average thrust"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Poussée moyenne"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poussée moyenne"
           }
         }
       }
     },
-    "Progression du record": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record progression"
+    "Progression du record" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record progression"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Progression du record"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progression du record"
           }
         }
       }
     },
-    "Pseudo": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nickname"
+    "Pseudo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nickname"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pseudo"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pseudo"
           }
         }
       }
     },
-    "Puissance": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Power"
+    "Puissance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Power"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Puissance"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Puissance"
           }
         }
       }
     },
-    "QR code de la balade": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ride QR code"
+    "QR code de la balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride QR code"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR code de la balade"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code de la balade"
           }
         }
       }
     },
-    "QR code de ma carte de performances": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR code of my performance card"
+    "QR code de ma carte de performances" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code of my performance card"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR code de ma carte de performances"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR code de ma carte de performances"
           }
         }
       }
     },
-    "Quitter": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leave"
+    "Quitter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Quitter"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quitter"
           }
         }
       }
     },
-    "Recalibrer l'inclinaison": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recalibrate lean angle"
+    "Recalibrer l'inclinaison" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recalibrate lean angle"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recalibrer l'inclinaison"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recalibrer l'inclinaison"
           }
         }
       }
     },
-    "Record": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record"
+    "Record" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record"
           }
         }
       }
     },
-    "Record %@, moyenne %@, %@ mesures": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record %@, average %@, %@ runs"
+    "Record %@, moyenne %@, %@ mesures" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record %@, average %@, %@ runs"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record %@, moyenne %@, %@ mesures"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record %@, moyenne %@, %@ mesures"
           }
         }
       }
     },
-    "Record battu": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New record"
+    "Record battu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New record"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record battu"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record battu"
           }
         }
       }
     },
-    "Record battu !": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "New record!"
+    "Record battu !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New record!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record battu !"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record battu !"
           }
         }
       }
     },
-    "Records": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Records"
+    "Records" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Records"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Records"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Records"
           }
         }
       }
     },
-    "Reprendre": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resume"
+    "Reprendre" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reprendre"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reprendre"
           }
         }
       }
     },
-    "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obey traffic laws. Acceleration timing is only for places where it is legal and safe."
+    "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obey traffic laws. Acceleration timing is only for places where it is legal and safe."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger."
           }
         }
       }
     },
-    "Revoir le trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Replay trip"
+    "Revoir le trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replay trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Revoir le trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revoir le trajet"
           }
         }
       }
     },
-    "Roulez en sécurité": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ride safely"
+    "Roulez en sécurité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride safely"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Roulez en sécurité"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roulez en sécurité"
           }
         }
       }
     },
-    "Roulez ensemble et voyez où sont vos amis, en direct.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ride together and see where your friends are, live."
+    "Roulez ensemble et voyez où sont vos amis, en direct." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride together and see where your friends are, live."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Roulez ensemble et voyez où sont vos amis, en direct."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roulez ensemble et voyez où sont vos amis, en direct."
           }
         }
       }
     },
-    "Réglages": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "Réglages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réglages"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages"
           }
         }
       }
     },
-    "Résumé du trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip summary"
+    "Résumé du trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip summary"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Résumé du trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Résumé du trajet"
           }
         }
       }
     },
-    "Scanner un QR code": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scan a QR code"
+    "Scanner un QR code" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scan a QR code"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scanner un QR code"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanner un QR code"
           }
         }
       }
     },
-    "Scooter Power a besoin de votre position pour mesurer le trajet.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scooter Power needs your location to measure the trip."
+    "Scooter Power a besoin de votre position pour mesurer le trajet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power needs your location to measure the trip."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scooter Power a besoin de votre position pour mesurer le trajet."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power a besoin de votre position pour mesurer le trajet."
           }
         }
       }
     },
-    "Seuil : %@ %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Limit: %@ %@"
+    "Seuil : %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit: %@ %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seuil : %@ %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seuil : %@ %@"
           }
         }
       }
     },
-    "Signal GPS faible": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Weak GPS signal"
+    "Signal GPS faible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weak GPS signal"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Signal GPS faible"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signal GPS faible"
           }
         }
       }
     },
-    "Stable": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Steady"
+    "Stable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steady"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stable"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stable"
           }
         }
       }
     },
-    "Statistiques": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistics"
+    "Statistiques" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistics"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statistiques"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Statistiques"
           }
         }
       }
     },
-    "Suivre le scooter": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Follow the scooter"
+    "Suivre le scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow the scooter"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suivre le scooter"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivre le scooter"
           }
         }
       }
     },
-    "Supprimer": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
+    "Supprimer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Supprimer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
           }
         }
       }
     },
-    "Temps": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time"
+    "Temps" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temps"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temps"
           }
         }
       }
     },
-    "Temps d'accélération": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Acceleration times"
+    "Temps d'accélération" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceleration times"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Temps d'accélération"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temps d'accélération"
           }
         }
       }
     },
-    "Terminer": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "End"
+    "Terminer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terminer"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer"
           }
         }
       }
     },
-    "Terminer le trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "End trip"
+    "Terminer le trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terminer le trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer le trajet"
           }
         }
       }
     },
-    "Terminer le trajet ?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "End trip?"
+    "Terminer le trajet ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End trip?"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terminer le trajet ?"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer le trajet ?"
           }
         }
       }
     },
-    "Totaux": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Totals"
+    "Totaux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Totals"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Totaux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Totaux"
           }
         }
       }
     },
-    "Toutes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All"
+    "Toutes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toutes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes"
           }
         }
       }
     },
-    "Tracé indisponible pour ce trajet.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No route available for this trip."
+    "Tracé indisponible pour ce trajet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No route available for this trip."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tracé indisponible pour ce trajet."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tracé indisponible pour ce trajet."
           }
         }
       }
     },
-    "Trajet A": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip A"
+    "Trajet A" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip A"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajet A"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajet A"
           }
         }
       }
     },
-    "Trajet A : %@. Trajet B : %@.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip A: %@. Trip B: %@."
+    "Trajet A : %@. Trajet B : %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip A: %@. Trip B: %@."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajet A : %@. Trajet B : %@."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajet A : %@. Trajet B : %@."
           }
         }
       }
     },
-    "Trajet B": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trip B"
+    "Trajet B" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip B"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajet B"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajet B"
           }
         }
       }
     },
-    "Trajet illisible": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unreadable trip"
+    "Trajet illisible" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unreadable trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajet illisible"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajet illisible"
           }
         }
       }
     },
-    "Trajets": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trips"
+    "Trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trips"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajets"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajets"
           }
         }
       }
     },
-    "Trajets des amis": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Friends' trips"
+    "Trajets des amis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Friends' trips"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajets des amis"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajets des amis"
           }
         }
       }
     },
-    "Trajets enregistrés": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saved trips"
+    "Trajets enregistrés" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved trips"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trajets enregistrés"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trajets enregistrés"
           }
         }
       }
     },
-    "Unités": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Units"
+    "Unités" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Units"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unités"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unités"
           }
         }
       }
     },
-    "Vers la droite": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To the right"
+    "Vers la droite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To the right"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vers la droite"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vers la droite"
           }
         }
       }
     },
-    "Vers la gauche": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "To the left"
+    "Vers la gauche" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To the left"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vers la gauche"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vers la gauche"
           }
         }
       }
     },
-    "Version": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Version"
+    "Version" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Version"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
           }
         }
       }
     },
-    "Visez le QR code de la balade": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Point at the ride QR code"
+    "Visez le QR code de la balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Point at the ride QR code"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Visez le QR code de la balade"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visez le QR code de la balade"
           }
         }
       }
     },
-    "Vitesse actuelle": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Current speed"
+    "Vitesse actuelle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse actuelle"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse actuelle"
           }
         }
       }
     },
-    "Vitesse de lecture": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playback speed"
+    "Vitesse de lecture" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playback speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse de lecture"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse de lecture"
           }
         }
       }
     },
-    "Vitesse max.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Top speed"
+    "Vitesse max." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse max."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse max."
           }
         }
       }
     },
-    "Vitesse max. moyenne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Average top speed"
+    "Vitesse max. moyenne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average top speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse max. moyenne"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse max. moyenne"
           }
         }
       }
     },
-    "Vitesse maximale": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Top speed"
+    "Vitesse maximale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse maximale"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse maximale"
           }
         }
       }
     },
-    "Vitesse moy.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avg speed"
+    "Vitesse moy." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avg speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse moy."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse moy."
           }
         }
       }
     },
-    "Vitesse moyenne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Average speed"
+    "Vitesse moyenne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average speed"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse moyenne"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse moyenne"
           }
         }
       }
     },
-    "Vitesse moyenne (trajet ancien)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Average speed (older trip)"
+    "Vitesse moyenne (trajet ancien)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average speed (older trip)"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vitesse moyenne (trajet ancien)"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitesse moyenne (trajet ancien)"
           }
         }
       }
     },
-    "Voir tous les pilotes": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Show all riders"
+    "Voir tous les pilotes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all riders"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voir tous les pilotes"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir tous les pilotes"
           }
         }
       }
     },
-    "Voir tout le trajet": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Show the whole trip"
+    "Voir tout le trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show the whole trip"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voir tout le trajet"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir tout le trajet"
           }
         }
       }
     },
-    "Vos performances apparaîtront ici après votre premier trajet.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your performance will appear here after your first trip."
+    "Vos performances apparaîtront ici après votre premier trajet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your performance will appear here after your first trip."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vos performances apparaîtront ici après votre premier trajet."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos performances apparaîtront ici après votre premier trajet."
           }
         }
       }
     },
-    "Vos trajets terminés apparaîtront ici.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your finished trips will appear here."
+    "Vos trajets terminés apparaîtront ici." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your finished trips will appear here."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vos trajets terminés apparaîtront ici."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos trajets terminés apparaîtront ici."
           }
         }
       }
     },
-    "ancien %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "previous %@"
+    "ancien %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "previous %@"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ancien %@"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ancien %@"
           }
         }
       }
     },
-    "hors ligne": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "offline"
+    "hors ligne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "offline"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "hors ligne"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hors ligne"
           }
         }
       }
     },
-    "identique": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "same"
+    "identique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "same"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "identique"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "identique"
           }
         }
       }
     },
-    "inconnue": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "unknown"
+    "inconnue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unknown"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "inconnue"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "inconnue"
           }
         }
       }
     },
-    "mieux": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "better"
+    "mieux" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "better"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "mieux"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mieux"
           }
         }
       }
     },
-    "moins bien": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "worse"
+    "moins bien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "worse"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "moins bien"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "moins bien"
           }
         }
       }
     },
-    "non comparable": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "not comparable"
+    "non comparable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not comparable"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "non comparable"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "non comparable"
           }
         }
       }
     },
-    "À propos": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About"
+    "À propos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "À propos"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos"
           }
         }
       }
     },
-    "Égalité.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tie."
+    "Égalité." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tie."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Égalité."
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Égalité."
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

@@ -268,7 +268,9 @@ def catalog(entries):
 
 def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
+        # Même mise en forme qu'Xcode (« clé : valeur ») : il n'a plus de raison
+        # de réécrire ces fichiers, ce qui évite des conflits lors des mises à jour.
+        json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True, separators=(",", " : "))
         f.write("\n")
 
 root = sys.argv[1]
