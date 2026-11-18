@@ -1,10 +1,10 @@
 import ContactsUI
 import SwiftUI
+import UIKit
 
 /// Réglages de sécurité : détection de chute et contacts d'urgence, annonces vocales.
 struct SafetySettingsSection: View {
     private let settings = AppSettings.shared
-    @State private var showPicker = false
 
     private var crashEnabled: Binding<Bool> {
         Binding(get: { settings.crashDetectionEnabled }, set: { value in
@@ -36,7 +36,9 @@ struct SafetySettingsSection: View {
                 .onDelete { settings.removeEmergencyContacts(at: $0) }
                 if settings.emergencyContacts.count < AppSettings.maxEmergencyContacts {
                     Button {
-                        showPicker = true
+                        ContactPickerPresenter.shared.present { name, phone in
+                            settings.addEmergencyContact(EmergencyContact(name: name, phone: phone))
+                        }
                     } label: {
                         Label(L("Ajouter un contact d'urgence"), systemImage: "plus.circle.fill")
                     }
@@ -46,15 +48,6 @@ struct SafetySettingsSection: View {
             Text(L("Sécurité"))
         } footer: {
             Text(L("Après une chute probable, l'iPhone sonne et affiche un compte à rebours de 30 secondes. Sans réponse, un SMS avec votre position est prêt à partir vers vos contacts : iOS demande de toucher Envoyer."))
-        }
-        .sheet(isPresented: $showPicker) {
-            ContactPicker { name, phone in
-                settings.addEmergencyContact(EmergencyContact(name: name, phone: phone))
-                showPicker = false
-            } onCancel: {
-                showPicker = false
-            }
-            .ignoresSafeArea()
         }
 
         Section {
@@ -74,41 +67,49 @@ struct SafetySettingsSection: View {
 
 /// Sélecteur de contacts d'iOS, limité aux numéros de téléphone. Aucune
 /// autorisation d'accès aux contacts n'est nécessaire.
-private struct ContactPicker: UIViewControllerRepresentable {
-    let onPick: (String, String) -> Void
-    let onCancel: () -> Void
+/// Présenté directement par UIKit : placé dans une feuille SwiftUI, ce
+/// sélecteur (qui tourne dans un processus à part) se referme aussitôt.
+@MainActor
+final class ContactPickerPresenter: NSObject, CNContactPickerDelegate {
+    static let shared = ContactPickerPresenter()
+    private var onPick: ((String, String) -> Void)?
 
-    func makeCoordinator() -> Coordinator { Coordinator(onPick: onPick, onCancel: onCancel) }
-
-    func makeUIViewController(context: Context) -> CNContactPickerViewController {
+    func present(onPick: @escaping (String, String) -> Void) {
+        guard let top = Self.topViewController() else { return }
+        self.onPick = onPick
         let picker = CNContactPickerViewController()
         picker.displayedPropertyKeys = [CNContactPhoneNumbersKey]
         picker.predicateForEnablingContact = NSPredicate(format: "phoneNumbers.@count > 0")
+        // Toucher un contact ouvre sa fiche : on choisit ensuite le numéro.
         picker.predicateForSelectionOfContact = NSPredicate(value: false)
-        picker.delegate = context.coordinator
-        return picker
+        picker.delegate = self
+        top.present(picker, animated: true)
     }
 
-    func updateUIViewController(_ controller: CNContactPickerViewController, context: Context) {}
-
-    final class Coordinator: NSObject, CNContactPickerDelegate {
-        let onPick: (String, String) -> Void
-        let onCancel: () -> Void
-
-        init(onPick: @escaping (String, String) -> Void, onCancel: @escaping () -> Void) {
-            self.onPick = onPick
-            self.onCancel = onCancel
+    nonisolated func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
+        guard let number = contactProperty.value as? CNPhoneNumber else { return }
+        let contact: CNContact = contactProperty.contact
+        let name: String = CNContactFormatter.string(from: contact, style: .fullName) ?? number.stringValue
+        let phone: String = number.stringValue
+        Task { @MainActor in
+            self.onPick?(name, phone)
+            self.onPick = nil
         }
+    }
 
-        func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
-            guard let number = contactProperty.value as? CNPhoneNumber else { return }
-            let contact: CNContact = contactProperty.contact
-            let name: String = CNContactFormatter.string(from: contact, style: .fullName) ?? number.stringValue
-            onPick(name, number.stringValue)
-        }
+    nonisolated func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
+        Task { @MainActor in self.onPick = nil }
+    }
 
-        func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
-            onCancel()
+    /// L'écran affiché au premier plan (la feuille des Réglages, ici).
+    private static func topViewController() -> UIViewController? {
+        let scene = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first { $0.activationState == .foregroundActive }
+        var top: UIViewController? = scene?.windows.first { $0.isKeyWindow }?.rootViewController
+        while let presented = top?.presentedViewController {
+            top = presented
         }
+        return top
     }
 }
