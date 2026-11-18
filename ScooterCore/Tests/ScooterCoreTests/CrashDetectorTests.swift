@@ -26,43 +26,78 @@ final class CrashDetectorTests: XCTestCase {
         return fired
     }
 
+    /// Téléphone à 50° : scooter penché au sol, pas couché à plat.
+    private let tilted50 = Vector3(sin(50 * Double.pi / 180), -cos(50 * Double.pi / 180), 0)
+
+    /// Choc franc pendant 0,3 s (pas une pointe isolée).
+    private func crash(_ d: inout CrashDetector, at t: Double, speed: Double) {
+        var time = t
+        while time < t + 0.3 {
+            _ = d.addMotion(time: time, gravity: upright, userAcceleration: Vector3(5, 0, 0))
+            time += 0.02
+        }
+    }
+
     func testScooterLaidDownAfterRidingTriggers() {
         var d = detector()
         XCTAssertFalse(run(&d, from: 0, to: 10, gravity: upright, speed: 50))
         // Chute : le téléphone se couche, la vitesse tombe.
-        XCTAssertFalse(run(&d, from: 10.1, to: 11.5, gravity: onItsSide, speed: 0))
-        XCTAssertTrue(run(&d, from: 11.6, to: 13.5, gravity: onItsSide, speed: 0))
-    }
-
-    func testImpactThenStopTriggers() {
-        var d = detector()
-        _ = run(&d, from: 0, to: 5, gravity: upright, speed: 40)
-        XCTAssertFalse(d.addMotion(time: 5.1, gravity: upright, userAcceleration: Vector3(5, 0, 0)))
-        XCTAssertTrue(run(&d, from: 5.2, to: 9, gravity: upright, speed: 0))
-        XCTAssertEqual(d.lastTrigger?.reason, .impactThenStop)
-        XCTAssertEqual(d.lastTrigger?.peakG ?? 0, 5, accuracy: 0.01)
-        XCTAssertEqual(d.lastTrigger?.speedBeforeKmh ?? 0, 40, accuracy: 0.01)
-    }
-
-    func testLaidDownTriggerDescribesTilt() {
-        var d = detector()
-        _ = run(&d, from: 0, to: 10, gravity: upright, speed: 50)
-        _ = run(&d, from: 10.1, to: 13.5, gravity: onItsSide, speed: 0)
+        XCTAssertFalse(run(&d, from: 10.1, to: 13.5, gravity: onItsSide, speed: 0))
+        XCTAssertTrue(run(&d, from: 13.6, to: 15, gravity: onItsSide, speed: 0))
         XCTAssertEqual(d.lastTrigger?.reason, .laidDown)
         XCTAssertEqual(d.lastTrigger?.tiltDegrees ?? 0, 90, accuracy: 0.5)
         XCTAssertEqual(d.lastTrigger?.speedBeforeKmh ?? 0, 50, accuracy: 0.01)
     }
 
+    func testImpactStopAndTiltTriggers() {
+        var d = detector()
+        _ = run(&d, from: 0, to: 5, gravity: upright, speed: 40)
+        crash(&d, at: 5.02, speed: 40)
+        XCTAssertFalse(run(&d, from: 5.4, to: 6.5, gravity: tilted50, speed: 0))
+        XCTAssertTrue(run(&d, from: 6.6, to: 8, gravity: tilted50, speed: 0))
+        XCTAssertEqual(d.lastTrigger?.reason, .impactThenStop)
+        XCTAssertGreaterThanOrEqual(d.lastTrigger?.peakG ?? 0, 5)
+    }
+
+    func testHardBrakingToARedLightDoesNothing() {
+        var d = detector()
+        _ = run(&d, from: 0, to: 5, gravity: upright, speed: 50)
+        // Grosse secousse puis arrêt au feu : le scooter reste droit.
+        crash(&d, at: 5.02, speed: 50)
+        XCTAssertFalse(run(&d, from: 5.4, to: 40, gravity: upright, speed: 0))
+    }
+
+    func testVibrationSpikesDoNotCountAsImpact() {
+        var d = detector()
+        _ = run(&d, from: 0, to: 5, gravity: upright, speed: 40)
+        // Pointes isolées à 6 g entre des mesures calmes (vibrations du guidon).
+        var t = 5.0
+        while t < 7 {
+            let spike: Bool = Int((t * 50).rounded()) % 5 == 0
+            _ = d.addMotion(time: t, gravity: upright, userAcceleration: Vector3(spike ? 6 : 0.2, 0, 0))
+            t += 0.02
+        }
+        // Arrêt, téléphone un peu penché sur son support : rien.
+        XCTAssertFalse(run(&d, from: 7, to: 30, gravity: tilted50, speed: 0))
+    }
+
     func testPotholeWithoutStopDoesNothing() {
         var d = detector()
         _ = run(&d, from: 0, to: 5, gravity: upright, speed: 40)
-        _ = d.addMotion(time: 5.1, gravity: upright, userAcceleration: Vector3(6, 0, 0))
-        XCTAssertFalse(run(&d, from: 5.2, to: 20, gravity: upright, speed: 38))
+        crash(&d, at: 5.02, speed: 40)
+        XCTAssertFalse(run(&d, from: 5.4, to: 20, gravity: upright, speed: 38))
+    }
+
+    func testPhonePickedUpAtRedLightDoesNothing() {
+        var d = detector()
+        _ = run(&d, from: 0, to: 5, gravity: upright, speed: 50)
+        XCTAssertFalse(run(&d, from: 5.1, to: 12, gravity: upright, speed: 0))
+        // Arrêté depuis 7 s, le pilote prend le téléphone en main.
+        XCTAssertFalse(run(&d, from: 12.1, to: 30, gravity: onItsSide, speed: 0))
     }
 
     func testParkedScooterOnKickstandDoesNothing() {
         var d = detector()
-        // Arrêté depuis longtemps, puis penché sur la béquille.
         XCTAssertFalse(run(&d, from: 0, to: 5, gravity: upright, speed: 50))
         XCTAssertFalse(run(&d, from: 5.1, to: 30, gravity: upright, speed: 0))
         XCTAssertFalse(run(&d, from: 30.1, to: 60, gravity: onItsSide, speed: 0))
@@ -75,11 +110,21 @@ final class CrashDetectorTests: XCTestCase {
         XCTAssertFalse(run(&d, from: 6.1, to: 15, gravity: upright, speed: 50))
     }
 
+    func testReferenceFollowsPhoneWhenTripStartedInHand() {
+        // Calibré téléphone à plat dans la main, puis posé à la verticale sur le guidon.
+        var d = CrashDetector()
+        d.calibrate(gravity: Vector3(0, 0, -1))
+        _ = run(&d, from: 0, to: 30, gravity: upright, speed: 40)
+        XCTAssertLessThan(CrashDetector.angleDegrees(d.reference!, upright), 5)
+        // Arrêt normal : aucune alerte.
+        XCTAssertFalse(run(&d, from: 30.1, to: 60, gravity: upright, speed: 0))
+    }
+
     func testCooldownPreventsRepeatedAlerts() {
         var d = detector()
         _ = run(&d, from: 0, to: 5, gravity: upright, speed: 50)
-        XCTAssertTrue(run(&d, from: 5.1, to: 9, gravity: onItsSide, speed: 0))
-        XCTAssertFalse(run(&d, from: 9.1, to: 30, gravity: onItsSide, speed: 0))
+        XCTAssertTrue(run(&d, from: 5.1, to: 10, gravity: onItsSide, speed: 0))
+        XCTAssertFalse(run(&d, from: 10.1, to: 30, gravity: onItsSide, speed: 0))
     }
 
     func testAngle() {

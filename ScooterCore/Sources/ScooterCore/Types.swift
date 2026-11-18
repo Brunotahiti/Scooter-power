@@ -24,6 +24,8 @@ public struct Vector3: Sendable, Equatable {
 
     public func scaled(_ k: Double) -> Vector3 { Vector3(x * k, y * k, z * k) }
 
+    public func plus(_ o: Vector3) -> Vector3 { Vector3(x + o.x, y + o.y, z + o.z) }
+
     public func minus(_ o: Vector3) -> Vector3 { Vector3(x - o.x, y - o.y, z - o.z) }
 
     /// `nil` si le vecteur est nul (ou presque) ou contient une valeur non finie.
