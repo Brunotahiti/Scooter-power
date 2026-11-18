@@ -1073,6 +1073,22 @@
         }
       }
     },
+    "Battez vos records" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beat your records"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Battez vos records"
+          }
+        }
+      }
+    },
     "Bouton Action de l'iPhone : Réglages > Bouton Action > Raccourci > Scooter Power." : {
       "localizations" : {
         "en" : {
@@ -1085,6 +1101,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bouton Action de l'iPhone : Réglages > Bouton Action > Raccourci > Scooter Power."
+          }
+        }
+      }
+    },
+    "C'est parti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's ride"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "C'est parti"
           }
         }
       }
@@ -1213,6 +1245,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez."
+          }
+        }
+      }
+    },
+    "Chaque trajet est enregistré. Revivez-le vu du ciel, sur photo satellite, et partagez-le en vidéo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every trip is saved. Relive it from above, on satellite imagery, and share it as a video."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaque trajet est enregistré. Revivez-le vu du ciel, sur photo satellite, et partagez-le en vidéo."
           }
         }
       }
@@ -1809,6 +1857,22 @@
         }
       }
     },
+    "En cas de chute, l'app sonne et propose de prévenir vos proches avec votre position. Ajoutez vos contacts dans les Réglages." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you crash, the app sounds an alarm and offers to alert your loved ones with your location. Add your contacts in Settings."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cas de chute, l'app sonne et propose de prévenir vos proches avec votre position. Ajoutez vos contacts dans les Réglages."
+          }
+        }
+      }
+    },
     "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet." : {
       "localizations" : {
         "en" : {
@@ -2017,6 +2081,22 @@
         }
       }
     },
+    "Fixez l'iPhone au guidon et touchez Démarrer. Vitesse, inclinaison, accélération et chronos s'affichent en direct." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mount the iPhone on the handlebar and tap Start. Speed, lean angle, acceleration and timings show live."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fixez l'iPhone au guidon et touchez Démarrer. Vitesse, inclinaison, accélération et chronos s'affichent en direct."
+          }
+        }
+      }
+    },
     "Fixez solidement le téléphone au guidon avant de partir." : {
       "localizations" : {
         "en" : {
@@ -2093,6 +2173,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Garage"
+          }
+        }
+      }
+    },
+    "Garage et départ automatique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garage and auto start"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garage et départ automatique"
           }
         }
       }
@@ -2349,6 +2445,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jusqu'à 5 pilotes sur la même carte"
+          }
+        }
+      }
+    },
+    "Jusqu'à 5 pilotes sur la même carte : un QR code suffit pour rejoindre la balade." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up to 5 riders on the same map: scan a QR code to join the ride."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jusqu'à 5 pilotes sur la même carte : un QR code suffit pour rejoindre la balade."
           }
         }
       }
@@ -3185,6 +3297,22 @@
         }
       }
     },
+    "Passer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passer"
+          }
+        }
+      }
+    },
     "Pause" : {
       "localizations" : {
         "en" : {
@@ -3889,6 +4017,22 @@
         }
       }
     },
+    "Roulez en groupe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride together"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roulez en groupe"
+          }
+        }
+      }
+    },
     "Roulez en sécurité" : {
       "localizations" : {
         "en" : {
@@ -3917,6 +4061,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Roulez ensemble et voyez où sont vos amis, en direct."
+          }
+        }
+      }
+    },
+    "Roulez protégé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride safer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roulez protégé"
           }
         }
       }
@@ -4141,6 +4301,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Statistiques"
+          }
+        }
+      }
+    },
+    "Suivant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivant"
+          }
+        }
+      }
+    },
+    "Suivez l'entretien de votre scooter. Démarrez avec Siri, le widget ou la connexion de votre casque." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track your scooter's maintenance. Start with Siri, the widget or when your headset connects."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivez l'entretien de votre scooter. Démarrez avec Siri, le widget ou la connexion de votre casque."
           }
         }
       }
@@ -4877,6 +5069,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vos trajets terminés apparaîtront ici."
+          }
+        }
+      }
+    },
+    "Votre tableau de bord" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your dashboard"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre tableau de bord"
           }
         }
       }

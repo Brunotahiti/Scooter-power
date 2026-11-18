@@ -6,6 +6,8 @@ import SwiftUI
 struct ScooterPowerApp: App {
     /// Vrai une fois l'avertissement de sécurité lu au premier lancement.
     @AppStorage("safetyNoticeAccepted") private var safetyNoticeAccepted = false
+    /// Vrai une fois le tutoriel vu (ou passé).
+    @AppStorage("onboardingDone") private var onboardingDone = false
     /// Vrai une fois l'animation d'ouverture jouée (à chaque lancement de l'app).
     @State private var introDone = false
 
@@ -36,6 +38,9 @@ struct ScooterPowerApp: App {
             ZStack {
                 if safetyNoticeAccepted {
                     TripScreen()
+                        .fullScreenCover(isPresented: Binding(get: { introDone && !onboardingDone }, set: { _ in })) {
+                            OnboardingView(onFinish: { onboardingDone = true })
+                        }
                 } else {
                     SafetyNoticeView(onAccept: { safetyNoticeAccepted = true })
                 }
