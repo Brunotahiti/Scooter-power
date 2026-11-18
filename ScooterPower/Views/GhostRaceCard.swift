@@ -5,6 +5,8 @@ import ScooterCore
 /// parcours, puis le résultat à l'arrivée.
 struct GhostRaceCard: View {
     let model: TripViewModel
+    /// Dans la liste des cartes (portrait) plutôt que posé sur le compteur (paysage).
+    var inline = false
     private let units = AppSettings.shared.units
 
     var body: some View {
@@ -43,12 +45,17 @@ struct GhostRaceCard: View {
                 }
             }
             .padding(12)
-            .background(.black.opacity(0.78), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(
+                ZStack {
+                    Theme.card
+                    LinearGradient(colors: [headlineColor.opacity(0.18), Color.clear], startPoint: .leading, endPoint: .trailing)
+                },
+                in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .stroke(headlineColor.opacity(0.5), lineWidth: 1))
-            .frame(maxWidth: 460)
-            .padding(.horizontal, 16)
+            .frame(maxWidth: inline ? .infinity : 460)
+            .padding(.horizontal, inline ? 0 : 16)
             .transition(.move(edge: .top).combined(with: .opacity))
         }
     }

@@ -41,12 +41,13 @@ struct GhostRaceMap: View {
                     .stroke(SpeedometerView.neonRed.opacity(0.9), style: StrokeStyle(lineWidth: 6, lineCap: .round, lineJoin: .round))
             }
             if racing, let ghost = model.ghostStatus?.ghostCoordinate {
-                Annotation("", coordinate: ghost.mapCoordinate) {
+                // Le scooter (et non l'étiquette) sur la position.
+                Annotation("", coordinate: ghost.mapCoordinate, anchor: UnitPoint(x: 0.5, y: 0.3)) {
                     RaceMarker(name: L("Ghost"), color: .white, heading: ghostHeading, ghost: true)
                 }
             }
             if let me {
-                Annotation("", coordinate: me.mapCoordinate) {
+                Annotation("", coordinate: me.mapCoordinate, anchor: UnitPoint(x: 0.5, y: 0.7)) {
                     RaceMarker(name: L("Moi"), color: SpeedometerView.neonRed, heading: myHeading, ghost: false)
                 }
             }
@@ -155,7 +156,15 @@ private struct RaceMarker: View {
 
     var body: some View {
         VStack(spacing: 2) {
-            Text(verbatim: ghost ? "👻 " + name : name)
+            if ghost { scooterView }
+            tag
+            if !ghost { scooterView }
+        }
+    }
+
+    /// Étiquette au-dessus de moi, sous le ghost : les deux restent lisibles côte à côte.
+    private var tag: some View {
+        Text(verbatim: ghost ? "👻 " + name : name)
                 .font(.system(size: 12, weight: .heavy))
                 .italic()
                 .foregroundStyle(.white)
@@ -163,12 +172,14 @@ private struct RaceMarker: View {
                 .padding(.vertical, 3)
                 .background(ghost ? Color.black.opacity(0.6) : color.opacity(0.85), in: Capsule())
                 .overlay(Capsule().stroke(color, lineWidth: 1))
-            scooter
-                .frame(width: 34, height: 34)
-                .rotationEffect(.degrees(heading))
-                .opacity(ghost ? 0.6 : 1)
-                .shadow(color: color, radius: ghost ? 8 : 4)
-        }
+    }
+
+    private var scooterView: some View {
+        scooter
+            .frame(width: 34, height: 34)
+            .rotationEffect(.degrees(heading))
+            .opacity(ghost ? 0.6 : 1)
+            .shadow(color: color, radius: ghost ? 8 : 4)
     }
 
     @ViewBuilder

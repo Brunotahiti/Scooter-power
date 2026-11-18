@@ -33,8 +33,11 @@ struct TripScreen: View {
             // Changer de langue reconstruit l'écran (le trajet en cours, gardé par `model`, continue).
             .id(settings.language)
             .overlay(alignment: .top) {
-                GhostRaceCard(model: model)
-                    .padding(.top, verticalSizeClass == .compact ? 8 : 52)
+                // En paysage seulement : en portrait, le bandeau est dans la liste des cartes.
+                if verticalSizeClass == .compact {
+                    GhostRaceCard(model: model)
+                        .padding(.top, 8)
+                }
             }
             .overlay(alignment: .top) {
                 recordBanner
@@ -137,7 +140,12 @@ struct TripScreen: View {
             VStack(spacing: 6) {
                 gauge
                 banners
-                speedCards
+                if model.ghostTitle != nil {
+                    // Course contre le ghost : l'écart remplace vitesse max et moyenne.
+                    GhostRaceCard(model: model, inline: true)
+                } else {
+                    speedCards
+                }
                 tripCards
                 if model.ghostTitle != nil {
                     // Course contre le ghost : la carte de la course remplace les mesures.
