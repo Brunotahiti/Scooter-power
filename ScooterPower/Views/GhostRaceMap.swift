@@ -16,6 +16,8 @@ struct GhostRaceMap: View {
     /// Les deux scooters roulent côte à côte, chacun sur sa voie (en mètres).
     private static let laneOffset: Double = 4
     static let ghostBlue = Color(hex: 0x2EA8FF)
+    /// Le parcours à suivre.
+    static let routeYellow = Color(hex: 0xFFD60A)
     private static let red: Color = SpeedometerView.neonRed
 
     /// Orientation actuelle de la carte, pour tourner les scooters dans le bon sens.
@@ -27,19 +29,19 @@ struct GhostRaceMap: View {
         return Map(position: $position, interactionModes: [.zoom]) {
             if model.ghostRoute.count > 1 {
                 // Le parcours à suivre, bien visible même sur la photo satellite :
-                // bordure sombre, trait blanc en pointillés et flèches de direction.
+                // bordure sombre, trait jaune en pointillés et flèches de direction.
                 let path: [CLLocationCoordinate2D] = model.ghostRoute.map(\.mapCoordinate)
                 MapPolyline(coordinates: path)
                     .stroke(Color.black.opacity(0.6), style: StrokeStyle(lineWidth: 11, lineCap: .round, lineJoin: .round))
                 MapPolyline(coordinates: path)
-                    .stroke(Color.white.opacity(0.95), style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round, dash: [14, 9]))
+                    .stroke(Self.routeYellow, style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round, dash: [14, 9]))
                 ForEach(Array(arrows.enumerated()), id: \.offset) { _, arrow in
                     Annotation("", coordinate: arrow.coordinate.mapCoordinate) {
                         Image(systemName: "chevron.up")
                             .font(.system(size: 11, weight: .black))
                             .foregroundStyle(.black)
                             .frame(width: 18, height: 18)
-                            .background(Color.white, in: Circle())
+                            .background(Self.routeYellow, in: Circle())
                             .rotationEffect(.degrees(arrow.bearing - mapHeading))
                     }
                 }
