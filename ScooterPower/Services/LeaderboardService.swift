@@ -78,8 +78,9 @@ enum LeaderboardService {
         query.sortDescriptors = [NSSortDescriptor(key: "seconds", ascending: true)]
         let (results, _) = try await database.records(matching: query, resultsLimit: 50)
         let prefix: String = "lb_" + myID + "_"
-        return results.compactMap { id, result in
-            guard let record = try? result.get(), let seconds = record["seconds"] as? Double else { return nil }
+        return results.compactMap { entry -> LeaderboardRow? in
+            let id: CKRecord.ID = entry.0
+            guard let record = try? entry.1.get(), let seconds = record["seconds"] as? Double else { return nil }
             return LeaderboardRow(
                 id: id.recordName,
                 rider: (record["rider"] as? String).flatMap { $0.isEmpty ? nil : $0 } ?? L("Pilote"),
