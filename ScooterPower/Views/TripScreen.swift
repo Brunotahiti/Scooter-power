@@ -14,6 +14,9 @@ struct TripScreen: View {
     @State private var showRecords = false
     @State private var showStats = false
     @State private var showGroupRide = false
+    @State private var showGarage = false
+    @Query private var scooters: [Scooter]
+    @Query private var maintenance: [MaintenanceTask]
     private let settings = AppSettings.shared
     @Environment(\.modelContext) private var modelContext
     /// Tous les trajets enregistrés : la source des records.
@@ -70,6 +73,9 @@ struct TripScreen: View {
             .fullScreenCover(isPresented: $showGroupRide) {
                 GroupRideView()
             }
+            .sheet(isPresented: $showGarage) {
+                GarageView()
+            }
             .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
@@ -92,7 +98,8 @@ struct TripScreen: View {
                 onHistory: { showHistory = true },
                 onStats: { showStats = true },
                 onSettings: { showSettings = true },
-                onGroupRide: { showGroupRide = true })
+                onGroupRide: { showGroupRide = true },
+                onGarage: { showGarage = true })
         } else {
             portrait
         }
@@ -161,7 +168,8 @@ struct TripScreen: View {
                 onStats: { showStats = true },
                 onSettings: { showSettings = true },
                 onRecalibrate: { model.recalibrate() },
-                onGroupRide: { showGroupRide = true })
+                onGroupRide: { showGroupRide = true },
+                onGarage: { showGarage = true })
         }
     }
 
@@ -219,9 +227,14 @@ struct TripScreen: View {
         let record = TripRecord(
             startDate: startDate, summary: summary, route: model.route, setupName: settings.currentSetup,
             thrust: model.thrustTrack, highlights: model.highlights, replay: model.replayTrack)
+        let scooter: Scooter? = scooters.first { $0.uid == settings.currentScooterID } ?? scooters.first
+        record.scooterID = scooter?.uid
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()
+        if let scooter {
+            MaintenanceReminder.check(scooter: scooter, tasks: maintenance, trips: history + [record])
+        }
     }
 
     @ViewBuilder

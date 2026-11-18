@@ -14,7 +14,10 @@ struct ScooterPowerApp: App {
     /// iCloud est activée (elle sert seulement à la balade de groupe).
     /// Même fichier qu'avant (`default.store`) : les trajets existants sont conservés.
     private let container: ModelContainer = {
-        let schema = Schema([TripRecord.self, RivalRecord.self, FriendTrip.self, GroupRideRecord.self])
+        let schema = Schema([
+            TripRecord.self, RivalRecord.self, FriendTrip.self, GroupRideRecord.self,
+            Scooter.self, MaintenanceTask.self, FuelEntry.self,
+        ])
         let configuration = ModelConfiguration(schema: schema, cloudKitDatabase: .none)
         do {
             return try ModelContainer(for: schema, configurations: [configuration])

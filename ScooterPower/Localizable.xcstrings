@@ -33,6 +33,22 @@
         }
       }
     },
+    "%@ : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ : %@"
+          }
+        }
+      }
+    },
     "%@ en %@ secondes." : {
       "localizations" : {
         "en" : {
@@ -49,6 +65,22 @@
         }
       }
     },
+    "%@ j" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ d"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ j"
+          }
+        }
+      }
+    },
     "%@ max" : {
       "localizations" : {
         "en" : {
@@ -61,6 +93,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ max"
+          }
+        }
+      }
+    },
+    "%@ mois" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ mo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ mois"
           }
         }
       }
@@ -369,6 +417,22 @@
         }
       }
     },
+    "Actuel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actuel"
+          }
+        }
+      }
+    },
     "Afficher la photo satellite" : {
       "localizations" : {
         "en" : {
@@ -401,6 +465,22 @@
         }
       }
     },
+    "Ajouter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter"
+          }
+        }
+      }
+    },
     "Ajouter un contact d'urgence" : {
       "localizations" : {
         "en" : {
@@ -413,6 +493,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ajouter un contact d'urgence"
+          }
+        }
+      }
+    },
+    "Ajouter un entretien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a service item"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un entretien"
+          }
+        }
+      }
+    },
+    "Ajouter un scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un scooter"
+          }
+        }
+      }
+    },
+    "Ajoutez votre scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoutez votre scooter"
           }
         }
       }
@@ -657,6 +785,22 @@
         }
       }
     },
+    "Au compteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odometer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Au compteur"
+          }
+        }
+      }
+    },
     "Aucun contact d'urgence enregistré. Ajoutez-en dans les réglages." : {
       "localizations" : {
         "en" : {
@@ -749,6 +893,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aujourd'hui"
+          }
+        }
+      }
+    },
+    "Autre entretien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other service"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autre entretien"
           }
         }
       }
@@ -861,6 +1021,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Balades de groupe"
+          }
+        }
+      }
+    },
+    "Carburant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fuel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carburant"
           }
         }
       }
@@ -1073,6 +1249,22 @@
         }
       }
     },
+    "Compteur" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odometer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compteur"
+          }
+        }
+      }
+    },
     "Configuration" : {
       "localizations" : {
         "en" : {
@@ -1153,6 +1345,22 @@
         }
       }
     },
+    "Consommation moyenne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average consumption"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consommation moyenne"
+          }
+        }
+      }
+    },
     "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »." : {
       "localizations" : {
         "en" : {
@@ -1165,6 +1373,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »."
+          }
+        }
+      }
+    },
+    "Courroie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drive belt"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Courroie"
           }
         }
       }
@@ -1229,6 +1453,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date"
+          }
+        }
+      }
+    },
+    "Dernier entretien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last done"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernier entretien"
           }
         }
       }
@@ -1489,6 +1729,38 @@
         }
       }
     },
+    "Entretien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenance"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entretien"
+          }
+        }
+      }
+    },
+    "Entretien à prévoir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maintenance due"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entretien à prévoir"
+          }
+        }
+      }
+    },
     "Envoyer le lien" : {
       "localizations" : {
         "en" : {
@@ -1553,6 +1825,22 @@
         }
       }
     },
+    "Fait" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fait"
+          }
+        }
+      }
+    },
     "Fait avec Scooter Power" : {
       "localizations" : {
         "en" : {
@@ -1565,6 +1853,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fait avec Scooter Power"
+          }
+        }
+      }
+    },
+    "Faites le plein à ras bord et notez-le deux fois de suite pour connaître la consommation." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill the tank to the brim and log it twice in a row to see your fuel economy."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faites le plein à ras bord et notez-le deux fois de suite pour connaître la consommation."
           }
         }
       }
@@ -1645,6 +1949,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Freinage modéré"
+          }
+        }
+      }
+    },
+    "Garage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garage"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Garage"
           }
         }
       }
@@ -1809,6 +2129,22 @@
         }
       }
     },
+    "Intervalle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interval"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intervalle"
+          }
+        }
+      }
+    },
     "Inviter" : {
       "localizations" : {
         "en" : {
@@ -1905,6 +2241,22 @@
         }
       }
     },
+    "Kilométrage actuel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current mileage"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilométrage actuel"
+          }
+        }
+      }
+    },
     "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez." : {
       "localizations" : {
         "en" : {
@@ -1965,6 +2317,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."
+          }
+        }
+      }
+    },
+    "Le kilométrage avance tout seul avec vos trajets. Scooter Power vous prévient avant la vidange, la révision ou les pneus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mileage goes up by itself with your trips. Scooter Power reminds you before the oil change, the service or new tyres."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le kilométrage avance tout seul avec vos trajets. Scooter Power vous prévient avant la vidange, la révision ou les pneus."
+          }
+        }
+      }
+    },
+    "Le modèle sert aussi aux classements entre scooters identiques." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The model is also used for leaderboards between identical scooters."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le modèle sert aussi aux classements entre scooters identiques."
           }
         }
       }
@@ -2049,6 +2433,38 @@
         }
       }
     },
+    "Limite de temps" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time limit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite de temps"
+          }
+        }
+      }
+    },
+    "Lisez le compteur de votre scooter. Ensuite, chaque trajet enregistré l'augmente." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read your scooter's odometer. After that, every recorded trip adds to it."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisez le compteur de votre scooter. Ensuite, chaque trajet enregistré l'augmente."
+          }
+        }
+      }
+    },
     "Ma carte" : {
       "localizations" : {
         "en" : {
@@ -2097,6 +2513,22 @@
         }
       }
     },
+    "Marque et modèle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make and model"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marque et modèle"
+          }
+        }
+      }
+    },
     "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées." : {
       "localizations" : {
         "en" : {
@@ -2125,6 +2557,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mes performances Scooter Power : %@"
+          }
+        }
+      }
+    },
+    "Mes scooters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My scooters"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mes scooters"
           }
         }
       }
@@ -2209,6 +2657,22 @@
         }
       }
     },
+    "Mon scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon scooter"
+          }
+        }
+      }
+    },
     "Moyenne" : {
       "localizations" : {
         "en" : {
@@ -2237,6 +2701,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ne manipulez jamais l'application en roulant. Démarrez et terminez le trajet à l'arrêt."
+          }
+        }
+      }
+    },
+    "Nom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom"
+          }
+        }
+      }
+    },
+    "Nom (facultatif)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name (optional)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom (facultatif)"
+          }
+        }
+      }
+    },
+    "Noter un plein" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log a fill-up"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noter un plein"
           }
         }
       }
@@ -2273,6 +2785,22 @@
         }
       }
     },
+    "Nouveau scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau scooter"
+          }
+        }
+      }
+    },
     "Nouveau trajet" : {
       "localizations" : {
         "en" : {
@@ -2285,6 +2813,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nouveau trajet"
+          }
+        }
+      }
+    },
+    "Nouvel entretien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New service item"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvel entretien"
           }
         }
       }
@@ -2365,6 +2909,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ouvrir Réglages"
+          }
+        }
+      }
+    },
+    "Par exemple : bougie" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For example: spark plug"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par exemple : bougie"
           }
         }
       }
@@ -2561,6 +3121,38 @@
         }
       }
     },
+    "Plaquettes de frein" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brake pads"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plaquettes de frein"
+          }
+        }
+      }
+    },
+    "Plein" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill-up"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plein"
+          }
+        }
+      }
+    },
     "Plus d'options" : {
       "localizations" : {
         "en" : {
@@ -2573,6 +3165,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plus d'options"
+          }
+        }
+      }
+    },
+    "Pneu arrière" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rear tyre"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pneu arrière"
+          }
+        }
+      }
+    },
+    "Pneu avant" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Front tyre"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pneu avant"
           }
         }
       }
@@ -2689,6 +3313,22 @@
         }
       }
     },
+    "Prix payé (facultatif)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Price paid (optional)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prix payé (facultatif)"
+          }
+        }
+      }
+    },
     "Progression du record" : {
       "localizations" : {
         "en" : {
@@ -2781,6 +3421,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "QR code de ma carte de performances"
+          }
+        }
+      }
+    },
+    "Quantité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amount"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quantité"
           }
         }
       }
@@ -2913,6 +3569,22 @@
         }
       }
     },
+    "Remplissez le réservoir à ras bord à chaque fois : la consommation sera exacte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fill the tank to the brim every time for an accurate fuel economy."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remplissez le réservoir à ras bord à chaque fois : la consommation sera exacte."
+          }
+        }
+      }
+    },
     "Reprendre" : {
       "localizations" : {
         "en" : {
@@ -3025,6 +3697,22 @@
         }
       }
     },
+    "Révision" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Révision"
+          }
+        }
+      }
+    },
     "Sans réponse, le message d'alerte avec votre position sera prêt à envoyer à vos contacts." : {
       "localizations" : {
         "en" : {
@@ -3053,6 +3741,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scanner un QR code"
+          }
+        }
+      }
+    },
+    "Scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter"
           }
         }
       }
@@ -3101,6 +3805,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scooter Power a détecté une chute possible. Je ne réponds pas : merci de vérifier que je vais bien."
+          }
+        }
+      }
+    },
+    "Ses entretiens et ses pleins seront supprimés. Les trajets restent dans l'historique." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Its maintenance items and fill-ups will be deleted. Trips stay in your history."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ses entretiens et ses pleins seront supprimés. Les trajets restent dans l'historique."
           }
         }
       }
@@ -3197,6 +3917,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer"
+          }
+        }
+      }
+    },
+    "Supprimer ce scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer ce scooter"
+          }
+        }
+      }
+    },
+    "Supprimer ce scooter ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this scooter?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer ce scooter ?"
           }
         }
       }
@@ -3309,6 +4061,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Totaux"
+          }
+        }
+      }
+    },
+    "Touchez une ligne pour modifier l'intervalle. « Fait » remet le compteur à zéro." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a row to change its interval. “Done” resets the count."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touchez une ligne pour modifier l'intervalle. « Fait » remet le compteur à zéro."
+          }
+        }
+      }
+    },
+    "Tous les" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous les"
           }
         }
       }
@@ -3473,6 +4257,38 @@
         }
       }
     },
+    "Utiliser ce scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser ce scooter"
+          }
+        }
+      }
+    },
+    "Utilisé pour les prochains trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used for upcoming trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisé pour les prochains trajets"
+          }
+        }
+      }
+    },
     "Vers la droite" : {
       "localizations" : {
         "en" : {
@@ -3517,6 +4333,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
+          }
+        }
+      }
+    },
+    "Vidange" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oil change"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vidange"
           }
         }
       }
@@ -3805,6 +4637,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ancien %@"
+          }
+        }
+      }
+    },
+    "dans %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dans %@"
+          }
+        }
+      }
+    },
+    "dépassé de %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "overdue by %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dépassé de %@"
+          }
+        }
+      }
+    },
+    "en retard de %@ j" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ d late"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en retard de %@ j"
           }
         }
       }

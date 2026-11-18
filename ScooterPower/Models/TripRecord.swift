@@ -28,6 +28,8 @@ final class TripRecord {
     /// Meilleurs temps sur les plages en mph (« 0-60 » → secondes), encodés en JSON ;
     /// absents des trajets faits avant la version qui les mesure.
     var imperialTimesData: Data?
+    /// Scooter du garage utilisé pour ce trajet (`Scooter.uid`) ; absent des trajets anciens.
+    var scooterID: String?
     /// Configuration du scooter pendant ce trajet ; absente des trajets anciens.
     var setupName: String?
     /// Poussée le long du tracé allégé, encodée en JSON ; absente des trajets anciens.

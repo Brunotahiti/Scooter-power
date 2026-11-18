@@ -21,6 +21,7 @@ final class AppSettings {
         static let riderName = "riderName"
         static let crashDetection = "crashDetectionEnabled"
         static let voice = "voiceEnabled"
+        static let currentScooter = "currentScooterID"
         static let emergencyContacts = "emergencyContacts"
     }
 
@@ -35,6 +36,8 @@ final class AppSettings {
     private(set) var currentSetup: String
     /// Pseudo affiché sur la carte de performances partagée.
     private(set) var riderName: String
+    /// Scooter du garage utilisé pour les prochains trajets (`Scooter.uid`).
+    private(set) var currentScooterID: String? = UserDefaults.standard.string(forKey: Key.currentScooter)
     /// Annonces vocales (records, chronos, alerte de vitesse) ; activées par défaut.
     private(set) var voiceEnabled: Bool = UserDefaults.standard.object(forKey: Key.voice) as? Bool ?? true
     /// Surveillance des chutes pendant les trajets ; activée par défaut.
@@ -66,6 +69,11 @@ final class AppSettings {
         speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
         currentSetup = Self.cleaned(defaults.string(forKey: Key.currentSetup) ?? "")
         riderName = defaults.string(forKey: Key.riderName) ?? ""
+    }
+
+    func setCurrentScooter(_ id: String?) {
+        currentScooterID = id
+        defaults.set(id, forKey: Key.currentScooter)
     }
 
     func setVoiceEnabled(_ value: Bool) {
