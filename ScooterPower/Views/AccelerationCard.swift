@@ -60,13 +60,13 @@ struct AccelerationCard: View {
         .padding(.vertical, 10)
         .cardStyle(tint: Theme.orange)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Poussée d'accélération")
+        .accessibilityLabel(L("Poussée d'accélération"))
         .accessibilityValue(L("\(valueText) mètres par seconde carrée, \(level.label)"))
     }
 
     private var readout: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text("Poussée d'accélération")
+            Text(L("Poussée d'accélération"))
                 .font(.system(size: 17, weight: .semibold))
             valueLine
             levelPill
@@ -196,13 +196,13 @@ struct AccelerationHistoryCard: View {
         .padding(.vertical, 9)
         .cardStyle()
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("30 dernières secondes")
+        .accessibilityLabel(L("30 dernières secondes"))
         .accessibilityValue(L("Pic : \(peakText)"))
     }
 
     private var header: some View {
         HStack {
-            Text("30 dernières secondes")
+            Text(L("30 dernières secondes"))
                 .font(.system(size: 15, weight: .semibold))
             Spacer()
             Text(L("Pic : \(peakText)"))
@@ -223,18 +223,18 @@ struct AccelerationHistoryCard: View {
         return Chart {
             ForEach(data) { point in
                 AreaMark(
-                    x: .value("Temps", point.id),
-                    yStart: .value("Accélération", 0.0),
-                    yEnd: .value("Accélération", point.value))
+                    x: .value(L("Temps"), point.id),
+                    yStart: .value(L("Accélération"), 0.0),
+                    yEnd: .value(L("Accélération"), point.value))
                     .interpolationMethod(.monotone)
                     .foregroundStyle(fill)
-                LineMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
+                LineMark(x: .value(L("Temps"), point.id), y: .value(L("Accélération"), point.value))
                     .interpolationMethod(.monotone)
                     .foregroundStyle(Theme.cyan)
                     .lineStyle(StrokeStyle(lineWidth: 2))
             }
             if let top {
-                PointMark(x: .value("Temps", top.id), y: .value("Accélération", top.value))
+                PointMark(x: .value(L("Temps"), top.id), y: .value(L("Accélération"), top.value))
                     .foregroundStyle(Theme.orange)
                     .symbolSize(45)
             }

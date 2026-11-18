@@ -12,7 +12,7 @@ struct SafetyNoticeView: View {
                 .font(.system(size: 54))
                 .foregroundStyle(Theme.orange)
 
-            Text("Roulez en sécurité")
+            Text(L("Roulez en sécurité"))
                 .font(.system(size: 28, weight: .bold))
 
             VStack(alignment: .leading, spacing: 14) {
@@ -25,7 +25,7 @@ struct SafetyNoticeView: View {
             Spacer(minLength: 0)
 
             Button(action: onAccept) {
-                Text("J'ai compris")
+                Text(L("J'ai compris"))
                     .font(.system(size: 19, weight: .bold))
                     .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)

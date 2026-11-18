@@ -31,7 +31,7 @@ struct TripComparisonView: View {
             .padding(16)
         }
         .background(Theme.background.ignoresSafeArea())
-        .navigationTitle("Comparer")
+        .navigationTitle(L("Comparer"))
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -124,7 +124,7 @@ struct TripComparisonView: View {
     private var legend: some View {
         HStack(spacing: 6) {
             Image(systemName: "trophy.fill")
-            Text("Meilleur chiffre de la ligne. Distance et durées ne sont pas classées.")
+            Text(L("Meilleur chiffre de la ligne. Distance et durées ne sont pas classées."))
         }
         .font(.system(size: 12))
         .foregroundStyle(Theme.textSecondary)

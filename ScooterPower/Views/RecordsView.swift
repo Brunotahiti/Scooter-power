@@ -29,7 +29,7 @@ struct RecordsView: View {
             .padding(16)
         }
         .background(Theme.background.ignoresSafeArea())
-        .navigationTitle("Records")
+        .navigationTitle(L("Records"))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -44,7 +44,7 @@ struct RecordsSheet: View {
             RecordsView(trips: trips)
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("Fermer") { dismiss() }
+                        Button(L("Fermer")) { dismiss() }
                     }
                 }
         }
@@ -93,7 +93,7 @@ private struct RecordSection: View {
         VStack(alignment: .leading, spacing: 10) {
             header
             if points.isEmpty {
-                Text("Aucun temps mesuré pour l'instant.")
+                Text(L("Aucun temps mesuré pour l'instant."))
                     .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
             } else {
@@ -132,15 +132,15 @@ private struct RecordSection: View {
     /// record vaut de sa date jusqu'au suivant.
     private var chart: some View {
         Chart(chronological) { row in
-            LineMark(x: .value("Date", row.point.date), y: .value("Temps", row.point.time))
+            LineMark(x: .value(L("Date"), row.point.date), y: .value(L("Temps"), row.point.time))
                 .interpolationMethod(.stepStart)
                 .foregroundStyle(Theme.cyan)
-            PointMark(x: .value("Date", row.point.date), y: .value("Temps", row.point.time))
+            PointMark(x: .value(L("Date"), row.point.date), y: .value(L("Temps"), row.point.time))
                 .foregroundStyle(Theme.cyan)
         }
         .chartYScale(domain: .automatic(includesZero: false))
         .frame(height: 110)
-        .accessibilityLabel("Progression du record")
+        .accessibilityLabel(L("Progression du record"))
     }
 
     private var list: some View {

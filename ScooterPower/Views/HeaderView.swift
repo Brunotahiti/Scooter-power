@@ -18,18 +18,18 @@ struct HeaderView: View {
             leading
             Spacer(minLength: 0)
             Menu {
-                Button("Recalibrer l'inclinaison", systemImage: "scope", action: onRecalibrate)
+                Button(L("Recalibrer l'inclinaison"), systemImage: "scope", action: onRecalibrate)
                     .disabled(state != .recording && state != .paused)
-                Button("Balade de groupe", systemImage: "person.3.fill", action: onGroupRide)
-                Button("Statistiques", systemImage: "chart.bar.fill", action: onStats)
-                Button("Réglages", systemImage: "gearshape", action: onSettings)
+                Button(L("Balade de groupe"), systemImage: "person.3.fill", action: onGroupRide)
+                Button(L("Statistiques"), systemImage: "chart.bar.fill", action: onStats)
+                Button(L("Réglages"), systemImage: "gearshape", action: onSettings)
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 19, weight: .bold))
                     .frame(width: 44, height: 36)
                     .contentShape(Rectangle())
             }
-            .accessibilityLabel("Plus d'options")
+            .accessibilityLabel(L("Plus d'options"))
         }
         .foregroundStyle(Theme.textPrimary)
     }
@@ -44,7 +44,7 @@ struct HeaderView: View {
                     .frame(width: 44, height: 36)
                     .contentShape(Rectangle())
             }
-            .accessibilityLabel("Historique des trajets")
+            .accessibilityLabel(L("Historique des trajets"))
         case .recording:
             pill(text: withDetail(L("Enregistrement")), color: Theme.red)
         case .paused:

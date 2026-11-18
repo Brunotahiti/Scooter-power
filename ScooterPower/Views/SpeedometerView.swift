@@ -58,7 +58,7 @@ struct SpeedometerView: View {
         }
         .frame(height: Self.baseHeight * scale)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Vitesse actuelle")
+        .accessibilityLabel(L("Vitesse actuelle"))
         .accessibilityValue(speed == nil ? L("inconnue") : speedText + " " + unit)
     }
 
@@ -123,7 +123,7 @@ struct SpeedometerView: View {
             .minimumScaleFactor(0.5)
             .foregroundStyle(isAlert ? Self.neonRed : Theme.textPrimary)
             .shadow(color: accent.opacity(0.6), radius: 8)
-            Text("Vitesse actuelle")
+            Text(L("Vitesse actuelle"))
                 .font(.system(size: 15 * scale, weight: .medium))
                 .italic()
                 .foregroundStyle(Theme.textPrimary.opacity(0.85))

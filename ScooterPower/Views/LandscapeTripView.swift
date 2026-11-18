@@ -92,7 +92,7 @@ struct LandscapeTripView: View {
                         .frame(width: 44, height: 40)
                         .contentShape(Rectangle())
                 }
-                .accessibilityLabel("Historique des trajets")
+                .accessibilityLabel(L("Historique des trajets"))
                 statusPill
                 Spacer(minLength: 0)
                 controls
@@ -162,25 +162,25 @@ struct LandscapeTripView: View {
 
     private var menu: some View {
         Menu {
-            Button("Recalibrer l'inclinaison", systemImage: "scope") { model.recalibrate() }
+            Button(L("Recalibrer l'inclinaison"), systemImage: "scope") { model.recalibrate() }
                 .disabled(model.state != .recording && model.state != .paused)
-            Button("Balade de groupe", systemImage: "person.3.fill", action: onGroupRide)
-            Button("Statistiques", systemImage: "chart.bar.fill", action: onStats)
-            Button("Réglages", systemImage: "gearshape", action: onSettings)
+            Button(L("Balade de groupe"), systemImage: "person.3.fill", action: onGroupRide)
+            Button(L("Statistiques"), systemImage: "chart.bar.fill", action: onStats)
+            Button(L("Réglages"), systemImage: "gearshape", action: onSettings)
         } label: {
             Image(systemName: "ellipsis")
                 .font(.system(size: 22, weight: .heavy))
                 .frame(width: 44, height: 40)
                 .contentShape(Rectangle())
         }
-        .accessibilityLabel("Plus d'options")
+        .accessibilityLabel(L("Plus d'options"))
     }
 
     private var locationDenied: some View {
         Button(action: onOpenSettings) {
             HStack(spacing: 6) {
                 Image(systemName: "location.slash")
-                Text("Position refusée · Ouvrir Réglages")
+                Text(L("Position refusée · Ouvrir Réglages"))
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
             }
@@ -402,7 +402,7 @@ struct RoundSpeedGauge: View {
         }
         .animation(.easeInOut(duration: 0.5), value: fraction)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Vitesse actuelle")
+        .accessibilityLabel(L("Vitesse actuelle"))
         .accessibilityValue(speed == nil ? L("inconnue") : speedText + " " + unit)
     }
 
@@ -514,7 +514,7 @@ struct RoundSpeedGauge: View {
                 .font(.system(size: side * 0.09, weight: .heavy))
                 .italic()
                 .foregroundStyle(Theme.textPrimary)
-            Text("Vitesse actuelle")
+            Text(L("Vitesse actuelle"))
                 .font(.system(size: side * 0.055, weight: .medium))
                 .italic()
                 .foregroundStyle(Theme.textPrimary.opacity(0.75))

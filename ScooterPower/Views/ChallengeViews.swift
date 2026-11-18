@@ -18,7 +18,7 @@ struct ChallengeSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             StatsSectionTitle(text: L("Défi entre pilotes"))
-            Text("Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre.")
+            Text(L("Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."))
                 .font(.system(size: 14))
                 .foregroundStyle(Theme.textSecondary)
             HStack(spacing: 10) {
@@ -32,10 +32,10 @@ struct ChallengeSection: View {
         .sheet(isPresented: $showMyCard) {
             MyCardSheet(trips: trips, setups: setups)
         }
-        .alert("Aucune carte trouvée", isPresented: $pasteFailed) {
-            Button("OK", role: .cancel) {}
+        .alert(L("Aucune carte trouvée"), isPresented: $pasteFailed) {
+            Button(L("OK"), role: .cancel) {}
         } message: {
-            Text("Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte ».")
+            Text(L("Copiez d'abord le message ou le lien reçu de l'autre pilote, puis touchez « Coller une carte »."))
         }
     }
 
@@ -96,7 +96,7 @@ struct ChallengeSection: View {
                     .frame(width: 36, height: 36)
             }
             .buttonStyle(.borderless)
-            .accessibilityLabel("Supprimer")
+            .accessibilityLabel(L("Supprimer"))
             Image(systemName: "chevron.right")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(Theme.textSecondary)
@@ -160,15 +160,15 @@ struct CardReceiver: ViewModifier {
                     failed = true
                 }
             }
-            .alert("Carte illisible", isPresented: $failed) {
-                Button("OK", role: .cancel) {}
+            .alert(L("Carte illisible"), isPresented: $failed) {
+                Button(L("OK"), role: .cancel) {}
             } message: {
-                Text("Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer.")
+                Text(L("Ce lien ne contient pas de carte de performances valide. Demandez à l'autre pilote de vous la renvoyer."))
             }
-            .alert("Trajet illisible", isPresented: $tripFailed) {
-                Button("OK", role: .cancel) {}
+            .alert(L("Trajet illisible"), isPresented: $tripFailed) {
+                Button(L("OK"), role: .cancel) {}
             } message: {
-                Text("Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app.")
+                Text(L("Ce fichier ne contient pas de trajet valide, ou il vient d'une version plus récente de l'app."))
             }
             .fullScreenCover(item: $receivedTrip) { friend in
                 if let shared = friend.shared {
@@ -232,7 +232,7 @@ struct MyCardSheet: View {
             ScrollView {
                 VStack(spacing: 16) {
                     if setups.count > 1 {
-                        Picker("Configuration", selection: $setup) {
+                        Picker(L("Configuration"), selection: $setup) {
                             ForEach(setups, id: \.self) { name in
                                 Text(verbatim: name).tag(name)
                             }
@@ -241,18 +241,18 @@ struct MyCardSheet: View {
                         .tint(Theme.orange)
                     }
                     if settings.riderName.isEmpty {
-                        Text("Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse.")
+                        Text(L("Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse."))
                             .font(.system(size: 13))
                             .foregroundStyle(Theme.orange)
                             .multilineTextAlignment(.center)
                     }
                     qrCode
-                    Text("L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez.")
+                    Text(L("L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez."))
                         .font(.system(size: 14))
                         .foregroundStyle(Theme.textSecondary)
                         .multilineTextAlignment(.center)
                     ShareLink(item: message) {
-                        Label("Envoyer ma carte", systemImage: "square.and.arrow.up")
+                        Label(L("Envoyer ma carte"), systemImage: "square.and.arrow.up")
                             .font(.system(size: 18, weight: .bold))
                             .frame(maxWidth: .infinity)
                             .frame(height: 52)
@@ -263,11 +263,11 @@ struct MyCardSheet: View {
                 .padding(20)
             }
             .background(Theme.background.ignoresSafeArea())
-            .navigationTitle("Ma carte")
+            .navigationTitle(L("Ma carte"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Fermer") { dismiss() }
+                    Button(L("Fermer")) { dismiss() }
                 }
             }
             .onAppear {
@@ -289,7 +289,7 @@ struct MyCardSheet: View {
                 .padding(14)
                 .background(Color.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
                 .frame(maxWidth: 300)
-                .accessibilityLabel("QR code de ma carte de performances")
+                .accessibilityLabel(L("QR code de ma carte de performances"))
         }
     }
 
@@ -352,7 +352,7 @@ struct RivalComparisonView: View {
                 }
                 .padding(.horizontal, 12)
                 .cardStyle(tint: Theme.orange)
-                Text("Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon.")
+                Text(L("Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon."))
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.textSecondary)
             }
@@ -372,7 +372,7 @@ struct RivalComparisonView: View {
     private func header(wins: Int, losses: Int) -> some View {
         HStack(alignment: .center, spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Moi")
+                Text(L("Moi"))
                     .font(.system(size: 13, weight: .heavy))
                     .italic()
                     .foregroundStyle(Theme.orange)
@@ -407,11 +407,11 @@ struct RivalComparisonView: View {
 
     private var setupPicker: some View {
         HStack {
-            Text("Ma configuration")
+            Text(L("Ma configuration"))
                 .font(.system(size: 15, weight: .semibold))
             Spacer()
-            Picker("Ma configuration", selection: $mySetup) {
-                Text("Toutes").tag(String?.none)
+            Picker(L("Ma configuration"), selection: $mySetup) {
+                Text(L("Toutes")).tag(String?.none)
                 ForEach(setups, id: \.self) { name in
                     Text(verbatim: name).tag(String?.some(name))
                 }

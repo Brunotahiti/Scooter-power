@@ -33,7 +33,7 @@ struct LeanCard: View {
                 .frame(width: 30)
                 .padding(.top, 2)
             VStack(alignment: .leading, spacing: 0) {
-                Text("Inclinaison")
+                Text(L("Inclinaison"))
                     .font(.system(size: 17, weight: .semibold))
                 Text(text)
                     .font(.system(size: 40, weight: .black))
@@ -58,18 +58,18 @@ struct LeanCard: View {
         .padding(.vertical, 9)
         .cardStyle()
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Inclinaison")
+        .accessibilityLabel(L("Inclinaison"))
         .accessibilityValue(text + ", " + sideText)
     }
 
     private var sides: some View {
         HStack(spacing: 4) {
-            Text("Gauche")
+            Text(L("Gauche"))
             Text(verbatim: leftText)
                 .fontWeight(.bold)
                 .foregroundStyle(side == .left ? Theme.cyan : Theme.textPrimary)
             Spacer(minLength: 4)
-            Text("Droite")
+            Text(L("Droite"))
             Text(verbatim: rightText)
                 .fontWeight(.bold)
                 .foregroundStyle(side == .right ? Theme.cyan : Theme.textPrimary)

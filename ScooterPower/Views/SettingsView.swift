@@ -53,11 +53,11 @@ struct SettingsView: View {
                 alertSection
                 aboutSection
             }
-            .navigationTitle("Réglages")
+            .navigationTitle(L("Réglages"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Fermer") { dismiss() }
+                    Button(L("Fermer")) { dismiss() }
                 }
             }
         }
@@ -67,21 +67,21 @@ struct SettingsView: View {
     /// Nom de la configuration du scooter, appliqué aux prochains trajets.
     private var setupSection: some View {
         Section {
-            TextField("Origine", text: $setupDraft)
+            TextField(L("Origine"), text: $setupDraft)
                 .submitLabel(.done)
                 .onSubmit { settings.setCurrentSetup(setupDraft) }
                 .onChange(of: setupDraft) { _, value in
                     settings.setCurrentSetup(value)
                 }
-            TextField("Pseudo", text: $riderDraft)
+            TextField(L("Pseudo"), text: $riderDraft)
                 .textInputAutocapitalization(.words)
                 .onChange(of: riderDraft) { _, value in
                     settings.setRiderName(value)
                 }
         } header: {
-            Text("Configuration du scooter")
+            Text(L("Configuration du scooter"))
         } footer: {
-            Text("Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez.")
+            Text(L("Chaque trajet est enregistré avec ce nom. Changez-le après une modification du scooter : la page Statistiques compare alors les performances avant et après. Le pseudo apparaît sur la carte de performances que vous partagez."))
         }
         .onAppear {
             setupDraft = settings.currentSetup
@@ -96,36 +96,36 @@ struct SettingsView: View {
     /// Langue de l'app, indépendante de celle de l'iPhone.
     private var languageSection: some View {
         Section {
-            Picker("Langue", selection: language) {
+            Picker(L("Langue"), selection: language) {
                 ForEach(AppLanguage.allCases) { option in
                     Text(verbatim: option.nativeName).tag(option)
                 }
             }
             .pickerStyle(.segmented)
         } header: {
-            Text("Langue")
+            Text(L("Langue"))
         } footer: {
-            Text("Les demandes d'autorisation et l'écran verrouillé changent de langue au prochain lancement de l'app.")
+            Text(L("Les demandes d'autorisation et l'écran verrouillé changent de langue au prochain lancement de l'app."))
         }
     }
 
     private var unitsSection: some View {
         Section {
-            Picker("Unités", selection: units) {
-                Text("Kilomètres").tag(UnitSystem.metric)
-                Text("Miles").tag(UnitSystem.imperial)
+            Picker(L("Unités"), selection: units) {
+                Text(L("Kilomètres")).tag(UnitSystem.metric)
+                Text(L("Miles")).tag(UnitSystem.imperial)
             }
             .pickerStyle(.segmented)
         } header: {
-            Text("Unités")
+            Text(L("Unités"))
         } footer: {
-            Text("En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet.")
+            Text(L("En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet."))
         }
     }
 
     private var alertSection: some View {
         Section {
-            Toggle("Alerter au-dessus d'un seuil", isOn: alertEnabled)
+            Toggle(L("Alerter au-dessus d'un seuil"), isOn: alertEnabled)
             if settings.speedAlertEnabled {
                 Stepper(value: alertThreshold, in: settings.speedAlertDisplayRange, step: AppSettings.speedAlertStep) {
                     Text(thresholdText)
@@ -133,23 +133,23 @@ struct SettingsView: View {
                 }
             }
         } header: {
-            Text("Alerte de vitesse")
+            Text(L("Alerte de vitesse"))
         } footer: {
-            Text("Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran.")
+            Text(L("Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."))
         }
     }
 
     private var aboutSection: some View {
         Section {
             if let url = supportURL {
-                Link("Assistance", destination: url)
+                Link(L("Assistance"), destination: url)
             }
             if let url = privacyURL {
-                Link("Politique de confidentialité", destination: url)
+                Link(L("Politique de confidentialité"), destination: url)
             }
-            LabeledContent("Version", value: version)
+            LabeledContent(L("Version"), value: version)
         } header: {
-            Text("À propos")
+            Text(L("À propos"))
         }
     }
 }

@@ -83,12 +83,12 @@ struct GroupRideView: View {
                     .font(.system(size: 17, weight: .bold))
                     .frame(width: 36, height: 36)
             }
-            .accessibilityLabel("Fermer")
+            .accessibilityLabel(L("Fermer"))
             Spacer(minLength: 0)
             VStack(spacing: 2) {
                 HStack(spacing: 8) {
                     NeonSlashes()
-                    Text("Balade de groupe")
+                    Text(L("Balade de groupe"))
                         .font(.system(size: 28, weight: .black))
                         .italic()
                         .lineLimit(1)
@@ -119,11 +119,11 @@ struct GroupRideView: View {
             Spacer(minLength: 0)
             LobbyIllustration()
                 .frame(height: 220)
-            Text("Roulez ensemble et voyez où sont vos amis, en direct.")
+            Text(L("Roulez ensemble et voyez où sont vos amis, en direct."))
                 .font(.system(size: 17, weight: .semibold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.textPrimary)
-            Text("Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade.")
+            Text(L("Le premier crée la balade et montre son QR code ; les autres le scannent. Les positions passent par iCloud et sont effacées quand vous quittez la balade."))
                 .font(.system(size: 14))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Theme.textSecondary)
@@ -148,7 +148,7 @@ struct GroupRideView: View {
         case .connecting:
             HStack(spacing: 8) {
                 ProgressView()
-                Text("Connexion à la balade…")
+                Text(L("Connexion à la balade…"))
             }
             .font(.system(size: 15, weight: .semibold))
             .foregroundStyle(Theme.cyan)
@@ -214,7 +214,7 @@ struct GroupRideView: View {
     private var waitingBanner: some View {
         let mine = service.riders.first(where: { $0.isMe })
         if mine?.position == nil {
-            Text("Démarrez le trajet pour que les autres vous voient.")
+            Text(L("Démarrez le trajet pour que les autres vous voient."))
                 .font(.system(size: 13, weight: .semibold))
                 .padding(.horizontal, 12)
                 .padding(.vertical, 7)
@@ -237,7 +237,7 @@ struct GroupRideView: View {
                     .frame(width: 38, height: 38)
                     .background(Color.black.opacity(0.7), in: Circle())
             }
-            .accessibilityLabel("Voir tous les pilotes")
+            .accessibilityLabel(L("Voir tous les pilotes"))
         }
         .padding(10)
         .padding(.top, 34)
@@ -521,28 +521,28 @@ struct RideInviteSheet: View {
                         .background(Color.white, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                         .frame(maxWidth: 300)
                         .shadow(color: SpeedometerView.neonRed.opacity(0.7), radius: 16)
-                        .accessibilityLabel("QR code de la balade")
+                        .accessibilityLabel(L("QR code de la balade"))
                 }
                 Text(verbatim: link.rideID)
                     .font(.system(size: 22, weight: .black, design: .monospaced))
                     .foregroundStyle(Theme.textPrimary)
-                Text("Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum.")
+                Text(L("Les autres pilotes scannent ce code avec l'appareil photo de l'iPhone, ou dans Scooter Power → Balade de groupe → Scanner un QR code. 5 pilotes au maximum."))
                     .font(.system(size: 14))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.textSecondary)
                 ShareLink(item: link.url) {
-                    Label("Envoyer le lien", systemImage: "square.and.arrow.up")
+                    Label(L("Envoyer le lien"), systemImage: "square.and.arrow.up")
                         .font(.system(size: 16, weight: .bold))
                 }
             }
             .padding(24)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.black.ignoresSafeArea())
-            .navigationTitle("Inviter")
+            .navigationTitle(L("Inviter"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("OK") { dismiss() }
+                    Button(L("OK")) { dismiss() }
                 }
             }
         }
@@ -564,7 +564,7 @@ struct RideScannerView: View {
                 QRScanner(onFound: onFound)
                     .ignoresSafeArea()
             } else {
-                Text("Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo.")
+                Text(L("Le scanner n'est pas disponible. Autorisez l'appareil photo dans Réglages → Scooter Power, ou scannez le code avec l'app Appareil photo."))
                     .font(.system(size: 15))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Theme.textSecondary)
@@ -572,7 +572,7 @@ struct RideScannerView: View {
                     .frame(maxHeight: .infinity)
             }
             HStack {
-                Text("Visez le QR code de la balade")
+                Text(L("Visez le QR code de la balade"))
                     .font(.system(size: 15, weight: .bold))
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
@@ -584,7 +584,7 @@ struct RideScannerView: View {
                         .frame(width: 40, height: 40)
                         .background(.ultraThinMaterial, in: Circle())
                 }
-                .accessibilityLabel("Fermer")
+                .accessibilityLabel(L("Fermer"))
             }
             .foregroundStyle(Theme.textPrimary)
             .padding(16)

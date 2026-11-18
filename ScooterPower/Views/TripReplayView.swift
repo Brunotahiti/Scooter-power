@@ -108,12 +108,12 @@ struct TripReplayView: View {
                     .font(.system(size: 17, weight: .bold))
                     .frame(width: 36, height: 36)
             }
-            .accessibilityLabel("Fermer")
+            .accessibilityLabel(L("Fermer"))
             Spacer(minLength: 0)
             VStack(spacing: 2) {
                 HStack(spacing: 8) {
                     NeonSlashes()
-                    Text("Revoir le trajet")
+                    Text(L("Revoir le trajet"))
                         .font(.system(size: 26, weight: .black))
                         .italic()
                         .lineLimit(1)
@@ -125,7 +125,7 @@ struct TripReplayView: View {
                     .foregroundStyle(Theme.textPrimary.opacity(0.8))
                     .lineLimit(1)
                 if !main.replay.isRecorded {
-                    Text("Vitesse moyenne (trajet ancien)")
+                    Text(L("Vitesse moyenne (trajet ancien)"))
                         .font(.system(size: 11, weight: .medium))
                         .foregroundStyle(Theme.orange)
                 }
@@ -170,7 +170,7 @@ struct TripReplayView: View {
                 .foregroundStyle(ghosts.isEmpty ? Theme.textPrimary : Theme.cyan)
                 .frame(width: 36, height: 36)
         }
-        .accessibilityLabel("Comparer avec un ami")
+        .accessibilityLabel(L("Comparer avec un ami"))
     }
 
     private func friendID(_ friend: FriendTrip) -> String {
@@ -237,7 +237,7 @@ struct TripReplayView: View {
                     .frame(width: 38, height: 38)
                     .background(Color.black.opacity(0.7), in: Circle())
             }
-            .accessibilityLabel("Suivre le scooter")
+            .accessibilityLabel(L("Suivre le scooter"))
             Button {
                 follow = false
                 withAnimation(.easeInOut(duration: 0.5)) { position = .automatic }
@@ -248,7 +248,7 @@ struct TripReplayView: View {
                     .frame(width: 38, height: 38)
                     .background(Color.black.opacity(0.7), in: Circle())
             }
-            .accessibilityLabel("Voir tout le trajet")
+            .accessibilityLabel(L("Voir tout le trajet"))
         }
         .padding(10)
     }
@@ -369,7 +369,7 @@ struct TripReplayView: View {
                 value: Binding(get: { time }, set: { jump(to: $0) }),
                 in: 0...max(1, duration))
                 .tint(main.color)
-                .accessibilityLabel("Position dans le trajet")
+                .accessibilityLabel(L("Position dans le trajet"))
             HStack {
                 Text(verbatim: Formatters.duration(time))
                 Spacer()
@@ -405,7 +405,7 @@ struct TripReplayView: View {
                         .background(Color(hex: 0x1A1D21), in: Capsule())
                         .overlay(Capsule().stroke(Color.white.opacity(0.3), lineWidth: 1))
                 }
-                .accessibilityLabel("Vitesse de lecture")
+                .accessibilityLabel(L("Vitesse de lecture"))
                 Spacer()
                 Text(verbatim: Formatters.duration(duration))
             }

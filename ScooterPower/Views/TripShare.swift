@@ -207,15 +207,15 @@ struct ShareMenu: View {
     var body: some View {
         Menu {
             if let sharedTrip {
-                Button("Envoyer le trajet à un ami", systemImage: "person.2.fill") {
+                Button(L("Envoyer le trajet à un ami"), systemImage: "person.2.fill") {
                     onShare(TripExporter.tripFile(sharedTrip, title: title))
                 }
             }
-            Button("Partager l'image du résumé", systemImage: "photo") {
+            Button(L("Partager l'image du résumé"), systemImage: "photo") {
                 onShare(TripExporter.imageFile(summary: summary, route: route, title: title))
             }
             if route.count > 1 {
-                Button("Exporter le tracé (GPX)", systemImage: "map") {
+                Button(L("Exporter le tracé (GPX)"), systemImage: "map") {
                     onShare(TripExporter.gpxFile(route: route, title: title, date: date))
                 }
             }
@@ -225,7 +225,7 @@ struct ShareMenu: View {
                 .frame(width: 44, height: 40)
                 .contentShape(Rectangle())
         }
-        .accessibilityLabel("Partager")
+        .accessibilityLabel(L("Partager"))
     }
 }
 
@@ -251,8 +251,8 @@ extension View {
                 ActivityView(url: file.url)
                     .presentationDetents([.medium, .large])
             }
-            .alert("Partage impossible", isPresented: state.failed) {
-                Button("OK", role: .cancel) {}
+            .alert(L("Partage impossible"), isPresented: state.failed) {
+                Button(L("OK"), role: .cancel) {}
             }
     }
 }

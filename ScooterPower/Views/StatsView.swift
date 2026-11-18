@@ -61,7 +61,7 @@ struct StatsView: View {
             .padding(16)
         }
         .background(backdrop.ignoresSafeArea())
-        .navigationTitle("Statistiques")
+        .navigationTitle(L("Statistiques"))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             // Par défaut : la première configuration contre la plus récente.
@@ -81,9 +81,9 @@ struct StatsView: View {
 
     private var empty: some View {
         ContentUnavailableView(
-            "Aucune statistique",
+            L("Aucune statistique"),
             systemImage: "chart.bar.fill",
-            description: Text("Vos performances apparaîtront ici après votre premier trajet."))
+            description: Text(L("Vos performances apparaîtront ici après votre premier trajet.")))
             .frame(maxWidth: .infinity)
             .padding(.top, 60)
     }
@@ -92,11 +92,11 @@ struct StatsView: View {
 
     private func filterPicker(_ names: [String]) -> some View {
         HStack {
-            Text("Configuration")
+            Text(L("Configuration"))
                 .font(.system(size: 15, weight: .semibold))
             Spacer()
-            Picker("Configuration", selection: $filter) {
-                Text("Toutes").tag(String?.none)
+            Picker(L("Configuration"), selection: $filter) {
+                Text(L("Toutes")).tag(String?.none)
                 ForEach(names, id: \.self) { name in
                     Text(verbatim: name).tag(String?.some(name))
                 }
@@ -115,7 +115,7 @@ struct StatsView: View {
     private var comparisonHint: some View {
         VStack(alignment: .leading, spacing: 8) {
             StatsSectionTitle(text: L("Avant / après"))
-            Text("Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage.")
+            Text(L("Après une modification du scooter, donnez un nouveau nom à sa configuration dans les réglages. Vos prochains trajets seront comparés aux précédents, avec l'écart en pourcentage."))
                 .font(.system(size: 14))
                 .foregroundStyle(Theme.textSecondary)
         }
@@ -184,7 +184,7 @@ struct StatsSheet: View {
             StatsView(trips: trips)
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("Fermer") { dismiss() }
+                        Button(L("Fermer")) { dismiss() }
                     }
                 }
         }
@@ -347,11 +347,11 @@ private struct StatsAccelerations: View {
         HStack(spacing: 6) {
             Text(verbatim: AppSettings.shared.units.speedUnit)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text("Record")
+            Text(L("Record"))
                 .frame(width: 74, alignment: .trailing)
-            Text("Moyenne")
+            Text(L("Moyenne"))
                 .frame(width: 74, alignment: .trailing)
-            Text("Mesures")
+            Text(L("Mesures"))
                 .frame(width: 62, alignment: .trailing)
         }
         .font(.system(size: 12, weight: .heavy))

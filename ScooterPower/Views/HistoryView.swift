@@ -104,9 +104,9 @@ struct HistoryView: View {
     private var content: some View {
         if trips.isEmpty && friendTrips.isEmpty && groupRides.isEmpty {
             ContentUnavailableView(
-                "Aucun trajet",
+                L("Aucun trajet"),
                 systemImage: "clock.arrow.circlepath",
-                description: Text("Vos trajets terminés apparaîtront ici."))
+                description: Text(L("Vos trajets terminés apparaîtront ici.")))
                 .frame(maxHeight: .infinity)
         } else {
             let records: Set<PersistentIdentifier> = Self.recordTrips(trips)
@@ -153,7 +153,7 @@ struct HistoryView: View {
                 for index in offsets { modelContext.delete(groupRides[index]) }
             }
         } header: {
-            Text("Balades de groupe")
+            Text(L("Balades de groupe"))
                 .font(.system(size: 15, weight: .heavy))
                 .italic()
                 .foregroundStyle(HistoryView.neonRed)
@@ -178,12 +178,12 @@ struct HistoryView: View {
                 for index in offsets { modelContext.delete(friendTrips[index]) }
             }
         } header: {
-            Text("Trajets des amis")
+            Text(L("Trajets des amis"))
                 .font(.system(size: 15, weight: .heavy))
                 .italic()
                 .foregroundStyle(Theme.cyan)
         } footer: {
-            Text("Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami.")
+            Text(L("Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami."))
                 .font(.system(size: 12))
                 .foregroundStyle(Theme.textSecondary)
         }
@@ -272,13 +272,13 @@ private struct HistoryHeader: View {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 8) {
                     slashes
-                    Text("Historique")
+                    Text(L("Historique"))
                         .font(.system(size: 34, weight: .black))
                         .italic()
                         .foregroundStyle(Theme.textPrimary)
                         .shadow(color: HistoryView.neonRed.opacity(0.6), radius: 6)
                 }
-                Text("Trajets enregistrés")
+                Text(L("Trajets enregistrés"))
                     .font(.system(size: 15, weight: .medium))
                     .italic()
                     .foregroundStyle(Theme.textPrimary.opacity(0.8))
@@ -498,7 +498,7 @@ private struct MiniSpeedGauge: View {
                     .font(.system(size: 22, weight: .black))
                     .italic()
                     .monospacedDigit()
-                Text("\(unit) max")
+                Text(L("\(unit) max"))
                     .font(.system(size: 11, weight: .medium))
                     .italic()
                     .lineLimit(1)
@@ -541,7 +541,7 @@ private struct FriendTripRow: View {
                 Text(verbatim: speed)
                     .font(.system(size: 22, weight: .black))
                     .italic()
-                Text("\(units.speedUnit) max")
+                Text(L("\(units.speedUnit) max"))
                     .font(.system(size: 11, weight: .medium))
                     .italic()
             }
@@ -560,7 +560,7 @@ private struct FriendTripRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(friend.displayName + ", " + friend.title)
         .accessibilityValue(distance + ", " + L("\(speed) \(units.speedUnit) max"))
-        .accessibilityHint("Revoir le trajet")
+        .accessibilityHint(L("Revoir le trajet"))
     }
 }
 
@@ -611,6 +611,6 @@ private struct GroupRideRow: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(L("Balade de groupe") + ", " + ride.title)
         .accessibilityValue(names)
-        .accessibilityHint("Revoir le trajet")
+        .accessibilityHint(L("Revoir le trajet"))
     }
 }

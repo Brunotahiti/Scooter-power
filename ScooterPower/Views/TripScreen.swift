@@ -110,7 +110,7 @@ struct TripScreen: View {
                 sprintCard
                 LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
                 if model.isDemo {
-                    Text("Données d'illustration")
+                    Text(L("Données d'illustration"))
                         .font(.system(size: 13))
                         .italic()
                         .foregroundStyle(Theme.textSecondary)
@@ -188,7 +188,7 @@ struct TripScreen: View {
                 }
             }
             .accessibilityAddTraits(.isButton)
-            .accessibilityHint("Ouvre les records")
+            .accessibilityHint(L("Ouvre les records"))
     }
 
     private var speedCards: some View {
@@ -265,9 +265,9 @@ struct TripScreen: View {
 
     private var locationDeniedBanner: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Scooter Power a besoin de votre position pour mesurer le trajet.", systemImage: "location.slash")
+            Label(L("Scooter Power a besoin de votre position pour mesurer le trajet."), systemImage: "location.slash")
                 .font(.system(size: 14))
-            Button("Ouvrir Réglages") {
+            Button(L("Ouvrir Réglages")) {
                 openSettings()
             }
             .font(.system(size: 14, weight: .semibold))
@@ -341,12 +341,12 @@ private struct TripPresentations: ViewModifier {
                         onDone: { model.reset() })
                 }
             }
-            .confirmationDialog("Terminer le trajet ?", isPresented: $confirmFinish, titleVisibility: .visible) {
-                Button("Terminer", role: .destructive) { model.finish() }
-                Button("Annuler", role: .cancel) {}
+            .confirmationDialog(L("Terminer le trajet ?"), isPresented: $confirmFinish, titleVisibility: .visible) {
+                Button(L("Terminer"), role: .destructive) { model.finish() }
+                Button(L("Annuler"), role: .cancel) {}
             }
-            .alert("Appareil photo indisponible", isPresented: $showCameraUnavailable) {
-                Button("OK", role: .cancel) {}
+            .alert(L("Appareil photo indisponible"), isPresented: $showCameraUnavailable) {
+                Button(L("OK"), role: .cancel) {}
             }
     }
 

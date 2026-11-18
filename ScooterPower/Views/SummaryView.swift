@@ -96,7 +96,7 @@ struct SummaryView: View {
                 }
                 .background(Color.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
-            Text("Résumé du trajet")
+            Text(L("Résumé du trajet"))
                 .font(.system(size: 32, weight: .heavy))
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -191,7 +191,7 @@ struct SummaryView: View {
                 HStack(spacing: 12) {
                     Image(systemName: "play.circle.fill")
                         .font(.system(size: 30))
-                    Text("Nouveau trajet")
+                    Text(L("Nouveau trajet"))
                         .font(.system(size: 21, weight: .bold))
                 }
                 .frame(maxWidth: .infinity)
@@ -279,14 +279,14 @@ private struct SummaryAverageGauge: View {
                     .monospacedDigit()
                 Text(verbatim: unit)
                     .font(.system(size: 14, weight: .semibold))
-                Text("Vitesse moyenne")
+                Text(L("Vitesse moyenne"))
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.textSecondary)
             }
             .offset(y: 16)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Vitesse moyenne")
+        .accessibilityLabel(L("Vitesse moyenne"))
         .accessibilityValue(Formatters.decimal(speed, digits: 0) + " " + unit)
     }
 
@@ -358,10 +358,10 @@ private struct SummaryIntervalsCard: View {
             HStack(spacing: 10) {
                 Image(systemName: "chart.bar.fill")
                     .foregroundStyle(Theme.cyan)
-                Text("Accélérations du trajet")
+                Text(L("Accélérations du trajet"))
                     .font(.system(size: 19, weight: .bold))
                 Spacer()
-                Text("% du record")
+                Text(L("% du record"))
                     .font(.system(size: 12))
                     .foregroundStyle(Theme.textSecondary)
             }
@@ -427,7 +427,7 @@ private struct SummaryLeanCard: View {
             HStack(spacing: 8) {
                 Image(systemName: "angle")
                     .foregroundStyle(Theme.cyan)
-                Text("Inclinaison")
+                Text(L("Inclinaison"))
                     .font(.system(size: 16, weight: .bold))
             }
             HStack(alignment: .top) {
@@ -448,7 +448,7 @@ private struct SummaryLeanCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .cardStyle()
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Inclinaison")
+        .accessibilityLabel(L("Inclinaison"))
         .accessibilityValue(L("Gauche") + " " + Formatters.decimal(left, digits: 0) + "°, "
             + L("Droite") + " " + Formatters.decimal(right, digits: 0) + "°")
     }
@@ -513,11 +513,11 @@ private struct SummaryThrustCard: View {
             HStack(spacing: 8) {
                 Image(systemName: "gauge.with.needle")
                     .foregroundStyle(Theme.cyan)
-                Text("Accélération")
+                Text(L("Accélération"))
                     .font(.system(size: 16, weight: .bold))
             }
             HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Text("Pic")
+                Text(L("Pic"))
                     .font(.system(size: 13))
                 Text(verbatim: Formatters.signed(peak, digits: 1))
                     .font(.system(size: 26, weight: .bold, design: .rounded))
@@ -527,12 +527,12 @@ private struct SummaryThrustCard: View {
             .lineLimit(1)
             .minimumScaleFactor(0.7)
             Chart(points) { point in
-                AreaMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
+                AreaMark(x: .value(L("Temps"), point.id), y: .value(L("Accélération"), point.value))
                     .interpolationMethod(.monotone)
                     .foregroundStyle(
                         LinearGradient(colors: [Theme.cyan.opacity(0.45), Theme.cyan.opacity(0.02)],
                                        startPoint: .top, endPoint: .bottom))
-                LineMark(x: .value("Temps", point.id), y: .value("Accélération", point.value))
+                LineMark(x: .value(L("Temps"), point.id), y: .value(L("Accélération"), point.value))
                     .interpolationMethod(.monotone)
                     .foregroundStyle(Theme.cyan)
             }
@@ -544,7 +544,7 @@ private struct SummaryThrustCard: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .cardStyle()
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Accélération")
+        .accessibilityLabel(L("Accélération"))
         .accessibilityValue(L("Pic : \(Formatters.signed(peak, digits: 1) + " m/s²")"))
     }
 }

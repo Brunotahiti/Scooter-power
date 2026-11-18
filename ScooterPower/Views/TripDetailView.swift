@@ -48,7 +48,7 @@ struct TripDetailView: View {
         Button {
             showReplay = true
         } label: {
-            Label("Revoir le trajet", systemImage: "play.circle.fill")
+            Label(L("Revoir le trajet"), systemImage: "play.circle.fill")
                 .font(.system(size: 18, weight: .heavy))
                 .italic()
                 .frame(maxWidth: .infinity)
@@ -70,9 +70,9 @@ struct TripDetailView: View {
             let pins: [RouteMap.Pin] = RouteMap.pins(trip.highlights)
             Map(initialPosition: .automatic) {
                 RouteMap.content(segments: segments, pins: pins)
-                Marker("Départ", systemImage: "flag", coordinate: coordinates[0])
+                Marker(L("Départ"), systemImage: "flag", coordinate: coordinates[0])
                     .tint(.green)
-                Marker("Arrivée", systemImage: "stop.fill", coordinate: coordinates[coordinates.count - 1])
+                Marker(L("Arrivée"), systemImage: "stop.fill", coordinate: coordinates[coordinates.count - 1])
                     .tint(Theme.finish)
             }
             .frame(height: 340)
@@ -82,7 +82,7 @@ struct TripDetailView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
         } else {
-            Text("Tracé indisponible pour ce trajet.")
+            Text(L("Tracé indisponible pour ce trajet."))
                 .font(.system(size: 15))
                 .foregroundStyle(Theme.textSecondary)
                 .frame(maxWidth: .infinity)
