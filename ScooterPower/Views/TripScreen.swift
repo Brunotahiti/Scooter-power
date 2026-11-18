@@ -35,6 +35,8 @@ struct TripScreen: View {
             .animation(.spring(duration: 0.4), value: model.recordBanner)
             .onAppear {
                 loadRecords()
+                WidgetSync.update(trips: history)
+                runPendingCommand()
                 // La balade de groupe lit ma position dans le trajet en cours.
                 GroupRideService.shared.positionProvider = { [model] in
                     model.groupPosition(name: AppSettings.shared.riderName)
@@ -46,13 +48,20 @@ struct TripScreen: View {
             }
             .onChange(of: history.count) { _, _ in
                 loadRecords()
+                WidgetSync.update(trips: history)
             }
             .onChange(of: settings.units) { _, _ in
                 model.settingsChanged()
+                WidgetSync.update(trips: history)
             }
             .onChange(of: settings.language) { _, _ in
                 // Textes déjà calculés (vitesses, chronos, records) recalculés dans la nouvelle langue.
                 model.settingsChanged()
+                WidgetSync.update(trips: history)
+            }
+            // Siri, Raccourcis, bouton Action ou widget.
+            .onChange(of: TripCommands.shared.pending) { _, _ in
+                runPendingCommand()
             }
             .modifier(TripPresentations(
                 model: model,
@@ -260,6 +269,22 @@ struct TripScreen: View {
     private func openSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             openURL(url)
+        }
+    }
+
+    /// Exécute la commande reçue de Siri, de Raccourcis ou du widget.
+    private func runPendingCommand() {
+        guard let command = TripCommands.shared.take() else { return }
+        switch command {
+        case .start:
+            if model.state == .finished { model.reset() }
+            model.start()
+        case .pause:
+            if model.state == .recording { model.togglePause() }
+        case .resume:
+            if model.state == .paused { model.togglePause() }
+        case .finish:
+            model.finish()
         }
     }
 

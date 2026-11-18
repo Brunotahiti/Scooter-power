@@ -147,6 +147,11 @@ struct CardReceiver: ViewModifier {
                     return
                 }
                 guard url.scheme?.lowercased() == PerformanceCard.scheme else { return }
+                // Widget d'écran d'accueil : « Démarrer ».
+                if url.host?.lowercased() == "start" {
+                    TripCommands.shared.request(.start)
+                    return
+                }
                 // QR code d'une balade de groupe : on la rejoint.
                 if let ride = RideLink(url: url) {
                     GroupRideService.shared.join(ride)

@@ -51,6 +51,7 @@ struct SettingsView: View {
                 languageSection
                 unitsSection
                 SafetySettingsSection()
+                AutoStartSection()
                 alertSection
                 aboutSection
             }

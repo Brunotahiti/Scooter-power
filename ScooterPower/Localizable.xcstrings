@@ -193,6 +193,22 @@
         }
       }
     },
+    "%@ trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ trajets"
+          }
+        }
+      }
+    },
     "%@ · ancien %@" : {
       "localizations" : {
         "en" : {
@@ -321,6 +337,22 @@
         }
       }
     },
+    "1 trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 trajet"
+          }
+        }
+      }
+    },
     "30 dernières secondes" : {
       "localizations" : {
         "en" : {
@@ -333,6 +365,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "30 dernières secondes"
+          }
+        }
+      }
+    },
+    "7 derniers jours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 7 days"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7 derniers jours"
           }
         }
       }
@@ -1025,6 +1073,22 @@
         }
       }
     },
+    "Bouton Action de l'iPhone : Réglages > Bouton Action > Raccourci > Scooter Power." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone Action button: Settings > Action Button > Shortcut > Scooter Power."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bouton Action de l'iPhone : Réglages > Bouton Action > Raccourci > Scooter Power."
+          }
+        }
+      }
+    },
     "Carburant" : {
       "localizations" : {
         "en" : {
@@ -1473,6 +1537,22 @@
         }
       }
     },
+    "Dernier trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernier trajet"
+          }
+        }
+      }
+    },
     "Distance" : {
       "localizations" : {
         "en" : {
@@ -1485,6 +1565,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Distance"
+          }
+        }
+      }
+    },
+    "Dites « Dis Siri, démarre Scooter Power »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Say “Hey Siri, start Scooter Power”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dites « Dis Siri, démarre Scooter Power »."
           }
         }
       }
@@ -1601,6 +1697,22 @@
         }
       }
     },
+    "Démarrage automatique" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatic start"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrage automatique"
+          }
+        }
+      }
+    },
     "Démarrer" : {
       "localizations" : {
         "en" : {
@@ -1629,6 +1741,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Démarrer le trajet"
+          }
+        }
+      }
+    },
+    "Démarrer un trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer un trajet"
           }
         }
       }
@@ -2609,6 +2737,22 @@
         }
       }
     },
+    "Met en pause le trajet en cours." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pauses the current trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Met en pause le trajet en cours."
+          }
+        }
+      }
+    },
     "Mettre en pause" : {
       "localizations" : {
         "en" : {
@@ -2621,6 +2765,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mettre en pause"
+          }
+        }
+      }
+    },
+    "Mettre le trajet en pause" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause the trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettre le trajet en pause"
           }
         }
       }
@@ -2865,6 +3025,22 @@
         }
       }
     },
+    "Ouvre Scooter Power et lance l'enregistrement du trajet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens Scooter Power and starts recording a trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre Scooter Power et lance l'enregistrement du trajet."
+          }
+        }
+      }
+    },
     "Ouvre les records" : {
       "localizations" : {
         "en" : {
@@ -3005,6 +3181,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."
+          }
+        }
+      }
+    },
+    "Pause" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
           }
         }
       }
@@ -3457,6 +3649,38 @@
         }
       }
     },
+    "Raccourcis > Automatisation > Bluetooth : choisissez votre casque, puis l'action « Démarrer un trajet ». À la déconnexion : « Terminer le trajet »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shortcuts > Automation > Bluetooth: pick your helmet headset, then the “Start a trip” action. On disconnect: “End trip”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raccourcis > Automatisation > Bluetooth : choisissez votre casque, puis l'action « Démarrer un trajet ». À la déconnexion : « Terminer le trajet »."
+          }
+        }
+      }
+    },
+    "Raccourcis > Automatisation > NFC : touchez un tag collé sur le scooter pour démarrer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shortcuts > Automation > NFC: tap a tag stuck on your scooter to start."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raccourcis > Automatisation > NFC : touchez un tag collé sur le scooter pour démarrer."
+          }
+        }
+      }
+    },
     "Recalibrer l'inclinaison" : {
       "localizations" : {
         "en" : {
@@ -3585,6 +3809,22 @@
         }
       }
     },
+    "Reprend le trajet mis en pause." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumes the paused trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reprend le trajet mis en pause."
+          }
+        }
+      }
+    },
     "Reprendre" : {
       "localizations" : {
         "en" : {
@@ -3597,6 +3837,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reprendre"
+          }
+        }
+      }
+    },
+    "Reprendre le trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume the trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reprendre le trajet"
           }
         }
       }
@@ -3997,6 +4253,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Temps d'accélération"
+          }
+        }
+      }
+    },
+    "Termine et enregistre le trajet en cours." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ends and saves the current trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termine et enregistre le trajet en cours."
           }
         }
       }

@@ -5,5 +5,6 @@ import WidgetKit
 struct ScooterPowerWidgetsBundle: WidgetBundle {
     var body: some Widget {
         TripLiveActivity()
+        HomeWidget()
     }
 }

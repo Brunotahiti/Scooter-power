@@ -145,6 +145,22 @@
         }
       }
     },
+    "Scooter Power" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power"
+          }
+        }
+      }
+    },
     "Stable" : {
       "localizations" : {
         "en" : {
@@ -157,6 +173,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stable"
+          }
+        }
+      }
+    },
+    "Vos kilomètres de la semaine et un départ en un geste." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your week's mileage and a one-tap start."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos kilomètres de la semaine et un départ en un geste."
           }
         }
       }

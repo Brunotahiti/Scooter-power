@@ -414,6 +414,7 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Config/Widgets.entitlements;
 				INFOPLIST_FILE = "Config/Widgets-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Scooter Power";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -439,6 +440,7 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Config/Widgets.entitlements;
 				INFOPLIST_FILE = "Config/Widgets-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Scooter Power";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;

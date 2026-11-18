@@ -1,0 +1,96 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "End my trip in ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termine mon trajet dans ${applicationName}"
+          }
+        }
+      }
+    },
+    "Pause ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause ${applicationName}"
+          }
+        }
+      }
+    },
+    "Pause my trip in ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mets mon trajet en pause dans ${applicationName}"
+          }
+        }
+      }
+    },
+    "Resume ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reprends ${applicationName}"
+          }
+        }
+      }
+    },
+    "Resume my trip in ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reprends mon trajet dans ${applicationName}"
+          }
+        }
+      }
+    },
+    "Start ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarre ${applicationName}"
+          }
+        }
+      }
+    },
+    "Start a trip in ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer un trajet dans ${applicationName}"
+          }
+        }
+      }
+    },
+    "Start recording in ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lance l'enregistrement dans ${applicationName}"
+          }
+        }
+      }
+    },
+    "Stop ${applicationName}" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrête ${applicationName}"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
