@@ -45,12 +45,13 @@ struct GhostRaceCard: View {
                 }
             }
             .padding(12)
-            .background(
+            .background {
                 ZStack {
                     Theme.card
                     LinearGradient(colors: [headlineColor.opacity(0.18), Color.clear], startPoint: .leading, endPoint: .trailing)
-                },
-                in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            }
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .stroke(headlineColor.opacity(0.5), lineWidth: 1))
