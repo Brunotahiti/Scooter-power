@@ -74,6 +74,7 @@ private struct SegmentRow: View {
     }
 }
 
+@MainActor
 enum SegmentLength {
     static func text(_ meters: Double) -> String {
         let units = AppSettings.shared.units
