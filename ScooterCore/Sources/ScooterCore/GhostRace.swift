@@ -286,3 +286,27 @@ public struct GhostRaceResult: Codable, Equatable, Sendable {
     /// Secondes montrées avant le départ.
     public static let lead: TimeInterval = 3
 }
+
+/// Décalage d'un tracé sur le côté, pour montrer deux scooters côte à côte
+/// sur la même route, chacun sur sa voie.
+public enum RouteOffset {
+    /// `meters` > 0 : à droite du sens de marche ; < 0 : à gauche.
+    public static func offset(_ route: [Coordinate], meters: Double) -> [Coordinate] {
+        guard route.count >= 2, meters != 0 else { return route }
+        return route.indices.map { index in
+            let a: Coordinate = route[max(0, index - 1)]
+            let b: Coordinate = route[min(route.count - 1, index + 1)]
+            return shift(route[index], bearing: TripReplay.bearing(from: a, to: b), meters: meters)
+        }
+    }
+
+    /// Point déplacé perpendiculairement au cap (à droite si `meters` > 0).
+    public static func shift(_ point: Coordinate, bearing: Double, meters: Double) -> Coordinate {
+        let right: Double = (bearing + 90) * .pi / 180
+        let dNorth: Double = cos(right) * meters
+        let dEast: Double = sin(right) * meters
+        let latitude: Double = point.latitude + dNorth / 111_320
+        let longitude: Double = point.longitude + dEast / (111_320 * max(0.01, cos(point.latitude * .pi / 180)))
+        return Coordinate(latitude: latitude, longitude: longitude)
+    }
+}

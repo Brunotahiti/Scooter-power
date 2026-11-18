@@ -261,12 +261,7 @@ enum RideMapContent {
     static func trail(_ rider: GroupRideService.Rider) -> some MapContent {
         let color: Color = GroupRideView.color(rider.colorIndex)
         let points: [CLLocationCoordinate2D] = trailPoints(rider)
-        if points.count > 1 {
-            MapPolyline(coordinates: points)
-                .stroke(color.opacity(0.3), style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
-            MapPolyline(coordinates: points)
-                .stroke(color, style: StrokeStyle(lineWidth: 4, lineCap: .round, lineJoin: .round))
-        }
+        NeonTrail.content(points, color: color)
     }
 }
 

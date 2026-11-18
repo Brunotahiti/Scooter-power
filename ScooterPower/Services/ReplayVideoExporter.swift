@@ -164,7 +164,10 @@ final class ReplayVideoExporter {
             var done: [CGPoint] = Array(routePoints[0...end])
             let position: CGPoint = snapshot.point(for: frame.coordinate.mapCoordinate)
             done.append(position)
-            strokeRoute(done, in: context, color: accent, width: 10, glow: accent)
+            // Ruban de lumière : halo, lueur, trait vif et cœur blanc.
+            strokeRoute(done, in: context, color: accent.withAlphaComponent(0.25), width: 34, glow: accent)
+            strokeRoute(done, in: context, color: accent, width: 12, glow: accent)
+            strokeRoute(done, in: context, color: UIColor.white.withAlphaComponent(0.95), width: 3.5, glow: nil)
             drawScooter(scooter, at: position, heading: frame.heading, lean: frame.leanDegrees,
                         tint: accent, in: context)
         }

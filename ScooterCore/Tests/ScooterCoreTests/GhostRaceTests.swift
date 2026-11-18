@@ -119,4 +119,15 @@ final class GhostRaceTests: XCTestCase {
         lost.finished = false
         XCTAssertNil(lost.won)
     }
+
+    func testRouteOffsetMovesSideways() {
+        // Vers le nord : la droite est à l'est.
+        let route: [Coordinate] = (0...10).map { point(Double($0) * 10) }
+        let right = RouteOffset.offset(route, meters: 5)
+        XCTAssertEqual(right.count, route.count)
+        XCTAssertGreaterThan(right[5].longitude, route[5].longitude)
+        XCTAssertEqual(TripStatistics.haversine(right[5], route[5]), 5, accuracy: 0.05)
+        let left = RouteOffset.offset(route, meters: -5)
+        XCTAssertLessThan(left[5].longitude, route[5].longitude)
+    }
 }

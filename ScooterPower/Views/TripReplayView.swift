@@ -439,15 +439,9 @@ enum ReplayMapContent {
     static func route(_ track: ReplayTrack, frame: ReplayFrame?, isMain: Bool) -> some MapContent {
         let full: [CLLocationCoordinate2D] = track.replay.route.map(\.mapCoordinate)
         let done: [CLLocationCoordinate2D] = traveled(track.replay, frame: frame)
-        let width: CGFloat = isMain ? 4.5 : 3.5
         MapPolyline(coordinates: full)
-            .stroke(track.color.opacity(0.25), style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-        if done.count > 1 {
-            MapPolyline(coordinates: done)
-                .stroke(track.color.opacity(0.3), style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
-            MapPolyline(coordinates: done)
-                .stroke(track.color, style: StrokeStyle(lineWidth: width, lineCap: .round, lineJoin: .round))
-        }
+            .stroke(track.color.opacity(0.25), style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round, dash: [8, 8]))
+        NeonTrail.content(done, color: track.color, main: isMain)
     }
 
     /// Partie déjà parcourue, jusqu'à la position actuelle.
@@ -568,11 +562,16 @@ struct TopViewScooter: View {
                 .frame(width: 34, height: 46)
                 .clipShape(BeamShape())
                 .offset(y: beamOffset)
-            // Traînée de vitesse.
-            LinearGradient(colors: [tint.opacity(0.7), Color.clear], startPoint: .top, endPoint: .bottom)
-                .frame(width: 10, height: trailLength)
+            // Traînée de vitesse : ruban de lumière à cœur blanc.
+            LinearGradient(colors: [tint.opacity(0.8), Color.clear], startPoint: .top, endPoint: .bottom)
+                .frame(width: 12, height: trailLength)
                 .clipShape(Capsule())
+                .shadow(color: tint, radius: 6)
                 .offset(y: trailOffset)
+            LinearGradient(colors: [Color.white.opacity(0.95), Color.clear], startPoint: .top, endPoint: .bottom)
+                .frame(width: 3, height: trailLength * 0.8)
+                .clipShape(Capsule())
+                .offset(y: trailOffset - trailLength * 0.1)
             // Ombre au sol, décalée du côté de l'inclinaison.
             Capsule()
                 .fill(Color.black.opacity(0.5))

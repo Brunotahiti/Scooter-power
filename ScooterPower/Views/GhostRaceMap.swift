@@ -13,44 +13,58 @@ struct GhostRaceMap: View {
     private var racing: Bool { model.ghostStatus?.phase == .racing }
     private var me: Coordinate? { model.route.last }
 
+    /// Les deux scooters roulent côte à côte, chacun sur sa voie (en mètres).
+    private static let laneOffset: Double = 4
+    static let ghostBlue = Color(hex: 0x2EA8FF)
+    private static let red: Color = SpeedometerView.neonRed
+
+    /// Orientation actuelle de la carte, pour tourner les scooters dans le bon sens.
+    @State private var mapHeading: Double = 0
+
     var body: some View {
-        Map(position: $position, interactionModes: [.zoom]) {
+        let myTrail: [Coordinate] = RouteOffset.offset(model.route, meters: -Self.laneOffset)
+        let ghostTrail: [Coordinate] = RouteOffset.offset(ghostTravelled, meters: Self.laneOffset)
+        return Map(position: $position, interactionModes: [.zoom]) {
             if model.ghostRoute.count > 1 {
+                // Le parcours à suivre, discret.
                 MapPolyline(coordinates: model.ghostRoute.map(\.mapCoordinate))
-                    .stroke(Color.white.opacity(0.75), style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round, dash: [10, 7]))
+                    .stroke(Color.white.opacity(0.35), style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round, dash: [8, 8]))
                 if let start = model.ghostRoute.first {
                     Annotation(L("Départ"), coordinate: start.mapCoordinate) {
-                        Image(systemName: "flag.checkered")
-                            .font(.system(size: 14, weight: .bold))
-                            .padding(6)
-                            .background(Color.black.opacity(0.7), in: Circle())
+                        flag(color: .white)
                     }
                 }
                 if let end = model.ghostRoute.last {
                     Annotation(L("Arrivée"), coordinate: end.mapCoordinate) {
-                        Image(systemName: "flag.checkered")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundStyle(Theme.finish)
-                            .padding(6)
-                            .background(Color.black.opacity(0.7), in: Circle())
+                        flag(color: Theme.finish)
                     }
                 }
             }
-            if model.route.count > 1 {
-                MapPolyline(coordinates: model.route.map(\.mapCoordinate))
-                    .stroke(SpeedometerView.neonRed.opacity(0.9), style: StrokeStyle(lineWidth: 6, lineCap: .round, lineJoin: .round))
+            // Traînées lumineuses façon courses de motos néon : halo large et cœur clair.
+            if ghostTrail.count > 1 {
+                neonTrail(ghostTrail, color: Self.ghostBlue)
+            }
+            if myTrail.count > 1 {
+                neonTrail(myTrail, color: Self.red)
             }
             if racing, let ghost = model.ghostStatus?.ghostCoordinate {
-                // Le scooter (et non l'étiquette) sur la position.
-                Annotation("", coordinate: ghost.mapCoordinate, anchor: UnitPoint(x: 0.5, y: 0.3)) {
-                    RaceMarker(name: L("Ghost"), color: .white, heading: ghostHeading, ghost: true)
+                let spot: Coordinate = RouteOffset.shift(ghost, bearing: ghostHeading, meters: Self.laneOffset)
+                Annotation("", coordinate: spot.mapCoordinate) {
+                    RaceBike(name: L("Ghost"), color: Self.ghostBlue, ghost: true,
+                             frame: bikeFrame(at: spot, heading: ghostHeading), rotation: ghostHeading - mapHeading)
                 }
             }
             if let me {
-                Annotation("", coordinate: me.mapCoordinate, anchor: UnitPoint(x: 0.5, y: 0.7)) {
-                    RaceMarker(name: L("Moi"), color: SpeedometerView.neonRed, heading: myHeading, ghost: false)
+                let spot: Coordinate = racing
+                    ? RouteOffset.shift(me, bearing: myHeading, meters: -Self.laneOffset) : me
+                Annotation("", coordinate: spot.mapCoordinate) {
+                    RaceBike(name: L("Moi"), color: Self.red, ghost: false,
+                             frame: bikeFrame(at: spot, heading: myHeading), rotation: myHeading - mapHeading)
                 }
             }
+        }
+        .onMapCameraChange(frequency: .continuous) { context in
+            mapHeading = context.camera.heading
         }
         .mapStyle(TripMapStyle.style(satellite: satellite))
         .overlay(alignment: .topTrailing) {
@@ -71,20 +85,58 @@ struct GhostRaceMap: View {
         .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
-                .stroke(SpeedometerView.neonRed.opacity(0.7), lineWidth: 1.5))
+                .stroke(Self.red.opacity(0.7), lineWidth: 1.5))
         .onAppear { frameCamera(animated: false) }
         .onChange(of: model.route.count) { _, _ in frameCamera(animated: true) }
         .onChange(of: racing) { _, _ in frameCamera(animated: true) }
     }
 
+    @MapContentBuilder
+    private func neonTrail(_ points: [Coordinate], color: Color) -> some MapContent {
+        NeonTrail.content(points.map(\.mapCoordinate), color: color)
+    }
+
+    private func flag(color: Color) -> some View {
+        Image(systemName: "flag.checkered")
+            .font(.system(size: 14, weight: .bold))
+            .foregroundStyle(color)
+            .padding(6)
+            .background(Color.black.opacity(0.7), in: Circle())
+    }
+
+    /// Le parcours déjà fait par le ghost, jusqu'à sa position actuelle.
+    private var ghostTravelled: [Coordinate] {
+        guard racing || model.ghostStatus?.phase == .finished, let status = model.ghostStatus,
+              let ghost = status.ghostCoordinate else { return [] }
+        let route: [Coordinate] = model.ghostRoute
+        guard route.count > 1 else { return [] }
+        var total: Double = 0
+        for index in 1..<route.count { total += TripStatistics.haversine(route[index - 1], route[index]) }
+        let target: Double = status.ghostProgress * total
+        var travelled: [Coordinate] = [route[0]]
+        var done: Double = 0
+        for index in 1..<route.count {
+            done += TripStatistics.haversine(route[index - 1], route[index])
+            if done >= target { break }
+            travelled.append(route[index])
+        }
+        travelled.append(ghost)
+        return travelled
+    }
+
+    private func bikeFrame(at coordinate: Coordinate, heading: Double) -> ReplayFrame {
+        ReplayFrame(coordinate: coordinate, heading: heading, speedKmh: model.speedKmh ?? 0,
+                    acceleration: 0, leanDegrees: 0, time: 0, index: 0)
+    }
+
     private var legend: some View {
         HStack(spacing: 12) {
             HStack(spacing: 5) {
-                Capsule().fill(SpeedometerView.neonRed).frame(width: 18, height: 4)
+                Capsule().fill(Self.red).frame(width: 18, height: 4).shadow(color: Self.red, radius: 3)
                 Text(L("Moi"))
             }
             HStack(spacing: 5) {
-                Capsule().fill(Color.white).frame(width: 18, height: 4)
+                Capsule().fill(Self.ghostBlue).frame(width: 18, height: 4).shadow(color: Self.ghostBlue, radius: 3)
                 Text(L("Ghost"))
             }
         }
@@ -99,7 +151,7 @@ struct GhostRaceMap: View {
     private func frameCamera(animated: Bool) {
         let next: MapCameraPosition
         if racing, let me {
-            next = .camera(MapCamera(centerCoordinate: me.mapCoordinate, distance: 650, heading: myHeading, pitch: 0))
+            next = .camera(MapCamera(centerCoordinate: me.mapCoordinate, distance: 320, heading: myHeading, pitch: 0))
         } else {
             var points: [Coordinate] = model.ghostRoute
             if let me { points.append(me) }
@@ -147,54 +199,33 @@ struct GhostRaceMap: View {
     }
 }
 
-/// Scooter vu du dessus avec son nom ; le ghost est blanc et translucide.
-private struct RaceMarker: View {
+/// Scooter vu du dessus, dans le sens de la marche, avec son étiquette néon.
+private struct RaceBike: View {
     let name: String
     let color: Color
-    let heading: Double
     let ghost: Bool
+    let frame: ReplayFrame
+    /// Cap moins orientation de la carte.
+    let rotation: Double
 
     var body: some View {
-        VStack(spacing: 2) {
-            if ghost { scooterView }
-            tag
-            if !ghost { scooterView }
-        }
-    }
-
-    /// Étiquette au-dessus de moi, sous le ghost : les deux restent lisibles côte à côte.
-    private var tag: some View {
-        Text(verbatim: ghost ? "👻 " + name : name)
-                .font(.system(size: 12, weight: .heavy))
+        ZStack {
+            TopViewScooter(frame: frame, rotation: rotation, tint: color)
+                .colorMultiply(ghost ? Color(hex: 0x9FD4FF) : Color(hex: 0xFFB3B3))
+                .shadow(color: color, radius: 6)
+                .shadow(color: color.opacity(0.8), radius: 12)
+                .scaleEffect(0.7)
+            Text(verbatim: ghost ? "👻 " + name : name)
+                .font(.system(size: 11, weight: .heavy))
                 .italic()
                 .foregroundStyle(.white)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 3)
-                .background(ghost ? Color.black.opacity(0.6) : color.opacity(0.85), in: Capsule())
-                .overlay(Capsule().stroke(color, lineWidth: 1))
-    }
-
-    private var scooterView: some View {
-        scooter
-            .frame(width: 34, height: 34)
-            .rotationEffect(.degrees(heading))
-            .opacity(ghost ? 0.6 : 1)
-            .shadow(color: color, radius: ghost ? 8 : 4)
-    }
-
-    @ViewBuilder
-    private var scooter: some View {
-        if let photo = UIImage(named: "ScooterTop") {
-            Image(uiImage: photo)
-                .resizable()
-                .scaledToFit()
-                .colorMultiply(ghost ? Color(white: 1.6) : .white)
-        } else {
-            Image(systemName: "location.north.fill")
-                .resizable()
-                .scaledToFit()
-                .foregroundStyle(color)
+                .padding(.horizontal, 7)
+                .padding(.vertical, 2)
+                .background(color.opacity(0.85), in: Capsule())
+                .shadow(color: color, radius: 4)
+                .offset(y: -40)
         }
+        .frame(width: 90, height: 90)
     }
 }
 
