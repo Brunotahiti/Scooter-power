@@ -41,11 +41,12 @@ public struct GhostRace: Sendable {
     public static let minimumLength: Double = 300
 
     public let route: [Coordinate]
-    private let times: [TimeInterval]
+    /// Temps du ghost à chaque point, depuis le début de son trajet.
+    public let times: [TimeInterval]
     private let cumulative: [Double]
     public let length: Double
     /// Temps du ghost au moment où il passe la ligne de départ.
-    private let ghostStart: TimeInterval
+    public let ghostStart: TimeInterval
 
     public private(set) var phase = Phase.waitingForStart
     private var armed = false
@@ -217,4 +218,71 @@ public struct GhostRace: Sendable {
         let ratio: Double = span > 0 ? (x - keys[low]) / span : 0
         return values[low] + (values[high] - values[low]) * ratio
     }
+}
+
+/// Une course contre le ghost, gardée avec le trajet pour la revoir.
+public struct GhostRaceResult: Codable, Equatable, Sendable {
+    public var title: String
+    public var finished: Bool
+    public var riderTime: TimeInterval?
+    public var ghostTime: TimeInterval?
+    /// Temps du trajet (origine des `ReplayPoint`) au départ de la course.
+    public var raceStart: TimeInterval
+    public var ghostRoute: [Coordinate]
+    /// Chrono de course du ghost à chaque point (0 : il passe la ligne de départ).
+    public var ghostTimes: [TimeInterval]
+
+    public init(title: String, race: GhostRace, status: GhostRace.Status, raceStart: TimeInterval) {
+        self.title = title
+        self.finished = status.phase == .finished
+        self.riderTime = status.finishTime
+        self.ghostTime = status.ghostFinishTime
+        self.raceStart = raceStart
+        self.ghostRoute = race.route
+        self.ghostTimes = race.times.map { $0 - race.ghostStart }
+    }
+
+    /// Gagnée, perdue, ou `nil` si la course n'a pas été terminée.
+    public var won: Bool? {
+        guard finished, let riderTime, let ghostTime else { return nil }
+        return riderTime <= ghostTime
+    }
+
+    /// Le ghost rejoué sur le chrono de course, quelques secondes avant le départ comprises.
+    public func ghostReplay() -> TripReplay {
+        var route: [Coordinate] = []
+        var points: [ReplayPoint] = []
+        for index in ghostRoute.indices where ghostTimes[index] >= -Self.lead {
+            var speed: Double = 0
+            if index > 0 {
+                let dt: Double = ghostTimes[index] - ghostTimes[index - 1]
+                if dt > 0 { speed = TripStatistics.haversine(ghostRoute[index - 1], ghostRoute[index]) / dt * 3.6 }
+            }
+            route.append(ghostRoute[index])
+            points.append(ReplayPoint(time: ghostTimes[index] + Self.lead, speedKmh: speed, acceleration: 0, leanDegrees: 0))
+        }
+        return TripReplay(route: route, points: points, averageSpeedKmh: 30, absoluteTimes: true)
+    }
+
+    /// Mon trajet rejoué sur le même chrono : du départ de la course à l'arrivée.
+    public func riderReplay(route: [Coordinate], points: [ReplayPoint]) -> TripReplay {
+        guard route.count == points.count else {
+            return TripReplay(route: route, points: points, averageSpeedKmh: 30)
+        }
+        let end: TimeInterval = riderTime.map { raceStart + $0 + 3 } ?? .infinity
+        var keptRoute: [Coordinate] = []
+        var keptPoints: [ReplayPoint] = []
+        for index in route.indices {
+            let time: TimeInterval = points[index].time
+            guard time >= raceStart - Self.lead, time <= end else { continue }
+            var point: ReplayPoint = points[index]
+            point.time = time - raceStart + Self.lead
+            keptRoute.append(route[index])
+            keptPoints.append(point)
+        }
+        return TripReplay(route: keptRoute, points: keptPoints, averageSpeedKmh: 30, absoluteTimes: true)
+    }
+
+    /// Secondes montrées avant le départ.
+    public static let lead: TimeInterval = 3
 }

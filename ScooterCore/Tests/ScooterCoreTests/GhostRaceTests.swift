@@ -92,4 +92,31 @@ final class GhostRaceTests: XCTestCase {
         let estimated = GhostRace.make(route: route, points: [], averageSpeedKmh: 36)
         XCTAssertEqual(estimated?.ghostTime(atDistance: 500) ?? 0, 46, accuracy: 0.5)
     }
+
+    func testResultKeepsTheRaceForReplay() {
+        var race = ghost()
+        _ = race.update(time: 0, coordinate: point(0))
+        _ = race.update(time: 1, coordinate: point(40))
+        _ = race.update(time: 40, coordinate: point(500))
+        let end = race.update(time: 80, coordinate: point(990))
+        XCTAssertEqual(end.phase, .finished)
+        let result = GhostRaceResult(title: "Ghost", race: race, status: end, raceStart: 100)
+        XCTAssertEqual(result.won, true)
+        XCTAssertEqual(result.ghostTimes.count, race.route.count)
+        let ghost = result.ghostReplay()
+        // Le ghost passe la ligne au bout de `lead` secondes de revisualisation.
+        let atStart = ghost.frame(at: GhostRaceResult.lead)!
+        XCTAssertEqual(atStart.coordinate.latitude, point(40).latitude, accuracy: 2e-5)
+        // Mon trajet : seuls les points de la course sont gardés.
+        let route: [Coordinate] = (0...200).map { point(Double($0) * 5) }
+        let points: [ReplayPoint] = route.indices.map { ReplayPoint(time: 90 + Double($0) * 0.5, speedKmh: 36, acceleration: 0, leanDegrees: 0) }
+        let mine = result.riderReplay(route: route, points: points)
+        XCTAssertEqual(mine.route.count, 2 * Int(79 + 3 + 3) + 1)
+        XCTAssertEqual(mine.points.first!.time, 0, accuracy: 1e-9)
+        var lost = result
+        lost.riderTime = 200
+        XCTAssertEqual(lost.won, false)
+        lost.finished = false
+        XCTAssertNil(lost.won)
+    }
 }

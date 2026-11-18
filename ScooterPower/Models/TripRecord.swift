@@ -30,6 +30,10 @@ final class TripRecord {
     var imperialTimesData: Data?
     /// Scooter du garage utilisé pour ce trajet (`Scooter.uid`) ; absent des trajets anciens.
     var scooterID: String?
+    /// Course contre un ghost pendant ce trajet (`GhostRaceResult` en JSON).
+    @Attribute(.externalStorage) var raceData: Data?
+    /// Résultat de cette course, lisible sans décoder `raceData` : vrai gagnée, faux perdue.
+    var raceWon: Bool?
     /// Configuration du scooter pendant ce trajet ; absente des trajets anciens.
     var setupName: String?
     /// Poussée le long du tracé allégé, encodée en JSON ; absente des trajets anciens.
@@ -120,6 +124,11 @@ final class TripRecord {
     var highlights: [TripHighlight] {
         guard let highlightsData else { return [] }
         return (try? JSONDecoder().decode([TripHighlight].self, from: highlightsData)) ?? []
+    }
+
+    var race: GhostRaceResult? {
+        guard let raceData else { return nil }
+        return try? JSONDecoder().decode(GhostRaceResult.self, from: raceData)
     }
 
     var replayPoints: [ReplayPoint] {

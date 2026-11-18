@@ -1809,6 +1809,22 @@
         }
       }
     },
+    "Course non terminée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race not finished"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Course non terminée"
+          }
+        }
+      }
+    },
     "Création de la vidéo…" : {
       "localizations" : {
         "en" : {
@@ -2753,38 +2769,6 @@
         }
       }
     },
-    "Ghost battu !" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ghost beaten!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ghost battu !"
-          }
-        }
-      }
-    },
-    "Ghost battu de %@ secondes !" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ghost beaten by %@ seconds!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ghost battu de %@ secondes !"
-          }
-        }
-      }
-    },
     "Ghost de %@" : {
       "localizations" : {
         "en" : {
@@ -3197,38 +3181,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."
-          }
-        }
-      }
-    },
-    "Le ghost gagne" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The ghost wins"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le ghost gagne"
-          }
-        }
-      }
-    },
-    "Le ghost gagne de %@ secondes." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The ghost wins by %@ seconds."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le ghost gagne de %@ secondes."
           }
         }
       }
@@ -4641,6 +4593,38 @@
         }
       }
     },
+    "Race lost. Le ghost gagne de %@ secondes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race lost. The ghost wins by %@ seconds."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race lost. Le ghost gagne de %@ secondes."
+          }
+        }
+      }
+    },
+    "Race win ! Ghost battu de %@ secondes !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race win! Ghost beaten by %@ seconds!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race win ! Ghost battu de %@ secondes !"
+          }
+        }
+      }
+    },
     "Recalibrer l'inclinaison" : {
       "localizations" : {
         "en" : {
@@ -4861,6 +4845,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Respectez le code de la route. Les mesures d'accélération sont réservées aux lieux où elles sont autorisées et sans danger."
+          }
+        }
+      }
+    },
+    "Revoir la course" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replay the race"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revoir la course"
           }
         }
       }

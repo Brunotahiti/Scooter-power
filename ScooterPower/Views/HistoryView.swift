@@ -435,6 +435,16 @@ private struct HistoryRow: View {
                         .font(.system(size: 18, weight: .bold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
+                    if let won = trip.raceWon {
+                        Text(verbatim: won ? "RACE WIN" : "RACE LOST")
+                            .font(.system(size: 10, weight: .black))
+                            .italic()
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .foregroundStyle(.black)
+                            .background(won ? RaceResultBanner.winColor : Theme.red, in: Capsule())
+                            .fixedSize()
+                    }
                 }
                 HStack(spacing: 10) {
                     Image(systemName: "point.topleft.down.to.point.bottomright.curvepath")

@@ -15,7 +15,8 @@ struct GhostRaceCard: View {
                         .font(.system(size: 20))
                     VStack(alignment: .leading, spacing: 1) {
                         Text(headline)
-                            .font(.system(size: 15, weight: .heavy))
+                            .font(.system(size: status?.phase == .finished ? 24 : 15, weight: .black))
+                            .italic(status?.phase == .finished)
                             .foregroundStyle(headlineColor)
                         Text(verbatim: detail ?? title)
                             .font(.system(size: 12, weight: .medium))
@@ -66,7 +67,7 @@ struct GhostRaceCard: View {
             if status.offRoute { return L("Hors parcours") }
             return (status.gapSeconds ?? 0) >= 0 ? L("Devant le ghost") : L("Derrière le ghost")
         case .finished:
-            return (status.gapSeconds ?? 0) >= 0 ? L("Ghost battu !") : L("Le ghost gagne")
+            return (status.gapSeconds ?? 0) >= 0 ? "RACE WIN" : "RACE LOST"
         }
     }
 

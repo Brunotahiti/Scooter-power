@@ -79,6 +79,8 @@ final class TripViewModel {
     @ObservationIgnored private var ghostRace: GhostRace?
     @ObservationIgnored private var ghostLastAnnounce: TimeInterval = 0
     @ObservationIgnored private var ghostWasAhead: Bool?
+    /// Temps du trajet au départ de la course, pour la revoir ensuite.
+    @ObservationIgnored private var ghostRaceStart: TimeInterval?
 
     @ObservationIgnored private var session = TripSession()
     @ObservationIgnored private let location: LocationProviding
@@ -201,7 +203,15 @@ final class TripViewModel {
         ghostRoute = race?.route ?? []
         ghostStatus = nil
         ghostWasAhead = nil
+        ghostRaceStart = nil
         ghostRace = (state == .recording || state == .paused) ? race : nil
+    }
+
+    /// La course de ce trajet, à enregistrer avec lui ; `nil` si elle n'a pas commencé.
+    func ghostResult() -> GhostRaceResult? {
+        guard let ghostRace, let ghostStatus, ghostStatus.phase != .waitingForStart,
+              let ghostRaceStart, let ghostTitle else { return nil }
+        return GhostRaceResult(title: ghostTitle, race: ghostRace, status: ghostStatus, raceStart: ghostRaceStart)
     }
 
     private func updateGhost(_ coordinate: Coordinate) {
@@ -210,6 +220,9 @@ final class TripViewModel {
         let status: GhostRace.Status = race.update(time: now, coordinate: coordinate)
         ghostRace = race
         ghostStatus = status
+        if previous != .racing, status.phase == .racing, ghostRaceStart == nil {
+            ghostRaceStart = session.replayTrack.last?.time
+        }
         guard settings.voiceEnabled else { return }
         switch status.phase {
         case .waitingForStart:
@@ -235,8 +248,8 @@ final class TripViewModel {
             if previous != .finished, let gap = status.gapSeconds {
                 let seconds: String = Formatters.decimal(abs(gap), digits: 1)
                 Announcer.shared.say(gap >= 0
-                    ? L("Ghost battu de \(seconds) secondes !")
-                    : L("Le ghost gagne de \(seconds) secondes."))
+                    ? L("Race win ! Ghost battu de \(seconds) secondes !")
+                    : L("Race lost. Le ghost gagne de \(seconds) secondes."))
             }
         }
     }
@@ -331,6 +344,7 @@ final class TripViewModel {
         ghostRace = ghostTemplate
         ghostStatus = nil
         ghostWasAhead = nil
+        ghostRaceStart = nil
         ghostLastAnnounce = now
         location.start()
         motion.start()

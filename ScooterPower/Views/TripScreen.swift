@@ -139,13 +139,18 @@ struct TripScreen: View {
                 banners
                 speedCards
                 tripCards
-                AccelerationCard(
-                    value: model.accelerationValue,
-                    valueText: model.accelerationText,
-                    level: model.accelerationLevel)
-                AccelerationHistoryCard(history: model.accelerationHistory, peakText: model.peakText)
-                sprintCard
-                LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
+                if model.ghostTitle != nil {
+                    // Course contre le ghost : la carte de la course remplace les mesures.
+                    GhostRaceMap(model: model)
+                } else {
+                    AccelerationCard(
+                        value: model.accelerationValue,
+                        valueText: model.accelerationText,
+                        level: model.accelerationLevel)
+                    AccelerationHistoryCard(history: model.accelerationHistory, peakText: model.peakText)
+                    sprintCard
+                    LeanCard(degrees: model.leanDegrees, text: model.leanText, side: model.leanSide)
+                }
                 if model.isDemo {
                     Text(L("Données d'illustration"))
                         .font(.system(size: 13))
@@ -258,6 +263,9 @@ struct TripScreen: View {
             thrust: model.thrustTrack, highlights: model.highlights, replay: model.replayTrack)
         let scooter: Scooter? = scooters.first { $0.uid == settings.currentScooterID } ?? scooters.first
         record.scooterID = scooter?.uid
+        let race: GhostRaceResult? = model.ghostResult()
+        record.raceData = race.flatMap { try? JSONEncoder().encode($0) }
+        record.raceWon = race?.won
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()

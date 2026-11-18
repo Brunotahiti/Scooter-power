@@ -11,11 +11,15 @@ struct TripDetailView: View {
     @State private var share = ShareState()
     @State private var showReplay = false
     @State private var showCreateSegment = false
+    @State private var showRaceReplay = false
 
     var body: some View {
         let coordinates: [CLLocationCoordinate2D] = trip.route.map(\.mapCoordinate)
         return ScrollView {
             VStack(spacing: 14) {
+                if let race = trip.race {
+                    raceSummary(race)
+                }
                 if coordinates.count > 1 {
                     replayButton
                 }
@@ -54,6 +58,16 @@ struct TripDetailView: View {
             }
         }
         .sharePresentation($share)
+        .fullScreenCover(isPresented: $showRaceReplay) {
+            if let race = trip.race {
+                TripReplayView(
+                    main: ReplayTrack(
+                        id: "mine", name: trip.title,
+                        replay: race.riderReplay(route: trip.route, points: trip.replayPoints),
+                        color: SpeedometerView.neonRed),
+                    riders: [ReplayTrack(id: "ghost", name: "👻 " + race.title, replay: race.ghostReplay(), color: .white)])
+            }
+        }
         .sheet(isPresented: $showCreateSegment) {
             CreateSegmentSheet(trip: trip)
         }
@@ -62,6 +76,51 @@ struct TripDetailView: View {
                 main: ReplayTrack(id: "mine", name: trip.title, replay: trip.replay, color: SpeedometerView.neonRed),
                 friends: friendTrips)
         }
+    }
+
+    /// Résultat de la course contre le ghost et bouton pour la revoir.
+    private func raceSummary(_ race: GhostRaceResult) -> some View {
+        let won: Bool? = race.won
+        let color: Color = won == true ? RaceResultBanner.winColor : (won == false ? Theme.red : Theme.textSecondary)
+        return VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                Text(verbatim: "👻").font(.system(size: 26))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(verbatim: won == true ? "RACE WIN" : (won == false ? "RACE LOST" : L("Course non terminée")))
+                        .font(.system(size: 24, weight: .black))
+                        .italic()
+                        .foregroundStyle(color)
+                    Text(verbatim: race.title)
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+                Spacer()
+                if let mine = race.riderTime, let ghost = race.ghostTime {
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text(verbatim: Formatters.signed(ghost - mine, digits: 1) + " s")
+                            .font(.system(size: 20, weight: .heavy).monospacedDigit())
+                            .foregroundStyle(color)
+                        Text(L("Vous \(Formatters.duration(mine)) · ghost \(Formatters.duration(ghost))"))
+                            .font(.system(size: 11))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
+                }
+            }
+            Button {
+                showRaceReplay = true
+            } label: {
+                Label(L("Revoir la course"), systemImage: "play.circle.fill")
+                    .font(.system(size: 16, weight: .heavy))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .foregroundStyle(.black)
+                    .background(color == Theme.textSecondary ? Theme.cyan : color, in: RoundedRectangle(cornerRadius: 12))
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(14)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 16))
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(color.opacity(0.7), lineWidth: 1.5))
     }
 
     /// Le trajet comme adversaire : `nil` s'il est trop court.
