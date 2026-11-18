@@ -26,9 +26,23 @@ struct GhostRaceMap: View {
         let ghostTrail: [Coordinate] = RouteOffset.offset(ghostTravelled, meters: Self.laneOffset)
         return Map(position: $position, interactionModes: [.zoom]) {
             if model.ghostRoute.count > 1 {
-                // Le parcours à suivre, discret.
-                MapPolyline(coordinates: model.ghostRoute.map(\.mapCoordinate))
-                    .stroke(Color.white.opacity(0.35), style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round, dash: [8, 8]))
+                // Le parcours à suivre, bien visible même sur la photo satellite :
+                // bordure sombre, trait blanc en pointillés et flèches de direction.
+                let path: [CLLocationCoordinate2D] = model.ghostRoute.map(\.mapCoordinate)
+                MapPolyline(coordinates: path)
+                    .stroke(Color.black.opacity(0.6), style: StrokeStyle(lineWidth: 11, lineCap: .round, lineJoin: .round))
+                MapPolyline(coordinates: path)
+                    .stroke(Color.white.opacity(0.95), style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round, dash: [14, 9]))
+                ForEach(Array(arrows.enumerated()), id: \.offset) { _, arrow in
+                    Annotation("", coordinate: arrow.coordinate.mapCoordinate) {
+                        Image(systemName: "chevron.up")
+                            .font(.system(size: 11, weight: .black))
+                            .foregroundStyle(.black)
+                            .frame(width: 18, height: 18)
+                            .background(Color.white, in: Circle())
+                            .rotationEffect(.degrees(arrow.bearing - mapHeading))
+                    }
+                }
                 if let start = model.ghostRoute.first {
                     Annotation(L("Départ"), coordinate: start.mapCoordinate) {
                         flag(color: .white)
@@ -102,6 +116,29 @@ struct GhostRaceMap: View {
             .foregroundStyle(color)
             .padding(6)
             .background(Color.black.opacity(0.7), in: Circle())
+    }
+
+    /// Flèches de direction tous les 120 m le long du parcours.
+    private var arrows: [(coordinate: Coordinate, bearing: Double)] {
+        let route: [Coordinate] = model.ghostRoute
+        guard route.count > 1 else { return [] }
+        var result: [(coordinate: Coordinate, bearing: Double)] = []
+        var travelled: Double = 0
+        var next: Double = 60
+        for index in 1..<route.count {
+            let a: Coordinate = route[index - 1]
+            let b: Coordinate = route[index]
+            let step: Double = TripStatistics.haversine(a, b)
+            while step > 0, travelled + step >= next {
+                let ratio: Double = (next - travelled) / step
+                let point = Coordinate(latitude: a.latitude + (b.latitude - a.latitude) * ratio,
+                                       longitude: a.longitude + (b.longitude - a.longitude) * ratio)
+                result.append((point, TripReplay.bearing(from: a, to: b)))
+                next += 120
+            }
+            travelled += step
+        }
+        return result
     }
 
     /// Le parcours déjà fait par le ghost, jusqu'à sa position actuelle.
