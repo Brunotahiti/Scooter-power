@@ -1,6 +1,7 @@
 import AppIntents
 import Foundation
 import Observation
+import ScooterCore
 
 /// Commande reçue de Siri, de Raccourcis, du bouton Action ou du widget.
 /// L'écran du trajet l'exécute dès qu'il est affiché.
@@ -13,9 +14,28 @@ enum TripCommand: Equatable {
 final class TripCommands {
     static let shared = TripCommands()
     private(set) var pending: TripCommand?
+    /// Course contre un trajet passé, demandée depuis l'historique.
+    private(set) var pendingGhost: GhostRequest?
+
+    struct GhostRequest: Equatable {
+        let id = UUID()
+        let race: GhostRace
+        let title: String
+
+        static func == (lhs: GhostRequest, rhs: GhostRequest) -> Bool { lhs.id == rhs.id }
+    }
 
     func request(_ command: TripCommand) {
         pending = command
+    }
+
+    func raceGhost(_ race: GhostRace, title: String) {
+        pendingGhost = GhostRequest(race: race, title: title)
+    }
+
+    func takeGhost() -> GhostRequest? {
+        defer { pendingGhost = nil }
+        return pendingGhost
     }
 
     /// Rend la commande en attente et l'efface.

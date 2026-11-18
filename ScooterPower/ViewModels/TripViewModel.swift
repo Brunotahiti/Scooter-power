@@ -69,6 +69,17 @@ final class TripViewModel {
     /// Début du trajet en cours ou du dernier trajet terminé.
     private(set) var startDate: Date?
 
+    // MARK: Course contre le ghost
+    /// Nom du trajet affronté (« Ghost du 12 nov. »), `nil` sans course.
+    private(set) var ghostTitle: String?
+    private(set) var ghostStatus: GhostRace.Status?
+    /// Parcours du ghost, pour la carte.
+    private(set) var ghostRoute: [Coordinate] = []
+    @ObservationIgnored private var ghostTemplate: GhostRace?
+    @ObservationIgnored private var ghostRace: GhostRace?
+    @ObservationIgnored private var ghostLastAnnounce: TimeInterval = 0
+    @ObservationIgnored private var ghostWasAhead: Bool?
+
     @ObservationIgnored private var session = TripSession()
     @ObservationIgnored private let location: LocationProviding
     @ObservationIgnored private let motion: MotionProviding
@@ -110,6 +121,9 @@ final class TripViewModel {
             self.session.handle(sample)
             if self.state == .recording, sample.speed >= 0 {
                 self.crashDetector.addSpeed(time: self.now, kmh: sample.speed * 3.6)
+            }
+            if self.state == .recording, sample.horizontalAccuracy >= 0 {
+                self.updateGhost(Coordinate(latitude: sample.latitude, longitude: sample.longitude))
             }
         }
         motion.onMotion = { [weak self] sample in
@@ -172,9 +186,63 @@ final class TripViewModel {
 
     func reset() {
         guard state == .finished else { return }
+        // Une course contre le ghost ne vaut que pour un trajet.
+        setGhost(nil, title: nil)
         session.reset()
         summary = nil
         refresh()
+    }
+
+    /// Prépare une course contre un trajet passé ; `nil` l'annule.
+    func setGhost(_ race: GhostRace?, title: String?) {
+        ghostTemplate = race
+        ghostTitle = race == nil ? nil : title
+        ghostRoute = race?.route ?? []
+        ghostStatus = nil
+        ghostWasAhead = nil
+        ghostRace = (state == .recording || state == .paused) ? race : nil
+    }
+
+    private func updateGhost(_ coordinate: Coordinate) {
+        guard var race = ghostRace else { return }
+        let previous: GhostRace.Phase? = ghostStatus?.phase
+        let status: GhostRace.Status = race.update(time: now, coordinate: coordinate)
+        ghostRace = race
+        ghostStatus = status
+        guard settings.voiceEnabled else { return }
+        switch status.phase {
+        case .waitingForStart:
+            break
+        case .racing:
+            if previous != .racing {
+                Announcer.shared.say(L("Top départ ! Le ghost est parti."))
+                ghostLastAnnounce = now
+                return
+            }
+            guard let gap = status.gapSeconds, !status.offRoute else { return }
+            let ahead: Bool = gap >= 0
+            // Changement de leader, ou point toutes les 45 secondes.
+            if let wasAhead = ghostWasAhead, wasAhead != ahead, abs(gap) >= 0.5 {
+                Announcer.shared.say(ahead ? L("Vous passez devant le ghost !") : L("Le ghost vous dépasse !"))
+                ghostLastAnnounce = now
+            } else if now - ghostLastAnnounce >= 45 {
+                Announcer.shared.say(Self.ghostGapSentence(gap))
+                ghostLastAnnounce = now
+            }
+            if abs(gap) >= 0.5 { ghostWasAhead = ahead }
+        case .finished:
+            if previous != .finished, let gap = status.gapSeconds {
+                let seconds: String = Formatters.decimal(abs(gap), digits: 1)
+                Announcer.shared.say(gap >= 0
+                    ? L("Ghost battu de \(seconds) secondes !")
+                    : L("Le ghost gagne de \(seconds) secondes."))
+            }
+        }
+    }
+
+    static func ghostGapSentence(_ gap: Double) -> String {
+        let seconds: String = Formatters.decimal(abs(gap), digits: 0)
+        return gap >= 0 ? L("\(seconds) secondes d'avance sur le ghost.") : L("\(seconds) secondes de retard sur le ghost.")
     }
 
     /// Records issus de l'historique des trajets. À rappeler quand l'historique change.
@@ -251,6 +319,10 @@ final class TripViewModel {
         session.start(at: now)
         crashDetector = CrashDetector()
         crashAlert = nil
+        ghostRace = ghostTemplate
+        ghostStatus = nil
+        ghostWasAhead = nil
+        ghostLastAnnounce = now
         location.start()
         motion.start()
         UIApplication.shared.isIdleTimerDisabled = true

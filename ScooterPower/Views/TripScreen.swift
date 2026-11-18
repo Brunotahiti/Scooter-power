@@ -31,6 +31,10 @@ struct TripScreen: View {
             // Changer de langue reconstruit l'écran (le trajet en cours, gardé par `model`, continue).
             .id(settings.language)
             .overlay(alignment: .top) {
+                GhostRaceCard(model: model)
+                    .padding(.top, verticalSizeClass == .compact ? 8 : 52)
+            }
+            .overlay(alignment: .top) {
                 recordBanner
             }
             .animation(.spring(duration: 0.4), value: model.recordBanner)
@@ -63,6 +67,9 @@ struct TripScreen: View {
             // Siri, Raccourcis, bouton Action ou widget.
             .onChange(of: TripCommands.shared.pending) { _, _ in
                 runPendingCommand()
+            }
+            .onChange(of: TripCommands.shared.pendingGhost) { _, _ in
+                runPendingGhost()
             }
             .modifier(TripPresentations(
                 model: model,
@@ -277,6 +284,14 @@ struct TripScreen: View {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             openURL(url)
         }
+    }
+
+    /// Course contre un trajet passé : on referme l'historique et on prépare le ghost.
+    private func runPendingGhost() {
+        guard let request = TripCommands.shared.takeGhost() else { return }
+        showHistory = false
+        if model.state == .finished { model.reset() }
+        model.setGhost(request.race, title: request.title)
     }
 
     /// Exécute la commande reçue de Siri, de Raccourcis ou du widget.

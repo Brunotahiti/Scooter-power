@@ -49,6 +49,38 @@
         }
       }
     },
+    "%@ d'avance" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ahead"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ d'avance"
+          }
+        }
+      }
+    },
+    "%@ de retard" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ behind"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ de retard"
+          }
+        }
+      }
+    },
     "%@ en %@ secondes." : {
       "localizations" : {
         "en" : {
@@ -189,6 +221,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ secondes"
+          }
+        }
+      }
+    },
+    "%@ secondes d'avance sur le ghost." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ seconds ahead of the ghost."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ secondes d'avance sur le ghost."
+          }
+        }
+      }
+    },
+    "%@ secondes de retard sur le ghost." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ seconds behind the ghost."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ secondes de retard sur le ghost."
           }
         }
       }
@@ -797,6 +861,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arrivée"
+          }
+        }
+      }
+    },
+    "Arrêter la course" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop the race"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter la course"
           }
         }
       }
@@ -1681,6 +1761,38 @@
         }
       }
     },
+    "Derrière le ghost" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behind the ghost"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Derrière le ghost"
+          }
+        }
+      }
+    },
+    "Devant le ghost" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahead of the ghost"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Devant le ghost"
+          }
+        }
+      }
+    },
     "Distance" : {
       "localizations" : {
         "en" : {
@@ -1921,6 +2033,22 @@
         }
       }
     },
+    "Départ à %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start is %@ away"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Départ à %@"
+          }
+        }
+      }
+    },
     "Détection de chute" : {
       "localizations" : {
         "en" : {
@@ -2093,6 +2221,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Exporter le tracé (GPX)"
+          }
+        }
+      }
+    },
+    "Faire la course contre ce trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race against this trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faire la course contre ce trajet"
           }
         }
       }
@@ -2305,6 +2449,54 @@
         }
       }
     },
+    "Ghost battu !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost beaten!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost battu !"
+          }
+        }
+      }
+    },
+    "Ghost battu de %@ secondes !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost beaten by %@ seconds!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost battu de %@ secondes !"
+          }
+        }
+      }
+    },
+    "Ghost du %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost of %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost du %@"
+          }
+        }
+      }
+    },
     "Historique" : {
       "localizations" : {
         "en" : {
@@ -2333,6 +2525,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Historique des trajets"
+          }
+        }
+      }
+    },
+    "Hors parcours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off course"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hors parcours"
           }
         }
       }
@@ -2653,6 +2861,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Le compteur passe au rouge et le téléphone vibre quand le seuil est dépassé. L'alerte ne fonctionne que lorsque l'app est à l'écran."
+          }
+        }
+      }
+    },
+    "Le ghost gagne" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ghost wins"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le ghost gagne"
+          }
+        }
+      }
+    },
+    "Le ghost gagne de %@ secondes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ghost wins by %@ seconds."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le ghost gagne de %@ secondes."
+          }
+        }
+      }
+    },
+    "Le ghost vous dépasse !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The ghost passes you!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le ghost vous dépasse !"
           }
         }
       }
@@ -4033,6 +4289,22 @@
         }
       }
     },
+    "Rejoignez le départ du ghost" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to the ghost's start"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rejoignez le départ du ghost"
+          }
+        }
+      }
+    },
     "Remplissez le réservoir à ras bord à chaque fois : la consommation sera exacte." : {
       "localizations" : {
         "en" : {
@@ -4641,6 +4913,22 @@
         }
       }
     },
+    "Top départ ! Le ghost est parti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go! The ghost is off."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top départ ! Le ghost est parti."
+          }
+        }
+      }
+    },
     "Totaux" : {
       "localizations" : {
         "en" : {
@@ -4653,6 +4941,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Totaux"
+          }
+        }
+      }
+    },
+    "Touchez Démarrer pour affronter le ghost" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap Start to race the ghost"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touchez Démarrer pour affronter le ghost"
           }
         }
       }
@@ -5245,6 +5549,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Votre vidéo est prête. Partagez-la sur Instagram, TikTok ou WhatsApp."
+          }
+        }
+      }
+    },
+    "Vous %@ · ghost %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You %@ · ghost %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous %@ · ghost %@"
+          }
+        }
+      }
+    },
+    "Vous passez devant le ghost !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You pass the ghost!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous passez devant le ghost !"
           }
         }
       }

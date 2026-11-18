@@ -1,0 +1,83 @@
+import XCTest
+@testable import ScooterCore
+
+final class GhostRaceTests: XCTestCase {
+    /// Ligne droite vers le nord, un point tous les 10 m.
+    private let metersPerDegree = 111_320.0
+    private func point(_ meters: Double) -> Coordinate {
+        Coordinate(latitude: 48 + meters / 111_195, longitude: 2)
+    }
+
+    /// Ghost : 10 s d'attente au départ, puis 10 m/s sur 1 km.
+    private func ghost() -> GhostRace {
+        var route: [Coordinate] = []
+        var times: [TimeInterval] = []
+        route.append(point(0)); times.append(0)
+        for step in 0...100 {
+            route.append(point(Double(step) * 10))
+            times.append(10 + Double(step))
+        }
+        return GhostRace(route: route, times: times)!
+    }
+
+    func testRejectsShortOrMismatchedRoutes() {
+        XCTAssertNil(GhostRace(route: [point(0), point(100)], times: [0, 10]))
+        XCTAssertNil(GhostRace(route: [point(0), point(500)], times: [0]))
+    }
+
+    func testWaitsForStartThenRaces() {
+        var race = ghost()
+        let far = race.update(time: 0, coordinate: Coordinate(latitude: 48.01, longitude: 2.01))
+        XCTAssertEqual(far.phase, .waitingForStart)
+        XCTAssertGreaterThan(far.distanceToStart ?? 0, 1000)
+        // Attente au départ : le chrono ne part pas.
+        XCTAssertEqual(race.update(time: 100, coordinate: point(0)).phase, .waitingForStart)
+        XCTAssertEqual(race.update(time: 130, coordinate: point(20)).phase, .waitingForStart)
+        XCTAssertEqual(race.update(time: 132, coordinate: point(45)).phase, .racing)
+    }
+
+    func testFasterRiderIsAhead() {
+        var race = ghost()
+        _ = race.update(time: 0, coordinate: point(0))
+        _ = race.update(time: 1, coordinate: point(40))
+        // 12,5 m/s contre 10 m/s : après 400 m de plus, 8 s d'avance environ.
+        let status = race.update(time: 33, coordinate: point(440))
+        XCTAssertEqual(status.phase, .racing)
+        XCTAssertEqual(status.gapSeconds ?? 0, 8, accuracy: 0.6)
+        XCTAssertGreaterThan(status.gapMeters ?? 0, 0)
+        XCTAssertGreaterThan(status.progress, status.ghostProgress)
+        XCTAssertFalse(status.offRoute)
+    }
+
+    func testSlowerRiderIsBehindAndFinishes() {
+        var race = ghost()
+        _ = race.update(time: 0, coordinate: point(0))
+        _ = race.update(time: 1, coordinate: point(40))
+        let behind = race.update(time: 81, coordinate: point(440))
+        XCTAssertLessThan(behind.gapSeconds ?? 0, -30)
+        let end = race.update(time: 200, coordinate: point(990))
+        XCTAssertEqual(end.phase, .finished)
+        XCTAssertNotNil(end.finishTime)
+        XCTAssertEqual(end.ghostFinishTime ?? 0, 92.5, accuracy: 1)
+        XCTAssertLessThan(end.gapSeconds ?? 0, 0)
+    }
+
+    func testOffRouteKeepsProgress() {
+        var race = ghost()
+        _ = race.update(time: 0, coordinate: point(0))
+        _ = race.update(time: 1, coordinate: point(40))
+        _ = race.update(time: 20, coordinate: point(240))
+        let away = race.update(time: 21, coordinate: Coordinate(latitude: 48.0022, longitude: 2.01))
+        XCTAssertTrue(away.offRoute)
+        XCTAssertEqual(away.phase, .racing)
+        XCTAssertEqual(away.progress, 0.24, accuracy: 0.02)
+    }
+
+    func testGhostCoordinateFollowsTime() {
+        let race = ghost()
+        XCTAssertEqual(race.ghostDistance(atTime: 0), 40, accuracy: 0.01)
+        XCTAssertEqual(race.ghostTime(atDistance: 540), 50, accuracy: 0.01)
+        let middle = race.coordinate(atDistance: 500)
+        XCTAssertEqual(middle.latitude, point(500).latitude, accuracy: 1e-6)
+    }
+}

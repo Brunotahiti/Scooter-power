@@ -18,6 +18,9 @@ struct TripDetailView: View {
                 if coordinates.count > 1 {
                     replayButton
                 }
+                if let race = ghostRace {
+                    ghostButton(race)
+                }
                 routeMap(coordinates)
                 TripFigures(summary: trip.summary)
             }
@@ -42,6 +45,41 @@ struct TripDetailView: View {
                 main: ReplayTrack(id: "mine", name: trip.title, replay: trip.replay, color: SpeedometerView.neonRed),
                 friends: friendTrips)
         }
+    }
+
+    /// Le trajet comme adversaire : `nil` s'il est trop court.
+    private var ghostRace: GhostRace? {
+        // Vrais temps enregistrés (la revisualisation, elle, raccourcit les pauses).
+        let route: [Coordinate] = trip.route
+        let points: [ReplayPoint] = trip.replayPoints
+        if points.count == route.count {
+            var times: [TimeInterval] = []
+            for point in points {
+                times.append(max(point.time, times.last ?? point.time))
+            }
+            return GhostRace(route: route, times: times)
+        }
+        // Trajets anciens : vitesse moyenne constante.
+        let replay: TripReplay = trip.replay
+        return GhostRace(route: replay.route, times: replay.times)
+    }
+
+    private func ghostButton(_ race: GhostRace) -> some View {
+        Button {
+            TripCommands.shared.raceGhost(race, title: L("Ghost du \(trip.title)"))
+        } label: {
+            HStack(spacing: 8) {
+                Text(verbatim: "👻")
+                Text(L("Faire la course contre ce trajet"))
+            }
+            .font(.system(size: 17, weight: .heavy))
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .foregroundStyle(Theme.cyan)
+            .background(Theme.cyan.opacity(0.12), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(Theme.cyan.opacity(0.6), lineWidth: 1))
+        }
+        .buttonStyle(.plain)
     }
 
     private var replayButton: some View {
