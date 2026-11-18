@@ -384,7 +384,8 @@ private struct TripPresentations: ViewModifier {
             .sheet(isPresented: $showMap) {
                 MapSheet(
                     route: model.route, thrust: model.thrustTrack, highlights: model.highlights,
-                    showsUser: !model.isDemo)
+                    showsUser: !model.isDemo, ghostRoute: model.ghostRoute,
+                    ghost: model.ghostStatus?.phase == .racing ? model.ghostStatus?.ghostCoordinate : nil)
             }
             .fullScreenCover(isPresented: $showCamera) {
                 CameraPicker()

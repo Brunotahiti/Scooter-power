@@ -1665,6 +1665,22 @@
         }
       }
     },
+    "Course" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Course"
+          }
+        }
+      }
+    },
     "Création de la vidéo…" : {
       "localizations" : {
         "en" : {
@@ -2029,6 +2045,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Départ"
+          }
+        }
+      }
+    },
+    "Départ du ghost" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost's start"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Départ du ghost"
           }
         }
       }
@@ -2449,6 +2481,22 @@
         }
       }
     },
+    "Ghost" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost"
+          }
+        }
+      }
+    },
     "Ghost battu !" : {
       "localizations" : {
         "en" : {
@@ -2477,6 +2525,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ghost battu de %@ secondes !"
+          }
+        }
+      }
+    },
+    "Ghost de %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@'s ghost"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost de %@"
           }
         }
       }
@@ -3921,18 +3985,18 @@
         }
       }
     },
-    "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami." : {
+    "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami. Glissez un trajet vers la droite pour faire la course contre son ghost." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To receive one, ask a friend to open a trip in their history, then Share → Send trip to a friend."
+            "value" : "To get some, ask a friend to open a trip from their history, then Share → Send trip to a friend. Swipe a trip to the right to race its ghost."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami."
+            "value" : "Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami. Glissez un trajet vers la droite pour faire la course contre son ghost."
           }
         }
       }

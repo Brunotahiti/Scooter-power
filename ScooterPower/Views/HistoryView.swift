@@ -173,6 +173,23 @@ struct HistoryView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                .swipeActions(edge: .leading) {
+                    if let race = ghostRace(friend) {
+                        Button {
+                            raceGhost(race, friend: friend)
+                        } label: {
+                            Label(L("Course"), systemImage: "flag.checkered")
+                        }
+                        .tint(Theme.cyan)
+                    }
+                }
+                .contextMenu {
+                    if let race = ghostRace(friend) {
+                        Button(L("Faire la course contre ce trajet"), systemImage: "flag.checkered") {
+                            raceGhost(race, friend: friend)
+                        }
+                    }
+                }
             }
             .onDelete { offsets in
                 for index in offsets { modelContext.delete(friendTrips[index]) }
@@ -183,10 +200,20 @@ struct HistoryView: View {
                 .italic()
                 .foregroundStyle(Theme.cyan)
         } footer: {
-            Text(L("Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami."))
+            Text(L("Pour en recevoir, demandez à un ami d'ouvrir un trajet de son historique, puis Partager → Envoyer le trajet à un ami. Glissez un trajet vers la droite pour faire la course contre son ghost."))
                 .font(.system(size: 12))
                 .foregroundStyle(Theme.textSecondary)
         }
+    }
+
+    /// Le trajet d'un ami comme adversaire : `nil` s'il est trop court.
+    private func ghostRace(_ friend: FriendTrip) -> GhostRace? {
+        guard let shared = friend.shared else { return nil }
+        return GhostRace.make(route: shared.route, points: shared.points, averageSpeedKmh: shared.averageSpeedKmh)
+    }
+
+    private func raceGhost(_ race: GhostRace, friend: FriendTrip) {
+        TripCommands.shared.raceGhost(race, title: L("Ghost de \(friend.displayName)"))
     }
 
     private func delete(at offsets: IndexSet) {

@@ -80,4 +80,16 @@ final class GhostRaceTests: XCTestCase {
         let middle = race.coordinate(atDistance: 500)
         XCTAssertEqual(middle.latitude, point(500).latitude, accuracy: 1e-6)
     }
+
+    func testMakeUsesRecordedTimesOrAverageSpeed() {
+        let route: [Coordinate] = (0...50).map { point(Double($0) * 10) }
+        // Arrêt de 30 s au milieu : gardé tel quel.
+        let points: [ReplayPoint] = (0...50).map {
+            ReplayPoint(time: Double($0) + ($0 > 25 ? 30 : 0), speedKmh: 36, acceleration: 0, leanDegrees: 0)
+        }
+        let recorded = GhostRace.make(route: route, points: points, averageSpeedKmh: 36)
+        XCTAssertEqual(recorded?.ghostTime(atDistance: 500) ?? 0, 76, accuracy: 0.01)
+        let estimated = GhostRace.make(route: route, points: [], averageSpeedKmh: 36)
+        XCTAssertEqual(estimated?.ghostTime(atDistance: 500) ?? 0, 46, accuracy: 0.5)
+    }
 }

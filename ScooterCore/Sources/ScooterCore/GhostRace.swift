@@ -69,6 +69,20 @@ public struct GhostRace: Sendable {
         self.ghostStart = Self.interpolate(Self.startRadius, keys: cumulative, values: times)
     }
 
+    /// Ghost d'un trajet enregistré : ses vrais temps (arrêts compris) quand
+    /// `points` est aligné sur `route`, sinon la vitesse moyenne constante.
+    public static func make(route: [Coordinate], points: [ReplayPoint], averageSpeedKmh: Double) -> GhostRace? {
+        if points.count == route.count {
+            var times: [TimeInterval] = []
+            for point in points {
+                times.append(max(point.time, times.last ?? point.time))
+            }
+            return GhostRace(route: route, times: times)
+        }
+        let replay = TripReplay(route: route, points: points, averageSpeedKmh: averageSpeedKmh)
+        return GhostRace(route: replay.route, times: replay.times)
+    }
+
     /// Temps de course du ghost pour la distance parcourue donnée.
     public func ghostTime(atDistance meters: Double) -> TimeInterval {
         Self.interpolate(meters, keys: cumulative, values: times) - ghostStart

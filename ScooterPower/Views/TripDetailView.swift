@@ -49,19 +49,7 @@ struct TripDetailView: View {
 
     /// Le trajet comme adversaire : `nil` s'il est trop court.
     private var ghostRace: GhostRace? {
-        // Vrais temps enregistrés (la revisualisation, elle, raccourcit les pauses).
-        let route: [Coordinate] = trip.route
-        let points: [ReplayPoint] = trip.replayPoints
-        if points.count == route.count {
-            var times: [TimeInterval] = []
-            for point in points {
-                times.append(max(point.time, times.last ?? point.time))
-            }
-            return GhostRace(route: route, times: times)
-        }
-        // Trajets anciens : vitesse moyenne constante.
-        let replay: TripReplay = trip.replay
-        return GhostRace(route: replay.route, times: replay.times)
+        GhostRace.make(route: trip.route, points: trip.replayPoints, averageSpeedKmh: trip.averageSpeedKmh)
     }
 
     private func ghostButton(_ race: GhostRace) -> some View {
