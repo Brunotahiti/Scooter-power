@@ -1169,6 +1169,38 @@
         }
       }
     },
+    "Création de la vidéo…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creating video…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Création de la vidéo…"
+          }
+        }
+      }
+    },
+    "Créer la vidéo du trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create trip video"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer la vidéo du trajet"
+          }
+        }
+      }
+    },
     "Créer une balade" : {
       "localizations" : {
         "en" : {
@@ -1521,6 +1553,22 @@
         }
       }
     },
+    "Fait avec Scooter Power" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Made with Scooter Power"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fait avec Scooter Power"
+          }
+        }
+      }
+    },
     "Fermer" : {
       "localizations" : {
         "en" : {
@@ -1869,6 +1917,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez."
+          }
+        }
+      }
+    },
+    "La vidéo n'a pas pu être créée. Vérifiez la connexion (la carte est téléchargée) et réessayez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The video could not be created. Check your connection (the map is downloaded) and try again."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La vidéo n'a pas pu être créée. Vérifiez la connexion (la carte est téléchargée) et réessayez."
           }
         }
       }
@@ -2349,6 +2413,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partager l'image du résumé"
+          }
+        }
+      }
+    },
+    "Partager la vidéo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share video"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager la vidéo"
           }
         }
       }
@@ -2977,6 +3057,22 @@
         }
       }
     },
+    "Scooter Power" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power"
+          }
+        }
+      }
+    },
     "Scooter Power a besoin de votre position pour mesurer le trajet." : {
       "localizations" : {
         "en" : {
@@ -3425,6 +3521,22 @@
         }
       }
     },
+    "Vidéo du trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip video"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vidéo du trajet"
+          }
+        }
+      }
+    },
     "Visez le QR code de la balade" : {
       "localizations" : {
         "en" : {
@@ -3661,6 +3773,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vos trajets terminés apparaîtront ici."
+          }
+        }
+      }
+    },
+    "Votre vidéo est prête. Partagez-la sur Instagram, TikTok ou WhatsApp." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your video is ready. Share it on Instagram, TikTok or WhatsApp."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre vidéo est prête. Partagez-la sur Instagram, TikTok ou WhatsApp."
           }
         }
       }

@@ -32,6 +32,7 @@ struct TripReplayView: View {
     @State private var cameraHeading: Double?
     @State private var cameraDistance: Double = 450
     @State private var lastTick: Date?
+    @State private var showVideo = false
     /// Trajets d'amis ajoutés, dans l'ordre de leur ajout.
     @State private var ghosts: [ReplayTrack] = []
     /// Fond de carte en photo satellite plutôt qu'en plan.
@@ -71,6 +72,9 @@ struct TripReplayView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .sheet(isPresented: $showVideo) {
+            VideoExportSheet(replay: main.replay, title: main.name)
+        }
         .onAppear {
             if ghosts.isEmpty { ghosts = Array(riders.prefix(Self.maxGhosts)) }
             jump(to: 0)
@@ -226,6 +230,17 @@ struct TripReplayView: View {
     private var mapButtons: some View {
         VStack(spacing: 8) {
             SatelliteToggle(satellite: $satellite)
+            Button {
+                playing = false
+                showVideo = true
+            } label: {
+                Image(systemName: "film")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(SpeedometerView.neonRed)
+                    .frame(width: 38, height: 38)
+                    .background(Color.black.opacity(0.7), in: Circle())
+            }
+            .accessibilityLabel(L("Créer la vidéo du trajet"))
             Button {
                 follow = true
                 cameraHeading = nil
