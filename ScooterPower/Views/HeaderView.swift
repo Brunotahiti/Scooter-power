@@ -13,6 +13,7 @@ struct HeaderView: View {
     let onRecalibrate: () -> Void
     var onGroupRide: () -> Void = {}
     var onGarage: () -> Void = {}
+    var onLeaderboard: () -> Void = {}
 
     var body: some View {
         HStack(spacing: 8) {
@@ -23,6 +24,7 @@ struct HeaderView: View {
                     .disabled(state != .recording && state != .paused)
                 Button(L("Balade de groupe"), systemImage: "person.3.fill", action: onGroupRide)
                 Button(L("Statistiques"), systemImage: "chart.bar.fill", action: onStats)
+                Button(L("Classements"), systemImage: "trophy.fill", action: onLeaderboard)
                 Button(L("Garage"), systemImage: "wrench.and.screwdriver.fill", action: onGarage)
                 Button(L("Réglages"), systemImage: "gearshape", action: onSettings)
             } label: {

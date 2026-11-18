@@ -20,6 +20,7 @@ final class AppSettings {
         static let currentSetup = "currentSetup"
         static let riderName = "riderName"
         static let crashDetection = "crashDetectionEnabled"
+        static let leaderboard = "leaderboardEnabled"
         static let voice = "voiceEnabled"
         static let currentScooter = "currentScooterID"
         static let emergencyContacts = "emergencyContacts"
@@ -41,6 +42,8 @@ final class AppSettings {
     /// Annonces vocales (records, chronos, alerte de vitesse) ; activées par défaut.
     private(set) var voiceEnabled: Bool = UserDefaults.standard.object(forKey: Key.voice) as? Bool ?? true
     /// Surveillance des chutes pendant les trajets ; activée par défaut.
+    /// Publication des chronos dans les classements en ligne : sur accord du pilote.
+    private(set) var leaderboardEnabled: Bool = UserDefaults.standard.bool(forKey: Key.leaderboard)
     private(set) var crashDetectionEnabled: Bool = UserDefaults.standard.object(forKey: Key.crashDetection) as? Bool ?? true
     /// Personnes prévenues en cas de chute (3 au plus).
     private(set) var emergencyContacts: [EmergencyContact] = AppSettings.loadContacts()
@@ -69,6 +72,11 @@ final class AppSettings {
         speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
         currentSetup = Self.cleaned(defaults.string(forKey: Key.currentSetup) ?? "")
         riderName = defaults.string(forKey: Key.riderName) ?? ""
+    }
+
+    func setLeaderboardEnabled(_ value: Bool) {
+        leaderboardEnabled = value
+        defaults.set(value, forKey: Key.leaderboard)
     }
 
     func setCurrentScooter(_ id: String?) {

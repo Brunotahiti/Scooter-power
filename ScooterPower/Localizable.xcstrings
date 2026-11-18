@@ -849,6 +849,22 @@
         }
       }
     },
+    "Aucun chrono pour l'instant. Soyez le premier !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No times yet. Be the first!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun chrono pour l'instant. Soyez le premier !"
+          }
+        }
+      }
+    },
     "Aucun contact d'urgence enregistré. Ajoutez-en dans les réglages." : {
       "localizations" : {
         "en" : {
@@ -1281,6 +1297,22 @@
         }
       }
     },
+    "Chrono" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timing"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chrono"
+          }
+        }
+      }
+    },
     "Chute détectée ?" : {
       "localizations" : {
         "en" : {
@@ -1309,6 +1341,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chute détectée. Touchez Je vais bien pour annuler l'alerte."
+          }
+        }
+      }
+    },
+    "Classement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leaderboard"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classement"
+          }
+        }
+      }
+    },
+    "Classement indisponible. Vérifiez la connexion et la session iCloud." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leaderboard unavailable. Check your connection and iCloud sign-in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classement indisponible. Vérifiez la connexion et la session iCloud."
+          }
+        }
+      }
+    },
+    "Classements" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leaderboards"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classements"
           }
         }
       }
@@ -2349,6 +2429,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inclinaison max. gauche"
+          }
+        }
+      }
+    },
+    "Indiquez la marque et le modèle de votre scooter dans le Garage pour vous mesurer aux pilotes du même modèle." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your scooter's make and model in the Garage to compete with riders of the same model."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indiquez la marque et le modèle de votre scooter dans le Garage pour vous mesurer aux pilotes du même modèle."
           }
         }
       }
@@ -3697,6 +3793,22 @@
         }
       }
     },
+    "Publier mes chronos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish my times"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier mes chronos"
+          }
+        }
+      }
+    },
     "Puissance" : {
       "localizations" : {
         "en" : {
@@ -4257,6 +4369,22 @@
         }
       }
     },
+    "Seuls votre prénom de pilote, le modèle de votre scooter et vos chronos sont publiés. Désactivez pour les retirer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only your rider name, your scooter model and your times are published. Turn off to remove them."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seuls votre prénom de pilote, le modèle de votre scooter et vos chronos sont publiés. Désactivez pour les retirer."
+          }
+        }
+      }
+    },
     "Signal GPS faible" : {
       "localizations" : {
         "en" : {
@@ -4557,6 +4685,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tous les"
+          }
+        }
+      }
+    },
+    "Tous les scooters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All scooters"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous les scooters"
           }
         }
       }

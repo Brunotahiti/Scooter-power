@@ -15,6 +15,7 @@ struct TripScreen: View {
     @State private var showStats = false
     @State private var showGroupRide = false
     @State private var showGarage = false
+    @State private var showLeaderboard = false
     @Query private var scooters: [Scooter]
     @Query private var maintenance: [MaintenanceTask]
     private let settings = AppSettings.shared
@@ -85,6 +86,9 @@ struct TripScreen: View {
             .sheet(isPresented: $showGarage) {
                 GarageView()
             }
+            .sheet(isPresented: $showLeaderboard) {
+                LeaderboardView()
+            }
             .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
@@ -108,7 +112,8 @@ struct TripScreen: View {
                 onStats: { showStats = true },
                 onSettings: { showSettings = true },
                 onGroupRide: { showGroupRide = true },
-                onGarage: { showGarage = true })
+                onGarage: { showGarage = true },
+                onLeaderboard: { showLeaderboard = true })
         } else {
             portrait
         }
@@ -178,7 +183,8 @@ struct TripScreen: View {
                 onSettings: { showSettings = true },
                 onRecalibrate: { model.recalibrate() },
                 onGroupRide: { showGroupRide = true },
-                onGarage: { showGarage = true })
+                onGarage: { showGarage = true },
+                onLeaderboard: { showLeaderboard = true })
         }
     }
 
@@ -243,6 +249,7 @@ struct TripScreen: View {
         try? modelContext.save()
         if let scooter {
             MaintenanceReminder.check(scooter: scooter, tasks: maintenance, trips: history + [record])
+            LeaderboardService.submit(trips: [record], scooter: scooter)
         }
     }
 

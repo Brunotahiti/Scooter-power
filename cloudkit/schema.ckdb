@@ -1,5 +1,23 @@
 DEFINE SCHEMA
 
+    RECORD TYPE LeaderboardEntry (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE QUERYABLE,
+        date            TIMESTAMP,
+        interval        STRING QUERYABLE,
+        model           STRING,
+        modelKey        STRING QUERYABLE,
+        rider           STRING,
+        seconds         DOUBLE QUERYABLE SORTABLE,
+        GRANT WRITE TO "_creator",
+        GRANT CREATE TO "_icloud",
+        GRANT READ TO "_world"
+    );
+
     RECORD TYPE Ride (
         "___createTime" TIMESTAMP,
         "___createdBy"  REFERENCE,
