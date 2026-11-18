@@ -16,6 +16,8 @@ struct TripScreen: View {
     @State private var showGroupRide = false
     @State private var showGarage = false
     @State private var showLeaderboard = false
+    @State private var showSegments = false
+    @Query private var segments: [SegmentRecord]
     @Query private var scooters: [Scooter]
     @Query private var maintenance: [MaintenanceTask]
     private let settings = AppSettings.shared
@@ -96,6 +98,9 @@ struct TripScreen: View {
             .sheet(isPresented: $showLeaderboard) {
                 LeaderboardView()
             }
+            .sheet(isPresented: $showSegments) {
+                SegmentsView()
+            }
             .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
@@ -120,7 +125,8 @@ struct TripScreen: View {
                 onSettings: { showSettings = true },
                 onGroupRide: { showGroupRide = true },
                 onGarage: { showGarage = true },
-                onLeaderboard: { showLeaderboard = true })
+                onLeaderboard: { showLeaderboard = true },
+                onSegments: { showSegments = true })
         } else {
             portrait
         }
@@ -191,7 +197,8 @@ struct TripScreen: View {
                 onRecalibrate: { model.recalibrate() },
                 onGroupRide: { showGroupRide = true },
                 onGarage: { showGarage = true },
-                onLeaderboard: { showLeaderboard = true })
+                onLeaderboard: { showLeaderboard = true },
+                onSegments: { showSegments = true })
         }
     }
 
@@ -254,6 +261,7 @@ struct TripScreen: View {
         modelContext.insert(record)
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()
+        SegmentAnnouncer.check(trip: record, segments: segments, previousTrips: history)
         if let scooter {
             MaintenanceReminder.check(scooter: scooter, tasks: maintenance, trips: history + [record])
             LeaderboardService.submit(trips: [record], scooter: scooter)
@@ -290,6 +298,7 @@ struct TripScreen: View {
     private func runPendingGhost() {
         guard let request = TripCommands.shared.takeGhost() else { return }
         showHistory = false
+        showSegments = false
         if model.state == .finished { model.reset() }
         model.setGhost(request.race, title: request.title)
     }

@@ -10,6 +10,7 @@ struct TripDetailView: View {
     @Query(sort: \FriendTrip.receivedDate, order: .reverse) private var friendTrips: [FriendTrip]
     @State private var share = ShareState()
     @State private var showReplay = false
+    @State private var showCreateSegment = false
 
     var body: some View {
         let coordinates: [CLLocationCoordinate2D] = trip.route.map(\.mapCoordinate)
@@ -21,7 +22,20 @@ struct TripDetailView: View {
                 if let race = ghostRace {
                     ghostButton(race)
                 }
+                if trip.recordedTimes != nil, trip.distanceMeters >= Segment.minimumLength {
+                    Button {
+                        showCreateSegment = true
+                    } label: {
+                        Label(L("Créer un segment"), systemImage: "flag.checkered")
+                            .font(.system(size: 15, weight: .bold))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 42)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(Theme.orange)
+                }
                 routeMap(coordinates)
+                TripSegmentsSection(trip: trip)
                 TripFigures(summary: trip.summary)
             }
             .padding(16)
@@ -40,6 +54,9 @@ struct TripDetailView: View {
             }
         }
         .sharePresentation($share)
+        .sheet(isPresented: $showCreateSegment) {
+            CreateSegmentSheet(trip: trip)
+        }
         .fullScreenCover(isPresented: $showReplay) {
             TripReplayView(
                 main: ReplayTrack(id: "mine", name: trip.title, replay: trip.replay, color: SpeedometerView.neonRed),

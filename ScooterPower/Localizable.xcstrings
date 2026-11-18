@@ -49,6 +49,22 @@
         }
       }
     },
+    "%@ : %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@: %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ : %@."
+          }
+        }
+      }
+    },
     "%@ d'avance" : {
       "localizations" : {
         "en" : {
@@ -157,6 +173,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ mètres par seconde carrée, %@"
+          }
+        }
+      }
+    },
+    "%@ passages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ runs"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ passages"
           }
         }
       }
@@ -381,6 +413,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@, record %@, battu pendant ce trajet"
+          }
+        }
+      }
+    },
+    "1 passage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 run"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 passage"
           }
         }
       }
@@ -961,6 +1009,38 @@
         }
       }
     },
+    "Aucun passage pour l'instant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No runs yet."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun passage pour l'instant."
+          }
+        }
+      }
+    },
+    "Aucun segment" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No segments"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun segment"
+          }
+        }
+      }
+    },
     "Aucun temps mesuré pour l'instant." : {
       "localizations" : {
         "en" : {
@@ -1409,6 +1489,22 @@
         }
       }
     },
+    "Choisissez une portion sans arrêt obligatoire. Le sens compte : le segment se parcourt du départ vers l'arrivée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick a stretch with no mandatory stop. Direction matters: the segment runs from start to finish."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez une portion sans arrêt obligatoire. Le sens compte : le segment se parcourt du départ vers l'arrivée."
+          }
+        }
+      }
+    },
     "Chrono" : {
       "localizations" : {
         "en" : {
@@ -1729,6 +1825,22 @@
         }
       }
     },
+    "Créer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer"
+          }
+        }
+      }
+    },
     "Créer la vidéo du trajet" : {
       "localizations" : {
         "en" : {
@@ -1741,6 +1853,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Créer la vidéo du trajet"
+          }
+        }
+      }
+    },
+    "Créer un segment" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a segment"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un segment"
           }
         }
       }
@@ -2365,6 +2493,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Faire la course contre ce trajet"
+          }
+        }
+      }
+    },
+    "Faire la course contre mon meilleur passage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Race my best run"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faire la course contre mon meilleur passage"
           }
         }
       }
@@ -3537,6 +3681,22 @@
         }
       }
     },
+    "Mon segment" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My segment"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon segment"
+          }
+        }
+      }
+    },
     "Moyenne" : {
       "localizations" : {
         "en" : {
@@ -3597,6 +3757,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nom (facultatif)"
+          }
+        }
+      }
+    },
+    "Nom du segment" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segment name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom du segment"
           }
         }
       }
@@ -3777,6 +3953,22 @@
         }
       }
     },
+    "Ouvrez un trajet de l'historique, puis « Créer un segment » : choisissez une portion de route. Chaque fois que vous la reprendrez, elle sera chronométrée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a trip from your history, then “Create a segment”: pick a stretch of road. Every time you ride it again, it will be timed."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrez un trajet de l'historique, puis « Créer un segment » : choisissez une portion de route. Chaque fois que vous la reprendrez, elle sera chronométrée."
+          }
+        }
+      }
+    },
     "Ouvrir Réglages" : {
       "localizations" : {
         "en" : {
@@ -3885,6 +4077,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."
+          }
+        }
+      }
+    },
+    "Passages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runs"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passages"
           }
         }
       }
@@ -4225,6 +4433,22 @@
         }
       }
     },
+    "Premier passage sur %@ : %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First run on %@: %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premier passage sur %@ : %@."
+          }
+        }
+      }
+    },
     "Prix payé (facultatif)" : {
       "localizations" : {
         "en" : {
@@ -4493,6 +4717,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Record battu !"
+          }
+        }
+      }
+    },
+    "Record sur %@ : %@ !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record on %@: %@!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record sur %@ : %@ !"
           }
         }
       }
@@ -4893,6 +5133,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Secours prévenus"
+          }
+        }
+      }
+    },
+    "Segment trop court : allongez-le." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segment too short: make it longer."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segment trop court : allongez-le."
+          }
+        }
+      }
+    },
+    "Segments" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segments"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segments"
           }
         }
       }

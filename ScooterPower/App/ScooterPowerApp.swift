@@ -18,7 +18,7 @@ struct ScooterPowerApp: App {
     private let container: ModelContainer = {
         let schema = Schema([
             TripRecord.self, RivalRecord.self, FriendTrip.self, GroupRideRecord.self,
-            Scooter.self, MaintenanceTask.self, FuelEntry.self,
+            Scooter.self, MaintenanceTask.self, FuelEntry.self, SegmentRecord.self,
         ])
         let configuration = ModelConfiguration(schema: schema, cloudKitDatabase: .none)
         do {
