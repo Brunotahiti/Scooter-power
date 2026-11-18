@@ -50,6 +50,7 @@ struct SettingsView: View {
                 setupSection
                 languageSection
                 unitsSection
+                SafetySettingsSection()
                 alertSection
                 aboutSection
             }

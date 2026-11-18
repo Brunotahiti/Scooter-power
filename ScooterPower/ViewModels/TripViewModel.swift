@@ -82,6 +82,10 @@ final class TripViewModel {
     @ObservationIgnored private var bannerHideTime: TimeInterval = 0
     @ObservationIgnored private var bannerCount = 0
     @ObservationIgnored private let liveActivity = LiveActivityController()
+    /// Surveillance des chutes pendant l'enregistrement.
+    @ObservationIgnored private var crashDetector = CrashDetector()
+    /// Chute probable en cours d'alerte ; `nil` sinon.
+    private(set) var crashAlert: CrashAlert?
 
     /// Capteurs réels s'ils existent, sinon trajet de démonstration (simulateur).
     convenience init() {
@@ -102,10 +106,16 @@ final class TripViewModel {
         // Les échantillons modifient la session à leur cadence ; l'écran n'est
         // rafraîchi qu'à 10 Hz par `refresh()`.
         location.onLocation = { [weak self] sample in
-            self?.session.handle(sample)
+            guard let self else { return }
+            self.session.handle(sample)
+            if self.state == .recording, sample.speed >= 0 {
+                self.crashDetector.addSpeed(time: self.now, kmh: sample.speed * 3.6)
+            }
         }
         motion.onMotion = { [weak self] sample in
-            self?.session.handle(sample)
+            guard let self else { return }
+            self.session.handle(sample)
+            self.watchForCrash(sample)
         }
         location.onAuthorizationChange = { [weak self] authorization in
             self?.authorizationChanged(authorization)
@@ -201,6 +211,24 @@ final class TripViewModel {
 
     func recalibrate() {
         session.recalibrate()
+        crashDetector = CrashDetector()
+    }
+
+    // MARK: - Chute
+
+    private func watchForCrash(_ sample: MotionSample) {
+        guard state == .recording, settings.crashDetectionEnabled, crashAlert == nil, !isDemo else { return }
+        guard crashDetector.addMotion(
+            time: now, gravity: sample.gravity, userAcceleration: sample.userAcceleration)
+        else { return }
+        crashAlert = CrashAlert(date: Date(), coordinate: route.last)
+        CrashAlarm.shared.start()
+    }
+
+    /// Le pilote va bien : l'alerte est annulée.
+    func dismissCrashAlert() {
+        crashAlert = nil
+        CrashAlarm.shared.stop()
     }
 
     // MARK: - Interne
@@ -221,6 +249,8 @@ final class TripViewModel {
         beatenRecords = []
         recordBanner = nil
         session.start(at: now)
+        crashDetector = CrashDetector()
+        crashAlert = nil
         location.start()
         motion.start()
         UIApplication.shared.isIdleTimerDisabled = true
@@ -249,6 +279,7 @@ final class TripViewModel {
         guard results.count > checkedResults else { return }
         for result in results[checkedResults...] {
             let outcome = recordBook.submit(result.interval, time: result.time)
+            announce(result, outcome: outcome)
             guard case .beaten(let previous) = outcome else { continue }
             // Les deux séries sont mesurées ; on n'annonce que celle de l'unité affichée.
             guard SpeedInterval.displayed.contains(result.interval) else { continue }
@@ -266,6 +297,28 @@ final class TripViewModel {
         }
         checkedResults = results.count
         publishRecords()
+    }
+
+    /// Annonce vocale : chaque record battu, et le chrono phare (0–100 km/h ou 0–60 mph).
+    private func announce(_ result: SprintResult, outcome: RecordBook.Outcome) {
+        guard SpeedInterval.displayed.contains(result.interval) else { return }
+        let seconds: String = Formatters.decimal(result.time, digits: 1)
+        let interval: String = Self.spokenInterval(result.interval)
+        switch outcome {
+        case .beaten:
+            Announcer.shared.say(L("Nouveau record ! \(interval) en \(seconds) secondes."))
+            ReviewPrompt.recordBeaten()
+        case .first, .notARecord:
+            if result.interval == SpeedInterval.flagship(for: settings.units) {
+                Announcer.shared.say(L("\(interval) en \(seconds) secondes."))
+            }
+        }
+    }
+
+    /// « 0 à 60 miles à l'heure », « zero to 60 miles per hour ».
+    private static func spokenInterval(_ interval: SpeedInterval) -> String {
+        let unit: String = interval.unit == .mph ? L("miles à l'heure") : L("kilomètres-heure")
+        return L("\(String(interval.from)) à \(String(interval.to)) \(unit)")
     }
 
     private func publishRecords() {
@@ -318,6 +371,7 @@ final class TripViewModel {
         if alertFired {
             // Vibration longue, plus perceptible au guidon qu'un simple retour haptique.
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            Announcer.shared.say(L("Alerte vitesse : \(speedText) \(units.speedUnit)."))
         }
         gpsWeak = state == .recording && speedKmh == nil
         let accuracy: Double? = statistics.horizontalAccuracy(at: time)

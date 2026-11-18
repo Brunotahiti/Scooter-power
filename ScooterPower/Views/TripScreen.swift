@@ -70,6 +70,9 @@ struct TripScreen: View {
             .fullScreenCover(isPresented: $showGroupRide) {
                 GroupRideView()
             }
+            .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
+                CrashAlertView(alert: alert) { model.dismissCrashAlert() }
+            }
             .onChange(of: model.state) { _, newState in
                 if newState == .finished {
                     saveTrip()

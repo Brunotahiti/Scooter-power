@@ -19,6 +19,9 @@ final class AppSettings {
         static let speedAlertKmh = "speedAlertKmh"
         static let currentSetup = "currentSetup"
         static let riderName = "riderName"
+        static let crashDetection = "crashDetectionEnabled"
+        static let voice = "voiceEnabled"
+        static let emergencyContacts = "emergencyContacts"
     }
 
     private(set) var units: UnitSystem
@@ -32,6 +35,12 @@ final class AppSettings {
     private(set) var currentSetup: String
     /// Pseudo affiché sur la carte de performances partagée.
     private(set) var riderName: String
+    /// Annonces vocales (records, chronos, alerte de vitesse) ; activées par défaut.
+    private(set) var voiceEnabled: Bool = UserDefaults.standard.object(forKey: Key.voice) as? Bool ?? true
+    /// Surveillance des chutes pendant les trajets ; activée par défaut.
+    private(set) var crashDetectionEnabled: Bool = UserDefaults.standard.object(forKey: Key.crashDetection) as? Bool ?? true
+    /// Personnes prévenues en cas de chute (3 au plus).
+    private(set) var emergencyContacts: [EmergencyContact] = AppSettings.loadContacts()
 
     @ObservationIgnored private let defaults: UserDefaults
 
@@ -57,6 +66,40 @@ final class AppSettings {
         speedAlertKmh = storedThreshold > 0 ? storedThreshold : defaultThreshold
         currentSetup = Self.cleaned(defaults.string(forKey: Key.currentSetup) ?? "")
         riderName = defaults.string(forKey: Key.riderName) ?? ""
+    }
+
+    func setVoiceEnabled(_ value: Bool) {
+        voiceEnabled = value
+        defaults.set(value, forKey: Key.voice)
+    }
+
+    func setCrashDetectionEnabled(_ value: Bool) {
+        crashDetectionEnabled = value
+        defaults.set(value, forKey: Key.crashDetection)
+    }
+
+    static let maxEmergencyContacts = 3
+
+    func addEmergencyContact(_ contact: EmergencyContact) {
+        guard emergencyContacts.count < Self.maxEmergencyContacts,
+              !emergencyContacts.contains(where: { $0.phone == contact.phone })
+        else { return }
+        emergencyContacts.append(contact)
+        saveContacts()
+    }
+
+    func removeEmergencyContacts(at offsets: IndexSet) {
+        emergencyContacts.remove(atOffsets: offsets)
+        saveContacts()
+    }
+
+    private func saveContacts() {
+        defaults.set(try? JSONEncoder().encode(emergencyContacts), forKey: Key.emergencyContacts)
+    }
+
+    private static func loadContacts() -> [EmergencyContact] {
+        guard let data = UserDefaults.standard.data(forKey: Key.emergencyContacts) else { return [] }
+        return (try? JSONDecoder().decode([EmergencyContact].self, from: data)) ?? []
     }
 
     func setLanguage(_ value: AppLanguage) {
@@ -119,4 +162,12 @@ final class AppSettings {
     func setSpeedAlertDisplayValue(_ value: Double) {
         setSpeedAlertKmh(units.kmh(fromSpeed: value))
     }
+}
+
+/// Personne à prévenir en cas de chute.
+struct EmergencyContact: Codable, Equatable, Identifiable {
+    var name: String
+    var phone: String
+
+    var id: String { phone }
 }

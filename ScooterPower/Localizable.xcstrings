@@ -33,6 +33,22 @@
         }
       }
     },
+    "%@ en %@ secondes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ in %@ seconds."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ en %@ secondes."
+          }
+        }
+      }
+    },
     "%@ max" : {
       "localizations" : {
         "en" : {
@@ -173,6 +189,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ · record"
+          }
+        }
+      }
+    },
+    "%@ à %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ to %@ %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ à %@ %@"
           }
         }
       }
@@ -369,6 +401,22 @@
         }
       }
     },
+    "Ajouter un contact d'urgence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add an emergency contact"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un contact d'urgence"
+          }
+        }
+      }
+    },
     "Alerte de vitesse" : {
       "localizations" : {
         "en" : {
@@ -381,6 +429,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alerte de vitesse"
+          }
+        }
+      }
+    },
+    "Alerte vitesse : %@ %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed alert: %@ %@."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerte vitesse : %@ %@."
           }
         }
       }
@@ -417,6 +481,22 @@
         }
       }
     },
+    "Annonces vocales" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice announcements"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annonces vocales"
+          }
+        }
+      }
+    },
     "Annuler" : {
       "localizations" : {
         "en" : {
@@ -449,6 +529,22 @@
         }
       }
     },
+    "Appel d'urgence" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emergency call"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appel d'urgence"
+          }
+        }
+      }
+    },
     "Après" : {
       "localizations" : {
         "en" : {
@@ -461,6 +557,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Après"
+          }
+        }
+      }
+    },
+    "Après une chute probable, l'iPhone sonne et affiche un compte à rebours de 30 secondes. Sans réponse, un SMS avec votre position est prêt à partir vers vos contacts : iOS demande de toucher Envoyer." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After a likely crash, the iPhone rings and shows a 30-second countdown. Without an answer, a text with your location is ready to go to your contacts: iOS asks you to tap Send."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après une chute probable, l'iPhone sonne et affiche un compte à rebours de 30 secondes. Sans réponse, un SMS avec votre position est prêt à partir vers vos contacts : iOS demande de toucher Envoyer."
           }
         }
       }
@@ -541,6 +653,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Astuce : choisissez un pseudo dans les réglages pour que l'autre pilote vous reconnaisse."
+          }
+        }
+      }
+    },
+    "Aucun contact d'urgence enregistré. Ajoutez-en dans les réglages." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No emergency contact saved. Add some in the settings."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun contact d'urgence enregistré. Ajoutez-en dans les réglages."
           }
         }
       }
@@ -861,6 +989,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chiffres gagnés : %@. Chiffres perdus : %@."
+          }
+        }
+      }
+    },
+    "Chute détectée ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash detected?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chute détectée ?"
+          }
+        }
+      }
+    },
+    "Chute détectée. Touchez Je vais bien pour annuler l'alerte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash detected. Tap I'm OK to cancel the alert."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chute détectée. Touchez Je vais bien pour annuler l'alerte."
           }
         }
       }
@@ -1229,6 +1389,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Départ"
+          }
+        }
+      }
+    },
+    "Détection de chute" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crash detection"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Détection de chute"
           }
         }
       }
@@ -1633,6 +1809,22 @@
         }
       }
     },
+    "Je vais bien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I'm OK"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je vais bien"
+          }
+        }
+      }
+    },
     "Jusqu'à 5 pilotes sur la même carte" : {
       "localizations" : {
         "en" : {
@@ -1825,6 +2017,22 @@
         }
       }
     },
+    "Ma position : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My location: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ma position : %@"
+          }
+        }
+      }
+    },
     "Meilleur chiffre de la ligne. Distance et durées ne sont pas classées." : {
       "localizations" : {
         "en" : {
@@ -1969,6 +2177,38 @@
         }
       }
     },
+    "Nouveau record ! %@ en %@ secondes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New record! %@ in %@ seconds."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau record ! %@ en %@ secondes."
+          }
+        }
+      }
+    },
+    "Nouveau record ! 0 à 100 kilomètres-heure en 6,2 secondes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New record! 0 to 60 miles per hour in 6.2 seconds."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau record ! 0 à 100 kilomètres-heure en 6,2 secondes."
+          }
+        }
+      }
+    },
     "Nouveau trajet" : {
       "localizations" : {
         "en" : {
@@ -2029,6 +2269,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ouvre les records"
+          }
+        }
+      }
+    },
+    "Ouvrez Scooter Power pour annuler l'alerte ou prévenir vos contacts." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Scooter Power to cancel the alert or warn your contacts."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrez Scooter Power pour annuler l'alerte ou prévenir vos contacts."
           }
         }
       }
@@ -2369,6 +2625,22 @@
         }
       }
     },
+    "Prévenir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warn contacts"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prévenir"
+          }
+        }
+      }
+    },
     "Pseudo" : {
       "localizations" : {
         "en" : {
@@ -2545,6 +2817,22 @@
         }
       }
     },
+    "Records battus, chronos et alerte de vitesse annoncés dans votre casque (intercom Bluetooth) ou par le haut-parleur. La musique baisse pendant l'annonce." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Records, times and speed alerts are announced in your helmet (Bluetooth intercom) or through the speaker. Music is lowered during announcements."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Records battus, chronos et alerte de vitesse annoncés dans votre casque (intercom Bluetooth) ou par le haut-parleur. La musique baisse pendant l'annonce."
+          }
+        }
+      }
+    },
     "Reprendre" : {
       "localizations" : {
         "en" : {
@@ -2657,6 +2945,22 @@
         }
       }
     },
+    "Sans réponse, le message d'alerte avec votre position sera prêt à envoyer à vos contacts." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without an answer, the alert message with your location will be ready to send to your contacts."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans réponse, le message d'alerte avec votre position sera prêt à envoyer à vos contacts."
+          }
+        }
+      }
+    },
     "Scanner un QR code" : {
       "localizations" : {
         "en" : {
@@ -2685,6 +2989,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scooter Power a besoin de votre position pour mesurer le trajet."
+          }
+        }
+      }
+    },
+    "Scooter Power a détecté une chute possible. Je ne réponds pas : merci de vérifier que je vais bien." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power detected a possible crash. I am not responding: please check that I am OK."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter Power a détecté une chute possible. Je ne réponds pas : merci de vérifier que je vais bien."
           }
         }
       }
@@ -2781,6 +3101,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer"
+          }
+        }
+      }
+    },
+    "Sécurité" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Safety"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sécurité"
           }
         }
       }
@@ -3265,6 +3601,38 @@
         }
       }
     },
+    "Voix" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voix"
+          }
+        }
+      }
+    },
+    "Vos contacts ont été prévenus avec votre position." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your contacts have been warned with your location."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos contacts ont été prévenus avec votre position."
+          }
+        }
+      }
+    },
     "Vos performances apparaîtront ici après votre premier trajet." : {
       "localizations" : {
         "en" : {
@@ -3361,6 +3729,22 @@
         }
       }
     },
+    "kilomètres-heure" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kilometers per hour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kilomètres-heure"
+          }
+        }
+      }
+    },
     "mieux" : {
       "localizations" : {
         "en" : {
@@ -3373,6 +3757,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "mieux"
+          }
+        }
+      }
+    },
+    "miles à l'heure" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "miles per hour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "miles à l'heure"
           }
         }
       }
@@ -3421,6 +3821,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "À propos"
+          }
+        }
+      }
+    },
+    "Écouter un exemple" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play a sample"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écouter un exemple"
           }
         }
       }
