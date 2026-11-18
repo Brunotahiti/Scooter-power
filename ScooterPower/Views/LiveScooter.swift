@@ -6,7 +6,9 @@ import SwiftUI
 /// - en accélérant il s'éloigne et s'accroupit, au freinage il revient vers
 ///   nous, plonge de l'avant et son feu stop s'allume ;
 /// - il vibre plus fort avec la vitesse ;
-/// - le halo prend la couleur de la vitesse.
+/// - le halo prend la couleur de la vitesse ;
+/// - le pilote se couche sur le scooter quand la vitesse monte et se redresse
+///   quand elle baisse (trois postures, en fondu).
 struct LiveScooter: View {
     /// Part de l'échelle de vitesse atteinte, de 0 à 1.
     let speedFraction: Double
@@ -17,11 +19,19 @@ struct LiveScooter: View {
     /// Couleur du halo et des bords de la route.
     let accent: Color
 
-    static let rearImageName = "ScooterRear"
-    /// Proportions de l'image de dos (largeur / hauteur).
-    static let rearAspect: CGFloat = 487.0 / 900.0
+    /// Pilote sur le scooter, vu de dos : droit, penché, couché.
+    static let riderImageNames = ["RiderRear0", "RiderRear1", "RiderRear2"]
+    /// Proportions des images de dos (largeur / hauteur).
+    static let rearAspect: CGFloat = 507.0 / 1000.0
     /// Position du feu arrière dans l'image, en fraction de sa hauteur.
-    private static let tailLightY: CGFloat = 0.376
+    private static let tailLightY: CGFloat = 0.477
+    /// Part de l'échelle de vitesse où le pilote change de posture, en montant
+    /// et en descendant (un écart évite qu'il s'agite autour d'un seuil).
+    private static let tuckUp: [Double] = [0.35, 0.62]
+    private static let tuckDown: [Double] = [0.29, 0.55]
+
+    /// Posture du pilote : 0 droit, 1 penché, 2 couché.
+    @State private var posture = 0
 
     private static let fullThrust: Double = 4
     private static let maxLean: Double = 45
@@ -57,6 +67,13 @@ struct LiveScooter: View {
         .clipped()
         .animation(.spring(response: 0.35, dampingFraction: 0.65), value: thrust)
         .animation(.spring(response: 0.3, dampingFraction: 0.8), value: lean)
+        .onAppear { posture = Self.posture(for: speedFraction, from: 0) }
+        .onChange(of: speedFraction) { _, fraction in
+            let next: Int = Self.posture(for: fraction, from: posture)
+            if next != posture {
+                withAnimation(.easeInOut(duration: 0.4)) { posture = next }
+            }
+        }
         .accessibilityHidden(true)
     }
 
@@ -64,7 +81,7 @@ struct LiveScooter: View {
 
     @ViewBuilder
     private func scooter(size: CGSize, speed: CGFloat, time: Double) -> some View {
-        let height: CGFloat = size.height * 0.84
+        let height: CGFloat = size.height * 0.9
         let width: CGFloat = height * Self.rearAspect
         let amplitude: CGFloat = 1.4 * speed * size.height / 120
         let push: CGFloat = thrust
@@ -90,12 +107,26 @@ struct LiveScooter: View {
         .padding(.bottom, bottomGap)
     }
 
+    /// Posture suivante, avec un écart entre la montée et la descente.
+    static func posture(for fraction: Double, from current: Int) -> Int {
+        var result: Int = current
+        while result < 2, fraction >= tuckUp[result] { result += 1 }
+        while result > 0, fraction < tuckDown[result - 1] { result -= 1 }
+        return result
+    }
+
     @ViewBuilder
     private var rearImage: some View {
-        if let photo = UIImage(named: Self.rearImageName) {
-            Image(uiImage: photo)
-                .resizable()
-                .scaledToFit()
+        let photos: [UIImage] = Self.riderImageNames.compactMap { UIImage(named: $0) }
+        if photos.count == Self.riderImageNames.count {
+            ZStack {
+                ForEach(photos.indices, id: \.self) { index in
+                    Image(uiImage: photos[index])
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(index == posture ? 1 : 0)
+                }
+            }
         } else {
             ScooterBadge()
         }
