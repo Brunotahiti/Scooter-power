@@ -39,6 +39,18 @@ final class CrashDetectorTests: XCTestCase {
         _ = run(&d, from: 0, to: 5, gravity: upright, speed: 40)
         XCTAssertFalse(d.addMotion(time: 5.1, gravity: upright, userAcceleration: Vector3(5, 0, 0)))
         XCTAssertTrue(run(&d, from: 5.2, to: 9, gravity: upright, speed: 0))
+        XCTAssertEqual(d.lastTrigger?.reason, .impactThenStop)
+        XCTAssertEqual(d.lastTrigger?.peakG ?? 0, 5, accuracy: 0.01)
+        XCTAssertEqual(d.lastTrigger?.speedBeforeKmh ?? 0, 40, accuracy: 0.01)
+    }
+
+    func testLaidDownTriggerDescribesTilt() {
+        var d = detector()
+        _ = run(&d, from: 0, to: 10, gravity: upright, speed: 50)
+        _ = run(&d, from: 10.1, to: 13.5, gravity: onItsSide, speed: 0)
+        XCTAssertEqual(d.lastTrigger?.reason, .laidDown)
+        XCTAssertEqual(d.lastTrigger?.tiltDegrees ?? 0, 90, accuracy: 0.5)
+        XCTAssertEqual(d.lastTrigger?.speedBeforeKmh ?? 0, 50, accuracy: 0.01)
     }
 
     func testPotholeWithoutStopDoesNothing() {

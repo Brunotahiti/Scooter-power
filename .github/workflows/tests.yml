@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scootercore:
+    name: ScooterCore (tests) et syntaxe Swift
+    runs-on: ubuntu-latest
+    container: swift:6.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tests de ScooterCore
+        run: swift test --package-path ScooterCore
+      - name: Syntaxe de l'app et du widget
+        run: find ScooterPower ScooterPowerWidgets -name '*.swift' -print0 | xargs -0 swiftc -frontend -parse
+
+  translations:
+    name: Traductions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Chaque texte a sa traduction
+        run: python3 tools/make_catalogs.py .
+      - name: Catalogues à jour
+        run: git diff --exit-code -- '*.xcstrings'

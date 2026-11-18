@@ -80,7 +80,9 @@ enum LeaderboardService {
         let prefix: String = "lb_" + myID + "_"
         return results.compactMap { entry -> LeaderboardRow? in
             let id: CKRecord.ID = entry.0
-            guard let record = try? entry.1.get(), let seconds = record["seconds"] as? Double else { return nil }
+            // Temps impossibles (saut GPS, fichier trafiqué) : écartés à la lecture aussi.
+            guard let record = try? entry.1.get(), let seconds = record["seconds"] as? Double,
+                  Leaderboard.isPublishable(seconds, for: interval) else { return nil }
             return LeaderboardRow(
                 id: id.recordName,
                 rider: (record["rider"] as? String).flatMap { $0.isEmpty ? nil : $0 } ?? L("Pilote"),

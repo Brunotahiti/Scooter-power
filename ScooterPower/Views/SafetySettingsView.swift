@@ -1,5 +1,6 @@
 import ContactsUI
 import SwiftUI
+import ScooterCore
 import UIKit
 
 /// Réglages de sécurité : détection de chute et contacts d'urgence, annonces vocales.
@@ -11,6 +12,10 @@ struct SafetySettingsSection: View {
             settings.setCrashDetectionEnabled(value)
             if value { CrashAlarm.requestNotificationPermission() }
         })
+    }
+
+    private var silentMode: Binding<Bool> {
+        Binding(get: { settings.crashSilentMode }, set: { settings.setCrashSilentMode($0) })
     }
 
     private var voiceEnabled: Binding<Bool> {
@@ -43,6 +48,12 @@ struct SafetySettingsSection: View {
                         Label(L("Ajouter un contact d'urgence"), systemImage: "plus.circle.fill")
                     }
                 }
+                Toggle(L("Mode réglage (sans alarme)"), isOn: silentMode)
+                NavigationLink {
+                    CrashLogView()
+                } label: {
+                    LabeledContent(L("Journal des alertes"), value: String(CrashLog.shared.entries.count))
+                }
             }
         } header: {
             Text(L("Sécurité"))
@@ -62,6 +73,83 @@ struct SafetySettingsSection: View {
         } footer: {
             Text(L("Records battus, chronos et alerte de vitesse annoncés dans votre casque (intercom Bluetooth) ou par le haut-parleur. La musique baisse pendant l'annonce."))
         }
+    }
+}
+
+/// Journal des alertes de chute : vraies chutes, fausses alertes et alertes
+/// notées en mode réglage, avec ce qui les a déclenchées.
+struct CrashLogView: View {
+    private let log = CrashLog.shared
+    @State private var confirmClear = false
+
+    var body: some View {
+        List {
+            if log.entries.isEmpty {
+                Text(L("Aucune alerte pour l'instant."))
+                    .foregroundStyle(Theme.textSecondary)
+            }
+            ForEach(log.entries) { entry in
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack {
+                        Text(entry.date, format: .dateTime.day().month().hour().minute())
+                            .font(.headline)
+                        Spacer()
+                        Text(outcomeText(entry.outcome))
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(outcomeColor(entry.outcome))
+                    }
+                    if let trigger = entry.trigger {
+                        Text(verbatim: details(trigger, response: entry.responseSeconds))
+                            .font(.caption.monospacedDigit())
+                            .foregroundStyle(Theme.textSecondary)
+                    }
+                }
+            }
+            if !log.entries.isEmpty {
+                Section {
+                    ShareLink(item: log.report) {
+                        Label(L("Envoyer le journal"), systemImage: "square.and.arrow.up")
+                    }
+                    Button(L("Effacer le journal"), role: .destructive) { confirmClear = true }
+                } footer: {
+                    Text(L("Le journal ne contient aucune position. Il aide à régler la détection : envoyez-le au support après une fausse alerte."))
+                }
+            }
+        }
+        .navigationTitle(L("Journal des alertes"))
+        .confirmationDialog(L("Effacer le journal ?"), isPresented: $confirmClear, titleVisibility: .visible) {
+            Button(L("Effacer"), role: .destructive) { log.clear() }
+        }
+    }
+
+    private func outcomeText(_ outcome: CrashLogEntry.Outcome) -> String {
+        switch outcome {
+        case .pending: return L("Sans réponse")
+        case .fine: return L("Fausse alerte")
+        case .alerted: return L("Secours prévenus")
+        case .silent: return L("Mode réglage")
+        }
+    }
+
+    private func outcomeColor(_ outcome: CrashLogEntry.Outcome) -> Color {
+        switch outcome {
+        case .pending, .alerted: return Theme.red
+        case .fine: return Theme.orange
+        case .silent: return Theme.cyan
+        }
+    }
+
+    private func details(_ trigger: CrashDetector.Trigger, response: Double?) -> String {
+        let reason: String = trigger.reason == .laidDown ? L("Scooter couché") : L("Choc puis arrêt")
+        let units = AppSettings.shared.units
+        var parts: [String] = [
+            reason,
+            Formatters.decimal(trigger.peakG, digits: 1) + " g",
+            Formatters.decimal(trigger.tiltDegrees, digits: 0) + "°",
+            Formatters.decimal(units.speed(fromKmh: trigger.speedBeforeKmh), digits: 0) + " " + units.speedUnit,
+        ]
+        if let response { parts.append(Formatters.decimal(response, digits: 0) + " s") }
+        return parts.joined(separator: " · ")
     }
 }
 

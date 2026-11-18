@@ -48,6 +48,7 @@ struct CrashAlertView: View {
                 }
                 Spacer(minLength: 0)
                 Button {
+                    CrashLog.shared.resolve(id: alert.id, outcome: .fine)
                     onDismiss()
                 } label: {
                     Text(L("Je vais bien"))
@@ -107,10 +108,12 @@ struct CrashAlertView: View {
 
     private func sendAlert() {
         guard !recipients.isEmpty, MFMessageComposeViewController.canSendText() else { return }
+        CrashLog.shared.resolve(id: alert.id, outcome: .alerted)
         showMessage = true
     }
 
     private func callEmergency() {
+        CrashLog.shared.resolve(id: alert.id, outcome: .alerted)
         // 112 fonctionne sur tous les réseaux mobiles du monde (renvoyé vers le numéro local).
         if let url = URL(string: "tel://112") {
             UIApplication.shared.open(url)

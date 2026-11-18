@@ -289,7 +289,15 @@ final class TripViewModel {
         guard crashDetector.addMotion(
             time: now, gravity: sample.gravity, userAcceleration: sample.userAcceleration)
         else { return }
-        crashAlert = CrashAlert(date: Date(), coordinate: route.last)
+        let alert = CrashAlert(date: Date(), coordinate: route.last)
+        if settings.crashSilentMode {
+            // Mode réglage : on note, une petite vibration, pas d'alarme.
+            CrashLog.shared.add(id: alert.id, date: alert.date, trigger: crashDetector.lastTrigger, outcome: .silent)
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            return
+        }
+        CrashLog.shared.add(id: alert.id, date: alert.date, trigger: crashDetector.lastTrigger, outcome: .pending)
+        crashAlert = alert
         CrashAlarm.shared.start()
     }
 

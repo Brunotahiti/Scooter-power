@@ -993,6 +993,22 @@
         }
       }
     },
+    "Aucune alerte pour l'instant." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No alerts yet."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune alerte pour l'instant."
+          }
+        }
+      }
+    },
     "Aucune carte trouvée" : {
       "localizations" : {
         "en" : {
@@ -1373,6 +1389,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chiffres gagnés : %@. Chiffres perdus : %@."
+          }
+        }
+      }
+    },
+    "Choc puis arrêt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impact then stop"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choc puis arrêt"
           }
         }
       }
@@ -2097,6 +2129,54 @@
         }
       }
     },
+    "Effacer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer"
+          }
+        }
+      }
+    },
+    "Effacer le journal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear the log"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer le journal"
+          }
+        }
+      }
+    },
+    "Effacer le journal ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear the log?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer le journal ?"
+          }
+        }
+      }
+    },
     "En cas de chute, l'app sonne et propose de prévenir vos proches avec votre position. Ajoutez vos contacts dans les Réglages." : {
       "localizations" : {
         "en" : {
@@ -2189,6 +2269,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Entretien à prévoir"
+          }
+        }
+      }
+    },
+    "Envoyer le journal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send the log"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer le journal"
           }
         }
       }
@@ -2317,6 +2413,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Faites le plein à ras bord et notez-le deux fois de suite pour connaître la consommation."
+          }
+        }
+      }
+    },
+    "Fausse alerte" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "False alarm"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fausse alerte"
           }
         }
       }
@@ -2801,6 +2913,22 @@
         }
       }
     },
+    "Journal des alertes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alert log"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Journal des alertes"
+          }
+        }
+      }
+    },
     "Jusqu'à 5 pilotes sur la même carte" : {
       "localizations" : {
         "en" : {
@@ -2973,6 +3101,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Le ghost vous dépasse !"
+          }
+        }
+      }
+    },
+    "Le journal ne contient aucune position. Il aide à régler la détection : envoyez-le au support après une fausse alerte." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The log contains no location. It helps tune detection: send it to support after a false alarm."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le journal ne contient aucune position. Il aide à régler la détection : envoyez-le au support après une fausse alerte."
           }
         }
       }
@@ -3325,6 +3469,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Miles"
+          }
+        }
+      }
+    },
+    "Mode réglage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuning mode"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode réglage"
+          }
+        }
+      }
+    },
+    "Mode réglage (sans alarme)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuning mode (no alarm)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode réglage (sans alarme)"
           }
         }
       }
@@ -4577,6 +4753,22 @@
         }
       }
     },
+    "Sans réponse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No answer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans réponse"
+          }
+        }
+      }
+    },
     "Sans réponse, le message d'alerte avec votre position sera prêt à envoyer à vos contacts." : {
       "localizations" : {
         "en" : {
@@ -4669,6 +4861,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scooter Power a détecté une chute possible. Je ne réponds pas : merci de vérifier que je vais bien."
+          }
+        }
+      }
+    },
+    "Scooter couché" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter down"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scooter couché"
+          }
+        }
+      }
+    },
+    "Secours prévenus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help alerted"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Secours prévenus"
           }
         }
       }

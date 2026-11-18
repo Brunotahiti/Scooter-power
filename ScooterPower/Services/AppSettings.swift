@@ -21,6 +21,7 @@ final class AppSettings {
         static let riderName = "riderName"
         static let crashDetection = "crashDetectionEnabled"
         static let leaderboard = "leaderboardEnabled"
+        static let crashSilent = "crashSilentMode"
         static let voice = "voiceEnabled"
         static let currentScooter = "currentScooterID"
         static let emergencyContacts = "emergencyContacts"
@@ -45,6 +46,8 @@ final class AppSettings {
     /// Publication des chronos dans les classements en ligne : sur accord du pilote.
     private(set) var leaderboardEnabled: Bool = UserDefaults.standard.bool(forKey: Key.leaderboard)
     private(set) var crashDetectionEnabled: Bool = UserDefaults.standard.object(forKey: Key.crashDetection) as? Bool ?? true
+    /// Mode réglage : une chute détectée est notée dans le journal, sans alarme.
+    private(set) var crashSilentMode: Bool = UserDefaults.standard.bool(forKey: Key.crashSilent)
     /// Personnes prévenues en cas de chute (3 au plus).
     private(set) var emergencyContacts: [EmergencyContact] = AppSettings.loadContacts()
 
@@ -92,6 +95,11 @@ final class AppSettings {
     func setCrashDetectionEnabled(_ value: Bool) {
         crashDetectionEnabled = value
         defaults.set(value, forKey: Key.crashDetection)
+    }
+
+    func setCrashSilentMode(_ value: Bool) {
+        crashSilentMode = value
+        defaults.set(value, forKey: Key.crashSilent)
     }
 
     static let maxEmergencyContacts = 3

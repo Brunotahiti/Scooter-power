@@ -34,7 +34,25 @@ public struct CrashDetector: Sendable {
         public init() {}
     }
 
+    /// Ce qui a déclenché la dernière alerte, pour le journal de réglage.
+    public struct Trigger: Sendable, Equatable, Codable {
+        public enum Reason: String, Sendable, Codable {
+            case laidDown, impactThenStop
+        }
+        public var reason: Reason
+        /// Plus fort choc des dernières secondes, en g.
+        public var peakG: Double
+        /// Inclinaison du téléphone au déclenchement, en degrés.
+        public var tiltDegrees: Double
+        /// Vitesse la plus haute des secondes précédentes, en km/h.
+        public var speedBeforeKmh: Double
+    }
+
     public let configuration: Configuration
+    public private(set) var lastTrigger: Trigger?
+    /// Chocs et vitesses récents, pour décrire le déclenchement.
+    private var peaks: [(time: TimeInterval, g: Double)] = []
+    private var speeds: [(time: TimeInterval, kmh: Double)] = []
     /// Gravité de référence (téléphone sur le scooter droit), en g.
     public private(set) var reference: Vector3?
 
@@ -59,12 +77,16 @@ public struct CrashDetector: Sendable {
         latestSpeedKmh = nil
         impactTime = nil
         tiltStart = nil
+        peaks = []
+        speeds = []
     }
 
     /// Vitesse GPS en km/h, sur la même horloge que les mesures de mouvement.
     public mutating func addSpeed(time: TimeInterval, kmh: Double) {
         guard kmh.isFinite, kmh >= 0 else { return }
         latestSpeedKmh = kmh
+        speeds.append((time, kmh))
+        speeds.removeAll { time - $0.time > configuration.ridingWindow }
         if kmh >= configuration.ridingSpeedKmh { lastRidingTime = time }
     }
 
@@ -74,6 +96,12 @@ public struct CrashDetector: Sendable {
         if reference == nil { calibrate(gravity: gravity) }
         guard let reference else { return false }
         if let lastAlert, time - lastAlert < configuration.cooldown { return false }
+
+        let g: Double = userAcceleration.length
+        if g >= 1.5 {
+            peaks.append((time, g))
+        }
+        peaks.removeAll { time - $0.time > configuration.stopWindow + 2 }
 
         let wasRiding: Bool = lastRidingTime.map { time - $0 <= configuration.ridingWindow } ?? false
 
@@ -103,6 +131,11 @@ public struct CrashDetector: Sendable {
         }
 
         guard laidDown || impactThenStop else { return false }
+        lastTrigger = Trigger(
+            reason: laidDown ? .laidDown : .impactThenStop,
+            peakG: max(g, peaks.map(\.g).max() ?? 0),
+            tiltDegrees: Self.angleDegrees(reference, gravity),
+            speedBeforeKmh: speeds.map(\.kmh).max() ?? 0)
         lastAlert = time
         impactTime = nil
         tiltStart = nil
