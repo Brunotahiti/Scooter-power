@@ -135,6 +135,7 @@ final class TripViewModel {
             self?.authorizationChanged(authorization)
         }
         liveActivity.endOrphans()
+        watchLifecycle()
         // Met les textes au bon format (unités, séparateur décimal) dès l'ouverture.
         refresh()
     }
@@ -410,9 +411,32 @@ final class TripViewModel {
         return Formatters.decimal(time, digits: 1) + " s"
     }
 
+    /// Écran visible : 10 images par seconde. Écran verrouillé ou app en
+    /// arrière-plan : une fois par seconde suffit (Live Activity, annonces).
+    @ObservationIgnored private var inBackground = false
+    @ObservationIgnored private var lifecycleObservers: [NSObjectProtocol] = []
+
+    private func watchLifecycle() {
+        let center = NotificationCenter.default
+        lifecycleObservers = [
+            center.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.setBackground(true) }
+            },
+            center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.setBackground(false) }
+            },
+        ]
+    }
+
+    private func setBackground(_ value: Bool) {
+        guard inBackground != value else { return }
+        inBackground = value
+        if refreshTimer != nil { startRefreshing() }
+    }
+
     private func startRefreshing() {
         stopRefreshing()
-        let timer = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in
+        let timer = Timer(timeInterval: inBackground ? 1 : 0.1, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated {
                 self?.refresh()
             }
