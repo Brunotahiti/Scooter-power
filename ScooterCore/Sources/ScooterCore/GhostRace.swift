@@ -84,6 +84,19 @@ public struct GhostRace: Sendable {
         return GhostRace(route: replay.route, times: replay.times)
     }
 
+    /// Heure du départ de la course (même horloge que `update`), `nil` avant.
+    public var raceStartTime: TimeInterval? { startTime }
+
+    /// Position et cap du ghost à cette heure, pour l'animer entre deux mesures GPS.
+    public func ghostPosition(at time: TimeInterval) -> (coordinate: Coordinate, heading: Double, meters: Double)? {
+        guard let startTime else { return nil }
+        let elapsed: TimeInterval = time - startTime
+        let meters: Double = ghostDistance(atTime: elapsed)
+        let before: Coordinate = coordinate(atDistance: max(0, meters - 6))
+        let after: Coordinate = coordinate(atDistance: min(length, meters + 6))
+        return (coordinate(atDistance: meters), TripReplay.bearing(from: before, to: after), meters)
+    }
+
     /// Temps de course du ghost pour la distance parcourue donnée.
     public func ghostTime(atDistance meters: Double) -> TimeInterval {
         Self.interpolate(meters, keys: cumulative, values: times) - ghostStart

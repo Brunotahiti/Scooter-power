@@ -207,6 +207,12 @@ final class TripViewModel {
         ghostRace = (state == .recording || state == .paused) ? race : nil
     }
 
+    /// Position du ghost à cette heure (horloge `Date.timeIntervalSinceReferenceDate`).
+    func ghostLivePosition(at time: TimeInterval) -> (coordinate: Coordinate, heading: Double, meters: Double)? {
+        guard ghostStatus?.phase == .racing else { return nil }
+        return ghostRace?.ghostPosition(at: time)
+    }
+
     /// La course de ce trajet, à enregistrer avec lui ; `nil` si elle n'a pas commencé.
     func ghostResult() -> GhostRaceResult? {
         guard let ghostRace, let ghostStatus, ghostStatus.phase != .waitingForStart,

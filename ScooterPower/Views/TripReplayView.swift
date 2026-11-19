@@ -42,7 +42,7 @@ struct TripReplayView: View {
     static let maxGhosts = GroupRoster.capacity - 1
     private static let rates: [Double] = [1, 2, 4, 10, 20]
     private static let red: Color = SpeedometerView.neonRed
-    private let ticker = Timer.publish(every: 1.0 / 30, on: .main, in: .common).autoconnect()
+    private let ticker = Timer.publish(every: 1.0 / 60, on: .main, in: .common).autoconnect()
     private let units: UnitSystem = AppSettings.shared.units
 
     /// Tous les trajets affichés, le principal en premier.
@@ -209,7 +209,7 @@ struct TripReplayView: View {
                 if let frame = frames[index] {
                     Annotation("", coordinate: frame.coordinate.mapCoordinate, anchor: .bottom) {
                         ReplayMarker(name: markerName(index: index, track: track), color: track.color,
-                                     frame: frame, rotation: frame.heading - mapHeading)
+                                     frame: frame, rotation: frame.heading - (follow ? (cameraHeading ?? mapHeading) : mapHeading))
                     }
                     .annotationTitles(.hidden)
                 }
@@ -447,10 +447,7 @@ enum ReplayMapContent {
     /// Partie déjà parcourue, jusqu'à la position actuelle.
     static func traveled(_ replay: TripReplay, frame: ReplayFrame?) -> [CLLocationCoordinate2D] {
         guard let frame, !replay.route.isEmpty else { return [] }
-        let end: Int = min(frame.index, replay.route.count - 1)
-        var points: [CLLocationCoordinate2D] = replay.route[0...end].map(\.mapCoordinate)
-        points.append(frame.coordinate.mapCoordinate)
-        return points
+        return replay.trail(upTo: frame.time).map(\.mapCoordinate)
     }
 }
 

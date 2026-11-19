@@ -1,3 +1,4 @@
+import Combine
 import MapKit
 import SwiftUI
 import ScooterCore
@@ -23,9 +24,23 @@ struct GhostRaceMap: View {
     /// Orientation actuelle de la carte, pour tourner les scooters dans le bon sens.
     @State private var mapHeading: Double = 0
 
+    // Animation fluide entre deux mesures GPS (une par seconde) : on affiche
+    // la course avec une seconde de retard et on glisse d'une mesure à l'autre.
+    @State private var previousFix: (coordinate: Coordinate, time: TimeInterval)?
+    @State private var lastFix: (coordinate: Coordinate, time: TimeInterval)?
+    @State private var shownMe: Coordinate?
+    @State private var shownMeHeading: Double = 0
+    @State private var shownGhost: (coordinate: Coordinate, heading: Double, meters: Double)?
+    @State private var cameraHeading: Double?
+    /// Mon tracé décalé sur ma voie, recalculé seulement à chaque nouvelle mesure.
+    @State private var myLane: [Coordinate] = []
+    private static let delay: TimeInterval = 1
+    private let ticker = Timer.publish(every: 1.0 / 30, on: .main, in: .common).autoconnect()
+
     var body: some View {
-        let myTrail: [Coordinate] = RouteOffset.offset(model.route, meters: -Self.laneOffset)
+        let myTrail: [Coordinate] = myLane + (racing ? shownMeLane.map { [$0] } ?? [] : [])
         let ghostTrail: [Coordinate] = RouteOffset.offset(ghostTravelled, meters: Self.laneOffset)
+        let rotationBase: Double = racing ? (cameraHeading ?? mapHeading) : mapHeading
         return Map(position: $position, interactionModes: [.zoom]) {
             if model.ghostRoute.count > 1 {
                 // Le parcours à suivre, bien visible même sur la photo satellite :
@@ -42,7 +57,7 @@ struct GhostRaceMap: View {
                             .foregroundStyle(.black)
                             .frame(width: 18, height: 18)
                             .background(Self.routeYellow, in: Circle())
-                            .rotationEffect(.degrees(arrow.bearing - mapHeading))
+                            .rotationEffect(.degrees(arrow.bearing - rotationBase))
                     }
                 }
                 if let start = model.ghostRoute.first {
@@ -63,19 +78,20 @@ struct GhostRaceMap: View {
             if myTrail.count > 1 {
                 neonTrail(myTrail, color: Self.red)
             }
-            if racing, let ghost = model.ghostStatus?.ghostCoordinate {
-                let spot: Coordinate = RouteOffset.shift(ghost, bearing: ghostHeading, meters: Self.laneOffset)
+            if racing, let ghost = shownGhost {
+                let spot: Coordinate = RouteOffset.shift(ghost.coordinate, bearing: ghost.heading, meters: Self.laneOffset)
                 Annotation("", coordinate: spot.mapCoordinate) {
                     RaceBike(name: L("Ghost"), color: Self.ghostBlue, ghost: true,
-                             frame: bikeFrame(at: spot, heading: ghostHeading), rotation: ghostHeading - mapHeading)
+                             frame: bikeFrame(at: spot, heading: ghost.heading), rotation: ghost.heading - rotationBase)
                 }
             }
-            if let me {
+            if let me = racing ? shownMe : me {
+                let heading: Double = racing ? shownMeHeading : myHeading
                 let spot: Coordinate = racing
-                    ? RouteOffset.shift(me, bearing: myHeading, meters: -Self.laneOffset) : me
+                    ? RouteOffset.shift(me, bearing: heading, meters: -Self.laneOffset) : me
                 Annotation("", coordinate: spot.mapCoordinate) {
                     RaceBike(name: L("Moi"), color: Self.red, ghost: false,
-                             frame: bikeFrame(at: spot, heading: myHeading), rotation: myHeading - mapHeading)
+                             frame: bikeFrame(at: spot, heading: heading), rotation: heading - rotationBase)
                 }
             }
         }
@@ -102,9 +118,19 @@ struct GhostRaceMap: View {
         .overlay(
             RoundedRectangle(cornerRadius: 22, style: .continuous)
                 .stroke(Self.red.opacity(0.7), lineWidth: 1.5))
-        .onAppear { frameCamera(animated: false) }
-        .onChange(of: model.route.count) { _, _ in frameCamera(animated: true) }
-        .onChange(of: racing) { _, _ in frameCamera(animated: true) }
+        .onAppear {
+            myLane = RouteOffset.offset(model.route, meters: -Self.laneOffset)
+            frameCamera(animated: false)
+        }
+        .onChange(of: model.route.count) { _, _ in
+            newFix()
+            if !racing { frameCamera(animated: true) }
+        }
+        .onChange(of: racing) { _, isRacing in
+            cameraHeading = nil
+            if !isRacing { frameCamera(animated: true) }
+        }
+        .onReceive(ticker) { _ in tick() }
     }
 
     @MapContentBuilder
@@ -146,12 +172,12 @@ struct GhostRaceMap: View {
     /// Le parcours déjà fait par le ghost, jusqu'à sa position actuelle.
     private var ghostTravelled: [Coordinate] {
         guard racing || model.ghostStatus?.phase == .finished, let status = model.ghostStatus,
-              let ghost = status.ghostCoordinate else { return [] }
+              let ghost = (racing ? shownGhost?.coordinate : nil) ?? status.ghostCoordinate else { return [] }
         let route: [Coordinate] = model.ghostRoute
         guard route.count > 1 else { return [] }
         var total: Double = 0
         for index in 1..<route.count { total += TripStatistics.haversine(route[index - 1], route[index]) }
-        let target: Double = status.ghostProgress * total
+        let target: Double = (racing ? shownGhost?.meters : nil) ?? status.ghostProgress * total
         var travelled: [Coordinate] = [route[0]]
         var done: Double = 0
         for index in 1..<route.count {
@@ -183,6 +209,60 @@ struct GhostRaceMap: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
         .background(Color.black.opacity(0.7), in: Capsule())
+    }
+
+    /// Nouvelle mesure GPS : elle devient la cible vers laquelle on glisse.
+    private func newFix() {
+        myLane = RouteOffset.offset(model.route, meters: -Self.laneOffset)
+        guard let last = model.route.last else { return }
+        let now: TimeInterval = Date().timeIntervalSinceReferenceDate
+        // On repart de la position affichée pour ne jamais sauter.
+        if let shownMe {
+            previousFix = (coordinate: shownMe, time: now)
+        } else {
+            previousFix = lastFix ?? (coordinate: last, time: now)
+        }
+        lastFix = (coordinate: last, time: now)
+    }
+
+    /// 30 fois par seconde : positions, caps et caméra glissent en douceur.
+    private func tick() {
+        guard racing else { return }
+        let now: TimeInterval = Date().timeIntervalSinceReferenceDate
+        if let lastFix {
+            let from: Coordinate = previousFix?.coordinate ?? lastFix.coordinate
+            let f: Double = min(1, max(0, (now - lastFix.time) / Self.delay))
+            let position = Coordinate(
+                latitude: from.latitude + (lastFix.coordinate.latitude - from.latitude) * f,
+                longitude: from.longitude + (lastFix.coordinate.longitude - from.longitude) * f)
+            if TripStatistics.haversine(from, lastFix.coordinate) > 1.5 {
+                shownMeHeading = Self.ease(shownMeHeading, toward: TripReplay.bearing(from: from, to: lastFix.coordinate), by: 0.12)
+            }
+            shownMe = position
+        }
+        // Le ghost, à la même heure que ce que j'affiche (une seconde de retard).
+        if let ghost = model.ghostLivePosition(at: now - Self.delay) {
+            let heading: Double = shownGhost.map { Self.ease($0.heading, toward: ghost.heading, by: 0.15) } ?? ghost.heading
+            shownGhost = (coordinate: ghost.coordinate, heading: heading, meters: ghost.meters)
+        }
+        // Caméra qui me suit, avec un cap lissé.
+        guard let center = shownMe else { return }
+        let heading: Double = Self.ease(cameraHeading ?? shownMeHeading, toward: shownMeHeading, by: 0.06)
+        cameraHeading = heading
+        position = .camera(MapCamera(centerCoordinate: center.mapCoordinate, distance: 320, heading: heading, pitch: 0))
+    }
+
+    /// Rapproche un cap d'un autre par le plus court chemin.
+    static func ease(_ current: Double, toward target: Double, by factor: Double) -> Double {
+        var delta: Double = (target - current).truncatingRemainder(dividingBy: 360)
+        if delta > 180 { delta -= 360 }
+        if delta < -180 { delta += 360 }
+        return (current + delta * factor + 360).truncatingRemainder(dividingBy: 360)
+    }
+
+    /// Ma position affichée, décalée sur ma voie.
+    private var shownMeLane: Coordinate? {
+        shownMe.map { RouteOffset.shift($0, bearing: shownMeHeading, meters: -Self.laneOffset) }
     }
 
     /// En course : centrée sur moi, orientée dans le sens de la marche.

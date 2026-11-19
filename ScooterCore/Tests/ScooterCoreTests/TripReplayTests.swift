@@ -73,6 +73,32 @@ final class TripReplayTests: XCTestCase {
         XCTAssertEqual(session.replayTrack.last?.time, 4)
         XCTAssertEqual(session.replayTrack.last?.speedKmh ?? 0, 36, accuracy: 1e-9)
     }
+
+    func testHeadingTurnsGraduallyInCorners() throws {
+        // Vers l'est puis vers le nord : le cap passe de 90° à 0° sans saut.
+        let corner: [Coordinate] = [
+            Coordinate(latitude: 0, longitude: 0), Coordinate(latitude: 0, longitude: 0.0001),
+            Coordinate(latitude: 0, longitude: 0.0002), Coordinate(latitude: 0.0001, longitude: 0.0002),
+            Coordinate(latitude: 0.0002, longitude: 0.0002),
+        ]
+        let replay = TripReplay(route: corner, points: points([0, 1, 2, 3, 4]), averageSpeedKmh: 30)
+        var previous: Double = try XCTUnwrap(replay.frame(at: 0.5)).heading
+        XCTAssertEqual(previous, 90, accuracy: 5)
+        var t = 0.6
+        while t <= 3.5 {
+            let heading: Double = try XCTUnwrap(replay.frame(at: t)).heading
+            let jump: Double = abs((heading - previous + 540).truncatingRemainder(dividingBy: 360) - 180)
+            XCTAssertLessThan(jump, 15, "saut de cap à t = \(t)")
+            previous = heading
+            t += 0.1
+        }
+        XCTAssertLessThan(min(previous, 360 - previous), 5)
+        // La traînée suit la courbe jusqu'au scooter.
+        let trail = replay.trail(upTo: 2.5)
+        XCTAssertEqual(trail.last!, try XCTUnwrap(replay.frame(at: 2.5)).coordinate)
+        XCTAssertGreaterThan(trail.count, 3)
+    }
+
 }
 
 final class SharedTripTests: XCTestCase {
@@ -130,4 +156,5 @@ final class SharedTripTests: XCTestCase {
         XCTAssertTrue(decoded.points.isEmpty)
         XCTAssertFalse(decoded.replay.isRecorded)
     }
+
 }
