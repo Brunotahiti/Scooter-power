@@ -14,6 +14,7 @@ struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @State private var path: [HistoryRoute] = []
+    @State private var renaming: TripRecord?
 
     static let neonRed: Color = SpeedometerView.neonRed
 
@@ -29,6 +30,7 @@ struct HistoryView: View {
             }
             .background(backdrop.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
+            .tripRename($renaming)
             .navigationDestination(for: HistoryRoute.self) { route in
                 destination(route)
             }
@@ -127,6 +129,17 @@ struct HistoryView: View {
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            renaming = trip
+                        } label: {
+                            Label(L("Renommer"), systemImage: "pencil")
+                        }
+                        .tint(Theme.cyan)
+                    }
+                    .contextMenu {
+                        Button(L("Renommer"), systemImage: "pencil") { renaming = trip }
+                    }
                 }
                 .onDelete(perform: delete)
             }
@@ -431,10 +444,19 @@ private struct HistoryRow: View {
                     Image(systemName: "calendar")
                         .font(.system(size: 18))
                         .frame(width: 26)
-                    Text(trip.title)
-                        .font(.system(size: 18, weight: .bold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(trip.displayTitle)
+                            .font(.system(size: 18, weight: .bold))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                        // Trajet nommé : la date reste visible, en petit.
+                        if trip.isNamed {
+                            Text(trip.title)
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundStyle(Theme.textSecondary)
+                                .lineLimit(1)
+                        }
+                    }
                     if let won = trip.raceWon {
                         Text(verbatim: won ? "RACE WIN" : "RACE LOST")
                             .font(.system(size: 10, weight: .black))
@@ -484,7 +506,7 @@ private struct HistoryRow: View {
         .shadow(color: color.opacity(0.6), radius: 6)
         .contentShape(shape)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(trip.title)
+        .accessibilityLabel(trip.isNamed ? trip.displayTitle + ", " + trip.title : trip.title)
         .accessibilityValue(
             distanceText + ", " + Formatters.duration(trip.totalDuration) + ", "
                 + L("\(Formatters.decimal(speedValue, digits: 0)) \(units.speedUnit) max")

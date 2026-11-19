@@ -30,6 +30,8 @@ final class TripRecord {
     var imperialTimesData: Data?
     /// Scooter du garage utilisé pour ce trajet (`Scooter.uid`) ; absent des trajets anciens.
     var scooterID: String?
+    /// Nom donné par le pilote ; sans nom, le trajet est désigné par sa date.
+    var name: String?
     /// Course contre un ghost pendant ce trajet (`GhostRaceResult` en JSON).
     @Attribute(.externalStorage) var raceData: Data?
     /// Résultat de cette course, lisible sans décoder `raceData` : vrai gagnée, faux perdue.
@@ -156,4 +158,13 @@ final class TripRecord {
     var title: String {
         AppDates.dateTime(startDate)
     }
+
+    /// Le nom du trajet s'il en a un, sinon sa date.
+    var displayTitle: String {
+        guard let name, !name.isEmpty else { return title }
+        return name
+    }
+
+    /// Vrai si le pilote a nommé ce trajet.
+    var isNamed: Bool { !(name ?? "").isEmpty }
 }

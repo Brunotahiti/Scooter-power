@@ -12,6 +12,7 @@ struct TripDetailView: View {
     @State private var showReplay = false
     @State private var showCreateSegment = false
     @State private var showRaceReplay = false
+    @State private var renaming: TripRecord?
 
     var body: some View {
         let coordinates: [CLLocationCoordinate2D] = trip.route.map(\.mapCoordinate)
@@ -45,12 +46,21 @@ struct TripDetailView: View {
             .padding(16)
         }
         .background(Theme.background.ignoresSafeArea())
-        .navigationTitle(trip.title)
+        .navigationTitle(trip.displayTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .tripRename($renaming)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    renaming = trip
+                } label: {
+                    Image(systemName: "pencil")
+                }
+                .accessibilityLabel(L("Renommer"))
+            }
+            ToolbarItem(placement: .topBarTrailing) {
                 ShareMenu(
-                    summary: trip.summary, route: trip.route, title: trip.title, date: trip.startDate,
+                    summary: trip.summary, route: trip.route, title: trip.displayTitle, date: trip.startDate,
                     sharedTrip: trip.shared(riderName: AppSettings.shared.riderName)
                 ) { url in
                     share.receive(url)
@@ -62,7 +72,7 @@ struct TripDetailView: View {
             if let race = trip.race {
                 TripReplayView(
                     main: ReplayTrack(
-                        id: "mine", name: trip.title,
+                        id: "mine", name: trip.displayTitle,
                         replay: race.riderReplay(route: trip.route, points: trip.replayPoints),
                         color: SpeedometerView.neonRed),
                     riders: [ReplayTrack(id: "ghost", name: "👻 " + race.title, replay: race.ghostReplay(), color: .white)])
@@ -73,7 +83,7 @@ struct TripDetailView: View {
         }
         .fullScreenCover(isPresented: $showReplay) {
             TripReplayView(
-                main: ReplayTrack(id: "mine", name: trip.title, replay: trip.replay, color: SpeedometerView.neonRed),
+                main: ReplayTrack(id: "mine", name: trip.displayTitle, replay: trip.replay, color: SpeedometerView.neonRed),
                 friends: friendTrips)
         }
     }
@@ -130,7 +140,8 @@ struct TripDetailView: View {
 
     private func ghostButton(_ race: GhostRace) -> some View {
         Button {
-            TripCommands.shared.raceGhost(race, title: L("Ghost du \(trip.title)"))
+            TripCommands.shared.raceGhost(
+                race, title: trip.isNamed ? L("Ghost de \(trip.displayTitle)") : L("Ghost du \(trip.title)"))
         } label: {
             HStack(spacing: 8) {
                 Text(verbatim: "👻")
