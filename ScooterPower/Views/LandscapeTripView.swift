@@ -18,6 +18,7 @@ struct LandscapeTripView: View {
     var onGarage: () -> Void = {}
     var onLeaderboard: () -> Void = {}
     var onSegments: () -> Void = {}
+    var onRewards: () -> Void = {}
 
     private static let neonRed: Color = SpeedometerView.neonRed
 
@@ -169,6 +170,7 @@ struct LandscapeTripView: View {
                 .disabled(model.state != .recording && model.state != .paused)
             Button(L("Balade de groupe"), systemImage: "person.3.fill", action: onGroupRide)
             Button(L("Statistiques"), systemImage: "chart.bar.fill", action: onStats)
+            Button(L("Récompenses"), systemImage: "rosette", action: onRewards)
             Button(L("Segments"), systemImage: "flag.checkered", action: onSegments)
             Button(L("Classements"), systemImage: "trophy.fill", action: onLeaderboard)
             Button(L("Garage"), systemImage: "wrench.and.screwdriver.fill", action: onGarage)

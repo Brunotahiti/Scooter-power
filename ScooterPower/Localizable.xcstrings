@@ -289,6 +289,38 @@
         }
       }
     },
+    "%@ semaines d'affilée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ weeks in a row"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ semaines d'affilée"
+          }
+        }
+      }
+    },
+    "%@ semaines d'affilée : un petit trajet aujourd'hui pour la prolonger !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ weeks in a row: a short ride today keeps it going!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ semaines d'affilée : un petit trajet aujourd'hui pour la prolonger !"
+          }
+        }
+      }
+    },
     "%@ trajets" : {
       "localizations" : {
         "en" : {
@@ -301,6 +333,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ trajets"
+          }
+        }
+      }
+    },
+    "%@ trajets, %@. Série : %@ semaine(s) 🔥" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ trips, %@. Streak: %@ week(s) 🔥"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ trajets, %@. Série : %@ semaine(s) 🔥"
           }
         }
       }
@@ -417,6 +465,22 @@
         }
       }
     },
+    "1 000 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1,000 km"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 000 km"
+          }
+        }
+      }
+    },
     "1 passage" : {
       "localizations" : {
         "en" : {
@@ -449,6 +513,22 @@
         }
       }
     },
+    "1 semaine d'affilée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 week in a row"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 semaine d'affilée"
+          }
+        }
+      }
+    },
     "1 trajet" : {
       "localizations" : {
         "en" : {
@@ -465,6 +545,86 @@
         }
       }
     },
+    "1 trajet, %@. Série : %@ semaine(s) 🔥" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 trip, %@. Streak: %@ week(s) 🔥"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 trajet, %@. Série : %@ semaine(s) 🔥"
+          }
+        }
+      }
+    },
+    "10 000 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10,000 km"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 000 km"
+          }
+        }
+      }
+    },
+    "10 trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 trajets"
+          }
+        }
+      }
+    },
+    "100 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 km"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 km"
+          }
+        }
+      }
+    },
+    "100 trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 trajets"
+          }
+        }
+      }
+    },
     "30 dernières secondes" : {
       "localizations" : {
         "en" : {
@@ -477,6 +637,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "30 dernières secondes"
+          }
+        }
+      }
+    },
+    "5 000 km" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5,000 km"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5 000 km"
+          }
+        }
+      }
+    },
+    "50 trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 trajets"
           }
         }
       }
@@ -1217,6 +1409,22 @@
         }
       }
     },
+    "Badges %@/%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Badges %@/%@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Badges %@/%@"
+          }
+        }
+      }
+    },
     "Balade de groupe" : {
       "localizations" : {
         "en" : {
@@ -1409,6 +1617,22 @@
         }
       }
     },
+    "Cette semaine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This week"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette semaine"
+          }
+        }
+      }
+    },
     "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon." : {
       "localizations" : {
         "en" : {
@@ -1453,6 +1677,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chaque trajet est enregistré. Revivez-le vu du ciel, sur photo satellite, et partagez-le en vidéo."
+          }
+        }
+      }
+    },
+    "Chasseur de ghosts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghost hunter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chasseur de ghosts"
           }
         }
       }
@@ -2401,6 +2641,70 @@
         }
       }
     },
+    "Enregistrer 10 trajets." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record 10 trips."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer 10 trajets."
+          }
+        }
+      }
+    },
+    "Enregistrer 100 trajets." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record 100 trips."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer 100 trajets."
+          }
+        }
+      }
+    },
+    "Enregistrer 50 trajets." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record 50 trips."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer 50 trajets."
+          }
+        }
+      }
+    },
+    "Enregistrer un premier trajet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record your first trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer un premier trajet."
+          }
+        }
+      }
+    },
     "Entretien" : {
       "localizations" : {
         "en" : {
@@ -2541,6 +2845,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Faire la course contre mon meilleur passage"
+          }
+        }
+      }
+    },
+    "Faire un trajet de 100 km d'une traite." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 100 km in a single trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faire un trajet de 100 km d'une traite."
+          }
+        }
+      }
+    },
+    "Faire un trajet de 50 km d'une traite." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 50 km in a single trip."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faire un trajet de 50 km d'une traite."
           }
         }
       }
@@ -2705,6 +3041,38 @@
         }
       }
     },
+    "Gagner 10 courses contre un ghost." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win 10 races against a ghost."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gagner 10 courses contre un ghost."
+          }
+        }
+      }
+    },
+    "Gagner une course contre un ghost." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Win a race against a ghost."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gagner une course contre un ghost."
+          }
+        }
+      }
+    },
     "Garage" : {
       "localizations" : {
         "en" : {
@@ -2813,6 +3181,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ghost du %@"
+          }
+        }
+      }
+    },
+    "Grande balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Big ride"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grande balade"
           }
         }
       }
@@ -3393,6 +3777,38 @@
         }
       }
     },
+    "Long voyage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Long journey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Long voyage"
+          }
+        }
+      }
+    },
+    "Lève-tôt" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Early bird"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lève-tôt"
+          }
+        }
+      }
+    },
     "Ma carte" : {
       "localizations" : {
         "en" : {
@@ -3649,6 +4065,54 @@
         }
       }
     },
+    "Mon année" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My year"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon année"
+          }
+        }
+      }
+    },
+    "Mon année %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My %@ year"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon année %@"
+          }
+        }
+      }
+    },
+    "Mon année en scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My year on the scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon année en scooter"
+          }
+        }
+      }
+    },
     "Mon scooter" : {
       "localizations" : {
         "en" : {
@@ -3789,6 +4253,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Noter un plein"
+          }
+        }
+      }
+    },
+    "Nouveau badge : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New badge: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau badge : %@"
+          }
+        }
+      }
+    },
+    "Nouveau badge : %@ !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New badge: %@!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau badge : %@ !"
           }
         }
       }
@@ -4017,6 +4513,70 @@
         }
       }
     },
+    "Parcourir 1 000 km au total." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 1,000 km in total."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parcourir 1 000 km au total."
+          }
+        }
+      }
+    },
+    "Parcourir 10 000 km au total." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 10,000 km in total."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parcourir 10 000 km au total."
+          }
+        }
+      }
+    },
+    "Parcourir 100 km au total." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 100 km in total."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parcourir 100 km au total."
+          }
+        }
+      }
+    },
+    "Parcourir 5 000 km au total." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 5,000 km in total."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parcourir 5 000 km au total."
+          }
+        }
+      }
+    },
     "Partage impossible" : {
       "localizations" : {
         "en" : {
@@ -4081,6 +4641,22 @@
         }
       }
     },
+    "Partager mon année" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share my year"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager mon année"
+          }
+        }
+      }
+    },
     "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre." : {
       "localizations" : {
         "en" : {
@@ -4093,6 +4669,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partagez votre carte de performances avec un autre pilote, ajoutez la sienne, et comparez-vous chiffre par chiffre."
+          }
+        }
+      }
+    },
+    "Partir entre 21 h et 5 h." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a ride between 9 pm and 5 am."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partir entre 21 h et 5 h."
+          }
+        }
+      }
+    },
+    "Partir entre 5 h et 7 h du matin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a ride between 5 and 7 am."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partir entre 5 h et 7 h du matin."
+          }
+        }
+      }
+    },
+    "Pas encore roulé cette semaine : un trajet avant dimanche prolonge la série !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No ride yet this week: one trip before Sunday keeps the streak alive!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore roulé cette semaine : un trajet avant dimanche prolonge la série !"
           }
         }
       }
@@ -4253,6 +4877,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pilote"
+          }
+        }
+      }
+    },
+    "Pilote de nuit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Night rider"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilote de nuit"
           }
         }
       }
@@ -4449,6 +5089,22 @@
         }
       }
     },
+    "Premier ghost battu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First ghost beaten"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premier ghost battu"
+          }
+        }
+      }
+    },
     "Premier passage sur %@ : %@." : {
       "localizations" : {
         "en" : {
@@ -4461,6 +5117,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premier passage sur %@ : %@."
+          }
+        }
+      }
+    },
+    "Premier trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premier trajet"
           }
         }
       }
@@ -4961,6 +5633,54 @@
         }
       }
     },
+    "Rouler 12 semaines d'affilée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 12 weeks in a row."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rouler 12 semaines d'affilée."
+          }
+        }
+      }
+    },
+    "Rouler 4 semaines d'affilée." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride 4 weeks in a row."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rouler 4 semaines d'affilée."
+          }
+        }
+      }
+    },
+    "Roulez au moins une fois par semaine pour faire grandir la série." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride at least once a week to grow your streak."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roulez au moins une fois par semaine pour faire grandir la série."
+          }
+        }
+      }
+    },
     "Roulez en groupe" : {
       "localizations" : {
         "en" : {
@@ -5021,6 +5741,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Roulez protégé"
+          }
+        }
+      }
+    },
+    "Récompenses" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rewards"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Récompenses"
           }
         }
       }
@@ -5457,6 +6193,38 @@
         }
       }
     },
+    "Ta semaine en scooter" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your week on the scooter"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta semaine en scooter"
+          }
+        }
+      }
+    },
+    "Ta série est en jeu 🔥" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your streak is on the line 🔥"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta série est en jeu 🔥"
+          }
+        }
+      }
+    },
     "Temps" : {
       "localizations" : {
         "en" : {
@@ -5789,6 +6557,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trajets enregistrés"
+          }
+        }
+      }
+    },
+    "Trois mois de suite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Three months straight"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trois mois de suite"
+          }
+        }
+      }
+    },
+    "Un mois de suite" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A month straight"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mois de suite"
           }
         }
       }
@@ -6241,6 +7041,22 @@
         }
       }
     },
+    "badges" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "badges"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "badges"
+          }
+        }
+      }
+    },
     "dans %@" : {
       "localizations" : {
         "en" : {
@@ -6253,6 +7069,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "dans %@"
+          }
+        }
+      }
+    },
+    "de roulage" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "riding time"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "de roulage"
           }
         }
       }
@@ -6285,6 +7117,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "en retard de %@ j"
+          }
+        }
+      }
+    },
+    "ghosts battus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ghosts beaten"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ghosts battus"
+          }
+        }
+      }
+    },
+    "heure préférée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "favourite hour"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "heure préférée"
           }
         }
       }
@@ -6333,6 +7197,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "inconnue"
+          }
+        }
+      }
+    },
+    "jour préféré" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "favourite day"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "jour préféré"
           }
         }
       }
@@ -6413,6 +7293,70 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "non comparable"
+          }
+        }
+      }
+    },
+    "par rapport à la semaine dernière" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vs last week"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "par rapport à la semaine dernière"
+          }
+        }
+      }
+    },
+    "plus long trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "longest trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "plus long trajet"
+          }
+        }
+      }
+    },
+    "trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "trip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "trajet"
+          }
+        }
+      }
+    },
+    "trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "trajets"
           }
         }
       }

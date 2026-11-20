@@ -31,6 +31,8 @@ struct ScooterPowerApp: App {
     init() {
         // Langue choisie dans les réglages (anglais par défaut) et séparateur décimal assorti.
         AppLanguage.apply(AppLanguage.stored)
+        // Badges et bilans visibles même quand l'app est ouverte.
+        ForegroundNotifications.shared.install()
     }
 
     var body: some Scene {

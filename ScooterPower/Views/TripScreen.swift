@@ -17,6 +17,7 @@ struct TripScreen: View {
     @State private var showGarage = false
     @State private var showLeaderboard = false
     @State private var showSegments = false
+    @State private var showRewards = false
     @Query private var segments: [SegmentRecord]
     @Query private var scooters: [Scooter]
     @Query private var maintenance: [MaintenanceTask]
@@ -46,6 +47,7 @@ struct TripScreen: View {
             .onAppear {
                 loadRecords()
                 WidgetSync.update(trips: history)
+                RewardsCenter.scheduleWeeklyRecap(trips: history)
                 runPendingCommand()
                 // La balade de groupe lit ma position dans le trajet en cours.
                 GroupRideService.shared.positionProvider = { [model] in
@@ -104,6 +106,9 @@ struct TripScreen: View {
             .sheet(isPresented: $showSegments) {
                 SegmentsView()
             }
+            .sheet(isPresented: $showRewards) {
+                RewardsView()
+            }
             .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
@@ -129,7 +134,8 @@ struct TripScreen: View {
                 onGroupRide: { showGroupRide = true },
                 onGarage: { showGarage = true },
                 onLeaderboard: { showLeaderboard = true },
-                onSegments: { showSegments = true })
+                onSegments: { showSegments = true },
+                onRewards: { showRewards = true })
         } else {
             portrait
         }
@@ -211,7 +217,8 @@ struct TripScreen: View {
                 onGroupRide: { showGroupRide = true },
                 onGarage: { showGarage = true },
                 onLeaderboard: { showLeaderboard = true },
-                onSegments: { showSegments = true })
+                onSegments: { showSegments = true },
+                onRewards: { showRewards = true })
         }
     }
 
@@ -278,6 +285,8 @@ struct TripScreen: View {
         // Écriture immédiate : sans elle, quitter l'app juste après peut perdre le trajet.
         try? modelContext.save()
         SegmentAnnouncer.check(trip: record, segments: segments, previousTrips: history)
+        LocalNotifier.requestPermission()
+        RewardsCenter.tripSaved(previous: history, with: record)
         if let scooter {
             MaintenanceReminder.check(scooter: scooter, tasks: maintenance, trips: history + [record])
             LeaderboardService.submit(trips: [record], scooter: scooter)
