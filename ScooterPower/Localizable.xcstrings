@@ -1265,6 +1265,22 @@
         }
       }
     },
+    "Aucun trajet en cours" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No trip in progress"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun trajet en cours"
+          }
+        }
+      }
+    },
     "Aucune alerte pour l'instant." : {
       "localizations" : {
         "en" : {
@@ -2113,6 +2129,22 @@
         }
       }
     },
+    "Créer un nouveau lien ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create a new link?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer un nouveau lien ?"
+          }
+        }
+      }
+    },
     "Créer un segment" : {
       "localizations" : {
         "en" : {
@@ -2253,6 +2285,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dites « Dis Siri, démarre Scooter Power »."
+          }
+        }
+      }
+    },
+    "Donnez-leur une fois ce lien : pendant chaque trajet, ils voient votre position sur une carte, votre vitesse et votre tracé, puis « Bien arrivé ». En cas de chute détectée, la page passe en alerte. Ils n'ont pas besoin de l'app." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Give them this link once: during every trip they see your position on a map, your speed and your route, then “Arrived safely”. If a crash is detected, the page switches to an alert. They don't need the app."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donnez-leur une fois ce lien : pendant chaque trajet, ils voient votre position sur une carte, votre vitesse et votre tracé, puis « Bien arrivé ». En cas de chute détectée, la page passe en alerte. Ils n'ont pas besoin de l'app."
           }
         }
       }
@@ -2577,6 +2625,22 @@
         }
       }
     },
+    "En direct" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En direct"
+          }
+        }
+      }
+    },
     "En miles, la vitesse, la distance et les temps d'accélération passent en mph : 0–60 mph, 30–50 mph… Les deux séries sont mesurées à chaque trajet." : {
       "localizations" : {
         "en" : {
@@ -2737,6 +2801,22 @@
         }
       }
     },
+    "Envoi impossible : vérifiez la connexion et la session iCloud." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can't send: check your connection and iCloud sign-in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoi impossible : vérifiez la connexion et la session iCloud."
+          }
+        }
+      }
+    },
     "Envoyer le journal" : {
       "localizations" : {
         "en" : {
@@ -2765,6 +2845,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Envoyer le lien"
+          }
+        }
+      }
+    },
+    "Envoyer le lien à mes proches" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send the link to my loved ones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer le lien à mes proches"
           }
         }
       }
@@ -3521,6 +3617,22 @@
         }
       }
     },
+    "L'ancien lien ne montrera plus rien. Il faudra envoyer le nouveau à vos proches." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The old link will no longer show anything. You'll need to send the new one to your loved ones."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'ancien lien ne montrera plus rien. Il faudra envoyer le nouveau à vos proches."
+          }
+        }
+      }
+    },
     "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez." : {
       "localizations" : {
         "en" : {
@@ -3741,6 +3853,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les demandes d'autorisation et l'écran verrouillé changent de langue au prochain lancement de l'app."
+          }
+        }
+      }
+    },
+    "Lien de suivi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tracking link"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lien de suivi"
           }
         }
       }
@@ -4289,6 +4417,22 @@
         }
       }
     },
+    "Nouveau lien" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New link"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau lien"
+          }
+        }
+      }
+    },
     "Nouveau record ! %@ en %@ secondes." : {
       "localizations" : {
         "en" : {
@@ -4637,6 +4781,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partager la vidéo"
+          }
+        }
+      }
+    },
+    "Partager mes trajets en direct" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share my trips live"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager mes trajets en direct"
           }
         }
       }
@@ -5005,6 +5165,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Position dans le trajet"
+          }
+        }
+      }
+    },
+    "Position en direct" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live location"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position en direct"
+          }
+        }
+      }
+    },
+    "Position en direct pour mes proches" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live location for my loved ones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Position en direct pour mes proches"
           }
         }
       }
@@ -6081,6 +6273,22 @@
         }
       }
     },
+    "Suis mon trajet en scooter en direct : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow my scooter trip live: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suis mon trajet en scooter en direct : %@"
+          }
+        }
+      }
+    },
     "Suivant" : {
       "localizations" : {
         "en" : {
@@ -6413,6 +6621,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tous les scooters"
+          }
+        }
+      }
+    },
+    "Toute personne qui a ce lien voit vos trajets en cours. « Nouveau lien » désactive l'ancien." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anyone with this link can see your trips in progress. “New link” turns off the old one."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toute personne qui a ce lien voit vos trajets en cours. « Nouveau lien » désactive l'ancien."
           }
         }
       }
@@ -6945,6 +7169,22 @@
         }
       }
     },
+    "Vos proches suivent vos trajets" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your loved ones follow your trips"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos proches suivent vos trajets"
+          }
+        }
+      }
+    },
     "Vos trajets terminés apparaîtront ici." : {
       "localizations" : {
         "en" : {
@@ -7405,6 +7645,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Égalité."
+          }
+        }
+      }
+    },
+    "État" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "État"
           }
         }
       }

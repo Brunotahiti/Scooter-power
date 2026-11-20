@@ -18,6 +18,28 @@ DEFINE SCHEMA
         GRANT READ TO "_world"
     );
 
+    RECORD TYPE LiveShare (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE,
+        heading         DOUBLE,
+        language        STRING,
+        latitude        DOUBLE,
+        longitude       DOUBLE,
+        name            STRING,
+        speed           DOUBLE,
+        state           STRING,
+        trail           STRING,
+        units           STRING,
+        updatedAt       TIMESTAMP,
+        GRANT WRITE TO "_creator",
+        GRANT CREATE TO "_icloud",
+        GRANT READ TO "_world"
+    );
+
     RECORD TYPE Ride (
         "___createTime" TIMESTAMP,
         "___createdBy"  REFERENCE,

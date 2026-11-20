@@ -48,6 +48,11 @@ struct SafetySettingsSection: View {
                         Label(L("Ajouter un contact d'urgence"), systemImage: "plus.circle.fill")
                     }
                 }
+                NavigationLink {
+                    LiveShareView()
+                } label: {
+                    Label(L("Position en direct pour mes proches"), systemImage: "location.fill.viewfinder")
+                }
                 Toggle(L("Mode réglage (sans alarme)"), isOn: silentMode)
                 NavigationLink {
                     CrashLogView()

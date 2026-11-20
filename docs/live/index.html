@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Scooter Power · Live</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root { --cyan:#19d3f3; --red:#ff2d2d; --green:#35d07f; --bg:#05070c; --card:#0e1114; --muted:#a0a6ad; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:#fff; font:16px/1.4 -apple-system, system-ui, sans-serif; }
+  #map { position:fixed; inset:0; }
+  .card { position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom)); max-width:520px; margin:0 auto;
+          background:rgba(14,17,20,.94); border:1px solid rgba(25,211,243,.5); border-radius:20px; padding:16px 18px;
+          box-shadow:0 0 30px rgba(25,211,243,.25); z-index:1000; }
+  .brand { font-size:12px; font-weight:800; letter-spacing:.08em; color:var(--cyan); }
+  .name { font-size:24px; font-weight:900; font-style:italic; margin:2px 0 8px; }
+  .row { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .speed { font-size:40px; font-weight:900; font-variant-numeric:tabular-nums; }
+  .unit { font-size:15px; color:var(--muted); font-weight:700; }
+  .state { display:inline-block; padding:4px 10px; border-radius:999px; font-size:13px; font-weight:800; }
+  .live { background:rgba(255,45,45,.18); color:var(--red); }
+  .live::before { content:"● "; animation:blink 1.2s infinite; }
+  .ok { background:rgba(53,208,127,.18); color:var(--green); }
+  .paused, .stale, .none { background:rgba(160,166,173,.18); color:var(--muted); }
+  .updated { color:var(--muted); font-size:13px; margin-top:6px; }
+  .alert { position:fixed; top:calc(12px + env(safe-area-inset-top)); left:12px; right:12px; max-width:520px; margin:0 auto;
+           background:#b3141b; border-radius:16px; padding:14px 16px; z-index:1001; font-weight:800; display:none;
+           box-shadow:0 0 30px rgba(255,45,45,.6); }
+  .alert a { color:#fff; }
+  @keyframes blink { 50% { opacity:.25; } }
+  .leaflet-container { background:#0b0f14; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="alert" id="alert"></div>
+<div class="card">
+  <div class="brand">SCOOTER POWER · LIVE</div>
+  <div class="name" id="name">…</div>
+  <div class="row">
+    <span class="state none" id="state">…</span>
+    <span><span class="speed" id="speed">--</span> <span class="unit" id="unit"></span></span>
+  </div>
+  <div class="updated" id="updated"></div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Jeton d'API CloudKit (lecture seule de la base publique), à créer dans la
+// console CloudKit : conteneur iCloud.com.brunotahiti.ScooterPower → API Tokens.
+const API_TOKEN = "CLOUDKIT_API_TOKEN";
+const CONTAINER = "iCloud.com.brunotahiti.ScooterPower";
+const ENVIRONMENT = "production";
+const REFRESH_MS = 10000;
+const STALE_MS = 2 * 60 * 1000;
+
+const id = new URLSearchParams(location.search).get("id") || "";
+const T = {
+  fr: { riding:"En direct", paused:"En pause", arrived:"Bien arrivé ✅", alert:"Alerte", stale:"Signal perdu",
+        none:"Pas de trajet partagé", updated:"Mis à jour il y a ", sec:" s", min:" min", h:" h", at:" à ",
+        alertText:"⚠️ Chute possible détectée", map:"Voir la position", invalid:"Lien de suivi invalide.", rider:"Pilote" },
+  en: { riding:"Live", paused:"Paused", arrived:"Arrived safely ✅", alert:"Alert", stale:"Signal lost",
+        none:"No shared trip", updated:"Updated ", sec:"s ago", min:" min ago", h:" h ago", at:" at ",
+        alertText:"⚠️ Possible crash detected", map:"Open location", invalid:"Invalid tracking link.", rider:"Rider" },
+};
+let lang = (navigator.language || "en").toLowerCase().startsWith("fr") ? "fr" : "en";
+
+const map = L.map("map", { zoomControl:false, attributionControl:true }).setView([-17.53, -149.56], 12);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+  maxZoom: 19, subdomains: "abcd",
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+}).addTo(map);
+const glow = L.polyline([], { color:"#ff2d2d", weight:14, opacity:.25 }).addTo(map);
+const line = L.polyline([], { color:"#ff2d2d", weight:5, opacity:.95 }).addTo(map);
+const core = L.polyline([], { color:"#ffffff", weight:1.6, opacity:.9 }).addTo(map);
+const dot = L.circleMarker([0,0], { radius:9, color:"#fff", weight:3, fillColor:"#ff2d2d", fillOpacity:1 });
+let fitted = false;
+
+function el(x) { return document.getElementById(x); }
+function ago(ms) {
+  const t = T[lang], s = Math.max(0, Math.round(ms / 1000));
+  if (lang === "fr") {
+    if (s < 60) return t.updated + s + t.sec;
+    if (s < 3600) return t.updated + Math.round(s / 60) + t.min;
+    return t.updated + Math.round(s / 3600) + t.h;
+  }
+  if (s < 60) return t.updated + s + t.sec;
+  if (s < 3600) return t.updated + Math.round(s / 60) + t.min;
+  return t.updated + Math.round(s / 3600) + t.h;
+}
+function setState(cls, text) { const s = el("state"); s.className = "state " + cls; s.textContent = text; }
+
+async function load() {
+  if (!/^[0-9a-f]{32}$/.test(id)) { setState("none", T[lang].invalid); return; }
+  try {
+    const url = `https://api.apple-cloudkit.com/database/1/${CONTAINER}/${ENVIRONMENT}/public/records/lookup?ckAPIToken=${encodeURIComponent(API_TOKEN)}`;
+    const res = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" },
+                                   body: JSON.stringify({ records:[{ recordName:id }] }) });
+    const data = await res.json();
+    const rec = data.records && data.records[0];
+    if (!rec || !rec.fields) { el("name").textContent = "Scooter Power"; setState("none", T[lang].none); el("updated").textContent = ""; return; }
+    const f = rec.fields, v = k => f[k] ? f[k].value : undefined;
+    if (v("language") === "fr" || v("language") === "en") lang = v("language");
+    const t = T[lang];
+    el("name").textContent = v("name") || t.rider;
+    const updated = v("updatedAt") || 0, age = Date.now() - updated;
+    const state = v("state") || "riding";
+    const mph = v("units") === "mph";
+    el("unit").textContent = mph ? "mph" : "km/h";
+    const kmh = v("speed") || 0;
+    el("speed").textContent = state === "riding" && age < STALE_MS ? Math.round(mph ? kmh / 1.609344 : kmh) : "--";
+    const time = new Date(updated).toLocaleTimeString(lang, { hour:"2-digit", minute:"2-digit" });
+    if (state === "arrived") setState("ok", t.arrived + t.at + time);
+    else if (state === "alert") setState("live", t.alert);
+    else if (state === "paused") setState("paused", t.paused);
+    else if (age > STALE_MS) setState("stale", t.stale);
+    else setState("live", t.riding);
+    el("updated").textContent = ago(age);
+
+    const lat = v("latitude"), lon = v("longitude");
+    const trail = (v("trail") || "").split(";").filter(Boolean).map(p => p.split(",").map(Number));
+    if (lat !== undefined) trail.push([lat, lon]);
+    glow.setLatLngs(trail); line.setLatLngs(trail); core.setLatLngs(trail);
+    if (lat !== undefined) {
+      dot.setLatLng([lat, lon]).addTo(map);
+      dot.setStyle({ fillColor: state === "arrived" ? "#35d07f" : "#ff2d2d" });
+      if (!fitted && trail.length > 1) { map.fitBounds(L.latLngBounds(trail), { padding:[40, 40] }); fitted = true; }
+      else if (state === "riding") map.panTo([lat, lon], { animate:true });
+      else if (!fitted) { map.setView([lat, lon], 15); fitted = true; }
+    }
+    const alertBox = el("alert");
+    if (state === "alert" && lat !== undefined) {
+      alertBox.style.display = "block";
+      alertBox.innerHTML = `${t.alertText}${t.at}${time}<br><a href="https://maps.apple.com/?q=${lat},${lon}" target="_blank" rel="noopener">${t.map} ↗</a>`;
+    } else {
+      alertBox.style.display = "none";
+    }
+  } catch (e) {
+    el("updated").textContent = "…";
+  }
+}
+load();
+setInterval(load, REFRESH_MS);
+</script>
+</body>
+</html>

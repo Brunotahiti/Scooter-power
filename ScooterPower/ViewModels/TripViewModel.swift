@@ -185,6 +185,8 @@ final class TripViewModel {
         // Le résumé est prêt avant que `state` ne passe à `.finished` : la vue l'enregistre à ce moment-là.
         summary = session.summary(at: time)
         refresh()
+        // Les proches voient « arrivé » sur la page de suivi.
+        LiveShareService.shared.tripFinished()
     }
 
     func reset() {
@@ -266,6 +268,22 @@ final class TripViewModel {
     }
 
     /// Records issus de l'historique des trajets. À rappeler quand l'historique change.
+    /// État publié sur la page de suivi en direct (aussi juste après l'arrivée).
+    func liveSnapshot() -> LiveShareService.Snapshot? {
+        guard let last = route.last, !isDemo else { return nil }
+        var heading: Double = 0
+        for previous in route.dropLast().reversed().prefix(20)
+        where TripStatistics.haversine(previous, last) > 3 {
+            heading = TripReplay.bearing(from: previous, to: last)
+            break
+        }
+        let position = RiderPosition(
+            riderID: "", name: settings.riderName, coordinate: last, speedKmh: state == .recording ? (speedKmh ?? 0) : 0,
+            heading: heading, leanDegrees: leanDegrees, acceleration: accelerationValue, updatedAt: Date())
+        return LiveShareService.Snapshot(
+            position: position, route: route, state: state == .paused ? .paused : .riding)
+    }
+
     /// Ma position pour la balade de groupe : seulement pendant un trajet.
     func groupPosition(name: String) -> RiderPosition? {
         guard state == .recording || state == .paused, let last = route.last else { return nil }
@@ -318,6 +336,7 @@ final class TripViewModel {
         }
         CrashLog.shared.add(id: alert.id, date: alert.date, trigger: crashDetector.lastTrigger, outcome: .pending)
         crashAlert = alert
+        LiveShareService.shared.crashAlert()
         CrashAlarm.shared.start()
     }
 
@@ -358,6 +377,7 @@ final class TripViewModel {
         startRefreshing()
         refresh()
         liveActivity.start(startDate: startDate ?? Date(), state: liveActivityState)
+        if !isDemo { LiveShareService.shared.tripStarted() }
     }
 
     private var liveActivityState: LiveActivityController.State {

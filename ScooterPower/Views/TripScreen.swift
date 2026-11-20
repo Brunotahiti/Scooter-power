@@ -18,6 +18,7 @@ struct TripScreen: View {
     @State private var showLeaderboard = false
     @State private var showSegments = false
     @State private var showRewards = false
+    @State private var showLiveShare = false
     @Query private var segments: [SegmentRecord]
     @Query private var scooters: [Scooter]
     @Query private var maintenance: [MaintenanceTask]
@@ -49,6 +50,7 @@ struct TripScreen: View {
                 WidgetSync.update(trips: history)
                 RewardsCenter.scheduleWeeklyRecap(trips: history)
                 runPendingCommand()
+                LiveShareService.shared.snapshotProvider = { [model] in model.liveSnapshot() }
                 // La balade de groupe lit ma position dans le trajet en cours.
                 GroupRideService.shared.positionProvider = { [model] in
                     model.groupPosition(name: AppSettings.shared.riderName)
@@ -109,6 +111,9 @@ struct TripScreen: View {
             .sheet(isPresented: $showRewards) {
                 RewardsView()
             }
+            .sheet(isPresented: $showLiveShare) {
+                LiveShareSheet()
+            }
             .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
@@ -135,7 +140,8 @@ struct TripScreen: View {
                 onGarage: { showGarage = true },
                 onLeaderboard: { showLeaderboard = true },
                 onSegments: { showSegments = true },
-                onRewards: { showRewards = true })
+                onRewards: { showRewards = true },
+                onLiveShare: { showLiveShare = true })
         } else {
             portrait
         }
@@ -218,7 +224,8 @@ struct TripScreen: View {
                 onGarage: { showGarage = true },
                 onLeaderboard: { showLeaderboard = true },
                 onSegments: { showSegments = true },
-                onRewards: { showRewards = true })
+                onRewards: { showRewards = true },
+                onLiveShare: { showLiveShare = true })
         }
     }
 
