@@ -49,9 +49,13 @@
 <script>
 // Jeton d'API CloudKit (lecture seule de la base publique), à créer dans la
 // console CloudKit : conteneur iCloud.com.brunotahiti.ScooterPower → API Tokens.
-const API_TOKEN = "CLOUDKIT_API_TOKEN";
+// Un jeton par environnement : Production pour l'app de l'App Store et TestFlight,
+// Development pour l'app lancée depuis Xcode. La page essaie les deux.
+const TOKENS = {
+  production: "",
+  development: "7f08b06c4cff982f7f232ee928f6d29ea8a0e0e842dd15e1540f8320039de601",
+};
 const CONTAINER = "iCloud.com.brunotahiti.ScooterPower";
-const ENVIRONMENT = "production";
 const REFRESH_MS = 10000;
 const STALE_MS = 2 * 60 * 1000;
 
@@ -94,11 +98,16 @@ function setState(cls, text) { const s = el("state"); s.className = "state " + c
 async function load() {
   if (!/^[0-9a-f]{32}$/.test(id)) { setState("none", T[lang].invalid); return; }
   try {
-    const url = `https://api.apple-cloudkit.com/database/1/${CONTAINER}/${ENVIRONMENT}/public/records/lookup?ckAPIToken=${encodeURIComponent(API_TOKEN)}`;
-    const res = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" },
-                                   body: JSON.stringify({ records:[{ recordName:id }] }) });
-    const data = await res.json();
-    const rec = data.records && data.records[0];
+    let rec = null;
+    for (const env of ["production", "development"]) {
+      if (!TOKENS[env]) continue;
+      const url = `https://api.apple-cloudkit.com/database/1/${CONTAINER}/${env}/public/records/lookup?ckAPIToken=${encodeURIComponent(TOKENS[env])}`;
+      const res = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" },
+                                     body: JSON.stringify({ records:[{ recordName:id }] }) });
+      const data = await res.json();
+      const found = data.records && data.records[0];
+      if (found && found.fields) { rec = found; break; }
+    }
     if (!rec || !rec.fields) { el("name").textContent = "Scooter Power"; setState("none", T[lang].none); el("updated").textContent = ""; return; }
     const f = rec.fields, v = k => f[k] ? f[k].value : undefined;
     if (v("language") === "fr" || v("language") === "en") lang = v("language");
