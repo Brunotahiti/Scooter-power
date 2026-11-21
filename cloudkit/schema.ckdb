@@ -75,6 +75,41 @@ DEFINE SCHEMA
         GRANT READ TO "_world"
     );
 
+    RECORD TYPE SegmentTime (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE QUERYABLE,
+        date            TIMESTAMP,
+        model           STRING,
+        rider           STRING,
+        seconds         DOUBLE QUERYABLE SORTABLE,
+        segmentID       STRING QUERYABLE,
+        GRANT WRITE TO "_creator",
+        GRANT CREATE TO "_icloud",
+        GRANT READ TO "_world"
+    );
+
+    RECORD TYPE SharedSegment (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE QUERYABLE,
+        cell            STRING QUERYABLE,
+        createdAt       TIMESTAMP,
+        creator         STRING,
+        lengthMeters    DOUBLE,
+        name            STRING,
+        path            STRING,
+        GRANT WRITE TO "_creator",
+        GRANT CREATE TO "_icloud",
+        GRANT READ TO "_world"
+    );
+
     RECORD TYPE Users (
         "___createTime" TIMESTAMP,
         "___createdBy"  REFERENCE,

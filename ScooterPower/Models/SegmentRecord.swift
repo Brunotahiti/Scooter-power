@@ -10,6 +10,10 @@ final class SegmentRecord {
     var createdAt: Date
     var lengthMeters: Double
     @Attribute(.externalStorage) var pathData: Data
+    /// Identifiant du segment partagé dans iCloud (publié ou ajouté depuis la communauté).
+    var remoteID: String?
+    /// Pilote qui a créé le segment partagé.
+    var creator: String?
 
     init(name: String, segment: Segment) {
         self.uid = UUID().uuidString

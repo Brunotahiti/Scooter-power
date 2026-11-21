@@ -49,6 +49,7 @@ struct TripScreen: View {
                 loadRecords()
                 WidgetSync.update(trips: history)
                 RewardsCenter.scheduleWeeklyRecap(trips: history)
+                Task { await SharedSegmentService.checkCrowns(segments: segments) }
                 runPendingCommand()
                 LiveShareService.shared.snapshotProvider = { [model] in model.liveSnapshot() }
                 // La balade de groupe lit ma position dans le trajet en cours.
@@ -294,6 +295,7 @@ struct TripScreen: View {
         SegmentAnnouncer.check(trip: record, segments: segments, previousTrips: history)
         LocalNotifier.requestPermission()
         RewardsCenter.tripSaved(previous: history, with: record)
+        SharedSegmentService.submit(segments: segments, trips: history + [record], model: scooter?.model ?? "")
         if let scooter {
             MaintenanceReminder.check(scooter: scooter, tasks: maintenance, trips: history + [record])
             LeaderboardService.submit(trips: [record], scooter: scooter)

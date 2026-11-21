@@ -113,6 +113,22 @@
         }
       }
     },
+    "%@ est le nouveau Roi de la route sur %@ : %@. Reprends-la !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is the new King of the Road on %@: %@. Take it back!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ est le nouveau Roi de la route sur %@ : %@. Reprends-la !"
+          }
+        }
+      }
+    },
     "%@ j" : {
       "localizations" : {
         "en" : {
@@ -1201,6 +1217,22 @@
         }
       }
     },
+    "Aucun nouveau segment autour de vous. Créez-en un et partagez-le !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No new segments around you. Create one and share it!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun nouveau segment autour de vous. Créez-en un et partagez-le !"
+          }
+        }
+      }
+    },
     "Aucun passage pour l'instant." : {
       "localizations" : {
         "en" : {
@@ -1245,6 +1277,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun temps mesuré pour l'instant."
+          }
+        }
+      }
+    },
+    "Aucun temps publié pour l'instant. Soyez le premier Roi de la route !" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No times yet. Be the first King of the Road!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun temps publié pour l'instant. Soyez le premier Roi de la route !"
           }
         }
       }
@@ -1713,6 +1761,22 @@
         }
       }
     },
+    "Chercher les segments autour de moi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find segments around me"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chercher les segments autour de moi"
+          }
+        }
+      }
+    },
     "Chiffres gagnés : %@. Chiffres perdus : %@." : {
       "localizations" : {
         "en" : {
@@ -1825,6 +1889,22 @@
         }
       }
     },
+    "Classement de la communauté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Community leaderboard"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classement de la communauté"
+          }
+        }
+      }
+    },
     "Classement indisponible. Vérifiez la connexion et la session iCloud." : {
       "localizations" : {
         "en" : {
@@ -1869,6 +1949,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coller une carte"
+          }
+        }
+      }
+    },
+    "Communauté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Community"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Communauté"
           }
         }
       }
@@ -2173,6 +2269,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Créer une balade"
+          }
+        }
+      }
+    },
+    "Créé par" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created by"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créé par"
           }
         }
       }
@@ -3857,6 +3969,38 @@
         }
       }
     },
+    "Les pilotes de votre région pourront l'ajouter et se mesurer à votre temps. Le nom et le tracé ne pourront plus être modifiés." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riders in your area will be able to add it and race your time. The name and route can no longer be changed."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les pilotes de votre région pourront l'ajouter et se mesurer à votre temps. Le nom et le tracé ne pourront plus être modifiés."
+          }
+        }
+      }
+    },
+    "Les segments partagés par les pilotes de votre région, avec leur classement. Le meilleur temps porte la couronne de Roi de la route 👑." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segments shared by riders in your area, with their leaderboard. The best time wears the King of the Road crown 👑."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les segments partagés par les pilotes de votre région, avec leur classement. Le meilleur temps porte la couronne de Roi de la route 👑."
+          }
+        }
+      }
+    },
     "Lien de suivi" : {
       "localizations" : {
         "en" : {
@@ -4753,6 +4897,22 @@
         }
       }
     },
+    "Partager avec la communauté" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share with the community"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager avec la communauté"
+          }
+        }
+      }
+    },
     "Partager l'image du résumé" : {
       "localizations" : {
         "en" : {
@@ -4813,6 +4973,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partager mon année"
+          }
+        }
+      }
+    },
+    "Partager un segment publie aussi vos temps sur ce segment, avec votre prénom de pilote et le modèle de votre scooter. Vous pourrez désactiver les classements à tout moment." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sharing a segment also publishes your times on it, with your rider name and your scooter model. You can turn off leaderboards at any time."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager un segment publie aussi vos temps sur ce segment, avec votre prénom de pilote et le modèle de votre scooter. Vous pourrez désactiver les classements à tout moment."
           }
         }
       }
@@ -5393,6 +5569,22 @@
         }
       }
     },
+    "Publier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier"
+          }
+        }
+      }
+    },
     "Publier mes chronos" : {
       "localizations" : {
         "en" : {
@@ -5405,6 +5597,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Publier mes chronos"
+          }
+        }
+      }
+    },
+    "Publier mes chronos sur ce segment" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish my times on this segment"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier mes chronos sur ce segment"
+          }
+        }
+      }
+    },
+    "Publier vos chronos ?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publish your times?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publier vos chronos ?"
           }
         }
       }
@@ -5565,6 +5789,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recalibrer l'inclinaison"
+          }
+        }
+      }
+    },
+    "Recherche impossible. Vérifiez la connexion et la session iCloud." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search failed. Check your connection and iCloud sign-in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recherche impossible. Vérifiez la connexion et la session iCloud."
           }
         }
       }
@@ -5821,6 +6061,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Revoir le trajet"
+          }
+        }
+      }
+    },
+    "Roi de la route" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "King of the Road"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roi de la route"
           }
         }
       }
@@ -7265,6 +7521,22 @@
         }
       }
     },
+    "Vérifiez la connexion et la session iCloud, puis réessayez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your connection and iCloud sign-in, then try again."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifiez la connexion et la session iCloud, puis réessayez."
+          }
+        }
+      }
+    },
     "ancien %@" : {
       "localizations" : {
         "en" : {
@@ -7537,6 +7809,22 @@
         }
       }
     },
+    "par %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "by %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "par %@"
+          }
+        }
+      }
+    },
     "par rapport à la semaine dernière" : {
       "localizations" : {
         "en" : {
@@ -7661,6 +7949,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "État"
+          }
+        }
+      }
+    },
+    "👑 Couronne perdue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "👑 Crown lost"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "👑 Couronne perdue"
           }
         }
       }
