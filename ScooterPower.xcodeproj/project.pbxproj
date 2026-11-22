@@ -346,6 +346,7 @@
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scooter Power utilise l'appareil photo pour prendre des photos pendant le trajet et scanner le QR code d'une balade de groupe.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Si vous activez la détection app fermée, Scooter Power repère vos départs pour vous proposer d'enregistrer le trajet.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Scooter Power utilise les capteurs de mouvement pour mesurer l'accélération et l'inclinaison.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Scooter Power enregistre vos photos de trajet dans votre photothèque.";
@@ -384,6 +385,7 @@
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scooter Power utilise l'appareil photo pour prendre des photos pendant le trajet et scanner le QR code d'une balade de groupe.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Si vous activez la détection app fermée, Scooter Power repère vos départs pour vous proposer d'enregistrer le trajet.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Scooter Power utilise les capteurs de mouvement pour mesurer l'accélération et l'inclinaison.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Scooter Power enregistre vos photos de trajet dans votre photothèque.";

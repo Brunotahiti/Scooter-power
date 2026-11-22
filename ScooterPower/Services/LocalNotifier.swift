@@ -28,4 +28,13 @@ final class ForegroundNotifications: NSObject, UNUserNotificationCenterDelegate,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound])
     }
+
+    /// Notification « Tu roules ? » touchée : l'enregistrement démarre à l'ouverture.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.notification.request.content.categoryIdentifier == AutoTripService.notificationCategory {
+            Task { @MainActor in TripCommands.shared.request(.start) }
+        }
+        completionHandler()
+    }
 }

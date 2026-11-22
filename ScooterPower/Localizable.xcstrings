@@ -1025,6 +1025,22 @@
         }
       }
     },
+    "App ouverte : l'enregistrement démarre dès 15 km/h pendant 15 s, et le trajet se termine après 3 min à l'arrêt. App fermée : une notification vous propose d'enregistrer quand l'iPhone détecte que vous roulez (position « Toujours » demandée)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App open: recording starts once you ride above 15 km/h (about 10 mph) for 15 s, and the trip ends after 3 min standing still. App closed: a notification offers to record when your iPhone detects you're riding (“Always” location access required)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App ouverte : l'enregistrement démarre dès 15 km/h pendant 15 s, et le trajet se termine après 3 min à l'arrêt. App fermée : une notification vous propose d'enregistrer quand l'iPhone détecte que vous roulez (position « Toujours » demandée)."
+          }
+        }
+      }
+    },
     "Appareil photo indisponible" : {
       "localizations" : {
         "en" : {
@@ -1133,6 +1149,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arrivée"
+          }
+        }
+      }
+    },
+    "Arrêt détecté, trajet enregistré." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop detected, trip saved."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêt détecté, trajet enregistré."
           }
         }
       }
@@ -2657,6 +2689,22 @@
         }
       }
     },
+    "Démarrer et arrêter automatiquement" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start and stop automatically"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Démarrer et arrêter automatiquement"
+          }
+        }
+      }
+    },
     "Démarrer le trajet" : {
       "localizations" : {
         "en" : {
@@ -2733,6 +2781,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Départ du ghost"
+          }
+        }
+      }
+    },
+    "Départ détecté, l'enregistrement commence." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride detected, recording started."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Départ détecté, l'enregistrement commence."
           }
         }
       }
@@ -3857,6 +3921,22 @@
         }
       }
     },
+    "L'app démarre l'enregistrement quand vous partez et le termine quand vous vous arrêtez." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The app starts recording when you set off and ends the trip when you stop."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'app démarre l'enregistrement quand vous partez et le termine quand vous vous arrêtez."
+          }
+        }
+      }
+    },
     "L'autre pilote scanne ce code avec l'appareil photo de son iPhone, ou ouvre le lien que vous lui envoyez." : {
       "localizations" : {
         "en" : {
@@ -4253,6 +4333,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Marque et modèle"
+          }
+        }
+      }
+    },
+    "Me prévenir aussi app fermée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also notify me when the app is closed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me prévenir aussi app fermée"
           }
         }
       }
@@ -6993,6 +7089,22 @@
         }
       }
     },
+    "Touche pour enregistrer ce trajet dans Scooter Power." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to record this trip in Scooter Power."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touche pour enregistrer ce trajet dans Scooter Power."
+          }
+        }
+      }
+    },
     "Touchez Démarrer pour affronter le ghost" : {
       "localizations" : {
         "en" : {
@@ -7261,6 +7373,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Très sinueuse"
+          }
+        }
+      }
+    },
+    "Tu roules ? 🛵" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riding? 🛵"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu roules ? 🛵"
           }
         }
       }

@@ -33,6 +33,8 @@ struct ScooterPowerApp: App {
         AppLanguage.apply(AppLanguage.stored)
         // Badges et bilans visibles même quand l'app est ouverte.
         ForegroundNotifications.shared.install()
+        // Départ automatique ; relance aussi la surveillance quand iOS réveille l'app.
+        AutoTripService.shared.activate()
     }
 
     var body: some Scene {

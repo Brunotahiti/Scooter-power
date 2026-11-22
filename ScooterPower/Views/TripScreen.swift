@@ -53,6 +53,8 @@ struct TripScreen: View {
                 Task { await SharedSegmentService.checkCrowns(segments: segments) }
                 runPendingCommand()
                 LiveShareService.shared.snapshotProvider = { [model] in model.liveSnapshot() }
+                AutoTripService.shared.isIdle = { [model] in model.state == .idle || model.state == .finished }
+                AutoTripService.shared.tripStateChanged()
                 // La balade de groupe lit ma position dans le trajet en cours.
                 GroupRideService.shared.positionProvider = { [model] in
                     model.groupPosition(name: AppSettings.shared.riderName)
@@ -123,6 +125,7 @@ struct TripScreen: View {
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
             .onChange(of: model.state) { _, newState in
+                AutoTripService.shared.tripStateChanged()
                 if newState == .finished {
                     saveTrip()
                 }

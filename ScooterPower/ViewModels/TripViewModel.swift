@@ -127,6 +127,14 @@ final class TripViewModel {
             if self.state == .recording, sample.horizontalAccuracy >= 0 {
                 self.updateGhost(Coordinate(latitude: sample.latitude, longitude: sample.longitude))
             }
+            // Arrêt automatique : 3 min immobile, le trajet se termine et s'enregistre.
+            if self.state == .recording, !self.isDemo, sample.speed >= 0,
+               AutoTripService.shared.ridingSample(time: self.now, kmh: sample.speed * 3.6) {
+                self.finish()
+                if self.settings.voiceEnabled {
+                    Announcer.shared.say(L("Arrêt détecté, trajet enregistré."))
+                }
+            }
         }
         motion.onMotion = { [weak self] sample in
             guard let self else { return }

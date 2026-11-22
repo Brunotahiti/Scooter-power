@@ -121,6 +121,14 @@ EN = {
  "Durée roulage": "Ride time",
  "%@ max": "%@ max",
  "Trajets enregistrés": "Saved trips",
+ "App ouverte : l'enregistrement démarre dès 15 km/h pendant 15 s, et le trajet se termine après 3 min à l'arrêt. App fermée : une notification vous propose d'enregistrer quand l'iPhone détecte que vous roulez (position « Toujours » demandée).": "App open: recording starts once you ride above 15 km/h (about 10 mph) for 15 s, and the trip ends after 3 min standing still. App closed: a notification offers to record when your iPhone detects you're riding (“Always” location access required).",
+ "Arrêt détecté, trajet enregistré.": "Stop detected, trip saved.",
+ "Démarrer et arrêter automatiquement": "Start and stop automatically",
+ "Départ détecté, l'enregistrement commence.": "Ride detected, recording started.",
+ "L'app démarre l'enregistrement quand vous partez et le termine quand vous vous arrêtez.": "The app starts recording when you set off and ends the trip when you stop.",
+ "Me prévenir aussi app fermée": "Also notify me when the app is closed",
+ "Touche pour enregistrer ce trajet dans Scooter Power.": "Tap to record this trip in Scooter Power.",
+ "Tu roules ? 🛵": "Riding? 🛵",
  "%@ min": "%@ min",
  "Autre balade": "Another ride",
  "Balade": "Ride loop",
@@ -548,6 +556,9 @@ INFO = {
  "NSLocationWhenInUseUsageDescription": (
    "Scooter Power utilise votre position pour mesurer la vitesse, la distance et tracer votre trajet.",
    "Scooter Power uses your location to measure speed and distance and to record your route."),
+ "NSLocationAlwaysAndWhenInUseUsageDescription": (
+   "Si vous activez la détection app fermée, Scooter Power repère vos départs pour vous proposer d'enregistrer le trajet.",
+   "If you turn on detection while the app is closed, Scooter Power notices when you set off and offers to record the trip."),
  "NSMotionUsageDescription": (
    "Scooter Power utilise les capteurs de mouvement pour mesurer l'accélération et l'inclinaison.",
    "Scooter Power uses motion sensors to measure acceleration and lean angle."),
