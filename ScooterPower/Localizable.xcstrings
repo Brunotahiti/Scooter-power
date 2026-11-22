@@ -161,6 +161,22 @@
         }
       }
     },
+    "%@ min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ min"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ min"
+          }
+        }
+      }
+    },
     "%@ mois" : {
       "localizations" : {
         "en" : {
@@ -1393,6 +1409,22 @@
         }
       }
     },
+    "Autre balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Another ride"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autre balade"
+          }
+        }
+      }
+    },
     "Autre entretien" : {
       "localizations" : {
         "en" : {
@@ -1489,6 +1521,22 @@
         }
       }
     },
+    "Balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride loop"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balade"
+          }
+        }
+      }
+    },
     "Balade de groupe" : {
       "localizations" : {
         "en" : {
@@ -1517,6 +1565,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Balade introuvable. Demandez un nouveau QR code."
+          }
+        }
+      }
+    },
+    "Balade · temps estimé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ride loop · estimated time"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Balade · temps estimé"
           }
         }
       }
@@ -1805,6 +1869,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choc puis arrêt"
+          }
+        }
+      }
+    },
+    "Choisissez une durée puis « Proposer une balade »." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pick a duration, then “Suggest a ride”."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez une durée puis « Proposer une balade »."
           }
         }
       }
@@ -2461,6 +2541,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Droite"
+          }
+        }
+      }
+    },
+    "Durée" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durée"
           }
         }
       }
@@ -3453,6 +3549,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hors parcours"
+          }
+        }
+      }
+    },
+    "Impossible de proposer une balade ici. Vérifiez la localisation et la connexion." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can't suggest a ride here. Check location access and your connection."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de proposer une balade ici. Vérifiez la localisation et la connexion."
           }
         }
       }
@@ -5009,6 +5121,22 @@
         }
       }
     },
+    "Partir" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partir"
+          }
+        }
+      }
+    },
     "Partir entre 21 h et 5 h." : {
       "localizations" : {
         "en" : {
@@ -5537,6 +5665,22 @@
         }
       }
     },
+    "Proposer une balade" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggest a ride"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proposer une balade"
+          }
+        }
+      }
+    },
     "Prévenir" : {
       "localizations" : {
         "en" : {
@@ -5789,6 +5933,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recalibrer l'inclinaison"
+          }
+        }
+      }
+    },
+    "Recherche de routes sinueuses…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for twisty roads…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recherche de routes sinueuses…"
           }
         }
       }
@@ -6497,6 +6657,22 @@
         }
       }
     },
+    "Sinueuse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twisty"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinueuse"
+          }
+        }
+      }
+    },
     "Stable" : {
       "localizations" : {
         "en" : {
@@ -7041,6 +7217,22 @@
         }
       }
     },
+    "Tranquille" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tranquille"
+          }
+        }
+      }
+    },
     "Trois mois de suite" : {
       "localizations" : {
         "en" : {
@@ -7053,6 +7245,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trois mois de suite"
+          }
+        }
+      }
+    },
+    "Très sinueuse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Very twisty"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Très sinueuse"
           }
         }
       }
@@ -7633,6 +7841,22 @@
         }
       }
     },
+    "estimé" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "estimated"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "estimé"
+          }
+        }
+      }
+    },
     "ghosts battus" : {
       "localizations" : {
         "en" : {
@@ -7885,6 +8109,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "trajets"
+          }
+        }
+      }
+    },
+    "virages" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "curves"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "virages"
           }
         }
       }

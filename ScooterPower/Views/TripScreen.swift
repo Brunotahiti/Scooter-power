@@ -19,6 +19,7 @@ struct TripScreen: View {
     @State private var showSegments = false
     @State private var showRewards = false
     @State private var showLiveShare = false
+    @State private var showRideLoop = false
     @Query private var segments: [SegmentRecord]
     @Query private var scooters: [Scooter]
     @Query private var maintenance: [MaintenanceTask]
@@ -115,6 +116,9 @@ struct TripScreen: View {
             .sheet(isPresented: $showLiveShare) {
                 LiveShareSheet()
             }
+            .sheet(isPresented: $showRideLoop) {
+                RideLoopView()
+            }
             .fullScreenCover(item: Binding(get: { model.crashAlert }, set: { if $0 == nil { model.dismissCrashAlert() } })) { alert in
                 CrashAlertView(alert: alert) { model.dismissCrashAlert() }
             }
@@ -142,7 +146,8 @@ struct TripScreen: View {
                 onLeaderboard: { showLeaderboard = true },
                 onSegments: { showSegments = true },
                 onRewards: { showRewards = true },
-                onLiveShare: { showLiveShare = true })
+                onLiveShare: { showLiveShare = true },
+                onRideLoop: { showRideLoop = true })
         } else {
             portrait
         }
@@ -226,7 +231,8 @@ struct TripScreen: View {
                 onLeaderboard: { showLeaderboard = true },
                 onSegments: { showSegments = true },
                 onRewards: { showRewards = true },
-                onLiveShare: { showLiveShare = true })
+                onLiveShare: { showLiveShare = true },
+                onRideLoop: { showRideLoop = true })
         }
     }
 
@@ -333,6 +339,7 @@ struct TripScreen: View {
         guard let request = TripCommands.shared.takeGhost() else { return }
         showHistory = false
         showSegments = false
+        showRideLoop = false
         if model.state == .finished { model.reset() }
         model.setGhost(request.race, title: request.title)
     }

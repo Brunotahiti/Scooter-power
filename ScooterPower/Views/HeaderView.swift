@@ -17,6 +17,7 @@ struct HeaderView: View {
     var onSegments: () -> Void = {}
     var onRewards: () -> Void = {}
     var onLiveShare: () -> Void = {}
+    var onRideLoop: () -> Void = {}
 
     var body: some View {
         HStack(spacing: 8) {
@@ -25,6 +26,7 @@ struct HeaderView: View {
             Menu {
                 Button(L("Recalibrer l'inclinaison"), systemImage: "scope", action: onRecalibrate)
                     .disabled(state != .recording && state != .paused)
+                Button(L("Balade"), systemImage: "point.topleft.down.to.point.bottomright.curvepath", action: onRideLoop)
                 Button(L("Balade de groupe"), systemImage: "person.3.fill", action: onGroupRide)
                 Button(L("Position en direct"), systemImage: "location.fill.viewfinder", action: onLiveShare)
                 Button(L("Statistiques"), systemImage: "chart.bar.fill", action: onStats)
