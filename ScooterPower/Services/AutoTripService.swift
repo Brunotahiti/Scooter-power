@@ -19,7 +19,7 @@ final class AutoTripService: NSObject {
     private static let enabledKey = "autoTripEnabled"
     private static let backgroundKey = "autoTripBackground"
     private static let notificationID = "autoTripDetected"
-    static let notificationCategory = "AUTO_TRIP"
+    nonisolated static let notificationCategory = "AUTO_TRIP"
 
     private(set) var isEnabled: Bool = UserDefaults.standard.bool(forKey: AutoTripService.enabledKey)
     private(set) var backgroundEnabled: Bool = UserDefaults.standard.bool(forKey: AutoTripService.backgroundKey)

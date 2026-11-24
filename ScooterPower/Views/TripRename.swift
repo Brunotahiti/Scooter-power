@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 
 /// Nommer un trajet (« Tour de l'île », « Col du matin ») ; un nom vide rend la date.
