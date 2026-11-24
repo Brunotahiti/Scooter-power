@@ -1793,6 +1793,22 @@
         }
       }
     },
+    "Changer la configuration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change setup"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changer la configuration"
+          }
+        }
+      }
+    },
     "Chaque ligne : le chiffre de l'autre pilote, puis le vôtre. Le pourcentage est votre écart : vert quand vous faites mieux, rouge sinon." : {
       "localizations" : {
         "en" : {
@@ -2157,6 +2173,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configuration du scooter"
+          }
+        }
+      }
+    },
+    "Configuration du trajet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trip setup"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration du trajet"
+          }
+        }
+      }
+    },
+    "Configurations" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setups"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurations"
           }
         }
       }
@@ -4113,6 +4161,22 @@
         }
       }
     },
+    "Le trajet est rangé sous cette configuration dans les statistiques « Avant / après » et la comparaison avec d'autres pilotes." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The trip is filed under this setup in the “Before / after” statistics and in comparisons with other riders."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le trajet est rangé sous cette configuration dans les statistiques « Avant / après » et la comparaison avec d'autres pilotes."
+          }
+        }
+      }
+    },
     "Lecture" : {
       "localizations" : {
         "en" : {
@@ -4529,6 +4593,22 @@
         }
       }
     },
+    "Modifier" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modifier"
+          }
+        }
+      }
+    },
     "Moi" : {
       "localizations" : {
         "en" : {
@@ -4861,6 +4941,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nouvel entretien"
+          }
+        }
+      }
+    },
+    "Nouvelle configuration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New setup"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle configuration"
           }
         }
       }
@@ -7421,6 +7517,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unités"
+          }
+        }
+      }
+    },
+    "Utiliser ce nom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser ce nom"
           }
         }
       }

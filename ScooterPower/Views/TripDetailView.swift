@@ -13,6 +13,7 @@ struct TripDetailView: View {
     @State private var showCreateSegment = false
     @State private var showRaceReplay = false
     @State private var renaming: TripRecord?
+    @State private var editingSetup = false
 
     var body: some View {
         let coordinates: [CLLocationCoordinate2D] = trip.route.map(\.mapCoordinate)
@@ -40,6 +41,7 @@ struct TripDetailView: View {
                     .tint(Theme.orange)
                 }
                 routeMap(coordinates)
+                TripSetupRow(trip: trip) { editingSetup = true }
                 TripSegmentsSection(trip: trip)
                 TripFigures(summary: trip.summary)
             }
@@ -49,6 +51,9 @@ struct TripDetailView: View {
         .navigationTitle(trip.displayTitle)
         .navigationBarTitleDisplayMode(.inline)
         .tripRename($renaming)
+        .sheet(isPresented: $editingSetup) {
+            TripSetupSheet(trip: trip)
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

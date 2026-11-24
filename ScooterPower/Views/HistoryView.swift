@@ -15,6 +15,7 @@ struct HistoryView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var path: [HistoryRoute] = []
     @State private var renaming: TripRecord?
+    @State private var editingSetup: TripRecord?
 
     static let neonRed: Color = SpeedometerView.neonRed
 
@@ -31,6 +32,9 @@ struct HistoryView: View {
             .background(backdrop.ignoresSafeArea())
             .toolbar(.hidden, for: .navigationBar)
             .tripRename($renaming)
+            .sheet(item: $editingSetup) { trip in
+                TripSetupSheet(trip: trip)
+            }
             .navigationDestination(for: HistoryRoute.self) { route in
                 destination(route)
             }
@@ -139,6 +143,7 @@ struct HistoryView: View {
                     }
                     .contextMenu {
                         Button(L("Renommer"), systemImage: "pencil") { renaming = trip }
+                        Button(L("Changer la configuration"), systemImage: "wrench.and.screwdriver") { editingSetup = trip }
                     }
                 }
                 .onDelete(perform: delete)
